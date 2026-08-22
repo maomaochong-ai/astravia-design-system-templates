@@ -1,0 +1,33 @@
+{
+	"schemaVersion": 1,
+	"kind": "design-system",
+	"slug": "mastercard",
+	"name": "Mastercard",
+	"version": "1.0.0",
+	"order": 450,
+	"category": "fintech",
+	"vibe": "light",
+	"tags": [
+		"light-ui",
+		"editorial",
+		"luxury",
+		"design-system"
+	],
+	"blurb": "Mastercard's experience reads like a warm, editorial magazine built from soft stone and signal orange.",
+	"tagline": {
+		"en": "Warm editorial magazine of soft stone and signal orange",
+		"zh": "软石质感 + 信号橙的暖编辑部"
+	},
+	"license": "MIT",
+	"origin": {
+		"type": "curated",
+		"upstream": "https://github.com/ricocc/brands-design-md.git",
+		"note": "from brands-design-md (Mastercard)."
+	},
+	"assets": {
+		"spec": "DESIGN.md",
+		"theme": "theme.css",
+		"demo": "demo.html"
+	},
+	"collectedAt": "2026-08-22"
+}

@@ -1,0 +1,32 @@
+{
+	"schemaVersion": 1,
+	"kind": "design-system",
+	"slug": "wise",
+	"name": "Wise",
+	"version": "1.0.0",
+	"order": 780,
+	"category": "fintech",
+	"vibe": "light",
+	"tags": [
+		"light-ui",
+		"editorial",
+		"design-system"
+	],
+	"blurb": "An inspired interpretation of Wise's design language — a global money-transfer brand whose surface combines an unusually heavy near-black display sans (weight 900 at 64–126 px)…",
+	"tagline": {
+		"en": "Money-transfer with fresh green gradients",
+		"zh": "清新绿渐变的跨境汇款"
+	},
+	"license": "MIT",
+	"origin": {
+		"type": "curated",
+		"upstream": "https://github.com/ricocc/brands-design-md.git",
+		"note": "from brands-design-md (Wise-Inspired); unofficial inspired variant."
+	},
+	"assets": {
+		"spec": "DESIGN.md",
+		"theme": "theme.css",
+		"demo": "demo.html"
+	},
+	"collectedAt": "2026-08-22"
+}

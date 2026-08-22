@@ -1,0 +1,33 @@
+{
+	"schemaVersion": 1,
+	"kind": "design-system",
+	"slug": "renault",
+	"name": "Renault",
+	"version": "1.0.0",
+	"order": 570,
+	"category": "premium",
+	"vibe": "light",
+	"tags": [
+		"light-ui",
+		"gradient",
+		"luxury",
+		"design-system"
+	],
+	"blurb": "Renault's web presence pairs the freshly-modernised Renault diamond\n(the 2021 flat-line rhombus mark) with a stark black-and-white canvas, a\nsignature Sunlight Yellow accent, an…",
+	"tagline": {
+		"en": "Fresh flat rhombus mark with bold signal yellow",
+		"zh": "全新扁平菱形标识 + 大胆信号黄"
+	},
+	"license": "MIT",
+	"origin": {
+		"type": "curated",
+		"upstream": "https://github.com/ricocc/brands-design-md.git",
+		"note": "from brands-design-md (Renault)."
+	},
+	"assets": {
+		"spec": "DESIGN.md",
+		"theme": "theme.css",
+		"demo": "demo.html"
+	},
+	"collectedAt": "2026-08-22"
+}

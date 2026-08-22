@@ -1,0 +1,33 @@
+{
+	"schemaVersion": 1,
+	"kind": "design-system",
+	"slug": "cal",
+	"name": "Cal.com",
+	"version": "1.0.0",
+	"order": 280,
+	"category": "productivity",
+	"vibe": "light",
+	"tags": [
+		"light-ui",
+		"minimal",
+		"playful",
+		"design-system"
+	],
+	"blurb": "A clean, calendar-software-first interface anchored on white canvas with black primary CTAs and custom Cal Sans display typography.",
+	"tagline": {
+		"en": "Clean calendar-first white canvas with black CTAs",
+		"zh": "日历优先的洁净白底 + 黑色 CTA"
+	},
+	"license": "MIT",
+	"origin": {
+		"type": "curated",
+		"upstream": "https://github.com/ricocc/brands-design-md.git",
+		"note": "from brands-design-md (Cal.com)."
+	},
+	"assets": {
+		"spec": "DESIGN.md",
+		"theme": "theme.css",
+		"demo": "demo.html"
+	},
+	"collectedAt": "2026-08-22"
+}

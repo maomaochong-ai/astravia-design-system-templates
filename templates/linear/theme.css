@@ -1,0 +1,32 @@
+/* templates — dark design system, converted from brands-design-md. */
+@theme {
+	--color-primary: #5e6ad2;
+	--color-primary-foreground: #ffffff;
+	--color-surface: #08090a;
+	--color-surface-foreground: #ffffff;
+	--color-surface-raised: #141414;
+	--color-muted: #9a9a9a;
+	--color-accent: #02b8cc;
+	--color-danger: #f87171;
+	--color-border: #2a2a2a;
+
+/* 品牌 token（来自 brands-design-md） */
+--color-linear-void: #08090a;
+  --color-linear-carbon: #0f1011;
+  --color-linear-obsidian: #161718;
+  --color-linear-graphite: #23252a;
+  --color-linear-smoke: #383b3f;
+  --color-linear-ash: #62666d;
+  --color-linear-fog: #8a8f98;
+  --color-linear-mist: #d0d6e0;
+  --color-linear-bone: #e5e5e6;
+  --color-linear-paper: #ffffff;
+  --color-linear-acid-lime: #e4f222;
+  --color-linear-pulse-green: #27a644;
+  --color-linear-coral-red: #eb5757;
+  --color-linear-signal-teal: #02b8cc;
+  --color-linear-iris-violet: #6366f1;
+  --color-linear-lavender: #8b5cf6;
+  --font-linear: Inter Variable, Inter, sans-serif;
+  --font-linear-mono: Berkeley Mono, JetBrains Mono, monospace;
+}

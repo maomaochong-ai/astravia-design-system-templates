@@ -1,0 +1,35 @@
+{
+	"schemaVersion": 1,
+	"kind": "design-system",
+	"slug": "expo",
+	"name": "Expo",
+	"version": "1.0.0",
+	"order": 370,
+	"category": "dev",
+	"vibe": "light",
+	"tags": [
+		"light-ui",
+		"editorial",
+		"minimal",
+		"gradient",
+		"developer-focused",
+		"design-system"
+	],
+	"blurb": "A React Native developer-platform whose marketing site reads like a quietly-confident infrastructure brand.",
+	"tagline": {
+		"en": "Quietly-confident infrastructure blue on black",
+		"zh": "黑底上低调自信的基础设施蓝"
+	},
+	"license": "MIT",
+	"origin": {
+		"type": "curated",
+		"upstream": "https://github.com/ricocc/brands-design-md.git",
+		"note": "from brands-design-md (Expo)."
+	},
+	"assets": {
+		"spec": "DESIGN.md",
+		"theme": "theme.css",
+		"demo": "demo.html"
+	},
+	"collectedAt": "2026-08-22"
+}

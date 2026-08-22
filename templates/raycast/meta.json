@@ -1,0 +1,31 @@
+{
+	"schemaVersion": 1,
+	"kind": "design-system",
+	"slug": "raycast",
+	"name": "Raycast",
+	"version": "1.0.0",
+	"order": 560,
+	"category": "dev",
+	"vibe": "dark",
+	"tags": [
+		"dark-ui",
+		"design-system"
+	],
+	"blurb": "Raycast's marketing system reads like an extended product screenshot.",
+	"tagline": {
+		"en": "Extended product screenshot; chrome IS the product",
+		"zh": "产品截图的延伸，UI 即产品"
+	},
+	"license": "MIT",
+	"origin": {
+		"type": "curated",
+		"upstream": "https://github.com/ricocc/brands-design-md.git",
+		"note": "from brands-design-md (Raycast)."
+	},
+	"assets": {
+		"spec": "DESIGN.md",
+		"theme": "theme.css",
+		"demo": "demo.html"
+	},
+	"collectedAt": "2026-08-22"
+}

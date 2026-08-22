@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kraken &mdash; Design System</title>
+
+
+
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+
+:root{
+  --abyss:#1A1A2E;
+  --void:#0F0F1A;
+  --slate-depth:#16162A;
+  --border-dark:#2A2A40;
+  --border-light:#3A3A55;
+  --arctic-white:#FFFFFF;
+  --silver-mist:#E0E0F0;
+  --steel-gray:#8888A0;
+  --ghost-gray:#5C5C7A;
+  --kraken-purple:#7B61FF;
+  --electric-violet:#9B7DFF;
+  --neon-cyan:#00D4FF;
+  --profit-green:#00C853;
+  --loss-red:#FF3B5C;
+  --warning-amber:#FFB300;
+
+  --r-sm:4px;--r-md:6px;--r-lg:8px;--r-xl:12px;
+  --r-full:9999px;--r-pill:9999px;
+}
+
+::selection{background:rgba(123,97,255,.3);color:var(--arctic-white)}
+html{scroll-behavior:smooth}
+
+body{
+  font-family:'Inter',system-ui,-apple-system,sans-serif;
+  background:var(--abyss);color:var(--arctic-white);
+  font-size:16px;line-height:1.5;letter-spacing:0;
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
+}
+
+.page{max-width:960px;margin:0 auto;padding:0 32px 120px}
+
+/* ── NAV ── */
+.nav{
+  display:flex;justify-content:space-between;align-items:center;
+  height:56px;padding:0 16px;position:sticky;top:0;z-index:100;
+  background:rgba(15,15,26,.92);backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--border-dark);
+  margin:0 -32px;
+}
+.nav-left{display:flex;align-items:center;gap:12px}
+.nav-wordmark{
+  font-size:18px;font-weight:700;letter-spacing:-.03px;
+  color:var(--arctic-white);text-decoration:none;
+}
+.nav-tag{
+  font-size:10px;font-weight:600;color:var(--kraken-purple);
+  background:rgba(123,97,255,.1);padding:3px 10px;border-radius:var(--r-pill);
+  border:1px solid rgba(123,97,255,.2);letter-spacing:.06px;text-transform:uppercase;
+}
+.nav-url{font-size:12px;font-weight:500;color:var(--slate);text-decoration:none;padding:4px 10px;border-radius:var(--r-md);transition:color .2s}.nav-url:hover{color:var(--obsidian)}
+.nav-right{display:flex;align-items:center;gap:8px}
+.nav-link{
+  font-size:13px;font-weight:500;color:var(--steel-gray);text-decoration:none;
+  padding:6px 12px;border-radius:var(--r-md);transition:all .2s;letter-spacing:.02px;
+}
+.nav-link:hover{color:var(--arctic-white);background:var(--slate-depth)}
+.nav-link--active{color:var(--arctic-white)}
+
+/* ── SECTIONS ── */
+.section{
+  padding:64px 0 0;
+  border-top:1px solid var(--border-dark);
+  margin-top:48px;
+}
+.section:first-of-type{border-top:none;margin-top:40px}
+.section-header{margin-bottom:32px}
+.section-label{
+  font-size:10px;font-weight:600;letter-spacing:.08px;
+  text-transform:uppercase;color:var(--kraken-purple);margin-bottom:8px;
+}
+.section-title{
+  font-size:28px;font-weight:700;letter-spacing:-.02px;line-height:1.15;
+  color:var(--arctic-white);
+}
+.section-desc{
+  font-size:14px;line-height:1.6;color:var(--steel-gray);
+  margin-top:10px;max-width:560px;
+}
+
+/* ── HERO ── */
+.hero{
+  padding:64px 0 40px;
+  border-bottom:1px solid var(--border-dark);
+  margin:0 -32px;padding-left:32px;padding-right:32px;
+  position:relative;overflow:hidden;
+}
+.hero::before{
+  content:'';position:absolute;
+  width:400px;height:400px;
+  background:radial-gradient(circle,rgba(123,97,255,.15),transparent 70%);
+  border-radius:50%;filter:blur(80px);
+  right:-80px;top:-120px;pointer-events:none;
+}
+.hero::after{
+  content:'';position:absolute;
+  width:300px;height:300px;
+  background:radial-gradient(circle,rgba(0,212,255,.08),transparent 70%);
+  border-radius:50%;filter:blur(60px);
+  left:20%;bottom:-80px;pointer-events:none;
+}
+.hero-label{
+  font-size:10px;font-weight:600;letter-spacing:.1px;
+  text-transform:uppercase;color:var(--kraken-purple);margin-bottom:16px;
+}
+.hero-title{
+  font-size:clamp(36px,6vw,48px);font-weight:700;line-height:1;
+  letter-spacing:-.03em;color:var(--arctic-white);
+}
+.hero-title em{
+  font-style:normal;
+  background:linear-gradient(135deg,var(--kraken-purple),var(--electric-violet));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.hero-subtitle{
+  font-size:15px;line-height:1.6;color:var(--steel-gray);
+  margin-top:16px;max-width:480px;
+}
+.hero-tags{display:flex;gap:8px;margin-top:24px;flex-wrap:wrap}
+.hero-tag{
+  font-size:10px;font-weight:600;color:var(--steel-gray);
+  background:var(--slate-depth);padding:4px 12px;border-radius:var(--r-pill);
+  border:1px solid var(--border-dark);letter-spacing:.04px;text-transform:uppercase;
+}
+.hero-actions{display:flex;gap:12px;margin-top:24px}
+
+/* ── BUTTONS ── */
+.btn{
+  display:inline-flex;align-items:center;gap:6px;
+  font-family:inherit;font-size:13px;font-weight:600;line-height:1;
+  letter-spacing:0;padding:10px 24px;border-radius:var(--r-lg);
+  cursor:pointer;text-decoration:none;white-space:nowrap;
+  transition:opacity .15s,transform .15s,background .15s,border-color .15s;
+}
+.btn:active{transform:scale(.97)}
+.btn-primary{background:var(--kraken-purple);color:var(--arctic-white);border:1px solid transparent}
+.btn-primary:hover{opacity:.85;background:#6A50E8}
+.btn-secondary{background:transparent;color:var(--arctic-white);border:1px solid var(--border-dark)}
+.btn-secondary:hover{border-color:var(--border-light);background:var(--slate-depth)}
+.btn-ghost{background:transparent;color:var(--kraken-purple);border:1px solid var(--kraken-purple)}
+.btn-ghost:hover{background:rgba(123,97,255,.08)}
+
+/* ── COLOR TOKENS ── */
+.color-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;
+}
+.color-token{
+  background:var(--slate-depth);border:1px solid var(--border-dark);
+  border-radius:var(--r-xl);overflow:hidden;transition:border-color .2s;
+}
+.color-token:hover{border-color:var(--border-light)}
+.color-swatch{width:100%;height:72px}
+.color-info{padding:12px 14px}
+.color-name{font-size:13px;font-weight:600;letter-spacing:0;color:var(--arctic-white)}
+.color-hex{
+  font-size:12px;font-weight:500;color:var(--steel-gray);margin-top:2px;
+  font-variant-numeric:tabular-nums;letter-spacing:.02px;font-family:'JetBrains Mono',monospace;
+}
+.color-role{font-size:11px;color:var(--ghost-gray);margin-top:4px;line-height:1.4}
+
+/* ── GRADIENT TOKENS ── */
+.gradient-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}
+.gradient-token{
+  border-radius:var(--r-xl);padding:20px;border:1px solid var(--border-dark);
+  min-height:100px;display:flex;flex-direction:column;justify-content:flex-end;
+}
+.gradient-name{font-size:11px;font-weight:600;color:var(--steel-gray);letter-spacing:.04px;margin-bottom:4px;text-transform:uppercase}
+.gradient-desc{font-size:12px;color:var(--ghost-gray);line-height:1.4}
+
+/* ── TYPE SCALE ── */
+.type-table{
+  display:flex;flex-direction:column;border:1px solid var(--border-dark);
+  border-radius:var(--r-xl);overflow:hidden;
+}
+.type-row{
+  display:grid;grid-template-columns:100px 1fr 200px;align-items:baseline;
+  padding:14px 20px;border-bottom:1px solid var(--border-dark);
+}
+.type-row:last-child{border-bottom:none}
+.type-row:hover{background:rgba(123,97,255,.03)}
+.type-meta{
+  font-size:10px;font-weight:600;color:var(--kraken-purple);
+  letter-spacing:.06px;text-transform:uppercase;
+}
+.type-sample{color:var(--arctic-white);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.type-specs{
+  font-size:11px;color:var(--steel-gray);text-align:right;
+  font-variant-numeric:tabular-nums;letter-spacing:.02px;
+}
+
+/* ── SPACING ── */
+.spacing-bars{display:flex;align-items:flex-end;gap:16px;height:100px}
+.spacing-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px}
+.spacing-bar{
+  width:100%;border-radius:var(--r-md);
+  background:linear-gradient(180deg,var(--kraken-purple),var(--electric-violet));
+  opacity:.3;transition:opacity .3s;
+}
+.spacing-col:hover .spacing-bar{opacity:.6}
+.spacing-val{font-size:11px;font-weight:600;color:var(--arctic-white);letter-spacing:.02px}
+.spacing-name{font-size:10px;font-weight:500;color:var(--steel-gray);letter-spacing:.02px}
+
+/* ── SHAPES ── */
+.shapes-row{display:flex;flex-wrap:wrap;gap:20px;align-items:flex-end}
+.shape-item{display:flex;flex-direction:column;align-items:center;gap:6px}
+.shape-box{
+  width:64px;height:64px;background:var(--slate-depth);
+  border:1.5px solid var(--border-dark);transition:all .3s cubic-bezier(.22,1,.36,1);
+}
+.shape-box:hover{border-color:var(--kraken-purple);transform:scale(1.06)}
+.shape-label{font-size:11px;font-weight:500;color:var(--steel-gray);letter-spacing:.02px;white-space:nowrap}
+.shape-value{
+  font-size:10px;font-weight:400;color:var(--ghost-gray);letter-spacing:.02px;
+  font-variant-numeric:tabular-nums;
+}
+
+/* ── DEPTH ── */
+.depth-row{
+  display:flex;align-items:center;gap:16px;padding:16px 0;
+  border-bottom:1px solid var(--border-dark);
+}
+.depth-row:last-child{border-bottom:none}
+.depth-swatch{
+  width:48px;height:48px;border-radius:var(--r-md);flex-shrink:0;
+}
+.depth-info{flex:1}
+.depth-name{font-size:14px;font-weight:600;letter-spacing:0;color:var(--arctic-white)}
+.depth-desc{font-size:12px;color:var(--steel-gray);margin-top:2px;letter-spacing:.02px}
+.depth-value{
+  font-size:11px;font-weight:600;color:var(--ghost-gray);
+  font-variant-numeric:tabular-nums;letter-spacing:.04px;text-transform:uppercase;
+}
+
+/* ── SURFACES ── */
+.surface-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
+.surface-item{
+  border-radius:var(--r-xl);padding:24px 16px;
+  text-align:center;border:1px solid var(--border-dark);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:4px;min-height:100px;transition:transform .3s;
+}
+.surface-item:hover{transform:scale(1.02)}
+.surface-name{font-size:14px;font-weight:600;letter-spacing:0}
+.surface-val{
+  font-size:11px;font-weight:500;color:var(--steel-gray);
+  font-variant-numeric:tabular-nums;letter-spacing:.02px;
+}
+
+/* ── COMPONENTS ── */
+.component-card{
+  background:var(--slate-depth);border:1px solid var(--border-dark);
+  border-radius:var(--r-xl);padding:28px;margin-bottom:16px;
+  transition:border-color .2s;
+}
+.component-card:hover{border-color:var(--border-light)}
+.component-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px}
+.component-name{font-size:15px;font-weight:600;letter-spacing:0;color:var(--arctic-white)}
+.component-role{font-size:12px;color:var(--steel-gray);margin-top:4px;letter-spacing:.02px}
+.component-class{
+  font-size:10px;font-weight:600;color:var(--kraken-purple);
+  background:rgba(123,97,255,.1);padding:3px 10px;border-radius:var(--r-pill);
+  border:1px solid rgba(123,97,255,.2);letter-spacing:.04px;
+  font-family:'JetBrains Mono',monospace;text-transform:uppercase;
+}
+.component-preview{
+  display:flex;gap:12px;align-items:center;flex-wrap:wrap;
+  padding:20px;background:var(--abyss);border-radius:var(--r-lg);
+  border:1px solid var(--border-dark);
+}
+.component-desc{
+  font-size:12px;color:var(--ghost-gray);line-height:1.5;
+  margin-top:12px;max-width:480px;
+}
+
+/* ── DO/DON'T ── */
+.guide-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.guide-card{
+  border-radius:var(--r-xl);padding:24px;
+  border:1px solid var(--border-dark);
+}
+.guide-card--do{background:rgba(0,200,83,.03);border-color:rgba(0,200,83,.12)}
+.guide-card--dont{background:rgba(255,59,92,.03);border-color:rgba(255,59,92,.12)}
+.guide-label{font-size:10px;font-weight:600;letter-spacing:.06px;text-transform:uppercase;margin-bottom:14px}
+.guide-card--do .guide-label{color:var(--profit-green)}
+.guide-card--dont .guide-label{color:var(--loss-red)}
+.guide-list{
+  list-style:none;display:flex;flex-direction:column;gap:8px;
+}
+.guide-list li{
+  font-size:13px;line-height:1.5;padding-left:18px;position:relative;
+  color:var(--silver-mist);
+}
+.guide-card--do .guide-list li::before{
+  content: '\2713';position:absolute;left:0;color:var(--profit-green);font-weight:700;font-size:12px;
+}
+.guide-card--dont .guide-list li::before{
+  content: '\2715';position:absolute;left:0;color:var(--loss-red);font-weight:700;font-size:12px;
+}
+
+/* ── DATA TABLE PREVIEW ── */
+.data-table{
+  width:100%;border-collapse:collapse;border:1px solid var(--border-dark);
+  border-radius:var(--r-xl);overflow:hidden;
+}
+.data-table th{
+  font-size:10px;font-weight:600;color:var(--ghost-gray);letter-spacing:.06px;
+  text-transform:uppercase;text-align:left;padding:10px 16px;
+  background:var(--void);border-bottom:1px solid var(--border-dark);
+}
+.data-table td{
+  font-size:13px;padding:10px 16px;border-bottom:1px solid var(--border-dark);
+  color:var(--silver-mist);
+}
+.data-table tr:last-child td{border-bottom:none}
+.data-table tr:hover{background:rgba(123,97,255,.03)}
+.data-table .mono{
+  font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:500;
+  color:var(--arctic-white);font-variant-numeric:tabular-nums;
+}
+.data-table .positive{color:var(--profit-green)}
+.data-table .negative{color:var(--loss-red)}
+.data-table .pair{font-weight:600;color:var(--arctic-white)}
+
+/* ── FOOTER ── */
+.footer{
+  margin-top:80px;padding:24px 0;
+  border-top:1px solid var(--border-dark);
+  display:flex;justify-content:space-between;align-items:center;
+}
+.footer-left{font-size:14px;font-weight:500;color:var(--steel-gray);opacity:.6}
+.footer-right{display:flex;gap:16px}
+.footer-link{
+  font-size:12px;font-weight:500;color:var(--steel-gray);text-decoration:none;
+  transition:color .2s;letter-spacing:.02px;
+}
+.footer-link:hover{color:var(--kraken-purple)}
+
+/* ── RESPONSIVE ── */
+@media(max-width:768px){
+  .page{padding:0 20px 80px}
+  .hero{margin:0 -20px;padding-left:20px;padding-right:20px;padding-top:48px}
+  .nav{margin:0 -20px}
+  .section-title{font-size:22px}
+  .type-row{grid-template-columns:70px 1fr;gap:8px}
+  .type-specs{display:none}
+  .guide-grid{grid-template-columns:1fr}
+  .color-grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr))}
+  .hero-title{font-size:32px}
+}
+
+/* ── ENTRANCE ANIMATION ── */
+.section,.hero{opacity:1;transition:opacity .6s cubic-bezier(.22,1,.36,1),transform .6s cubic-bezier(.22,1,.36,1)}
+.section.visible,.hero.visible{opacity:1;transform:translateY(0)}
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="nav-left">
+      <a href="#" class="nav-wordmark">Kraken</a>
+      <span class="nav-tag">Design System</span>
+      <a href="#" class="nav-url" target="_blank" rel="noopener">https://www.kraken.com</a>
+    </div>
+    <div class="nav-right">
+      <a href="#colors" class="nav-link nav-link--active">Colors</a>
+      <a href="#typography" class="nav-link">Type</a>
+      <a href="#spacing" class="nav-link">Spacing</a>
+      <a href="#components" class="nav-link">Components</a>
+      <a href="#data" class="nav-link">Data</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-label">Design System</div>
+    <h1 class="hero-title">Trade with<br><em>precision.</em></h1>
+    <p class="hero-subtitle">A deep-space crypto cockpit with purple-drenched accents, compact data density, and a palette built for fast scanning under pressure.</p>
+    <div class="hero-tags">
+      <span class="hero-tag">18 color tokens</span>
+      <span class="hero-tag">17 type steps</span>
+      <span class="hero-tag">4px grid</span>
+      <span class="hero-tag">4 surface levels</span>
+      <span class="hero-tag">Compact density</span>
+    </div>
+    <div class="hero-actions">
+      <a href="#" class="btn btn-primary" download>Download Spec</a>
+      <a href="#" class="btn btn-secondary" download>theme.css</a>
+      <a href="#" class="btn btn-secondary" download>tokens.json</a>
+      <a href="#" class="btn btn-secondary" download>variables.css</a>
+    </div>
+  </div>
+
+  <!-- COLORS -->
+  <section class="section" id="colors">
+    <div class="section-header">
+      <div class="section-label">Foundation</div>
+      <h2 class="section-title">Color Tokens</h2>
+      <p class="section-desc">Deep navy-purple surfaces with electric accent colors. 18 tokens across base surfaces, text, interaction, directional data, and decorative gradients.</p>
+    </div>
+    <div class="color-grid">
+      <div class="color-token">
+        <div class="color-swatch" style="background:#1A1A2E"></div>
+        <div class="color-info"><div class="color-name">Abyss</div><div class="color-hex">#1A1A2E</div><div class="color-role">Primary page background</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#0F0F1A"></div>
+        <div class="color-info"><div class="color-name">Void</div><div class="color-hex">#0F0F1A</div><div class="color-role">Elevated surfaces, modals</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#16162A"></div>
+        <div class="color-info"><div class="color-name">Slate Depth</div><div class="color-hex">#16162A</div><div class="color-role">Card backgrounds, sections</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#2A2A40"></div>
+        <div class="color-info"><div class="color-name">Border Dark</div><div class="color-hex">#2A2A40</div><div class="color-role">Borders, dividers</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#3A3A55"></div>
+        <div class="color-info"><div class="color-name">Border Light</div><div class="color-hex">#3A3A55</div><div class="color-role">Inactive borders, hints</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#FFFFFF"></div>
+        <div class="color-info"><div class="color-name">Arctic White</div><div class="color-hex">#FFFFFF</div><div class="color-role">Primary text, icons</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#E0E0F0"></div>
+        <div class="color-info"><div class="color-name">Silver Mist</div><div class="color-hex">#E0E0F0</div><div class="color-role">Secondary text</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#8888A0"></div>
+        <div class="color-info"><div class="color-name">Steel Gray</div><div class="color-hex">#8888A0</div><div class="color-role">Placeholders, labels</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#5C5C7A"></div>
+        <div class="color-info"><div class="color-name">Ghost Gray</div><div class="color-hex">#5C5C7A</div><div class="color-role">Disabled, captions</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#7B61FF"></div>
+        <div class="color-info"><div class="color-name">Kraken Purple</div><div class="color-hex">#7B61FF</div><div class="color-role">Primary accent, buttons, links</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#9B7DFF"></div>
+        <div class="color-info"><div class="color-name">Electric Violet</div><div class="color-hex">#9B7DFF</div><div class="color-role">Hover states, gradients</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#00D4FF"></div>
+        <div class="color-info"><div class="color-name">Neon Cyan</div><div class="color-hex">#00D4FF</div><div class="color-role">Data highlights, charts</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#00C853"></div>
+        <div class="color-info"><div class="color-name">Profit Green</div><div class="color-hex">#00C853</div><div class="color-role">Positive movement, buy</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#FF3B5C"></div>
+        <div class="color-info"><div class="color-name">Loss Red</div><div class="color-hex">#FF3B5C</div><div class="color-role">Negative movement, sell</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#FFB300"></div>
+        <div class="color-info"><div class="color-name">Warning Amber</div><div class="color-hex">#FFB300</div><div class="color-role">Caution, pending states</div></div>
+      </div>
+    </div>
+
+    <h3 style="font-size:14px;font-weight:600;color:var(--arctic-white);margin:32px 0 16px;letter-spacing:0">Gradients</h3>
+    <div class="gradient-grid">
+      <div class="gradient-token" style="background:radial-gradient(circle at 50% 50%,rgba(123,97,255,.15),transparent 70%),var(--slate-depth)">
+        <div class="gradient-name">purple-glow</div>
+        <div class="gradient-desc">Ambient glow behind hero graphics</div>
+      </div>
+      <div class="gradient-token" style="background:radial-gradient(circle at 50% 50%,rgba(0,212,255,.1),transparent 70%),var(--slate-depth)">
+        <div class="gradient-name">cyan-pulse</div>
+        <div class="gradient-desc">Data visualization ambient glow</div>
+      </div>
+      <div class="gradient-token" style="background:linear-gradient(135deg,rgba(123,97,255,.2),rgba(155,125,255,.1)),var(--slate-depth)">
+        <div class="gradient-name">gradient-purple</div>
+        <div class="gradient-desc">Button fills, accent highlights</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TYPOGRAPHY -->
+  <section class="section" id="typography">
+    <div class="section-header">
+      <div class="section-label">Typography</div>
+      <h2 class="section-title">Type Scale</h2>
+      <p class="section-desc">Inter as primary typeface with Inter Mono for financial data. Compact scale optimized for dense trading interfaces.</p>
+    </div>
+    <div class="type-table">
+      <div class="type-row">
+        <span class="type-meta">Display-lg</span>
+        <span class="type-sample" style="font-size:24px;font-weight:700;line-height:1;letter-spacing:-.03em">Trade with precision</span>
+        <span class="type-specs">48px / 1.0 / -0.03em</span>
+      </div>
+      <div class="type-row">
+        <span class="type-meta">Display</span>
+        <span class="type-sample" style="font-size:20px;font-weight:700;line-height:1.1;letter-spacing:-.03px">Build your portfolio</span>
+        <span class="type-specs">40px / 1.1 / -0.03px</span>
+      </div>
+      <div class="type-row">
+        <span class="type-meta">Heading-lg</span>
+        <span class="type-sample" style="font-size:18px;font-weight:700;line-height:1.1;letter-spacing:-.02px">Market Overview</span>
+        <span class="type-specs">32px / 1.1 / -0.02px</span>
+      </div>
+      <div class="type-row">
+        <span class="type-meta">Heading</span>
+        <span class="type-sample" style="font-size:16px;font-weight:700;line-height:1.2;letter-spacing:-.02px">Trading Pairs</span>
+        <span class="type-specs">24px / 1.2 / -0.02px</span>
+      </div>
+      <div class="type-row">
+        <span class="type-meta">Subheading</span>
+        <span class="type-sample" style="font-size:16px;font-weight:600;line-height:1.4;letter-spacing:-.01px">Portfolio Summary</span>
+        <span class="type-specs">18px / 1.4 / -0.01px</span>
+      </div>
+      <div class="type-row">
+        <span class="type-meta">Body</span>
+        <span class="type-sample" style="font-size:16px;font-weight:400;line-height:1.5">Default body text for readable content</span>
+        <span class="type-specs">16px / 1.5 / 0</span>
+      </div>
+      <div class="type-row">
+        <span class="type-meta">Body-sm</span>
+        <span class="type-sample" style="font-size:14px;font-weight:400;line-height:1.5">Dense data, comparison rows, tables</span>
+        <span class="type-specs">14px / 1.5 / 0</span>
+      </div>
+      <div class="type-row">
+        <span class="type-meta">Label</span>
+        <span class="type-sample" style="font-size:13px;font-weight:500;line-height:1.4;letter-spacing:.02px">Form labels · Nav items</span>
+        <span class="type-specs">13px / 1.4 / 0.02px</span>
+      </div>
+      <div class="type-row">
+        <span class="type-meta">Caption</span>
+        <span class="type-sample" style="font-size:12px;font-weight:400;line-height:1.5;letter-spacing:.04px">Helper text · Footnotes · Metadata</span>
+        <span class="type-specs">12px / 1.5 / 0.04px</span>
+      </div>
+      <div class="type-row">
+        <span class="type-meta">Micro</span>
+        <span class="type-sample" style="font-size:11px;font-weight:600;line-height:1.4;letter-spacing:.06px;text-transform:uppercase">BADGES · TAGS · LABELS</span>
+        <span class="type-specs">11px / 1.4 / 0.06px</span>
+      </div>
+    </div>
+
+    <h3 style="font-size:14px;font-weight:600;color:var(--arctic-white);margin:32px 0 16px;letter-spacing:0">Fonts</h3>
+    <div style="display:flex;flex-direction:column;border:1px solid var(--border-dark);border-radius:var(--r-xl);overflow:hidden">
+      <div style="padding:16px 20px;border-bottom:1px solid var(--border-dark);display:flex;align-items:baseline;gap:16px">
+        <span style="font-size:10px;font-weight:600;color:var(--kraken-purple);letter-spacing:.06px;text-transform:uppercase;flex:0 0 60px">Primary</span>
+        <span style="font-size:16px;font-weight:600;color:var(--arctic-white);letter-spacing:-.2px">Inter</span>
+        <span style="font-size:11px;color:var(--steel-gray);letter-spacing:.02px">400-700 · 11-18px</span>
+      </div>
+      <div style="padding:16px 20px;display:flex;align-items:baseline;gap:16px">
+        <span style="font-size:10px;font-weight:600;color:var(--kraken-purple);letter-spacing:.06px;text-transform:uppercase;flex:0 0 60px">Mono</span>
+        <span style="font-size:16px;font-weight:500;color:var(--arctic-white);letter-spacing:-.2px">Inter Mono</span>
+        <span style="font-size:11px;color:var(--steel-gray);letter-spacing:.02px">400-700 · 12-16px · Prices, addresses, hashes</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- SPACING & SHAPES -->
+  <section class="section" id="spacing">
+    <div class="section-header">
+      <div class="section-label">Layout</div>
+      <h2 class="section-title">Spacing & Shapes</h2>
+      <p class="section-desc">Base unit 4px. Compact density for data-dense trading interfaces. 14-step spacing scale, 6 border radius values.</p>
+    </div>
+
+    <h3 style="font-size:14px;font-weight:600;color:var(--arctic-white);margin-bottom:16px;letter-spacing:0">Spacing Scale (4px base)</h3>
+    <div class="spacing-bars">
+      <div class="spacing-col"><div class="spacing-bar" style="height:6px"></div><span class="spacing-val">4</span><span class="spacing-name">4px</span></div>
+      <div class="spacing-col"><div class="spacing-bar" style="height:12px"></div><span class="spacing-val">8</span><span class="spacing-name">8px</span></div>
+      <div class="spacing-col"><div class="spacing-bar" style="height:18px"></div><span class="spacing-val">12</span><span class="spacing-name">12px</span></div>
+      <div class="spacing-col"><div class="spacing-bar" style="height:24px"></div><span class="spacing-val">16</span><span class="spacing-name">16px</span></div>
+      <div class="spacing-col"><div class="spacing-bar" style="height:36px"></div><span class="spacing-val">24</span><span class="spacing-name">24px</span></div>
+      <div class="spacing-col"><div class="spacing-bar" style="height:48px"></div><span class="spacing-val">32</span><span class="spacing-name">32px</span></div>
+      <div class="spacing-col"><div class="spacing-bar" style="height:64px"></div><span class="spacing-val">48</span><span class="spacing-name">48px</span></div>
+      <div class="spacing-col"><div class="spacing-bar" style="height:80px"></div><span class="spacing-val">80</span><span class="spacing-name">80px</span></div>
+    </div>
+
+    <h3 style="font-size:14px;font-weight:600;color:var(--arctic-white);margin:32px 0 16px;letter-spacing:0">Border Radius</h3>
+    <div class="shapes-row">
+      <div class="shape-item">
+        <div class="shape-box" style="border-radius:4px"></div>
+        <span class="shape-label">badge</span>
+        <span class="shape-value">4px</span>
+      </div>
+      <div class="shape-item">
+        <div class="shape-box" style="border-radius:6px"></div>
+        <span class="shape-label">default</span>
+        <span class="shape-value">6px</span>
+      </div>
+      <div class="shape-item">
+        <div class="shape-box" style="border-radius:8px"></div>
+        <span class="shape-label">buttons</span>
+        <span class="shape-value">8px</span>
+      </div>
+      <div class="shape-item">
+        <div class="shape-box" style="border-radius:12px"></div>
+        <span class="shape-label">cards</span>
+        <span class="shape-value">12px</span>
+      </div>
+      <div class="shape-item">
+        <div class="shape-box" style="border-radius:9999px"></div>
+        <span class="shape-label">pill</span>
+        <span class="shape-value">9999px</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- DEPTH & SURFACES -->
+  <section class="section" id="depth">
+    <div class="section-header">
+      <div class="section-label">Elevation</div>
+      <h2 class="section-title">Depth & Surfaces</h2>
+      <p class="section-desc">Subtle borders over heavy shadows. Translucent overlays for modals. 4 distinct surface levels in the deep navy-purple range.</p>
+    </div>
+
+    <h3 style="font-size:14px;font-weight:600;color:var(--arctic-white);margin-bottom:12px;letter-spacing:0">Depth Levels</h3>
+    <div style="margin-bottom:32px">
+      <div class="depth-row">
+        <div class="depth-swatch" style="background:#1A1A2E;border:1px solid var(--border-dark)"></div>
+        <div class="depth-info"><div class="depth-name">Abyss</div><div class="depth-desc">Base page background &mdash; the canvas</div></div>
+        <div class="depth-value">Level 0</div>
+      </div>
+      <div class="depth-row">
+        <div class="depth-swatch" style="background:#16162A;border:1px solid var(--border-dark)"></div>
+        <div class="depth-info"><div class="depth-name">Slate Depth</div><div class="depth-desc">Secondary sections, card backgrounds</div></div>
+        <div class="depth-value">Level 1</div>
+      </div>
+      <div class="depth-row">
+        <div class="depth-swatch" style="background:#0F0F1A;border:1px solid var(--border-dark)"></div>
+        <div class="depth-info"><div class="depth-name">Void</div><div class="depth-desc">Elevated panels, modals, deepest surfaces</div></div>
+        <div class="depth-value">Level 2</div>
+      </div>
+      <div class="depth-row">
+        <div class="depth-swatch" style="background:rgba(15,15,26,.85);border:1px solid var(--border-light);border-radius:12px"></div>
+        <div class="depth-info"><div class="depth-name">Translucent Overlay</div><div class="depth-desc">Modals, drawers, frosted overlays</div></div>
+        <div class="depth-value">Level 3</div>
+      </div>
+    </div>
+
+    <h3 style="font-size:14px;font-weight:600;color:var(--arctic-white);margin-bottom:12px;letter-spacing:0">Surface System</h3>
+    <div class="surface-grid">
+      <div class="surface-item" style="background:#1A1A2E">
+        <span class="surface-name">Abyss</span>
+        <span class="surface-val">#1A1A2E</span>
+      </div>
+      <div class="surface-item" style="background:#16162A">
+        <span class="surface-name">Slate Depth</span>
+        <span class="surface-val">#16162A</span>
+      </div>
+      <div class="surface-item" style="background:#0F0F1A">
+        <span class="surface-name">Void</span>
+        <span class="surface-val">#0F0F1A</span>
+      </div>
+      <div class="surface-item" style="background:rgba(15,15,26,.85);border-color:var(--border-light)">
+        <span class="surface-name">Overlay</span>
+        <span class="surface-val">rgba(15,15,26,.85)</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPONENTS -->
+  <section class="section" id="components">
+    <div class="section-header">
+      <div class="section-label">Components</div>
+      <h2 class="section-title">Button Variants</h2>
+      <p class="section-desc">Primary purple for main actions, ghost for secondary, and outlined for tertiary interaction hierarchies.</p>
+    </div>
+
+    <div class="component-card">
+      <div class="component-header">
+        <div><div class="component-name">Primary Purple Button</div><div class="component-role">Main call to action &mdash; trade, sign up</div></div>
+        <span class="component-class">.btn-primary</span>
+      </div>
+      <div class="component-preview">
+        <button class="btn btn-primary">Buy BTC</button>
+        <button class="btn btn-primary" style="opacity:.85;background:#6A50E8">Hover state</button>
+      </div>
+      <div class="component-desc">Kraken Purple (#7B61FF) background, Arctic White text, 8px radius. Use for the single most important action per screen.</div>
+    </div>
+
+    <div class="component-card">
+      <div class="component-header">
+        <div><div class="component-name">Ghost Button</div><div class="component-role">Secondary actions, filters</div></div>
+        <span class="component-class">.btn-ghost</span>
+      </div>
+      <div class="component-preview">
+        <button class="btn btn-ghost">View Chart</button>
+        <button class="btn btn-ghost" style="background:rgba(123,97,255,.08)">Hover state</button>
+      </div>
+      <div class="component-desc">Kraken Purple text, Kraken Purple border, 8px radius. Clear interactive target without competing with primary.</div>
+    </div>
+
+    <div class="component-card">
+      <div class="component-header">
+        <div><div class="component-name">Secondary Button</div><div class="component-role">Tertiary actions, navigation</div></div>
+        <span class="component-class">.btn-secondary</span>
+      </div>
+      <div class="component-preview">
+        <button class="btn btn-secondary">Sign In</button>
+        <button class="btn btn-secondary" style="border-color:var(--border-light);background:var(--slate-depth)">Hover state</button>
+      </div>
+      <div class="component-desc">Arctic White text, Border Dark outline. For less prominent actions that still need visual presence.</div>
+    </div>
+
+    <div class="component-card">
+      <div class="component-header">
+        <div><div class="component-name">Input Field</div><div class="component-role">Trade amount, search, wallet address</div></div>
+        <span class="component-class">input</span>
+      </div>
+      <div class="component-preview">
+        <div style="display:flex;flex-direction:column;gap:12px;flex:1;max-width:360px">
+          <input type="text" placeholder="Enter amount" style="background:transparent;border:1px solid var(--border-dark);border-radius:8px;padding:10px 14px;color:var(--arctic-white);font-size:14px;font-family:inherit;outline:none">
+          <input type="text" value="Focused state" style="background:transparent;border:1px solid var(--kraken-purple);border-radius:8px;padding:10px 14px;color:var(--arctic-white);font-size:14px;font-family:inherit;outline:none">
+        </div>
+      </div>
+      <div class="component-desc">Transparent background, Arctic White text, 8px radius. Focus state uses Kraken Purple border. Placeholder in Steel Gray.</div>
+    </div>
+  </section>
+
+  <!-- DATA TABLE -->
+  <section class="section" id="data">
+    <div class="section-header">
+      <div class="section-label">Data</div>
+      <h2 class="section-title">Trading Data Display</h2>
+      <p class="section-desc">Dense tabular data with monospace prices, directional color coding, and compact row spacing for fast scanning.</p>
+    </div>
+
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Pair</th>
+          <th>Price</th>
+          <th>24h Change</th>
+          <th>Volume</th>
+          <th>Market Cap</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="pair">BTC/USD</td>
+          <td class="mono">$67,234.50</td>
+          <td class="mono positive">+2.41%</td>
+          <td class="mono">$1.2B</td>
+          <td class="mono">$1.32T</td>
+        </tr>
+        <tr>
+          <td class="pair">ETH/USD</td>
+          <td class="mono">$3,521.80</td>
+          <td class="mono positive">+1.87%</td>
+          <td class="mono">$680M</td>
+          <td class="mono">$423B</td>
+        </tr>
+        <tr>
+          <td class="pair">SOL/USD</td>
+          <td class="mono">$178.45</td>
+          <td class="mono negative">-0.94%</td>
+          <td class="mono">$320M</td>
+          <td class="mono">$78B</td>
+        </tr>
+        <tr>
+          <td class="pair">XRP/USD</td>
+          <td class="mono">$0.6234</td>
+          <td class="mono positive">+5.12%</td>
+          <td class="mono">$1.8B</td>
+          <td class="mono">$34B</td>
+        </tr>
+        <tr>
+          <td class="pair">ADA/USD</td>
+          <td class="mono">$0.4812</td>
+          <td class="mono negative">-2.31%</td>
+          <td class="mono">$890M</td>
+          <td class="mono">$17B</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- DO'S & DON'TS -->
+  <section class="section" id="guidelines">
+    <div class="section-header">
+      <div class="section-label">Guidelines</div>
+      <h2 class="section-title">Do's & Don'ts</h2>
+    </div>
+    <div class="guide-grid">
+      <div class="guide-card guide-card--do">
+        <div class="guide-label">Do &mdash; Embrace</div>
+        <ul class="guide-list">
+          <li>Abyss (#1A1A2E) as primary background for all trading UIs</li>
+          <li>Kraken Purple (#7B61FF) for primary interactive elements only</li>
+          <li>Profit Green / Loss Red exclusively for directional price data</li>
+          <li>Inter Mono for all numerical data requiring alignment</li>
+          <li>Compact density with 4px-based spacing for dense data</li>
+          <li>Subtle borders (Border Dark) over heavy shadows</li>
+          <li>Arctic White (#FFFFFF) for all primary text</li>
+        </ul>
+      </div>
+      <div class="guide-card guide-card--dont">
+        <div class="guide-label">Don't &mdash; Avoid</div>
+        <ul class="guide-list">
+          <li>Green/red for non-directional UI (buttons, links, decorations)</li>
+          <li>Bright saturated backgrounds outside deep navy-purple</li>
+          <li>Generic grays for borders &mdash; use Border Dark/Light tokens</li>
+          <li>Serif or decorative fonts &mdash; stick to Inter / Inter Mono</li>
+          <li>Overly spacious layouts that waste screen real estate</li>
+          <li>Kraken Purple for error/negative states</li>
+          <li>Hard corners on cards or buttons &mdash; keep 8-12px radius</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-left">Kraken Design System</div>
+    <div class="footer-right">
+      <a href="#colors" class="footer-link">Colors</a>
+      <a href="#typography" class="footer-link">Typography</a>
+      <a href="#spacing" class="footer-link">Spacing</a>
+      <a href="#components" class="footer-link">Components</a>
+      <a href="#" class="footer-link" download>Download Spec</a>
+    </div>
+  </footer>
+
+</div>
+
+
+
+</body>
+</html>

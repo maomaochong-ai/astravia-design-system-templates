@@ -1,0 +1,617 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Glassmorphism — component reference</title>
+<style>
+	/* Mirrors theme.css. Plain custom properties so this file opens standalone. */
+	:root {
+		--color-primary: #e4b863;
+		--color-primary-foreground: #f3dca8;
+		--color-surface: #0b1322;
+		--color-surface-foreground: #ffffff;
+		--color-surface-raised: #16233a;
+		--color-muted: #9aa4b8;
+		--color-accent: #7c9cc4;
+		--color-danger: #d9606e;
+		--color-border: #303643;
+
+		--color-night-deep: #060a13;
+		--color-night: #0b1322;
+		--color-night-steel: #16233a;
+		--color-moon-steel: #33517a;
+		--color-moonlight: #7c9cc4;
+		--color-champagne: #e4b863;
+		--color-champagne-bright: #f3dca8;
+
+		--glass-fill: rgb(255 255 255 / 0.08);
+		--glass-fill-quiet: rgb(255 255 255 / 0.05);
+		--glass-fill-hover: rgb(255 255 255 / 0.14);
+		--glass-border: rgb(255 255 255 / 0.15);
+		--glass-border-hover: rgb(255 255 255 / 0.32);
+		--glass-luminance: linear-gradient(180deg, rgb(255 255 255 / 0.12), transparent);
+		--glass-blur: 60px;
+		--glass-blur-mobile: 30px;
+		--glass-saturate: 180%;
+
+		--well-moonlight: radial-gradient(circle, rgb(124 156 196 / 0.28) 0%, transparent 65%);
+		--well-steel: radial-gradient(circle, rgb(51 81 122 / 0.35) 0%, transparent 65%);
+		--well-champagne: radial-gradient(circle, rgb(228 184 99 / 0.12) 0%, transparent 60%);
+
+		--radius-sm: 16px;
+		--radius-md: 20px;
+		--radius-lg: 24px;
+		--radius-xl: 28px;
+		--radius-2xl: 32px;
+		--radius-full: 9999px;
+
+		--shadow-sm: 0 8px 24px rgb(3 7 18 / 0.45), inset 0 1px 0 rgb(255 255 255 / 0.18);
+		--shadow-md: 0 16px 40px rgb(3 7 18 / 0.5), inset 0 1px 0 rgb(255 255 255 / 0.22), inset 0 -1px 0 rgb(2 6 16 / 0.35);
+		--shadow-lg: 0 24px 64px rgb(3 7 18 / 0.6), inset 0 1px 0 rgb(255 255 255 / 0.32), inset 0 -1px 0 rgb(2 6 16 / 0.35);
+		--shadow-champagne: 0 4px 20px rgb(228 184 99 / 0.15), inset 0 1px 0 rgb(243 220 168 / 0.35);
+
+		--ease-glass: cubic-bezier(0.16, 1, 0.3, 1);
+		--duration-base: 500ms;
+		--duration-sweep: 700ms;
+
+		--sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+	}
+
+	*, *::before, *::after { box-sizing: border-box; }
+	body {
+		margin: 0;
+		background: var(--color-night);
+		color: var(--color-surface-foreground);
+		font-family: var(--sans);
+		font-size: 16px;
+		line-height: 1.6;
+		-webkit-font-smoothing: antialiased;
+		min-height: 100vh;
+	}
+	h1, h2, h3 { margin: 0; font-weight: 600; letter-spacing: -0.025em; line-height: 1.15; }
+	p { margin: 0; }
+	::selection { background: rgb(228 184 99 / 0.3); }
+	.spacer { flex: 1; }
+	.dim { color: rgb(255 255 255 / 0.6); }
+	.faint { color: rgb(255 255 255 / 0.4); }
+	.num { font-variant-numeric: tabular-nums; }
+
+	/* ── THE SCENE — fixed behind everything, because glass with nothing
+	   behind it is just a translucent box. Never a flat fill. ───────── */
+	.scene { position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
+	.scene .base { position: absolute; inset: 0; background: linear-gradient(165deg, var(--color-night) 0%, var(--color-night-deep) 100%); }
+	.well { position: absolute; border-radius: 50%; }
+	.well-1 { width: 560px; height: 560px; top: -140px; right: -80px; background: var(--well-moonlight); }
+	.well-2 { width: 520px; height: 520px; bottom: -160px; left: -100px; background: var(--well-steel); }
+	.well-3 { width: 420px; height: 420px; top: 42%; left: 46%; background: var(--well-champagne); }
+	/* Film grain — 2.5% noise takes the plastic off the whole picture. */
+	.grain {
+		position: fixed; inset: 0; z-index: 1; pointer-events: none; opacity: 0.025;
+		background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+	}
+	.page { position: relative; z-index: 2; }
+
+	.wrap { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
+	@media (min-width: 768px) { .wrap { padding: 0 32px; } }
+
+	/* ── THE PANEL — three layers, all three required ───────────────── */
+	.glass {
+		position: relative; overflow: hidden;
+		background: var(--glass-fill);
+		-webkit-backdrop-filter: blur(var(--glass-blur-mobile)) saturate(var(--glass-saturate));
+		backdrop-filter: blur(var(--glass-blur-mobile)) saturate(var(--glass-saturate));
+		border: 1px solid var(--glass-border);
+		border-radius: var(--radius-2xl);
+		box-shadow: var(--shadow-sm);
+		transition: transform var(--duration-base) var(--ease-glass),
+			box-shadow var(--duration-base) var(--ease-glass),
+			border-color var(--duration-base) var(--ease-glass),
+			background-color var(--duration-base) var(--ease-glass);
+	}
+	@media (min-width: 768px) {
+		.glass {
+			-webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+			backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+			box-shadow: var(--shadow-md);
+		}
+	}
+	/* Layer 2: the inner luminance running down from the lit top edge. */
+	.glass::before {
+		content: ""; position: absolute; inset: 0; pointer-events: none;
+		background: var(--glass-luminance);
+	}
+	.glass > * { position: relative; z-index: 1; }
+	.glass.lift:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: var(--glass-border-hover); }
+
+	/* ── Cover: a night control surface ─────────────────────────────── */
+	/* padding-block only — a `padding` shorthand here would wipe .wrap's gutters
+	   and knock the hero out of line with every panel below it. */
+	.topbar { padding-block: 22px 0; }
+	/* The nav floats as a pill so the scene keeps running underneath it. */
+	.navpill {
+		display: flex; align-items: center; gap: 10px;
+		padding: 8px 10px 8px 18px; border-radius: var(--radius-full);
+	}
+	.brand { display: flex; align-items: center; gap: 10px; font-weight: 600; letter-spacing: -0.02em; }
+	.brand .lens { width: 22px; height: 22px; border-radius: 50%; background: linear-gradient(145deg, rgb(255 255 255 / 0.5), rgb(124 156 196 / 0.25)); box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.5); }
+	.navlinks { display: none; gap: 22px; font-size: 14px; }
+	@media (min-width: 760px) { .navlinks { display: flex; } }
+	.navlinks span { color: rgb(255 255 255 / 0.6); }
+	.navlinks .is-active { color: #fff; }
+
+	.hero { padding-block: 36px 26px; }
+	@media (min-width: 768px) { .hero { padding-block: 56px 34px; } }
+	.hero .eyebrow { font-size: 13px; color: rgb(255 255 255 / 0.4); letter-spacing: 0.04em; }
+	.hero h1 { font-size: 34px; margin-top: 12px; max-width: 15ch; }
+	@media (min-width: 768px) { .hero h1 { font-size: 46px; max-width: 34ch; } }
+	.hero p { margin-top: 18px; max-width: 50ch; color: rgb(255 255 255 / 0.6); }
+	.hero .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+
+	.board { display: grid; grid-template-columns: minmax(0, 1fr); gap: 18px; }
+	@media (min-width: 880px) { .board { grid-template-columns: 1.3fr 1fr; gap: 20px; } }
+
+	.roomcard { padding: 24px; display: flex; flex-direction: column; }
+	@media (min-width: 768px) { .roomcard { padding: 32px; } }
+	.roomcard .head { display: flex; align-items: flex-start; gap: 14px; }
+	.roomcard .temp { font-size: 52px; font-weight: 600; letter-spacing: -0.04em; line-height: 1; }
+	@media (min-width: 768px) { .roomcard .temp { font-size: 68px; } }
+	.roomcard .deg { font-size: 22px; color: rgb(255 255 255 / 0.4); vertical-align: 22px; }
+	.roomcard .place { font-size: 14px; color: rgb(255 255 255 / 0.6); }
+	.roomcard .when { margin-left: auto; text-align: right; font-size: 13px; color: rgb(255 255 255 / 0.4); }
+
+	/* A slider: recessed night track holding a glass thumb. */
+	.cardfoot { margin-top: auto; padding-top: 22px; }
+	.ministats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-top: 24px; }
+	.ministat { padding: 14px 16px; border-radius: var(--radius-md); background: rgb(255 255 255 / 0.05); border: 1px solid rgb(255 255 255 / 0.1); }
+	.ministat .k { font-size: 12px; color: rgb(255 255 255 / 0.4); }
+	.ministat .v { font-size: 19px; font-weight: 600; font-variant-numeric: tabular-nums; margin-top: 2px; }
+	.slider { margin-top: 26px; position: relative; height: 44px; border-radius: var(--radius-full); background: rgb(6 10 19 / 0.55); box-shadow: inset 0 2px 6px rgb(2 6 16 / 0.6); padding: 5px; display: flex; align-items: center; }
+	.slider .track { height: 100%; width: 62%; flex: none; position: relative; border-radius: var(--radius-full); background: linear-gradient(90deg, rgb(228 184 99 / 0.28), rgb(228 184 99 / 0.06)); }
+	.slider .thumb { position: absolute; right: 0; top: 50%; transform: translateY(-50%); width: 34px; height: 34px; border-radius: 50%; background: rgb(255 255 255 / 0.18); border: 1px solid rgb(255 255 255 / 0.42); box-shadow: var(--shadow-sm); }
+	.slider .val { margin-left: auto; padding-right: 14px; font-size: 13px; color: rgb(255 255 255 / 0.6); }
+
+	.scenecard { padding: 24px; display: flex; flex-direction: column; }
+	@media (min-width: 768px) { .scenecard { padding: 28px; } }
+	.scenecard h3 { font-size: 17px; }
+	.scenecard .sub { font-size: 13px; color: rgb(255 255 255 / 0.4); margin-top: 4px; }
+	.sline { display: flex; align-items: center; gap: 12px; padding: 13px 0; border-bottom: 1px solid rgb(255 255 255 / 0.08); font-size: 14px; }
+	.sline:last-of-type { border-bottom: 0; }
+	.sline .k { color: rgb(255 255 255 / 0.6); }
+	.sline .v { margin-left: auto; font-variant-numeric: tabular-nums; }
+	.sline .v.gold { color: var(--color-champagne-bright); }
+
+	/* Devices sit in one full-width row rather than a block that has to be
+	   stretched to match its neighbour — stretching opens voids inside glass. */
+	.tiles { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin-top: 18px; }
+	@media (min-width: 880px) { .tiles { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; margin-top: 20px; } }
+	.tile { padding: 18px; display: flex; flex-direction: column; }
+	.tile .ic { width: 38px; height: 38px; border-radius: var(--radius-sm); background: rgb(255 255 255 / 0.1); border: 1px solid rgb(255 255 255 / 0.14); display: grid; place-items: center; font-size: 16px; }
+	.tile b { display: block; margin-top: 14px; font-size: 15px; font-weight: 600; }
+	/* Scoped to the meta line: a bare `.tile span` also hits the icon and the toggle. */
+	.tile .meta { font-size: 12px; color: rgb(255 255 255 / 0.4); margin-bottom: 14px; }
+	.tile .sw { margin-top: auto; }
+
+	/* Toggle: recessed track, glass thumb, champagne when on. */
+	.sw { width: 52px; height: 30px; border-radius: var(--radius-full); background: rgb(6 10 19 / 0.55); box-shadow: inset 0 2px 5px rgb(2 6 16 / 0.55); padding: 3px; display: flex; justify-content: flex-start; }
+	.sw.is-on { background: rgb(228 184 99 / 0.22); box-shadow: inset 0 1px 0 rgb(243 220 168 / 0.3); justify-content: flex-end; }
+	.sw i { display: block; width: 24px; height: 24px; border-radius: 50%; background: rgb(255 255 255 / 0.22); border: 1px solid rgb(255 255 255 / 0.4); box-shadow: var(--shadow-sm); }
+	.sw.is-on i { background: rgb(243 220 168 / 0.9); border-color: rgb(243 220 168 / 0.8); }
+
+	/* Now-playing bar with the specular sweep — one per screen. */
+	.nowbar { display: flex; align-items: center; gap: 16px; padding: 14px 18px; border-radius: var(--radius-xl); margin-top: 18px; margin-bottom: 40px; }
+	@media (min-width: 880px) { .nowbar { margin-top: 20px; } }
+	.nowbar .art { width: 48px; height: 48px; flex: none; border-radius: var(--radius-sm); background: linear-gradient(140deg, #33517a, #0b1322 75%); border: 1px solid rgb(255 255 255 / 0.16); }
+	.nowbar b { display: block; font-size: 15px; font-weight: 600; }
+	.nowbar span { font-size: 13px; color: rgb(255 255 255 / 0.4); }
+	.nowbar .ctrl { display: flex; align-items: center; gap: 16px; color: rgb(255 255 255 / 0.6); font-size: 15px; }
+	.sweep::after {
+		content: ""; position: absolute; inset: 0; pointer-events: none;
+		transform: translateX(-150%) skewX(-20deg);
+		background: linear-gradient(90deg, transparent, rgb(255 255 255 / 0.25), transparent);
+		transition: transform var(--duration-sweep) ease-out;
+	}
+	.sweep:hover::after { transform: translateX(150%) skewX(-20deg); }
+
+	/* ── Controls ───────────────────────────────────────────────────── */
+	.btn {
+		font: inherit; font-size: 15px; font-weight: 500;
+		padding: 13px 22px; min-height: 46px;
+		border-radius: var(--radius-sm);
+		background: var(--glass-fill);
+		-webkit-backdrop-filter: blur(20px) saturate(var(--glass-saturate));
+		backdrop-filter: blur(20px) saturate(var(--glass-saturate));
+		border: 1px solid var(--glass-border);
+		color: var(--color-surface-foreground);
+		box-shadow: var(--shadow-sm);
+		cursor: pointer;
+		transition: transform var(--duration-base) var(--ease-glass),
+			background-color var(--duration-base) var(--ease-glass),
+			border-color var(--duration-base) var(--ease-glass),
+			box-shadow var(--duration-base) var(--ease-glass);
+	}
+	.btn:hover { transform: translateY(-2px); background: var(--glass-fill-hover); border-color: var(--glass-border-hover); }
+	.btn:active { transform: scale(0.97); transition-duration: 150ms; }
+	.btn:focus-visible { outline: none; box-shadow: var(--shadow-sm), 0 0 0 3px rgb(228 184 99 / 0.45); }
+	/* The one accent: champagne at low alpha, bright champagne label. */
+	.btn-primary {
+		background: rgb(228 184 99 / 0.15);
+		border-color: rgb(228 184 99 / 0.4);
+		color: var(--color-champagne-bright);
+		box-shadow: var(--shadow-champagne);
+	}
+	.btn-primary:hover { background: rgb(228 184 99 / 0.22); border-color: rgb(228 184 99 / 0.55); }
+	.btn-quiet { background: transparent; border-color: transparent; box-shadow: none; color: rgb(255 255 255 / 0.6); }
+	.btn-quiet:hover { background: rgb(255 255 255 / 0.08); color: #fff; }
+	.btn-danger { border-color: rgb(217 96 110 / 0.45); color: #f0a8b1; }
+	.btn[disabled] { cursor: not-allowed; background: var(--glass-fill-quiet); border-color: rgb(255 255 255 / 0.08); color: rgb(255 255 255 / 0.3); box-shadow: none; transform: none; }
+	.btn-sm { padding: 9px 16px; min-height: 38px; font-size: 14px; border-radius: var(--radius-sm); }
+	.row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+
+	/* Inputs are a solid raised field, not glass — readable beats translucent. */
+	.field { max-width: 400px; }
+	.flabel { display: block; font-size: 13px; color: rgb(255 255 255 / 0.6); margin-bottom: 8px; }
+	.input {
+		font: inherit; font-size: 15px; width: 100%; padding: 13px 16px;
+		background: rgb(22 35 58 / 0.85); color: #fff;
+		border: 1px solid var(--glass-border); border-radius: var(--radius-sm);
+	}
+	.input::placeholder { color: rgb(255 255 255 / 0.35); }
+	.input:focus { outline: none; border-color: rgb(228 184 99 / 0.55); box-shadow: 0 0 0 3px rgb(228 184 99 / 0.2); }
+
+	.chip {
+		display: inline-flex; align-items: center; gap: 7px;
+		padding: 5px 14px; border-radius: var(--radius-full);
+		background: var(--glass-fill); border: 1px solid var(--glass-border);
+		font-size: 13px; color: rgb(255 255 255 / 0.75);
+	}
+	.chip .d { width: 6px; height: 6px; border-radius: 50%; background: var(--color-moonlight); }
+	.chip.gold { border-color: rgb(228 184 99 / 0.4); color: var(--color-champagne-bright); }
+	.chip.gold .d { background: var(--color-champagne); }
+
+	/* ── Sections ───────────────────────────────────────────────────── */
+	.section { padding-block: 56px; }
+	@media (min-width: 768px) { .section { padding-block: 80px; } }
+	.section-label { font-size: 13px; color: var(--color-champagne); letter-spacing: 0.06em; margin-bottom: 12px; }
+	.section h2 { font-size: 28px; }
+	@media (min-width: 768px) { .section h2 { font-size: 38px; } }
+	.lede { margin-top: 14px; max-width: 62ch; color: rgb(255 255 255 / 0.6); }
+	.note { margin-top: 20px; font-size: 14px; color: rgb(255 255 255 / 0.4); }
+
+	/* Layer explainer */
+	.layers { display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px; margin-top: 30px; }
+	@media (min-width: 720px) { .layers { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+	.layerbox { padding: 22px; }
+	.layerbox .n { font-size: 12px; color: var(--color-champagne); letter-spacing: 0.1em; }
+	.layerbox h3 { font-size: 17px; margin-top: 8px; }
+	.layerbox p { font-size: 14px; color: rgb(255 255 255 / 0.6); margin-top: 8px; }
+	.sample { height: 76px; border-radius: var(--radius-md); margin-top: 16px; position: relative; overflow: hidden; }
+	.s-fill { background: var(--glass-fill); border: 1px solid var(--glass-border); }
+	.s-lum { background: var(--glass-fill); border: 1px solid var(--glass-border); }
+	.s-lum::after { content: ""; position: absolute; inset: 0; background: var(--glass-luminance); }
+	.s-shadow { background: var(--glass-fill); border: 1px solid var(--glass-border); box-shadow: var(--shadow-md); }
+
+	.swatches { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin-top: 28px; }
+	@media (min-width: 720px) { .swatches { grid-template-columns: repeat(5, minmax(0, 1fr)); } }
+	.sw2 .fill { height: 64px; border-radius: var(--radius-md); border: 1px solid var(--glass-border); }
+	.sw2 b { display: block; font-size: 13px; font-weight: 500; margin-top: 10px; }
+	.sw2 span { font-size: 12px; color: rgb(255 255 255 / 0.4); }
+
+	/* ── Mobile ─────────────────────────────────────────────────────── */
+	.mobile { display: grid; grid-template-columns: minmax(0, 1fr); gap: 34px; margin-top: 32px; align-items: start; }
+	@media (min-width: 880px) { .mobile { grid-template-columns: 292px 1fr; gap: 48px; } }
+	.phone {
+		width: 292px; max-width: 100%; margin: 0 auto;
+		border-radius: 40px; padding: 9px; overflow: hidden;
+		background: rgb(255 255 255 / 0.06);
+		border: 1px solid rgb(255 255 255 / 0.16);
+		box-shadow: var(--shadow-lg);
+	}
+	/* The phone carries its own miniature scene — glass needs one at every size. */
+	.phone-inner { border-radius: 32px; overflow: hidden; position: relative; background: linear-gradient(165deg, #0b1322, #060a13); min-width: 0; }
+	.phone-inner .well { position: absolute; }
+	.phone-inner .pw1 { width: 220px; height: 220px; top: -70px; right: -60px; background: var(--well-moonlight); }
+	.phone-inner .pw2 { width: 200px; height: 200px; bottom: -60px; left: -50px; background: var(--well-steel); }
+	.phone-body { position: relative; z-index: 1; padding: 14px; }
+	.phone-status { display: flex; justify-content: space-between; font-size: 10px; color: rgb(255 255 255 / 0.5); padding: 4px 6px 10px; }
+	.m-pill { display: flex; align-items: center; gap: 8px; padding: 7px 12px; border-radius: var(--radius-full); font-size: 12px; font-weight: 600; }
+	.m-pill .lens { width: 16px; height: 16px; }
+	.m-card { padding: 14px; margin-top: 12px; border-radius: var(--radius-xl); }
+	.m-card .temp { font-size: 38px; font-weight: 600; letter-spacing: -0.03em; line-height: 1; }
+	.m-card .place { font-size: 11px; color: rgb(255 255 255 / 0.6); }
+	.m-slider { margin-top: 12px; height: 32px; border-radius: var(--radius-full); background: rgb(6 10 19 / 0.55); box-shadow: inset 0 2px 5px rgb(2 6 16 / 0.6); padding: 4px; display: flex; align-items: center; }
+	.m-slider .track { height: 100%; width: 62%; border-radius: var(--radius-full); background: linear-gradient(90deg, rgb(228 184 99 / 0.28), rgb(228 184 99 / 0.06)); }
+	.m-tiles { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-top: 12px; }
+	.m-tile { padding: 11px; border-radius: var(--radius-lg); }
+	.m-tile b { display: block; font-size: 11px; font-weight: 600; margin-top: 8px; }
+	.m-tile .sw { width: 40px; height: 24px; margin-top: 9px; }
+	.m-tile .sw i { width: 18px; height: 18px; }
+	.m-cta { margin-top: 12px; }
+	.m-cta .btn { width: 100%; justify-content: center; padding: 11px; min-height: 42px; font-size: 13px; }
+
+	.rules { margin: 0; padding: 0; list-style: none; }
+	.rules li { padding: 15px 0; border-bottom: 1px solid rgb(255 255 255 / 0.1); font-size: 15px; color: rgb(255 255 255 / 0.6); }
+	.rules li:last-child { border-bottom: 0; }
+	.rules b { display: block; color: #fff; font-size: 15px; font-weight: 600; margin-bottom: 3px; }
+
+	/* ── Off-style ──────────────────────────────────────────────────── */
+	.compare { display: grid; grid-template-columns: minmax(0, 1fr); gap: 18px; margin-top: 28px; }
+	@media (min-width: 720px) { .compare { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+	/* Everything this system exists to avoid, in one box. */
+	.cmp-off {
+		padding: 24px; border-radius: 10px;
+		background: linear-gradient(135deg, rgb(102 126 234 / 0.55), rgb(118 75 162 / 0.55) 55%, rgb(240 147 251 / 0.5));
+		-webkit-backdrop-filter: blur(4px);
+		backdrop-filter: blur(4px);
+		border: 1px solid rgb(255 255 255 / 0.35);
+		box-shadow: 0 10px 30px rgb(0 0 0 / 0.35);
+		font-size: 16px; font-weight: 600;
+	}
+	.cmp-off small { display: block; font-weight: 400; font-size: 13px; color: rgb(255 255 255 / 0.75); margin-top: 10px; line-height: 1.6; }
+	.cmp-on { padding: 24px; font-size: 16px; font-weight: 600; }
+	.cmp-on small { display: block; font-weight: 400; font-size: 13px; color: rgb(255 255 255 / 0.6); margin-top: 10px; line-height: 1.6; }
+
+	footer { padding-block: 30px 60px; font-size: 13px; color: rgb(255 255 255 / 0.4); }
+
+	@media (prefers-reduced-motion: reduce) {
+		.glass, .btn { transition: border-color 200ms linear, box-shadow 200ms linear; }
+		.glass.lift:hover, .btn:hover, .btn:active { transform: none; }
+		.sweep::after, .sweep:hover::after { transition: none; transform: translateX(-150%) skewX(-20deg); }
+	}
+</style>
+</head>
+<body>
+
+<!-- THE SCENE — deep ink base plus three soft light wells. The glass has
+     nothing to refract without it, so it is built first and sits behind
+     everything, fixed, for the whole page. -->
+<div class="scene" aria-hidden="true">
+	<div class="base"></div>
+	<div class="well well-1"></div>
+	<div class="well well-2"></div>
+	<div class="well well-3"></div>
+</div>
+<div class="grain" aria-hidden="true"></div>
+
+<div class="page">
+
+<!-- COVER — a night control surface. Colourless panels, one champagne action. -->
+<div class="wrap topbar">
+	<div class="navpill glass">
+		<span class="brand"><span class="lens"></span>Nocturne</span>
+		<nav class="navlinks"><span class="is-active">Home</span><span>Rooms</span><span>Scenes</span><span>Energy</span></nav>
+		<span class="spacer"></span>
+		<span class="chip"><span class="d"></span>4 devices on</span>
+		<button class="btn btn-sm">Menu</button>
+	</div>
+</div>
+
+<div class="wrap hero">
+	<p class="eyebrow">Good evening — 21:48</p>
+	<h1>The scene carries the colour. The glass only borrows its light.</h1>
+	<p>Colourless white panels at eight percent, sixty pixels of blur and a saturation
+		boost, over a deep ink night lit by two soft wells. One champagne accent, and nothing else.</p>
+	<div class="actions">
+		<button class="btn btn-primary">Set evening scene</button>
+		<button class="btn">All devices</button>
+	</div>
+</div>
+
+<div class="wrap board">
+	<div class="roomcard glass lift">
+		<div class="head">
+			<div>
+				<div class="temp num">21<span class="deg">°C</span></div>
+				<div class="place">Living room · target 22°</div>
+			</div>
+			<div class="when">
+				<div>Outside 8°</div>
+				<div class="faint">Clear night</div>
+			</div>
+		</div>
+		<div class="slider">
+			<span class="track"><span class="thumb"></span></span>
+			<span class="val num">62%</span>
+		</div>
+		<div class="ministats">
+			<div class="ministat"><div class="k">Humidity</div><div class="v num">44%</div></div>
+			<div class="ministat"><div class="k">Air</div><div class="v">Good</div></div>
+			<div class="ministat"><div class="k">Tonight</div><div class="v num">1.4 kWh</div></div>
+		</div>
+		<div class="row cardfoot">
+			<span class="chip gold"><span class="d"></span>Evening scene</span>
+			<span class="chip"><span class="d"></span>Auto until 07:00</span>
+		</div>
+	</div>
+
+	<div class="scenecard glass lift">
+		<h3>Evening scene</h3>
+		<p class="sub">Runs at sunset · 4 devices</p>
+		<div style="margin-top: 8px;">
+			<div class="sline"><span class="k">Lights</span><span class="v gold num">40%</span></div>
+			<div class="sline"><span class="k">Blinds</span><span class="v">Closed</span></div>
+			<div class="sline"><span class="k">Target</span><span class="v num">22°</span></div>
+			<div class="sline"><span class="k">Music</span><span class="v">Living room</span></div>
+		</div>
+		<div class="cardfoot">
+			<button class="btn btn-sm btn-primary">Run now</button>
+			<button class="btn btn-sm">Edit</button>
+		</div>
+	</div>
+</div>
+
+<div class="wrap tiles">
+	<div class="tile glass lift">
+		<span class="ic">◐</span>
+		<b>Ambient</b><span class="meta">3 lamps · warm</span>
+		<span class="sw is-on"><i></i></span>
+	</div>
+	<div class="tile glass lift">
+		<span class="ic">≋</span>
+		<b>Climate</b><span class="meta">Quiet mode</span>
+		<span class="sw is-on"><i></i></span>
+	</div>
+	<div class="tile glass lift">
+		<span class="ic">◫</span>
+		<b>Blinds</b><span class="meta">Closed</span>
+		<span class="sw"><i></i></span>
+	</div>
+	<div class="tile glass lift">
+		<span class="ic">♪</span>
+		<b>Speakers</b><span class="meta">Living room</span>
+		<span class="sw is-on"><i></i></span>
+	</div>
+</div>
+
+<div class="wrap">
+	<div class="nowbar glass sweep">
+		<span class="art"></span>
+		<span><b>Nocturne in E-flat</b><span>Now playing · Living room</span></span>
+		<span class="spacer"></span>
+		<span class="ctrl"><span>⏮</span><span>⏸</span><span>⏭</span></span>
+	</div>
+</div>
+
+<div class="wrap">
+
+	<!-- 01 -->
+	<section class="section">
+		<p class="section-label">01 — Scene before glass</p>
+		<h2>Build the night first</h2>
+		<p class="lede">A deep ink base and two or three large, soft light wells at low alpha. The wells
+			sit behind panel edges rather than behind body text, so there is always something with structure
+			for the blur to pick up. A flat background — or the familiar purple-to-pink gradient — leaves the
+			glass with nothing to do.</p>
+		<div class="swatches">
+			<div class="sw2"><div class="fill" style="background: var(--color-night-deep)"></div><b>night-deep</b><span>page edges</span></div>
+			<div class="sw2"><div class="fill" style="background: var(--color-night)"></div><b>night</b><span>the base</span></div>
+			<div class="sw2"><div class="fill" style="background: var(--color-night-steel)"></div><b>night-steel</b><span>fields, bands</span></div>
+			<div class="sw2"><div class="fill" style="background: var(--color-moon-steel)"></div><b>moon-steel</b><span>deep light well</span></div>
+			<div class="sw2"><div class="fill" style="background: var(--color-moonlight)"></div><b>moonlight</b><span>bright light well</span></div>
+		</div>
+		<p class="note">The well colours appear only as large low-alpha radials. They are never a fill, a border, or a text colour.</p>
+	</section>
+
+	<!-- 02 -->
+	<section class="section">
+		<p class="section-label">02 — The panel</p>
+		<h2>Three layers, all three required</h2>
+		<p class="lede">Drop any one of them and the result is flat translucency — the thing that reads
+			as "a div with opacity" rather than as a material.</p>
+		<div class="layers">
+			<div class="layerbox glass">
+				<div class="n">LAYER 1</div>
+				<h3>Colourless fill</h3>
+				<p>White at 5–12%, never above 15% and never tinted, with heavy blur and a saturation boost so the scene's lights glow through.</p>
+				<div class="sample s-fill"></div>
+			</div>
+			<div class="layerbox glass">
+				<div class="n">LAYER 2</div>
+				<h3>Inner luminance</h3>
+				<p>A white gradient falling from the top edge, which is what makes the surface look lit from above rather than evenly tinted.</p>
+				<div class="sample s-lum"></div>
+			</div>
+			<div class="layerbox glass">
+				<div class="n">LAYER 3</div>
+				<h3>Directional shadow</h3>
+				<p>Outer depth, a lit inset top edge, a shaded inset bottom edge. A single-layer shadow gives the panel no direction.</p>
+				<div class="sample s-shadow"></div>
+			</div>
+		</div>
+		<p class="note">Panels never nest. Glass inside glass doubles the blur and turns both panels to milk. A 2.5% film-grain overlay across the viewport takes the plastic off the whole picture.</p>
+	</section>
+
+	<!-- 03 -->
+	<section class="section">
+		<p class="section-label">03 — Controls</p>
+		<h2>One champagne accent</h2>
+		<p class="lede">The primary action is a champagne fill at fifteen percent with a champagne border
+			at forty and a bright champagne label. Everything else is the same colourless glass as the panels.
+			Hover lifts and brightens the border; press settles to 0.97.</p>
+		<div class="row" style="margin-top: 26px;">
+			<button class="btn btn-primary">Set scene</button>
+			<button class="btn">Secondary</button>
+			<button class="btn btn-quiet">Quiet</button>
+			<button class="btn btn-danger">Remove device</button>
+			<button class="btn" disabled>Syncing…</button>
+		</div>
+		<div class="row" style="margin-top: 22px; align-items: flex-end;">
+			<div class="field">
+				<label class="flabel">Scene name</label>
+				<input class="input" placeholder="Late evening">
+			</div>
+			<button class="btn btn-primary">Save</button>
+		</div>
+		<p class="note">Inputs are a solid raised field rather than glass. Text over a blurred scene is harder to read than it looks in a mockup, and readable beats translucent every time.</p>
+		<div class="row" style="margin-top: 22px;">
+			<span class="chip"><span class="d"></span>Live</span>
+			<span class="chip gold"><span class="d"></span>Champagne accent</span>
+			<span class="sw is-on"><i></i></span>
+			<span class="sw"><i></i></span>
+		</div>
+	</section>
+
+	<!-- 04 MOBILE -->
+	<section class="section">
+		<p class="section-label">04 — Mobile</p>
+		<h2>The blur scales down, the scene never goes away</h2>
+		<p class="lede">Sixty pixels of blur on a phone is expensive and, on a small panel, indistinguishable
+			from thirty. What must not change is the scene underneath: a phone build with a flat background and
+			glass on top of it is the most common way this style collapses.</p>
+		<div class="mobile">
+			<div class="phone">
+				<div class="phone-inner">
+					<div class="well pw1"></div>
+					<div class="well pw2"></div>
+					<div class="phone-body">
+						<div class="phone-status"><span>21:48</span><span>5G ▮</span></div>
+						<div class="m-pill glass">
+							<span class="brand" style="font-size:12px"><span class="lens"></span>Nocturne</span>
+							<span class="spacer"></span>
+							<span class="faint" style="font-size:10px">4 on</span>
+						</div>
+						<div class="m-card glass">
+							<div class="temp num">21°</div>
+							<div class="place">Living room · target 22°</div>
+							<div class="m-slider"><span class="track"></span></div>
+						</div>
+						<div class="m-tiles">
+							<div class="m-tile glass"><span class="ic" style="width:28px;height:28px;font-size:13px">◐</span><b>Ambient</b><span class="sw is-on"><i></i></span></div>
+							<div class="m-tile glass"><span class="ic" style="width:28px;height:28px;font-size:13px">◫</span><b>Blinds</b><span class="sw"><i></i></span></div>
+						</div>
+						<div class="m-cta"><button class="btn btn-primary">Set evening scene</button></div>
+					</div>
+				</div>
+			</div>
+			<ul class="rules">
+				<li><b>Blur</b>60px → 30px below the tablet breakpoint. Below about 20px the panel stops reading as glass, so 30px is the floor rather than a starting point.</li>
+				<li><b>Shadow</b><code>shadow-md</code> → <code>shadow-sm</code>: the outer depth halves and the shaded bottom inset edge drops, but the lit top edge stays — that inset highlight is what makes the panel look lit from above.</li>
+				<li><b>The scene shrinks with the screen</b>Light wells go from ~560px to ~220px so two of them still land behind panel edges. Scaling the page down without scaling the wells leaves the glass sitting over flat colour.</li>
+				<li><b>Padding</b>Cards 32px → 14–24px, buttons 22px → 16px. Panels still keep clear space between them; overlapping blurs on a small screen turn the whole surface milky.</li>
+				<li><b>Radius</b>32px → 24px on cards, 40px on the device shell. The floor stays at 16px at every width.</li>
+				<li><b>Hover has no equivalent</b>The lift and the specular sweep are dropped on touch; press-to-0.97 and the border brightening carry the whole interaction.</li>
+				<li><b>Type</b>Headings 54px → 34px; body stays 15–16px at 60% white. Captions never drop below 40% — on a phone held at arm's length that is already the floor for legibility.</li>
+				<li><b>Cost</b>Backdrop blur is the most expensive thing on the page. Keep the number of simultaneously visible glass panels in single digits, and never animate the blur radius itself.</li>
+			</ul>
+		</div>
+	</section>
+
+	<!-- 05 DON'T -->
+	<section class="section">
+		<p class="section-label">05 — Off-style, for contrast</p>
+		<h2>What breaks the illusion</h2>
+		<div class="compare">
+			<div class="cmp-off">Tinted purple-pink glass
+				<small>A violet-to-pink fill at 55%, 4px of blur, no saturation boost, a flat outer shadow and a 10px corner. This is the generic look the system is defined against — and every one of those five choices is independently disqualifying.</small></div>
+			<div class="cmp-on glass">Same panel, on-style
+				<small>Colourless white at 8%, 60px blur with a 180% saturation boost, the inner luminance gradient, a directional shadow with lit and shaded inset edges, and a 32px corner.</small></div>
+		</div>
+		<p class="note">Also out: glass over a flat background, fills above 15%, nested panels, a second accent colour, gradient text, and transitions fast enough to snap.</p>
+	</section>
+</div>
+
+<footer><div class="wrap">Vetta design reference — glassmorphism · colourless glass, one champagne accent.</div></footer>
+
+</div>
+</body>
+</html>

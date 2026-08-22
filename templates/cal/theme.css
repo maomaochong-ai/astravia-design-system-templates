@@ -1,0 +1,76 @@
+/* templates — light design system, converted from brands-design-md. */
+@theme {
+	--color-primary: #111111;
+	--color-primary-foreground: #ffffff;
+	--color-surface: #f4f4f4;
+	--color-surface-foreground: #101010;
+	--color-surface-raised: #f7f7f7;
+	--color-muted: #6a6a6a;
+	--color-accent: #0099ff;
+	--color-danger: #dc2626;
+	--color-border: #e5e5e5;
+
+/* 品牌 token（来自 brands-design-md） */
+--color-cal-ink: #101010;
+  --color-cal-action-blue: #0099ff;
+  --color-cal-white: #ffffff;
+  --color-cal-paper: #f4f4f4;
+  --color-cal-graphite: #242424;
+  --color-cal-slate: #6b7280;
+  --color-cal-stone: #898989;
+  --color-cal-silver: #e5e7eb;
+  --color-cal-info-banner-bg: #eff6fe;
+  --color-cal-google-blue: #4285f4;
+  --color-cal-google-yellow: #fbbc04;
+  --color-cal-google-green: #34a853;
+  --color-cal-google-red: #ea4335;
+
+  --font-cal-display: "Cal Sans", "Poppins", sans-serif;
+  --font-cal-ui: "Cal Sans UI Variable Light", "Inter", sans-serif;
+  --font-cal-product: "Inter", sans-serif;
+  --font-cal-utility: "Matter", "Inter", sans-serif;
+
+  --tracking-cal-caption: -0.24px;
+  --tracking-cal-body-sm: -0.2px;
+  --tracking-cal-body: -0.19px;
+  --tracking-cal-subheading: -0.2px;
+  --tracking-cal-heading-sm: 0.2px;
+  --tracking-cal-heading: 0.24px;
+  --tracking-cal-heading-lg: 0.48px;
+  --tracking-cal-display: 0.64px;
+
+  --spacing-cal-1: 4px;
+  --spacing-cal-1-25: 5px;
+  --spacing-cal-1-5: 6px;
+  --spacing-cal-2: 8px;
+  --spacing-cal-2-5: 10px;
+  --spacing-cal-3: 12px;
+  --spacing-cal-4: 16px;
+  --spacing-cal-5: 20px;
+  --spacing-cal-6: 24px;
+  --spacing-cal-7: 28px;
+  --spacing-cal-8: 32px;
+  --spacing-cal-10: 40px;
+  --spacing-cal-12: 48px;
+  --spacing-cal-20: 80px;
+
+  --radius-cal-md: 4px;
+  --radius-cal-lg: 8px;
+  --radius-cal-xl: 12px;
+  --radius-cal-2xl: 16px;
+  --radius-cal-3xl: 29px;
+  --radius-cal-full: 100px;
+  --radius-cal-full-2: 120px;
+  --radius-cal-full-3: 1000px;
+  --radius-cal-full-4: 9999px;
+
+  --shadow-cal-sm: rgba(36, 36, 36, 0.7) 0 1px 5px -4px, rgba(36, 36, 36, 0.05) 0 4px 8px 0;
+  --shadow-cal-subtle: rgba(255, 255, 255, 0.15) 0 2px 0 0 inset;
+  --shadow-cal-sm-2: rgba(19, 19, 22, 0.7) 0 1px 5px -4px, rgba(34, 42, 53, 0.1) 0 0 0 1px,
+    rgba(34, 42, 53, 0.05) 0 4px 8px 0;
+  --shadow-cal-sm-3: rgba(19, 19, 22, 0.7) 0 1px 5px -4px, rgba(34, 42, 53, 0.08) 0 0 0 1px,
+    rgba(34, 42, 53, 0.05) 0 4px 8px 0;
+  --shadow-cal-sm-4: rgba(34, 42, 53, 0.05) 0 4px 8px 0;
+  --shadow-cal-subtle-2: rgb(255, 255, 255) 0 2px 0 0 inset;
+  --shadow-cal-subtle-3: rgba(0, 0, 0, 0.1) 0 1px 3px 0, rgba(0, 0, 0, 0.06) 0 0 2px 0;
+}

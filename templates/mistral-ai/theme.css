@@ -1,0 +1,53 @@
+/* templates — light design system, converted from brands-design-md. */
+@theme {
+	--color-primary: #fa520f;
+	--color-primary-foreground: #ffffff;
+	--color-surface: #fffaeb;
+	--color-surface-foreground: #1f1f1f;
+	--color-surface-raised: #f7f7f7;
+	--color-muted: #6a6a6a;
+	--color-accent: #fa520f;
+	--color-danger: #dc2626;
+	--color-border: #ecdaa2;
+
+/* 品牌 token（来自 brands-design-md） */
+--color-mistral-parchment: #fffaeb;
+  --color-mistral-card: #ffffff;
+  --color-mistral-ink: #1f1f1f;
+  --color-mistral-carbon: #000000;
+  --color-mistral-graphite: #3c3c3c;
+  --color-mistral-ember: #fa520f;
+  --color-mistral-butter: #fff0c2;
+  --color-mistral-honeycomb: #ecdaa2;
+  --font-sans: Arial, Helvetica, Inter, system-ui, sans-serif;
+  --text-mistral-caption: 14px;
+  --text-mistral-body-sm: 16px;
+  --text-mistral-body: 24px;
+  --text-mistral-subheading: 32px;
+  --text-mistral-heading-sm: 38px;
+  --text-mistral-heading: 48px;
+  --text-mistral-heading-lg: 56px;
+  --text-mistral-display: 82px;
+  --spacing-mistral-4: 4px;
+  --spacing-mistral-8: 8px;
+  --spacing-mistral-12: 12px;
+  --spacing-mistral-16: 16px;
+  --spacing-mistral-20: 20px;
+  --spacing-mistral-24: 24px;
+  --spacing-mistral-32: 32px;
+  --spacing-mistral-36: 36px;
+  --spacing-mistral-40: 40px;
+  --spacing-mistral-48: 48px;
+  --spacing-mistral-64: 64px;
+  --spacing-mistral-72: 72px;
+  --spacing-mistral-80: 80px;
+  --spacing-mistral-100: 100px;
+  --radius-mistral-button: 6px;
+  --radius-mistral-input: 8px;
+  --radius-mistral-card: 12px;
+  --radius-mistral-pill: 9999px;
+  --shadow-mistral-xl: rgba(127, 99, 21, 0.12) -8px 16px 39px 0px,
+    rgba(127, 99, 21, 0.1) -33px 64px 72px 0px,
+    rgba(127, 99, 21, 0.06) -73px 144px 97px 0px,
+    rgba(127, 99, 21, 0.02) -130px 256px 115px 0px;
+}

@@ -1,0 +1,67 @@
+/* SpaceXAI light design tokens */
+:root {
+  /* Colors */
+  --color-primary: #0a0a0a;
+  --color-primary-hover: #242424;
+  --color-on-primary: #ffffff;
+  --color-ink: #0a0a0a;
+  --color-ink-soft: #1f1f1f;
+  --color-body: #4b4b4b;
+  --color-muted: #848484;
+  --color-hairline: #dbdbdb;
+  --color-hairline-strong: #bfbfbf;
+  --color-canvas: #ffffff;
+  --color-canvas-soft: #f7f7f7;
+  --color-canvas-raised: #fbfbfb;
+
+  /* Font families */
+  --font-primary: "Universal Sans", Inter, Arial, system-ui, -apple-system, sans-serif;
+  --font-mono: "Geist Mono", "IBM Plex Mono", "Source Code Pro", ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
+
+  /* Type scale */
+  --text-display-xl: 96px;
+  --leading-display-xl: 96px;
+  --tracking-display-xl: -3.2px;
+  --text-display-lg: 72px;
+  --leading-display-lg: 76px;
+  --tracking-display-lg: -2.2px;
+  --text-display-md: 48px;
+  --leading-display-md: 52px;
+  --tracking-display-md: -1.4px;
+  --text-display-sm: 32px;
+  --leading-display-sm: 38px;
+  --tracking-display-sm: -0.7px;
+  --text-title: 24px;
+  --leading-title: 30px;
+  --tracking-title: -0.3px;
+  --text-body-lg: 18px;
+  --leading-body-lg: 28px;
+  --text-body-md: 16px;
+  --leading-body-md: 24px;
+  --text-body-sm: 14px;
+  --leading-body-sm: 20px;
+  --text-label: 13px;
+  --leading-label: 16px;
+  --text-code: 13px;
+  --leading-code: 20px;
+
+  /* Spacing */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 12px;
+  --spacing-lg: 16px;
+  --spacing-xl: 24px;
+  --spacing-2xl: 32px;
+  --spacing-3xl: 48px;
+  --spacing-4xl: 64px;
+  --spacing-5xl: 96px;
+  --spacing-6xl: 128px;
+
+  /* Shapes */
+  --radius-none: 0px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-pill: 9999px;
+}

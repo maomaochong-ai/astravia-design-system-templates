@@ -1,0 +1,34 @@
+{
+	"schemaVersion": 1,
+	"kind": "design-system",
+	"slug": "cursor",
+	"name": "Cursor",
+	"version": "1.0.0",
+	"order": 350,
+	"category": "dev",
+	"vibe": "light",
+	"tags": [
+		"light-ui",
+		"editorial",
+		"minimal",
+		"developer-focused",
+		"design-system"
+	],
+	"blurb": "An AI-first code editor whose marketing site reads like a quietly-confident developer-tools brand with a warm-cream editorial canvas (`#f7f7f4`) instead of the typical dark IDE…",
+	"tagline": {
+		"en": "Warm-quiet confidence for an AI code editor",
+		"zh": "AI 代码编辑器的温润自信"
+	},
+	"license": "MIT",
+	"origin": {
+		"type": "curated",
+		"upstream": "https://github.com/ricocc/brands-design-md.git",
+		"note": "from brands-design-md (Cursor)."
+	},
+	"assets": {
+		"spec": "DESIGN.md",
+		"theme": "theme.css",
+		"demo": "demo.html"
+	},
+	"collectedAt": "2026-08-22"
+}

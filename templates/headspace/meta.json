@@ -1,0 +1,31 @@
+{
+	"schemaVersion": 1,
+	"kind": "design-system",
+	"slug": "headspace",
+	"name": "Headspace",
+	"version": "1.1.0",
+	"order": 70,
+	"category": "playful",
+	"vibe": "light",
+	"tags": [
+		"playful",
+		"light"
+	],
+	"blurb": "Warm sunrise cream calm; orange CTAs, maximal roundness, soft diffuse depth, friendly.",
+	"tagline": {
+		"en": "Sunrise warmth, rounded everything",
+		"zh": "日出暖橙，圆到底的松弛感"
+	},
+	"license": "MIT",
+	"origin": {
+		"type": "curated",
+		"upstream": "https://github.com/VoltAgent/awesome-design-md",
+		"note": "Vetta-adapted from awesome-design-md (MIT)."
+	},
+	"assets": {
+		"spec": "DESIGN.md",
+		"theme": "theme.css",
+		"demo": "demo.html"
+	},
+	"collectedAt": "2026-08-11"
+}

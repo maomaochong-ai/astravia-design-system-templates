@@ -1,0 +1,31 @@
+{
+	"schemaVersion": 1,
+	"kind": "design-system",
+	"slug": "caldera",
+	"name": "Caldera",
+	"version": "1.0.0",
+	"order": 290,
+	"category": "playful",
+	"vibe": "light",
+	"tags": [
+		"light-ui",
+		"design-system"
+	],
+	"blurb": "Caldera uses warm limestone, molten orange, oversized condensed type, halftone textures, and soft rounded forms to create a bold volcanic visual identity.",
+	"tagline": {
+		"en": "Warm limestone, molten orange, oversized condensed type",
+		"zh": "暖石灰岩、熔岩橙、超大压缩字体"
+	},
+	"license": "MIT",
+	"origin": {
+		"type": "curated",
+		"upstream": "https://github.com/ricocc/brands-design-md.git",
+		"note": "from brands-design-md (Caldera)."
+	},
+	"assets": {
+		"spec": "DESIGN.md",
+		"theme": "theme.css",
+		"demo": "demo.html"
+	},
+	"collectedAt": "2026-08-22"
+}

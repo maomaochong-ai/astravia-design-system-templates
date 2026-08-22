@@ -1,0 +1,1215 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="design-source" content="https://claude.ai/" />
+    <meta name="theme-color" content="#f8f8f6" />
+    <title>Claude — Design System</title>
+    
+    
+    
+    <style>
+      :root {
+        --canvas: #f8f8f6;
+        --paper: #fff;
+        --stone: #efeeeb;
+        --ink: #121212;
+        --graphite: #373734;
+        --ashen: #7b7974;
+        --pebble: #9c9a92;
+        --line: #e7e6e1;
+        --line-strong: #b7b7b5;
+        --clay: #d97757;
+        --black: #000;
+        --serif: "Source Serif 4", Georgia, serif;
+        --sans: "Inter", Arial, sans-serif;
+        --max: 1120px;
+      }
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+        scroll-padding-top: 76px;
+      }
+      body {
+        margin: 0;
+        background: var(--canvas);
+        color: var(--graphite);
+        font-family: var(--sans);
+        font-size: 16px;
+        line-height: 1.5;
+        -webkit-font-smoothing: antialiased;
+      }
+      a {
+        color: inherit;
+      }
+      button,
+      input {
+        font: inherit;
+      }
+      ::selection {
+        background: rgba(217, 119, 87, 0.28);
+        color: var(--ink);
+      }
+      :focus-visible {
+        outline: 2px solid var(--ink);
+        outline-offset: 3px;
+      }
+      .wrap {
+        width: min(100%, calc(var(--max) + 48px));
+        margin: auto;
+        padding-inline: 24px;
+      }
+      .nav {
+        position: sticky;
+        top: 0;
+        z-index: 30;
+        background: rgba(248, 248, 246, 0.94);
+        border-bottom: 1px solid var(--line);
+        backdrop-filter: blur(14px);
+      }
+      .nav-inner {
+        min-height: 68px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+      }
+      .nav-left,
+      .nav-right {
+        display: flex;
+        align-items: center;
+      }
+      .nav-left {
+        gap: 10px;
+        text-decoration: none;
+      }
+      .logo-favicon {
+        width: 30px;
+        height: 30px;
+        object-fit: contain;
+      }
+      .wordmark {
+        font-family: var(--serif);
+        font-size: 21px;
+        color: var(--ink);
+      }
+      .tag {
+        padding: 4px 9px;
+        background: var(--stone);
+        border-radius: 8px;
+        font-size: 10px;
+        font-weight: 500;
+      }
+      .nav-right {
+        gap: 2px;
+      }
+      .nav-link {
+        padding: 7px 10px;
+        border-radius: 8px;
+        color: var(--ashen);
+        font-size: 13px;
+        text-decoration: none;
+      }
+      .nav-link:hover {
+        background: var(--stone);
+        color: var(--ink);
+      }
+      .site-link {
+        margin-left: 6px;
+        background: var(--ink);
+        color: var(--canvas);
+      }
+      .hero {
+        min-height: 700px;
+        display: grid;
+        grid-template-columns: minmax(0, 0.8fr) minmax(360px, 1.2fr);
+        gap: clamp(48px, 8vw, 104px);
+        align-items: center;
+        padding-block: clamp(80px, 10vw, 132px);
+      }
+      .hero-copy {
+        text-align: center;
+      }
+      .clay-mark {
+        width: 34px;
+        height: 34px;
+        margin: 0 auto 22px;
+        position: relative;
+      }
+      .clay-mark::before,
+      .clay-mark::after {
+        position: absolute;
+        inset: 0;
+        border: 2px solid var(--clay);
+        border-radius: 50%;
+        content: "";
+      }
+      .clay-mark::after {
+        transform: rotate(45deg);
+        border-radius: 4px;
+      }
+      .hero h1 {
+        max-width: 520px;
+        margin: 0 auto;
+        color: var(--ink);
+        font-family: var(--serif);
+        font-size: clamp(54px, 7vw, 82px);
+        font-weight: 400;
+        letter-spacing: -0.03em;
+        line-height: 0.98;
+      }
+      .hero-sub {
+        margin: 20px 0 0;
+        color: var(--graphite);
+        font-size: 17px;
+      }
+      .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+        margin-top: 28px;
+      }
+      .btn {
+        min-height: 42px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 8px 20px;
+        border: 1px solid var(--line-strong);
+        border-radius: 8px;
+        background: transparent;
+        color: var(--graphite);
+        font-size: 15px;
+        font-weight: 500;
+        text-decoration: none;
+        transition:
+          background 0.18s ease,
+          color 0.18s ease;
+      }
+      .btn-dark {
+        border-color: var(--ink);
+        background: var(--ink);
+        color: var(--canvas);
+      }
+      .btn:hover {
+        background: var(--stone);
+      }
+      .btn-dark:hover {
+        background: var(--graphite);
+        color: var(--canvas);
+      }
+      .hero-art {
+        min-height: 540px;
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        grid-template-rows: repeat(7, 1fr);
+        gap: 8px;
+        padding: 24px;
+        background: var(--stone);
+        border-radius: 24px;
+      }
+      .paper {
+        padding: 12px;
+        background: var(--paper);
+        border: 1px solid var(--line);
+        color: var(--ashen);
+        font-size: 9px;
+      }
+      .paper:nth-child(1) {
+        grid-column: 1/4;
+        grid-row: 1/3;
+      }
+      .paper:nth-child(2) {
+        grid-column: 4/7;
+        grid-row: 1/4;
+        background: #cbd6e3;
+      }
+      .paper:nth-child(3) {
+        grid-column: 1/3;
+        grid-row: 3/6;
+      }
+      .paper:nth-child(4) {
+        grid-column: 3/6;
+        grid-row: 4/7;
+      }
+      .paper:nth-child(5) {
+        grid-column: 6/7;
+        grid-row: 4/8;
+        background: #e6dfd8;
+      }
+      .paper:nth-child(6) {
+        grid-column: 1/4;
+        grid-row: 6/8;
+        background: #f0e2dc;
+      }
+      .paper-line {
+        height: 3px;
+        margin-bottom: 6px;
+        background: var(--line);
+      }
+      .paper-line.short {
+        width: 58%;
+      }
+      .section {
+        padding-block: clamp(78px, 9vw, 118px);
+        border-top: 1px solid var(--line);
+      }
+      .section-head {
+        display: grid;
+        grid-template-columns: 140px minmax(0, 1fr) minmax(260px, 390px);
+        gap: 28px;
+        margin-bottom: 44px;
+      }
+      .kicker {
+        color: var(--clay);
+        font-size: 11px;
+        font-weight: 500;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+      .section h2 {
+        margin: 0;
+        color: var(--ink);
+        font-family: var(--serif);
+        font-size: clamp(40px, 6vw, 64px);
+        font-weight: 400;
+        letter-spacing: -0.025em;
+        line-height: 1;
+      }
+      .section-desc {
+        margin: 4px 0 0;
+        color: var(--ashen);
+        font-size: 14px;
+      }
+      .color-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 12px;
+      }
+      .swatch {
+        overflow: hidden;
+        background: var(--paper);
+        border: 1px solid var(--line);
+        border-radius: 16px;
+      }
+      .swatch-color {
+        height: 94px;
+        border-bottom: 1px solid var(--line);
+      }
+      .swatch-meta {
+        padding: 13px;
+      }
+      .swatch-name {
+        color: var(--ink);
+        font-size: 13px;
+        font-weight: 500;
+      }
+      .token {
+        display: block;
+        margin-top: 3px;
+        color: var(--ashen);
+        font-family: ui-monospace, monospace;
+        font-size: 10px;
+      }
+      .font-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        margin-bottom: 40px;
+      }
+      .font-card {
+        min-height: 210px;
+        padding: 26px;
+        background: var(--paper);
+        border: 1px solid var(--line);
+        border-radius: 24px;
+      }
+      .glyph {
+        margin: 38px 0 14px;
+        color: var(--ink);
+        font-family: var(--serif);
+        font-size: 70px;
+        line-height: 0.8;
+      }
+      .font-card.sans .glyph {
+        font-family: var(--sans);
+        font-size: 48px;
+        font-weight: 500;
+        line-height: 1;
+      }
+      .font-card p {
+        margin: 0;
+        color: var(--ashen);
+        font-size: 12px;
+      }
+      .type-list {
+        border-top: 1px solid var(--line);
+      }
+      .type-row {
+        display: grid;
+        grid-template-columns: 150px minmax(0, 1fr) 180px;
+        gap: 24px;
+        align-items: baseline;
+        padding: 20px 0;
+        border-bottom: 1px solid var(--line);
+      }
+      .sample {
+        overflow: hidden;
+        color: var(--ink);
+        font-family: var(--serif);
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .type-row.sans .sample {
+        font-family: var(--sans);
+      }
+      .spec {
+        color: var(--ashen);
+        font-family: ui-monospace, monospace;
+        font-size: 10px;
+        text-align: right;
+      }
+      .metrics {
+        display: grid;
+        grid-template-columns: 1.2fr 0.8fr;
+        gap: 48px;
+      }
+      .metric-title {
+        margin: 0 0 22px;
+        color: var(--ink);
+        font-size: 15px;
+        font-weight: 500;
+      }
+      .space-list {
+        display: grid;
+        gap: 12px;
+      }
+      .space-row {
+        display: grid;
+        grid-template-columns: 52px minmax(0, 1fr) 44px;
+        gap: 12px;
+        align-items: center;
+      }
+      .space-bar {
+        height: 4px;
+        background: var(--clay);
+      }
+      .space-row code {
+        color: var(--ashen);
+        font-size: 10px;
+      }
+      .radius-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+      }
+      .radius-item {
+        min-height: 118px;
+        display: grid;
+        place-items: center;
+        gap: 8px;
+        background: var(--paper);
+        border: 1px solid var(--line);
+        text-align: center;
+      }
+      .radius-shape {
+        width: 54px;
+        height: 54px;
+        background: var(--stone);
+        border: 1px solid var(--line-strong);
+      }
+      .radius-item code {
+        font-size: 10px;
+      }
+      .depth-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+      }
+      .depth-card {
+        min-height: 250px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        padding: 30px;
+        background: var(--paper);
+        border-radius: 24px;
+      }
+      .depth-card.soft {
+        box-shadow: rgba(0, 0, 0, 0.04) 0 4px 20px 0;
+      }
+      .depth-card.warm {
+        box-shadow: oklab(0.431435 -0.02915 -0.125723 / 0.1) 0 4px 24px 0;
+      }
+      .depth-card strong {
+        color: var(--ink);
+        font-family: var(--serif);
+        font-size: 28px;
+        font-weight: 400;
+      }
+      .depth-card code {
+        margin-top: 8px;
+        color: var(--ashen);
+        font-size: 10px;
+        overflow-wrap: anywhere;
+      }
+      .components {
+        display: grid;
+        gap: 18px;
+      }
+      .component {
+        overflow: hidden;
+        background: var(--paper);
+        border: 1px solid var(--line);
+        border-radius: 24px;
+      }
+      .component-head {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+        padding: 17px 22px;
+        border-bottom: 1px solid var(--line);
+      }
+      .component-head h3 {
+        margin: 0;
+        color: var(--ink);
+        font-size: 14px;
+        font-weight: 500;
+      }
+      .component-head code {
+        color: var(--ashen);
+        font-size: 10px;
+      }
+      .stage {
+        min-height: 190px;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 12px;
+        padding: 32px;
+        background: var(--canvas);
+      }
+      .pricing {
+        width: min(100%, 680px);
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+      .tier {
+        min-height: 310px;
+        display: flex;
+        flex-direction: column;
+        padding: 32px;
+        background: var(--paper);
+        border: 1px solid var(--line);
+        border-radius: 24px;
+      }
+      .tier.featured {
+        box-shadow: oklab(0.431435 -0.02915 -0.125723 / 0.1) 0 4px 24px 0;
+      }
+      .tier h4 {
+        margin: 0;
+        color: var(--ink);
+        font-family: var(--serif);
+        font-size: 30px;
+        font-weight: 400;
+      }
+      .price {
+        margin: 18px 0 6px;
+        color: var(--ink);
+        font-size: 24px;
+        font-weight: 550;
+      }
+      .tier p {
+        margin: 0 0 26px;
+        color: var(--ashen);
+        font-size: 14px;
+      }
+      .tier .btn {
+        margin-top: auto;
+      }
+      .faq {
+        width: min(100%, 720px);
+      }
+      .faq-row {
+        padding: 22px 0;
+        border-bottom: 1px solid var(--line);
+      }
+      .faq-row strong {
+        color: var(--graphite);
+        font-size: 16px;
+        font-weight: 500;
+      }
+      .faq-row p {
+        margin: 10px 0 0;
+        color: var(--ink);
+        font-size: 14px;
+      }
+      .field {
+        width: min(100%, 480px);
+        display: grid;
+        gap: 8px;
+      }
+      .field label {
+        color: var(--graphite);
+        font-size: 13px;
+      }
+      .field input {
+        height: 48px;
+        padding-inline: 14px;
+        background: var(--paper);
+        border: 1px solid var(--line-strong);
+        border-radius: 8px;
+        color: var(--ink);
+      }
+      .accent-demo {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        padding: 30px;
+        background: var(--stone);
+        border-radius: 16px;
+      }
+      .accent-dot {
+        width: 38px;
+        height: 38px;
+        flex: 0 0 auto;
+        background: var(--clay);
+        border-radius: 50%;
+      }
+      .accent-demo p {
+        margin: 0;
+        color: var(--graphite);
+      }
+      .guide-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+      .guide {
+        padding: 30px;
+        background: var(--paper);
+        border: 1px solid var(--line);
+        border-radius: 24px;
+      }
+      .guide h3 {
+        margin: 0 0 20px;
+        color: var(--ink);
+        font-family: var(--serif);
+        font-size: 30px;
+        font-weight: 400;
+      }
+      .guide ul {
+        display: grid;
+        gap: 12px;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+      .guide li {
+        position: relative;
+        padding-left: 20px;
+        color: var(--graphite);
+        font-size: 14px;
+      }
+      .guide li::before {
+        position: absolute;
+        left: 0;
+        color: var(--clay);
+        content: "·";
+      }
+      .guide.avoid li::before {
+        color: var(--ink);
+        content: "×";
+      }
+      .downloads {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 34px;
+      }
+      .download {
+        padding: 9px 13px;
+        border: 1px solid var(--line-strong);
+        border-radius: 8px;
+        color: var(--graphite);
+        font-family: ui-monospace, monospace;
+        font-size: 11px;
+        text-decoration: none;
+      }
+      .footer {
+        padding-block: 38px;
+        background: var(--black);
+        color: var(--pebble);
+      }
+      .footer-inner {
+        display: flex;
+        justify-content: space-between;
+        gap: 24px;
+        font-size: 12px;
+      }
+      .reveal {
+        opacity:1;
+        
+        transition:
+          opacity 0.5s ease,
+          transform 0.5s ease;
+      }
+      .reveal.visible {
+        opacity: 1;
+        transform: none;
+      }
+      @media (max-width: 850px) {
+        .nav-link:not(.site-link) {
+          display: none;
+        }
+        .hero {
+          grid-template-columns: 1fr;
+        }
+        .hero-art {
+          min-height: 420px;
+        }
+        .section-head,
+        .metrics {
+          grid-template-columns: 1fr;
+        }
+        .color-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .type-row {
+          grid-template-columns: 110px 1fr;
+        }
+        .spec {
+          grid-column: 2;
+          text-align: left;
+        }
+      }
+      @media (max-width: 560px) {
+        .tag {
+          display: none;
+        }
+        .hero h1 {
+          font-size: 54px;
+        }
+        .font-grid,
+        .depth-grid,
+        .pricing,
+        .guide-grid {
+          grid-template-columns: 1fr;
+        }
+        .type-row {
+          grid-template-columns: 1fr;
+        }
+        .spec {
+          grid-column: auto;
+        }
+        .radius-grid {
+          grid-template-columns: 1fr;
+        }
+        .stage {
+          padding: 20px;
+        }
+        .footer-inner {
+          flex-direction: column;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+        .reveal {
+          opacity: 1;
+          transform: none;
+          transition: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="nav" aria-label="Design system navigation">
+      <div class="wrap nav-inner">
+        <a class="nav-left" href="#top"
+          ><span class="wordmark">Claude</span
+          ><span class="tag">Design System</span></a
+        >
+        <div class="nav-right">
+          <a class="nav-link" href="#colors">Colors</a
+          ><a class="nav-link" href="#type">Type</a
+          ><a class="nav-link" href="#spacing">Spacing</a
+          ><a class="nav-link" href="#components">Components</a
+          ><a
+            class="nav-link site-link"
+            href="#"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Site ↗</a
+          >
+        </div>
+      </div>
+    </nav>
+    <main id="top">
+      <header class="wrap hero">
+        <div class="hero-copy">
+          <div class="clay-mark" aria-hidden="true"></div>
+          <h1>Question what’s next</h1>
+          <p class="hero-sub">Your thinking partner for big ambitions.</p>
+          <div class="hero-actions">
+            <a class="btn btn-dark" href="#" download>Download spec</a
+            ><a class="btn" href="#components">Explore components</a>
+          </div>
+        </div>
+        <div class="hero-art" aria-label="Editorial paper study">
+          <div class="paper">
+            <div class="paper-line"></div>
+            <div class="paper-line short"></div>
+          </div>
+          <div class="paper">
+            <div class="paper-line"></div>
+            <div class="paper-line"></div>
+            <div class="paper-line short"></div>
+          </div>
+          <div class="paper">
+            <div class="paper-line short"></div>
+            <div class="paper-line"></div>
+          </div>
+          <div class="paper">
+            <div class="paper-line"></div>
+            <div class="paper-line"></div>
+            <div class="paper-line short"></div>
+          </div>
+          <div class="paper"><div class="paper-line"></div></div>
+          <div class="paper">
+            <div class="paper-line short"></div>
+            <div class="paper-line"></div>
+          </div>
+        </div>
+      </header>
+      <section class="section" id="colors">
+        <div class="wrap reveal">
+          <div class="section-head">
+            <span class="kicker">01 / Foundation</span>
+            <h2>Warm monochrome</h2>
+            <p class="section-desc">
+              Paper whites and warm gray text create editorial depth. Clay
+              orange is reserved for compact decorative marks.
+            </p>
+          </div>
+          <div class="color-grid">
+            <article class="swatch">
+              <div class="swatch-color" style="background: #121212"></div>
+              <div class="swatch-meta">
+                <div class="swatch-name">Carbon Ink</div>
+                <code class="token">#121212 · primary text</code>
+              </div>
+            </article>
+            <article class="swatch">
+              <div class="swatch-color" style="background: #373734"></div>
+              <div class="swatch-meta">
+                <div class="swatch-name">Graphite</div>
+                <code class="token">#373734 · body</code>
+              </div>
+            </article>
+            <article class="swatch">
+              <div class="swatch-color" style="background: #7b7974"></div>
+              <div class="swatch-meta">
+                <div class="swatch-name">Ashen</div>
+                <code class="token">#7b7974 · muted</code>
+              </div>
+            </article>
+            <article class="swatch">
+              <div class="swatch-color" style="background: #9c9a92"></div>
+              <div class="swatch-meta">
+                <div class="swatch-name">Pebble</div>
+                <code class="token">#9c9a92 · footer</code>
+              </div>
+            </article>
+            <article class="swatch">
+              <div class="swatch-color" style="background: #f8f8f6"></div>
+              <div class="swatch-meta">
+                <div class="swatch-name">Bone Parchment</div>
+                <code class="token">#f8f8f6 · canvas</code>
+              </div>
+            </article>
+            <article class="swatch">
+              <div class="swatch-color" style="background: #fff"></div>
+              <div class="swatch-meta">
+                <div class="swatch-name">Paper White</div>
+                <code class="token">#ffffff · card</code>
+              </div>
+            </article>
+            <article class="swatch">
+              <div class="swatch-color" style="background: #efeeeb"></div>
+              <div class="swatch-meta">
+                <div class="swatch-name">Soft Stone</div>
+                <code class="token">#efeeeb · nested surface</code>
+              </div>
+            </article>
+            <article class="swatch">
+              <div class="swatch-color" style="background: #e7e6e1"></div>
+              <div class="swatch-meta">
+                <div class="swatch-name">Mist</div>
+                <code class="token">#e7e6e1 · hairline</code>
+              </div>
+            </article>
+            <article class="swatch">
+              <div class="swatch-color" style="background: #b7b7b5"></div>
+              <div class="swatch-meta">
+                <div class="swatch-name">Warm Gray</div>
+                <code class="token">#b7b7b5 · strong line</code>
+              </div>
+            </article>
+            <article class="swatch">
+              <div class="swatch-color" style="background: #d97757"></div>
+              <div class="swatch-meta">
+                <div class="swatch-name">Clay</div>
+                <code class="token">#d97757 · decorative</code>
+              </div>
+            </article>
+            <article class="swatch">
+              <div class="swatch-color" style="background: #000"></div>
+              <div class="swatch-meta">
+                <div class="swatch-name">Obsidian</div>
+                <code class="token">#000000 · footer band</code>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+      <section class="section" id="type">
+        <div class="wrap reveal">
+          <div class="section-head">
+            <span class="kicker">02 / Typography</span>
+            <h2>Editorial intelligence</h2>
+            <p class="section-desc">
+              Anthropic Serif introduces the reflective voice; Anthropic Sans
+              keeps navigation and product language precise. Source Serif 4 and
+              Inter render as open substitutes.
+            </p>
+          </div>
+          <div class="font-grid">
+            <article class="font-card">
+              <span class="kicker">Serif substitute</span>
+              <div class="glyph">Claude Aa</div>
+              <p>Source Serif 4 · source: Anthropic Serif</p>
+            </article>
+            <article class="font-card sans">
+              <span class="kicker">Sans substitute</span>
+              <div class="glyph">Anthropic 012</div>
+              <p>Inter · source: Anthropic Sans</p>
+            </article>
+          </div>
+          <div class="type-list">
+            <div class="type-row">
+              <code class="token">editorial heading</code>
+              <div class="sample" style="font-size: 30px; line-height: 1.2">
+                Question what’s next
+              </div>
+              <code class="spec">30 / 1.2 / 400</code>
+            </div>
+            <div class="type-row">
+              <code class="token">card heading</code>
+              <div class="sample" style="font-size: 24px; line-height: 1.33">
+                Research and write
+              </div>
+              <code class="spec">24 / 1.33 / 400</code>
+            </div>
+            <div class="type-row sans">
+              <code class="token">price</code>
+              <div
+                class="sample"
+                style="font-size: 24px; font-weight: 550; line-height: 1.33"
+              >
+                $20 per month
+              </div>
+              <code class="spec">24 / 1.33 / 580</code>
+            </div>
+            <div class="type-row sans">
+              <code class="token">body</code>
+              <div class="sample" style="font-size: 16px; line-height: 1.5">
+                A thinking partner for your most ambitious work.
+              </div>
+              <code class="spec">16 / 1.5 / 400</code>
+            </div>
+            <div class="type-row sans">
+              <code class="token">navigation</code>
+              <div class="sample" style="font-size: 15px; line-height: 1.5">
+                Research · Create · Analyze
+              </div>
+              <code class="spec">15 / 1.5 / 500</code>
+            </div>
+            <div class="type-row sans">
+              <code class="token">body small</code>
+              <div class="sample" style="font-size: 14px; line-height: 1.5">
+                Thoughtful product details and supporting copy
+              </div>
+              <code class="spec">14 / 1.5 / 400</code>
+            </div>
+            <div class="type-row sans">
+              <code class="token">caption</code>
+              <div class="sample" style="font-size: 12px; line-height: 1.33">
+                Terms · Privacy · Updated today
+              </div>
+              <code class="spec">12 / 1.33 / 400</code>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="section" id="spacing">
+        <div class="wrap reveal">
+          <div class="section-head">
+            <span class="kicker">03 / Geometry</span>
+            <h2>Paper rhythm</h2>
+            <p class="section-desc">
+              Eight-pixel controls sit inside 16px nested surfaces and 24px
+              elevated cards, with generous 64–80px editorial intervals.
+            </p>
+          </div>
+          <div class="metrics">
+            <div>
+              <h3 class="metric-title">Observed spacing</h3>
+              <div class="space-list">
+                <div class="space-row">
+                  <code>2</code>
+                  <div class="space-bar" style="width: 2%"></div>
+                  <code>2px</code>
+                </div>
+                <div class="space-row">
+                  <code>4</code>
+                  <div class="space-bar" style="width: 5%"></div>
+                  <code>4px</code>
+                </div>
+                <div class="space-row">
+                  <code>8</code>
+                  <div class="space-bar" style="width: 10%"></div>
+                  <code>8px</code>
+                </div>
+                <div class="space-row">
+                  <code>12</code>
+                  <div class="space-bar" style="width: 15%"></div>
+                  <code>12px</code>
+                </div>
+                <div class="space-row">
+                  <code>16</code>
+                  <div class="space-bar" style="width: 20%"></div>
+                  <code>16px</code>
+                </div>
+                <div class="space-row">
+                  <code>20</code>
+                  <div class="space-bar" style="width: 25%"></div>
+                  <code>20px</code>
+                </div>
+                <div class="space-row">
+                  <code>24</code>
+                  <div class="space-bar" style="width: 30%"></div>
+                  <code>24px</code>
+                </div>
+                <div class="space-row">
+                  <code>32</code>
+                  <div class="space-bar" style="width: 40%"></div>
+                  <code>32px</code>
+                </div>
+                <div class="space-row">
+                  <code>40</code>
+                  <div class="space-bar" style="width: 50%"></div>
+                  <code>40px</code>
+                </div>
+                <div class="space-row">
+                  <code>64</code>
+                  <div class="space-bar" style="width: 80%"></div>
+                  <code>64px</code>
+                </div>
+                <div class="space-row">
+                  <code>80</code>
+                  <div class="space-bar" style="width: 100%"></div>
+                  <code>80px</code>
+                </div>
+              </div>
+            </div>
+            <div>
+              <h3 class="metric-title">Observed radii</h3>
+              <div class="radius-grid">
+                <div class="radius-item">
+                  <div class="radius-shape" style="border-radius: 8px"></div>
+                  <code>8px · controls</code>
+                </div>
+                <div class="radius-item">
+                  <div class="radius-shape" style="border-radius: 16px"></div>
+                  <code>16px · nested</code>
+                </div>
+                <div class="radius-item">
+                  <div class="radius-shape" style="border-radius: 24px"></div>
+                  <code>24px · cards</code>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="section" id="depth">
+        <div class="wrap reveal">
+          <div class="section-head">
+            <span class="kicker">04 / Elevation</span>
+            <h2>Observed depth</h2>
+            <p class="section-desc">
+              Two restrained card elevations preserve the layered-paper effect
+              without making the page feel glossy.
+            </p>
+          </div>
+          <div class="depth-grid">
+            <article class="depth-card soft">
+              <strong>Soft card</strong
+              ><code>rgba(0,0,0,.04) 0 4px 20px 0</code>
+            </article>
+            <article class="depth-card warm">
+              <strong>Warm elevated card</strong
+              ><code>oklab(0.431435 -0.02915 -0.125723 / .1) 0 4px 24px 0</code>
+            </article>
+          </div>
+        </div>
+      </section>
+      <section class="section" id="components">
+        <div class="wrap reveal">
+          <div class="section-head">
+            <span class="kicker">05 / Components</span>
+            <h2>Quiet controls</h2>
+            <p class="section-desc">
+              Actions remain monochrome; the serif appears in editorial and
+              pricing moments, while product interactions stay sans.
+            </p>
+          </div>
+          <div class="components">
+            <article class="component">
+              <div class="component-head">
+                <h3>Action hierarchy</h3>
+                <code>8px radius</code>
+              </div>
+              <div class="stage">
+                <button class="btn btn-dark" type="button">
+                  Continue with email</button
+                ><button class="btn" type="button">Download desktop app</button>
+              </div>
+            </article>
+            <article class="component">
+              <div class="component-head">
+                <h3>Pricing tiers</h3>
+                <code>24px card / 32px pad</code>
+              </div>
+              <div class="stage">
+                <div class="pricing">
+                  <article class="tier">
+                    <h4>Free</h4>
+                    <div class="price">$0</div>
+                    <p>Talk to Claude on web, iOS, and Android.</p>
+                    <button class="btn" type="button">Get started</button>
+                  </article>
+                  <article class="tier featured">
+                    <h4>Pro</h4>
+                    <div class="price">$20</div>
+                    <p>More usage and access to advanced models.</p>
+                    <button class="btn btn-dark" type="button">
+                      Choose Pro
+                    </button>
+                  </article>
+                </div>
+              </div>
+            </article>
+            <article class="component">
+              <div class="component-head">
+                <h3>FAQ accordion</h3>
+                <code>hairline rows</code>
+              </div>
+              <div class="stage">
+                <div class="faq">
+                  <div class="faq-row">
+                    <strong>How can Claude help?</strong>
+                    <p>
+                      Research, reasoning, writing, and analysis stay within one
+                      calm conversation.
+                    </p>
+                  </div>
+                  <div class="faq-row">
+                    <strong>Which plan is right for me?</strong>
+                  </div>
+                </div>
+              </div>
+            </article>
+            <article class="component">
+              <div class="component-head">
+                <h3>Input and accent mark</h3>
+                <code>paper / clay</code>
+              </div>
+              <div class="stage">
+                <label class="field"
+                  ><span>Email address</span
+                  ><input type="email" placeholder="name@company.com"
+                /></label>
+                <div class="accent-demo">
+                  <span class="accent-dot" aria-hidden="true"></span>
+                  <p>
+                    Clay orange punctuates editorial moments without becoming an
+                    action fill.
+                  </p>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+      <section class="section" id="guidelines">
+        <div class="wrap reveal">
+          <div class="section-head">
+            <span class="kicker">06 / Direction</span>
+            <h2>Usage rules</h2>
+            <p class="section-desc">
+              The Claude system gains personality from material warmth,
+              typography, and restraint.
+            </p>
+          </div>
+          <div class="guide-grid">
+            <article class="guide">
+              <h3>Preserve</h3>
+              <ul>
+                <li>Use Bone Parchment for large page backgrounds.</li>
+                <li>Set display headlines in the serif at weight 400.</li>
+                <li>Pair white cards with warm gray hairlines.</li>
+                <li>Keep Clay orange to marks and editorial accents.</li>
+              </ul>
+            </article>
+            <article class="guide avoid">
+              <h3>Avoid</h3>
+              <ul>
+                <li>Using Clay orange as a button fill.</li>
+                <li>Introducing a second chromatic accent.</li>
+                <li>Using pure white as the full-page canvas.</li>
+                <li>Applying the serif to navigation or form controls.</li>
+              </ul>
+            </article>
+          </div>
+          <div class="downloads">
+            <a class="download" href="#" download>DESIGN.md ↓</a
+            ><a class="download" href="#" download>tokens.json ↓</a
+            ><a class="download" href="#" download
+              >variables.css ↓</a
+            ><a class="download" href="#" download>theme.css ↓</a>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer class="footer">
+      <div class="wrap footer-inner">
+        <span>Claude light design reference</span
+        ><a href="#" target="_blank" rel="noopener noreferrer"
+          >claude.ai ↗</a
+        >
+      </div>
+    </footer>
+    
+  </body>
+</html>

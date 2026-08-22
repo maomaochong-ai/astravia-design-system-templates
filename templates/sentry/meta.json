@@ -1,0 +1,33 @@
+{
+	"schemaVersion": 1,
+	"kind": "design-system",
+	"slug": "sentry",
+	"name": "Sentry",
+	"version": "1.0.0",
+	"order": 630,
+	"category": "dev",
+	"vibe": "light",
+	"tags": [
+		"light-ui",
+		"developer-focused",
+		"playful",
+		"design-system"
+	],
+	"blurb": "An inspired interpretation of Sentri's design language — a developer-tools brand built on a deep purple-violet midnight canvas, electric lime accents, and a slightly subversive…",
+	"tagline": {
+		"en": "Deep purple-violet developer-tools calm",
+		"zh": "深紫罗兰开发者工具的沉静"
+	},
+	"license": "MIT",
+	"origin": {
+		"type": "curated",
+		"upstream": "https://github.com/ricocc/brands-design-md.git",
+		"note": "from brands-design-md (Sentri-Inspired); unofficial inspired variant."
+	},
+	"assets": {
+		"spec": "DESIGN.md",
+		"theme": "theme.css",
+		"demo": "demo.html"
+	},
+	"collectedAt": "2026-08-22"
+}

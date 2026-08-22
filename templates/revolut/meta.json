@@ -1,0 +1,32 @@
+{
+	"schemaVersion": 1,
+	"kind": "design-system",
+	"slug": "revolut",
+	"name": "Revolut",
+	"version": "1.0.0",
+	"order": 600,
+	"category": "fintech",
+	"vibe": "light",
+	"tags": [
+		"light-ui",
+		"playful",
+		"design-system"
+	],
+	"blurb": "Revolut's marketing surfaces pair a stark black canvas with the brand's\ncobalt-violet (`#494fdf`) and a wide accent palette of deep, fully-saturated\nproduct colours — teal, ligh…",
+	"tagline": {
+		"en": "Stark black with cobalt-violet voltage",
+		"zh": "冷峻黑 + 钴紫能量"
+	},
+	"license": "MIT",
+	"origin": {
+		"type": "curated",
+		"upstream": "https://github.com/ricocc/brands-design-md.git",
+		"note": "from brands-design-md (Revolut)."
+	},
+	"assets": {
+		"spec": "DESIGN.md",
+		"theme": "theme.css",
+		"demo": "demo.html"
+	},
+	"collectedAt": "2026-08-22"
+}

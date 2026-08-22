@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lamborghini &mdash; Design System</title>
+
+
+
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+
+:root{
+  --nero:#000000;
+  --carbon:#0a0a0a;
+  --forged-carbon:#141414;
+  --graphite:#1a1a1a;
+  --matte-black:#2a2a2a;
+  --dark-chrome:#333333;
+  --bianco:#ffffff;
+  --silver:#c0c0c0;
+  --platinum:#e0e0e0;
+  --grigio:#888888;
+  --muted-gray:#666666;
+  --oro:#ddb321;
+  --bright-gold:#f5d547;
+  --pale-gold:#fff1c1;
+  --rosso-mars:#cc0000;
+  --verde-mantis:#00cc66;
+
+  --r-sharp:0px;--r-subtle:2px;--r-md:4px;--r-lg:8px;
+}
+
+::selection{background:rgba(221,179,33,.3);color:var(--bianco)}
+html{scroll-behavior:smooth}
+
+body{
+  font-family:'Inter',system-ui,-apple-system,sans-serif;
+  background:var(--nero);color:var(--bianco);
+  font-size:16px;line-height:1.5;letter-spacing:.02px;
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
+}
+
+.page{max-width:960px;margin:0 auto;padding:0 32px 120px}
+
+/* ── NAV ── */
+.nav{
+  display:flex;justify-content:space-between;align-items:center;
+  height:64px;padding:0 16px;position:sticky;top:0;z-index:100;
+  background:rgba(0,0,0,.92);backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--matte-black);
+  margin:0 -32px;
+}
+.nav-left{display:flex;align-items:center;gap:12px}
+.nav-wordmark{
+  font-size:18px;font-weight:800;letter-spacing:.12em;
+  color:var(--bianco);text-decoration:none;text-transform:uppercase;
+}
+.nav-tag{
+  font-size:10px;font-weight:600;color:var(--oro);
+  background:rgba(221,179,33,.08);padding:3px 10px;border-radius:var(--r-subtle);
+  border:1px solid rgba(221,179,33,.15);letter-spacing:.06px;text-transform:uppercase;
+}
+.nav-url{font-size:12px;font-weight:500;color:var(--slate);text-decoration:none;padding:4px 10px;border-radius:var(--r-md);transition:color .2s}.nav-url:hover{color:var(--obsidian)}
+.nav-right{display:flex;align-items:center;gap:8px}
+.nav-link{
+  font-size:12px;font-weight:600;color:var(--grigio);text-decoration:none;
+  padding:6px 12px;border-radius:var(--r-subtle);transition:all .2s;
+  letter-spacing:.06px;text-transform:uppercase;
+}
+.nav-link:hover{color:var(--bianco);background:var(--graphite)}
+.nav-link--active{color:var(--bianco)}
+
+/* ── SECTIONS ── */
+.section{
+  padding:80px 0 0;
+  border-top:1px solid var(--matte-black);
+  margin-top:64px;
+}
+.section:first-of-type{border-top:none;margin-top:48px}
+.section-header{margin-bottom:40px}
+.section-label{
+  font-size:10px;font-weight:700;letter-spacing:.12px;
+  text-transform:uppercase;color:var(--oro);margin-bottom:8px;
+}
+.section-title{
+  font-size:32px;font-weight:800;letter-spacing:-.02em;line-height:1.1;
+  color:var(--bianco);text-transform:uppercase;
+}
+.section-desc{
+  font-size:15px;line-height:1.6;color:var(--grigio);
+  margin-top:12px;max-width:560px;
+}
+
+/* ── HERO ── */
+.hero{
+  padding:120px 0 64px;
+  border-bottom:1px solid var(--matte-black);
+  margin:0 -32px;padding-left:32px;padding-right:32px;
+  position:relative;overflow:hidden;
+}
+.hero::before{
+  content:'';position:absolute;
+  width:600px;height:400px;
+  background:radial-gradient(circle at 50% 0%,rgba(221,179,33,.18),transparent 70%);
+  border-radius:50%;filter:blur(80px);
+  left:50%;top:-120px;transform:translateX(-50%);pointer-events:none;
+}
+.hero::after{
+  content:'';position:absolute;
+  width:400px;height:200px;
+  background:radial-gradient(ellipse at 50% 100%,rgba(204,0,0,.08),transparent 60%);
+  left:50%;bottom:0;transform:translateX(-50%);pointer-events:none;
+}
+.hero-label{
+  font-size:10px;font-weight:700;letter-spacing:.16px;
+  text-transform:uppercase;color:var(--oro);margin-bottom:16px;
+}
+.hero-title{
+  font-size:clamp(48px,8vw,80px);font-weight:900;line-height:0.9;
+  letter-spacing:-.04em;color:var(--bianco);text-transform:uppercase;
+}
+.hero-title em{
+  font-style:normal;
+  color:var(--oro);
+}
+.hero-subtitle{
+  font-size:17px;line-height:1.6;color:var(--silver);
+  margin-top:24px;max-width:480px;font-weight:300;
+}
+.hero-tags{display:flex;gap:8px;margin-top:32px;flex-wrap:wrap}
+.hero-tag{
+  font-size:10px;font-weight:600;color:var(--grigio);
+  background:var(--graphite);padding:5px 12px;border-radius:var(--r-subtle);
+  border:1px solid var(--matte-black);letter-spacing:.06px;text-transform:uppercase;
+}
+.hero-actions{display:flex;gap:12px;margin-top:32px}
+
+/* ── BUTTONS ── */
+.btn{
+  display:inline-flex;align-items:center;gap:6px;
+  font-family:inherit;font-size:13px;font-weight:700;line-height:1;
+  letter-spacing:.08px;padding:12px 32px;border-radius:var(--r-subtle);
+  cursor:pointer;text-decoration:none;white-space:nowrap;text-transform:uppercase;
+  transition:opacity .15s,transform .15s,background .15s,border-color .15s;
+}
+.btn:active{transform:scale(.97)}
+.btn-primary{background:var(--oro);color:var(--nero);border:1px solid transparent}
+.btn-primary:hover{background:var(--bright-gold)}
+.btn-secondary{background:transparent;color:var(--bianco);border:1px solid var(--matte-black)}
+.btn-secondary:hover{border-color:var(--grigio);background:var(--graphite)}
+.btn-ghost{background:transparent;color:var(--oro);border:1px solid var(--oro)}
+.btn-ghost:hover{background:rgba(221,179,33,.08)}
+
+/* ── COLOR TOKENS ── */
+.color-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;
+}
+.color-token{
+  background:var(--graphite);border:1px solid var(--matte-black);
+  border-radius:var(--r-md);overflow:hidden;transition:border-color .2s;
+}
+.color-token:hover{border-color:var(--dark-chrome)}
+.color-swatch{width:100%;height:80px}
+.color-info{padding:14px 16px}
+.color-name{font-size:13px;font-weight:600;letter-spacing:.02px;color:var(--bianco)}
+.color-hex{
+  font-size:12px;font-weight:500;color:var(--grigio);margin-top:2px;
+  font-variant-numeric:tabular-nums;letter-spacing:.02px;
+}
+.color-role{font-size:11px;color:var(--muted-gray);margin-top:6px;line-height:1.4}
+
+/* ── GRADIENT TOKENS ── */
+.gradient-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
+.gradient-token{
+  border-radius:var(--r-md);padding:24px;border:1px solid var(--matte-black);
+  min-height:120px;display:flex;flex-direction:column;justify-content:flex-end;
+}
+.gradient-name{font-size:12px;font-weight:600;color:var(--oro);letter-spacing:.04px;text-transform:uppercase;margin-bottom:4px}
+.gradient-desc{font-size:12px;color:var(--muted-gray);line-height:1.4}
+
+/* ── TYPE SCALE ── */
+.type-table{
+  display:flex;flex-direction:column;border:1px solid var(--matte-black);
+  border-radius:var(--r-md);overflow:hidden;
+}
+.type-row{
+  display:grid;grid-template-columns:120px 1fr 220px;align-items:baseline;
+  padding:16px 24px;border-bottom:1px solid var(--matte-black);
+}
+.type-row:last-child{border-bottom:none}
+.type-row:hover{background:rgba(255,255,255,.02)}
+.type-meta{
+  font-size:10px;font-weight:700;color:var(--oro);
+  letter-spacing:.08px;text-transform:uppercase;
+}
+.type-sample{color:var(--bianco);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.type-specs{
+  font-size:11px;color:var(--grigio);text-align:right;
+  font-variant-numeric:tabular-nums;letter-spacing:.02px;
+}
+
+/* ── SPACING ── */
+.spacing-bars{display:flex;align-items:flex-end;gap:20px;height:120px}
+.spacing-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px}
+.spacing-bar{
+  width:100%;border-radius:var(--r-subtle);
+  background:linear-gradient(180deg,var(--oro),var(--bright-gold));
+  opacity:.3;transition:opacity .3s;
+}
+.spacing-col:hover .spacing-bar{opacity:.6}
+.spacing-val{font-size:11px;font-weight:700;color:var(--bianco);letter-spacing:.02px}
+.spacing-name{font-size:10px;font-weight:500;color:var(--grigio);letter-spacing:.02px}
+
+/* ── SHAPES ── */
+.shapes-row{display:flex;flex-wrap:wrap;gap:24px;align-items:flex-end}
+.shape-item{display:flex;flex-direction:column;align-items:center;gap:8px}
+.shape-box{
+  width:72px;height:72px;background:var(--graphite);
+  border:1.5px solid var(--matte-black);transition:all .3s cubic-bezier(.22,1,.36,1);
+}
+.shape-box:hover{border-color:var(--oro);transform:scale(1.06)}
+.shape-label{font-size:11px;font-weight:600;color:var(--grigio);letter-spacing:.04px;white-space:nowrap;text-transform:uppercase}
+.shape-value{
+  font-size:10px;font-weight:400;color:var(--muted-gray);letter-spacing:.02px;
+  font-variant-numeric:tabular-nums;
+}
+
+/* ── SURFACES ── */
+.surface-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px}
+.surface-item{
+  border-radius:var(--r-md);padding:28px 20px;
+  text-align:center;border:1px solid var(--matte-black);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:6px;min-height:110px;transition:transform .3s;
+}
+.surface-item:hover{transform:scale(1.02)}
+.surface-name{font-size:14px;font-weight:700;letter-spacing:.04px;text-transform:uppercase}
+.surface-val{
+  font-size:11px;font-weight:500;color:var(--grigio);
+  font-variant-numeric:tabular-nums;letter-spacing:.02px;
+}
+
+/* ── COMPONENTS ── */
+.component-card{
+  background:var(--graphite);border:1px solid var(--matte-black);
+  border-radius:var(--r-md);padding:32px;margin-bottom:20px;
+  transition:border-color .2s;
+}
+.component-card:hover{border-color:var(--dark-chrome)}
+.component-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px}
+.component-name{font-size:15px;font-weight:700;letter-spacing:.02px;color:var(--bianco)}
+.component-role{font-size:12px;color:var(--grigio);margin-top:4px;letter-spacing:.02px}
+.component-class{
+  font-size:10px;font-weight:600;color:var(--oro);
+  background:rgba(221,179,33,.08);padding:3px 10px;border-radius:var(--r-subtle);
+  border:1px solid rgba(221,179,33,.12);letter-spacing:.04px;
+  font-family:'SFMono-Regular',Consolas,monospace;text-transform:uppercase;
+}
+.component-preview{
+  display:flex;gap:16px;align-items:center;flex-wrap:wrap;
+  padding:24px;background:var(--nero);border-radius:var(--r-md);
+  border:1px solid var(--matte-black);
+}
+.component-desc{
+  font-size:12px;color:var(--muted-gray);line-height:1.5;
+  margin-top:12px;max-width:480px;
+}
+
+/* ── SPEC DISPLAY ── */
+.spec-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:16px}
+.spec-card{
+  background:var(--graphite);border:1px solid var(--matte-black);
+  border-radius:var(--r-md);padding:24px;text-align:center;
+  transition:border-color .3s;
+}
+.spec-card:hover{border-color:var(--oro)}
+.spec-label{
+  font-size:10px;font-weight:700;letter-spacing:.12px;
+  text-transform:uppercase;color:var(--grigio);margin-bottom:8px;
+}
+.spec-value{
+  font-size:32px;font-weight:500;color:var(--oro);
+  font-variant-numeric:tabular-nums;line-height:1;
+}
+.spec-unit{
+  font-size:12px;font-weight:400;color:var(--muted-gray);
+  margin-top:4px;letter-spacing:.02px;
+}
+
+/* ── DO/DON'T ── */
+.guide-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.guide-card{
+  border-radius:var(--r-md);padding:28px;
+  border:1px solid var(--matte-black);
+}
+.guide-card--do{background:rgba(0,204,102,.03);border-color:rgba(0,204,102,.12)}
+.guide-card--dont{background:rgba(204,0,0,.03);border-color:rgba(204,0,0,.10)}
+.guide-label{font-size:10px;font-weight:700;letter-spacing:.08px;text-transform:uppercase;margin-bottom:16px}
+.guide-card--do .guide-label{color:var(--verde-mantis)}
+.guide-card--dont .guide-label{color:var(--rosso-mars)}
+.guide-list{
+  list-style:none;display:flex;flex-direction:column;gap:10px;
+}
+.guide-list li{
+  font-size:13px;line-height:1.5;padding-left:20px;position:relative;
+  color:var(--silver);
+}
+.guide-card--do .guide-list li::before{
+  content: '\2713';position:absolute;left:0;color:var(--verde-mantis);font-weight:700;font-size:12px;
+}
+.guide-card--dont .guide-list li::before{
+  content: '\2715';position:absolute;left:0;color:var(--rosso-mars);font-weight:700;font-size:12px;
+}
+
+/* ── FOOTER ── */
+.footer{
+  margin-top:96px;padding:32px 0;
+  border-top:1px solid var(--matte-black);
+  display:flex;justify-content:space-between;align-items:center;
+}
+.footer-left{font-size:14px;font-weight:600;color:var(--grigio);opacity:.6;text-transform:uppercase;letter-spacing:.06px}
+.footer-right{display:flex;gap:20px}
+.footer-link{
+  font-size:11px;font-weight:600;color:var(--grigio);text-decoration:none;
+  transition:color .2s;letter-spacing:.06px;text-transform:uppercase;
+}
+.footer-link:hover{color:var(--oro)}
+
+/* ── RESPONSIVE ── */
+@media(max-width:768px){
+  .page{padding:0 20px 80px}
+  .hero{margin:0 -20px;padding-left:20px;padding-right:20px;padding-top:80px}
+  .nav{margin:0 -20px}
+  .section-title{font-size:24px}
+  .type-row{grid-template-columns:80px 1fr;gap:8px}
+  .type-specs{display:none}
+  .guide-grid{grid-template-columns:1fr}
+  .color-grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr))}
+  .hero-title{font-size:40px}
+}
+
+/* ── ENTRANCE ANIMATION ── */
+.section,.hero{opacity:1;transition:opacity .6s cubic-bezier(.22,1,.36,1),transform .6s cubic-bezier(.22,1,.36,1)}
+.section.visible,.hero.visible{opacity:1;transform:translateY(0)}
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="nav-left">
+      <a href="#" class="nav-wordmark">Lamborghini</a>
+      <span class="nav-tag">Design System</span>
+      <a href="#" class="nav-url" target="_blank" rel="noopener">https://www.lamborghini.com</a>
+    </div>
+    <div class="nav-right">
+      <a href="#colors" class="nav-link nav-link--active">Colors</a>
+      <a href="#typography" class="nav-link">Type</a>
+      <a href="#spacing" class="nav-link">Spacing</a>
+      <a href="#components" class="nav-link">Components</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-label">Design System</div>
+    <h1 class="hero-title">Beyond<br>Imagination,<br><em>Accelerated.</em></h1>
+    <p class="hero-subtitle">Forged in darkness, crowned in gold. An uncompromising dark canvas with the intensity of Sant'Agata Bolognese.</p>
+    <div class="hero-tags">
+      <span class="hero-tag">20 color tokens</span>
+      <span class="hero-tag">15 type steps</span>
+      <span class="hero-tag">8px grid</span>
+      <span class="hero-tag">5 surface levels</span>
+    </div>
+    <div class="hero-actions">
+      <a href="#" class="btn btn-primary" download>Download Spec</a>
+      <a href="#" class="btn btn-ghost" download>theme.css</a>
+      <a href="#" class="btn btn-secondary" download>tokens.json</a>
+      <a href="#" class="btn btn-secondary" download>variables.css</a>
+    </div>
+  </div>
+
+  <!-- COLORS -->
+  <section class="section" id="colors">
+    <div class="section-header">
+      <div class="section-label">Foundation</div>
+      <h2 class="section-title">Color Tokens</h2>
+      <p class="section-desc">Absolute black canvas with signature gold accent. High-contrast palette inspired by forged carbon fiber, brushed metal, and the Lamborghini crest.</p>
+    </div>
+    <div class="color-grid">
+      <div class="color-token">
+        <div class="color-swatch" style="background:#000000"></div>
+        <div class="color-info"><div class="color-name">Nero</div><div class="color-hex">#000000</div><div class="color-role">Primary page background</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#0a0a0a"></div>
+        <div class="color-info"><div class="color-name">Carbon</div><div class="color-hex">#0a0a0a</div><div class="color-role">Elevated surfaces, modals</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#141414"></div>
+        <div class="color-info"><div class="color-name">Forged Carbon</div><div class="color-hex">#141414</div><div class="color-role">Secondary sections</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#1a1a1a"></div>
+        <div class="color-info"><div class="color-name">Graphite</div><div class="color-hex">#1a1a1a</div><div class="color-role">Card backgrounds</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#2a2a2a"></div>
+        <div class="color-info"><div class="color-name">Matte Black</div><div class="color-hex">#2a2a2a</div><div class="color-role">Borders, dividers</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#333333"></div>
+        <div class="color-info"><div class="color-name">Dark Chrome</div><div class="color-hex">#333333</div><div class="color-role">Inactive states</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#ffffff"></div>
+        <div class="color-info"><div class="color-name">Bianco</div><div class="color-hex">#ffffff</div><div class="color-role">Primary text, icons</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#c0c0c0"></div>
+        <div class="color-info"><div class="color-name">Silver</div><div class="color-hex">#c0c0c0</div><div class="color-role">Secondary text</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#e0e0e0"></div>
+        <div class="color-info"><div class="color-name">Platinum</div><div class="color-hex">#e0e0e0</div><div class="color-role">High-contrast labels</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#888888"></div>
+        <div class="color-info"><div class="color-name">Grigio</div><div class="color-hex">#888888</div><div class="color-role">Placeholders, labels</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#666666"></div>
+        <div class="color-info"><div class="color-name">Muted Gray</div><div class="color-hex">#666666</div><div class="color-role">Helper text, captions</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#ddb321"></div>
+        <div class="color-info"><div class="color-name">Oro</div><div class="color-hex">#ddb321</div><div class="color-role">Primary accent, CTAs</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#f5d547"></div>
+        <div class="color-info"><div class="color-name">Bright Gold</div><div class="color-hex">#f5d547</div><div class="color-role">Highlights, hover states</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#fff1c1"></div>
+        <div class="color-info"><div class="color-name">Pale Gold</div><div class="color-hex">#fff1c1</div><div class="color-role">Soft gold tints</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#cc0000"></div>
+        <div class="color-info"><div class="color-name">Rosso Mars</div><div class="color-hex">#cc0000</div><div class="color-role">Destructive, urgent</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#00cc66"></div>
+        <div class="color-info"><div class="color-name">Verde Mantis</div><div class="color-hex">#00cc66</div><div class="color-role">Success states</div></div>
+      </div>
+    </div>
+
+    <h3 style="font-size:16px;font-weight:700;color:var(--bianco);margin:40px 0 20px;letter-spacing:.04px;text-transform:uppercase">Gradients</h3>
+    <div class="gradient-grid">
+      <div class="gradient-token" style="background:radial-gradient(circle at 50% 0%,rgba(221,179,33,.18),transparent 70%),var(--graphite)">
+        <div class="gradient-name">Gold Glow</div>
+        <div class="gradient-desc">Gold light emanating from top &mdash; hero highlights</div>
+      </div>
+      <div class="gradient-token" style="background:repeating-linear-gradient(45deg,rgba(255,255,255,.02) 0px,rgba(255,255,255,.02) 1px,transparent 1px,transparent 4px),var(--graphite)">
+        <div class="gradient-name">Carbon Weave</div>
+        <div class="gradient-desc">Carbon fiber texture pattern for surfaces</div>
+      </div>
+      <div class="gradient-token" style="background:linear-gradient(180deg,#0a0a0a 0%,#000000 100%)">
+        <div class="gradient-name">Dark Gradient</div>
+        <div class="gradient-desc">Vertical depth gradient for hero sections</div>
+      </div>
+      <div class="gradient-token" style="background:radial-gradient(ellipse at 50% 100%,rgba(204,0,0,.12),transparent 60%),var(--graphite)">
+        <div class="gradient-name">Ember Glow</div>
+        <div class="gradient-desc">Subtle red heat glow at bottom of hero areas</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TYPOGRAPHY -->
+  <section class="section" id="typography">
+    <div class="section-header">
+      <div class="section-label">Typography</div>
+      <h2 class="section-title">Type Scale</h2>
+      <p class="section-desc">Lamborghini Display for hero headlines (Inter substitute). Suisse Intl for body and UI. Uppercase display with aggressive negative tracking.</p>
+    </div>
+    <div class="type-table">
+      <div class="type-row">
+        <span class="type-meta">Display-XL</span>
+        <span class="type-sample" style="font-size:36px;font-weight:900;line-height:0.9;letter-spacing:-.04em;text-transform:uppercase">Beyond Limits</span>
+        <span class="type-specs">80px / 0.9 / -0.04em</span>
+      </div>
+      <div class="type-row">
+        <span class="type-meta">Display</span>
+        <span class="type-sample" style="font-size:32px;font-weight:900;line-height:0.95;letter-spacing:-.04em;text-transform:uppercase">Revuelto</span>
+        <span class="type-specs">64px / 0.95 / -0.04em</span>
+      </div>
+      <div class="type-row">
+        <span class="type-meta">Heading-XL</span>
+        <span class="type-sample" style="font-size:24px;font-weight:800;line-height:1.0;letter-spacing:-.03em;text-transform:uppercase">Acceleration</span>
+        <span class="type-specs">48px / 1.0 / -0.03em</span>
+      </div>
+      <div class="type-row">
+        <span class="type-meta">Heading-LG</span>
+        <span class="type-sample" style="font-size:20px;font-weight:800;line-height:1.05;letter-spacing:-.02em;text-transform:uppercase">Performance</span>
+        <span class="type-specs">40px / 1.05 / -0.02em</span>
+      </div>
+      <div class="type-row">
+        <span class="type-meta">Heading</span>
+        <span class="type-sample" style="font-size:18px;font-weight:700;line-height:1.2;letter-spacing:.08px;text-transform:uppercase">Technical Specs</span>
+        <span class="type-specs">24px / 1.2 / 0.08px</span>
+      </div>
+      <div class="type-row">
+        <span class="type-meta">Subheading</span>
+        <span class="type-sample" style="font-size:16px;font-weight:500;line-height:1.4;letter-spacing:.04px">Engine configuration details</span>
+        <span class="type-specs">18px / 1.4 / 0.04px</span>
+      </div>
+      <div class="type-row">
+        <span class="type-meta">Body</span>
+        <span class="type-sample" style="font-size:16px;font-weight:400;line-height:1.5;letter-spacing:.02px">Default body text for readable content</span>
+        <span class="type-specs">16px / 1.5 / 0.02px</span>
+      </div>
+      <div class="type-row">
+        <span class="type-meta">Body-sm</span>
+        <span class="type-sample" style="font-size:14px;font-weight:400;line-height:1.5;letter-spacing:.02px">Dense data, comparison rows</span>
+        <span class="type-specs">14px / 1.5 / 0.02px</span>
+      </div>
+      <div class="type-row">
+        <span class="type-meta">Caption</span>
+        <span class="type-sample" style="font-size:12px;font-weight:600;line-height:1.5;letter-spacing:.08px;text-transform:uppercase">Meta info · Labels · Specs</span>
+        <span class="type-specs">12px / 1.5 / 0.08px</span>
+      </div>
+    </div>
+
+    <h3 style="font-size:14px;font-weight:700;color:var(--bianco);margin:40px 0 20px;letter-spacing:.04px;text-transform:uppercase">Fonts</h3>
+    <div style="display:flex;flex-direction:column;border:1px solid var(--matte-black);border-radius:var(--r-md);overflow:hidden">
+      <div style="padding:20px 24px;border-bottom:1px solid var(--matte-black);display:flex;align-items:baseline;gap:16px">
+        <span style="font-size:10px;font-weight:700;color:var(--oro);letter-spacing:.08px;text-transform:uppercase;flex:0 0 60px">Display</span>
+        <span style="font-size:16px;font-weight:800;color:var(--bianco);letter-spacing:.04px;text-transform:uppercase">Lamborghini Display</span>
+        <span style="font-size:11px;color:var(--grigio);letter-spacing:.02px">700-800 · 32-40px · Uppercase only</span>
+      </div>
+      <div style="padding:20px 24px;border-bottom:1px solid var(--matte-black);display:flex;align-items:baseline;gap:16px">
+        <span style="font-size:10px;font-weight:700;color:var(--oro);letter-spacing:.08px;text-transform:uppercase;flex:0 0 60px">Body</span>
+        <span style="font-size:16px;font-weight:500;color:var(--bianco);letter-spacing:.02px">Suisse Intl</span>
+        <span style="font-size:11px;color:var(--grigio);letter-spacing:.02px">300-100 · 12-24px · Mixed case</span>
+      </div>
+      <div style="padding:20px 24px;border-bottom:1px solid var(--matte-black);display:flex;align-items:baseline;gap:16px">
+        <span style="font-size:10px;font-weight:700;color:var(--oro);letter-spacing:.08px;text-transform:uppercase;flex:0 0 60px">Mono</span>
+        <span style="font-size:16px;font-weight:500;color:var(--bianco);letter-spacing:.02px">Suisse Intl Mono</span>
+        <span style="font-size:11px;color:var(--grigio);letter-spacing:.02px">400-700 · Specs & data only</span>
+      </div>
+      <div style="padding:20px 24px;display:flex;align-items:baseline;gap:16px">
+        <span style="font-size:10px;font-weight:700;color:var(--oro);letter-spacing:.08px;text-transform:uppercase;flex:0 0 60px">Fallback</span>
+        <span style="font-size:16px;font-weight:500;color:var(--bianco);letter-spacing:.02px">Inter</span>
+        <span style="font-size:11px;color:var(--grigio);letter-spacing:.02px">Substitute for all above</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- SPACING & SHAPES -->
+  <section class="section" id="spacing">
+    <div class="section-header">
+      <div class="section-label">Layout</div>
+      <h2 class="section-title">Spacing & Shapes</h2>
+      <p class="section-desc">Base unit 8px. Aggressive density for data, spacious for heroes. Sharp edges &mdash; no pills, no soft corners.</p>
+    </div>
+
+    <h3 style="font-size:14px;font-weight:700;color:var(--bianco);margin-bottom:20px;letter-spacing:.04px;text-transform:uppercase">Spacing Scale (8px base)</h3>
+    <div class="spacing-bars">
+      <div class="spacing-col"><div class="spacing-bar" style="height:4px"></div><span class="spacing-val">4</span><span class="spacing-name">4px</span></div>
+      <div class="spacing-col"><div class="spacing-bar" style="height:8px"></div><span class="spacing-val">8</span><span class="spacing-name">8px</span></div>
+      <div class="spacing-col"><div class="spacing-bar" style="height:14px"></div><span class="spacing-val">16</span><span class="spacing-name">16px</span></div>
+      <div class="spacing-col"><div class="spacing-bar" style="height:24px"></div><span class="spacing-val">24</span><span class="spacing-name">24px</span></div>
+      <div class="spacing-col"><div class="spacing-bar" style="height:36px"></div><span class="spacing-val">32</span><span class="spacing-name">32px</span></div>
+      <div class="spacing-col"><div class="spacing-bar" style="height:48px"></div><span class="spacing-val">48</span><span class="spacing-name">48px</span></div>
+      <div class="spacing-col"><div class="spacing-bar" style="height:70px"></div><span class="spacing-val">80</span><span class="spacing-name">80px</span></div>
+      <div class="spacing-col"><div class="spacing-bar" style="height:96px"></div><span class="spacing-val">120</span><span class="spacing-name">120px</span></div>
+    </div>
+
+    <h3 style="font-size:14px;font-weight:700;color:var(--bianco);margin:40px 0 20px;letter-spacing:.04px;text-transform:uppercase">Border Radius</h3>
+    <div class="shapes-row">
+      <div class="shape-item">
+        <div class="shape-box" style="border-radius:0px"></div>
+        <span class="shape-label">Sharp</span>
+        <span class="shape-value">0px</span>
+      </div>
+      <div class="shape-item">
+        <div class="shape-box" style="border-radius:2px"></div>
+        <span class="shape-label">Subtle</span>
+        <span class="shape-value">2px</span>
+      </div>
+      <div class="shape-item">
+        <div class="shape-box" style="border-radius:4px"></div>
+        <span class="shape-label">Default</span>
+        <span class="shape-value">4px</span>
+      </div>
+      <div class="shape-item">
+        <div class="shape-box" style="border-radius:8px"></div>
+        <span class="shape-label">Large</span>
+        <span class="shape-value">8px</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- SURFACES -->
+  <section class="section" id="depth">
+    <div class="section-header">
+      <div class="section-label">Elevation</div>
+      <h2 class="section-title">Surfaces</h2>
+      <p class="section-desc">5 distinct surface levels from absolute black to border gray. Elevation through color, not shadow.</p>
+    </div>
+
+    <div class="surface-grid">
+      <div class="surface-item" style="background:#000000;border-color:#1a1a1a">
+        <span class="surface-name" style="color:#ffffff">Nero</span>
+        <span class="surface-val">#000000</span>
+      </div>
+      <div class="surface-item" style="background:#0a0a0a">
+        <span class="surface-name">Carbon</span>
+        <span class="surface-val">#0a0a0a</span>
+      </div>
+      <div class="surface-item" style="background:#141414">
+        <span class="surface-name">Forged Carbon</span>
+        <span class="surface-val">#141414</span>
+      </div>
+      <div class="surface-item" style="background:#1a1a1a">
+        <span class="surface-name">Graphite</span>
+        <span class="surface-val">#1a1a1a</span>
+      </div>
+      <div class="surface-item" style="background:#2a2a2a">
+        <span class="surface-name">Matte Black</span>
+        <span class="surface-val">#2a2a2a</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- SPECS -->
+  <section class="section" id="specs">
+    <div class="section-header">
+      <div class="section-label">Data Display</div>
+      <h2 class="section-title">Spec Cards</h2>
+      <p class="section-desc">Performance data in Oro gold monospace. Uppercase Grigio labels. The heartbeat of every Lamborghini page.</p>
+    </div>
+    <div class="spec-grid">
+      <div class="spec-card">
+        <div class="spec-label">Power</div>
+        <div class="spec-value">770</div>
+        <div class="spec-unit">CV</div>
+      </div>
+      <div class="spec-card">
+        <div class="spec-label">Torque</div>
+        <div class="spec-value">720</div>
+        <div class="spec-unit">Nm</div>
+      </div>
+      <div class="spec-card">
+        <div class="spec-label">0-100 km/h</div>
+        <div class="spec-value">2.8</div>
+        <div class="spec-unit">seconds</div>
+      </div>
+      <div class="spec-card">
+        <div class="spec-label">Top Speed</div>
+        <div class="spec-value">350</div>
+        <div class="spec-unit">km/h</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPONENTS -->
+  <section class="section" id="components">
+    <div class="section-header">
+      <div class="section-label">Components</div>
+      <h2 class="section-title">Button Variants</h2>
+      <p class="section-desc">Gold primary for maximum impact, outlined gold for secondary actions, ghost for navigation. Sharp edges, uppercase, bold.</p>
+    </div>
+
+    <div class="component-card">
+      <div class="component-header">
+        <div><div class="component-name">Gold Primary Button</div><div class="component-role">Main call to action &mdash; maximum visual impact</div></div>
+        <span class="component-class">.btn-primary</span>
+      </div>
+      <div class="component-preview">
+        <button class="btn btn-primary">Configure Yours</button>
+        <button class="btn btn-primary" style="background:var(--bright-gold)">Hover State</button>
+      </div>
+      <div class="component-desc">Oro (#ddb321) background, Nero (#000000) text, 2px radius, uppercase, font-weight 700, letter-spacing 0.08em. The single most important action on any page.</div>
+    </div>
+
+    <div class="component-card">
+      <div class="component-header">
+        <div><div class="component-name">Outlined Gold Button</div><div class="component-role">Secondary interactive actions</div></div>
+        <span class="component-class">.btn-ghost</span>
+      </div>
+      <div class="component-preview">
+        <button class="btn btn-ghost">Book Experience</button>
+        <button class="btn btn-ghost" style="background:rgba(221,179,33,.08)">Hover State</button>
+      </div>
+      <div class="component-desc">Oro text, Oro 1px border, transparent background. Clear interactive target that defers to the primary gold button.</div>
+    </div>
+
+    <div class="component-card">
+      <div class="component-header">
+        <div><div class="component-name">Secondary Button</div><div class="component-role">Tertiary actions, navigation</div></div>
+        <span class="component-class">.btn-secondary</span>
+      </div>
+      <div class="component-preview">
+        <button class="btn btn-secondary">View Gallery</button>
+        <button class="btn btn-secondary" style="border-color:var(--grigio);background:var(--graphite)">Hover State</button>
+      </div>
+      <div class="component-desc">Bianco text, Matte Black border. For less prominent actions that still need visual presence.</div>
+    </div>
+
+    <div class="component-card">
+      <div class="component-header">
+        <div><div class="component-name">Ghost Header Button</div><div class="component-role">Navigation, secondary actions</div></div>
+        <span class="component-class">.btn-ghost-nav</span>
+      </div>
+      <div class="component-preview">
+        <a href="#" style="color:var(--bianco);text-decoration:none;font-size:12px;font-weight:600;padding:8px;letter-spacing:.06px;text-transform:uppercase">Models</a>
+        <a href="#" style="color:var(--bianco);text-decoration:none;font-size:12px;font-weight:600;padding:8px;letter-spacing:.06px;text-transform:uppercase">Ownership</a>
+        <a href="#" style="color:var(--bianco);text-decoration:none;font-size:12px;font-weight:600;padding:8px;letter-spacing:.06px;text-transform:uppercase">Motorsport</a>
+      </div>
+      <div class="component-desc">Bianco text, transparent background, 8px padding, no border. Used for top navigation items.</div>
+    </div>
+
+    <div class="component-card">
+      <div class="component-header">
+        <div><div class="component-name">Input Field</div><div class="component-role">User text input</div></div>
+        <span class="component-class">input</span>
+      </div>
+      <div class="component-preview">
+        <div style="display:flex;flex-direction:column;gap:12px;flex:1;max-width:360px">
+          <input type="text" placeholder="YOUR EMAIL ADDRESS" style="background:transparent;border:1px solid var(--matte-black);border-radius:4px;padding:14px 16px;color:var(--bianco);font-size:13px;font-family:inherit;outline:none;letter-spacing:.04px;text-transform:uppercase">
+          <input type="text" value="FOCUSED STATE" style="background:transparent;border:1px solid var(--oro);border-radius:4px;padding:14px 16px;color:var(--bianco);font-size:13px;font-family:inherit;outline:none;letter-spacing:.04px;text-transform:uppercase">
+        </div>
+      </div>
+      <div class="component-desc">Transparent background, Bianco text, 4px radius. Focus state uses Oro border. Placeholder in Grigio, uppercase.</div>
+    </div>
+  </section>
+
+  <!-- DO'S & DON'TS -->
+  <section class="section" id="guidelines">
+    <div class="section-header">
+      <div class="section-label">Guidelines</div>
+      <h2 class="section-title">Do's & Don'ts</h2>
+    </div>
+    <div class="guide-grid">
+      <div class="guide-card guide-card--do">
+        <div class="guide-label">Do &mdash; Embrace</div>
+        <ul class="guide-list">
+          <li>Nero (#000000) as primary background &mdash; absolute black</li>
+          <li>Oro (#ddb321) exclusively for primary accents and CTAs</li>
+          <li>Uppercase display headings with tight negative tracking</li>
+          <li>8px-based spacing with aggressive, tight density</li>
+          <li>Sharp border radii (0px) &mdash; no pills, no soft edges</li>
+          <li>Carbon weave texture on elevated surfaces</li>
+          <li>Rosso Mars (#cc0000) only for destructive actions</li>
+          <li>Gold–black contrast as the defining visual tension</li>
+        </ul>
+      </div>
+      <div class="guide-card guide-card--dont">
+        <div class="guide-label">Don't &mdash; Avoid</div>
+        <ul class="guide-list">
+          <li>Light backgrounds &mdash; the system is dark-only</li>
+          <li>Rounded corners above 4px &mdash; they contradict the brand</li>
+          <li>Pastel or soft colors &mdash; the palette is high-contrast</li>
+          <li>Oro text on light backgrounds &mdash; must sit on dark</li>
+          <li>Decorative drop shadows &mdash; use surface color instead</li>
+          <li>Lowercase display headings &mdash; always uppercase</li>
+          <li>Multiple accent colors &mdash; gold is singular and dominant</li>
+          <li>Cramped hero sections &mdash; let the content breathe</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-left">Lamborghini Design System</div>
+    <div class="footer-right">
+      <a href="#colors" class="footer-link">Colors</a>
+      <a href="#typography" class="footer-link">Typography</a>
+      <a href="#spacing" class="footer-link">Spacing</a>
+      <a href="#components" class="footer-link">Components</a>
+      <a href="#" class="footer-link" download>Download Spec</a>
+    </div>
+  </footer>
+
+</div>
+
+
+
+</body>
+</html>

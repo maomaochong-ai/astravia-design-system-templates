@@ -1,0 +1,31 @@
+{
+	"schemaVersion": 1,
+	"kind": "design-system",
+	"slug": "medium",
+	"name": "Medium",
+	"version": "1.1.0",
+	"order": 200,
+	"category": "editorial",
+	"vibe": "light",
+	"tags": [
+		"editorial",
+		"light"
+	],
+	"blurb": "Editorial white magazine; serif prose, green follow, yellow highlight, dividers not boxes.",
+	"tagline": {
+		"en": "Magazine white, serif prose",
+		"zh": "杂志白，衬线正文黄高亮"
+	},
+	"license": "MIT",
+	"origin": {
+		"type": "curated",
+		"upstream": "https://github.com/VoltAgent/awesome-design-md",
+		"note": "Vetta-adapted from awesome-design-md (MIT)."
+	},
+	"assets": {
+		"spec": "DESIGN.md",
+		"theme": "theme.css",
+		"demo": "demo.html"
+	},
+	"collectedAt": "2026-08-11"
+}

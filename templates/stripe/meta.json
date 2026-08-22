@@ -1,0 +1,33 @@
+{
+	"schemaVersion": 1,
+	"kind": "design-system",
+	"slug": "stripe",
+	"name": "Stripe",
+	"version": "1.0.0",
+	"order": 30,
+	"category": "fintech",
+	"vibe": "light",
+	"tags": [
+		"light-ui",
+		"editorial",
+		"gradient",
+		"design-system"
+	],
+	"blurb": "An inspired interpretation of Stripi's design language — a financial-infrastructure brand built on a deep navy ink, an electric indigo primary, and a recurring atmospheric gradi…",
+	"tagline": {
+		"en": "Deep navy financial infrastructure",
+		"zh": "深海军蓝金融基础设施"
+	},
+	"license": "MIT",
+	"origin": {
+		"type": "curated",
+		"upstream": "https://github.com/ricocc/brands-design-md.git",
+		"note": "from brands-design-md (Stripi-Inspired); unofficial inspired variant."
+	},
+	"assets": {
+		"spec": "DESIGN.md",
+		"theme": "theme.css",
+		"demo": "demo.html"
+	},
+	"collectedAt": "2026-08-22"
+}

@@ -1,0 +1,34 @@
+{
+	"schemaVersion": 1,
+	"kind": "design-system",
+	"slug": "nvidia",
+	"name": "NVIDIA",
+	"version": "1.0.0",
+	"order": 500,
+	"category": "media",
+	"vibe": "light",
+	"tags": [
+		"light-ui",
+		"editorial",
+		"gradient",
+		"developer-focused",
+		"design-system"
+	],
+	"blurb": "An engineering-grade marketing system organized around two surface modes — a deep black canvas for hero and footer chapters and a flat paper-white canvas for body content — conn…",
+	"tagline": {
+		"en": "Engineering-grade black with NVIDIA green",
+		"zh": "工程级黑 + NVIDIA 绿"
+	},
+	"license": "MIT",
+	"origin": {
+		"type": "curated",
+		"upstream": "https://github.com/ricocc/brands-design-md.git",
+		"note": "from brands-design-md (NVIDIA)."
+	},
+	"assets": {
+		"spec": "DESIGN.md",
+		"theme": "theme.css",
+		"demo": "demo.html"
+	},
+	"collectedAt": "2026-08-22"
+}

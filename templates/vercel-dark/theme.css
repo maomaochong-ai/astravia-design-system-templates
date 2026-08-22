@@ -1,0 +1,51 @@
+/* templates — dark design system, converted from brands-design-md. */
+@theme {
+	--color-primary: #000000;
+	--color-primary-foreground: #ffffff;
+	--color-surface: #000000;
+	--color-surface-foreground: #ffffff;
+	--color-surface-raised: #111111;
+	--color-muted: #9a9a9a;
+	--color-accent: #0070f3;
+	--color-danger: #ee0000;
+	--color-border: #1a1a1a;
+
+/* 品牌 token（来自 brands-design-md） */
+--color-canvas: #000000;
+  --color-ink: #ffffff;
+  --color-ink-muted: #a1a1a1;
+  --color-ink-subtle: #666666;
+  --color-accent-hover: #3291ff;
+
+  --font-sans: Geist, Inter, system-ui, sans-serif;
+  --font-mono: Geist Mono, ui-monospace, monospace;
+  --text-display: 48px;
+  --leading-display: 48px;
+  --tracking-display: -2.4px;
+  --text-heading: 32px;
+  --leading-heading: 40px;
+  --tracking-heading: -1.28px;
+  --text-title: 24px;
+  --leading-title: 32px;
+  --tracking-title: -0.96px;
+  --text-body: 16px;
+  --leading-body: 24px;
+  --text-label: 14px;
+  --leading-label: 20px;
+  --text-caption-mono: 12px;
+  --leading-caption-mono: 16px;
+
+  --spacing-1: 4px;
+  --spacing-2: 8px;
+  --spacing-3: 12px;
+  --spacing-4: 16px;
+  --spacing-6: 24px;
+  --spacing-8: 32px;
+  --spacing-10: 40px;
+  --spacing-16: 64px;
+
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-full: 9999px;
+}

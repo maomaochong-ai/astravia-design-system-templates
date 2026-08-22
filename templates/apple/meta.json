@@ -1,0 +1,32 @@
+{
+	"schemaVersion": 1,
+	"kind": "design-system",
+	"slug": "apple",
+	"name": "Apple",
+	"version": "1.0.0",
+	"order": 90,
+	"category": "media",
+	"vibe": "light",
+	"tags": [
+		"light-ui",
+		"gradient",
+		"design-system"
+	],
+	"blurb": "A photography-first interface that turns marketing into a museum gallery.",
+	"tagline": {
+		"en": "Photography-first museum gallery, one Action Blue accent",
+		"zh": "摄影优先的展厅，单一 Action Blue 强调色"
+	},
+	"license": "MIT",
+	"origin": {
+		"type": "curated",
+		"upstream": "https://github.com/ricocc/brands-design-md.git",
+		"note": "from brands-design-md (Apple)."
+	},
+	"assets": {
+		"spec": "DESIGN.md",
+		"theme": "theme.css",
+		"demo": "demo.html"
+	},
+	"collectedAt": "2026-08-22"
+}

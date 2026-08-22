@@ -1,0 +1,34 @@
+{
+	"schemaVersion": 1,
+	"kind": "design-system",
+	"slug": "hashicorp",
+	"name": "HashiCorp",
+	"version": "1.0.0",
+	"order": 390,
+	"category": "dev",
+	"vibe": "dark",
+	"tags": [
+		"dark-ui",
+		"gradient",
+		"enterprise",
+		"developer-focused",
+		"design-system"
+	],
+	"blurb": "An enterprise-infrastructure marketing canvas built around a near-black ground (#000000) and a system of per-product accent colors — Terraform purple, Vault yellow, Consul pink,…",
+	"tagline": {
+		"en": "Enterprise infra on near-black with precise blues",
+		"zh": "近黑底上的企业基础设施，精确蓝"
+	},
+	"license": "MIT",
+	"origin": {
+		"type": "curated",
+		"upstream": "https://github.com/ricocc/brands-design-md.git",
+		"note": "from brands-design-md (HashiCorp)."
+	},
+	"assets": {
+		"spec": "DESIGN.md",
+		"theme": "theme.css",
+		"demo": "demo.html"
+	},
+	"collectedAt": "2026-08-22"
+}

@@ -1,0 +1,34 @@
+{
+	"schemaVersion": 1,
+	"kind": "design-system",
+	"slug": "playstation",
+	"name": "PlayStation",
+	"version": "1.0.0",
+	"order": 540,
+	"category": "playful",
+	"vibe": "light",
+	"tags": [
+		"light-ui",
+		"editorial",
+		"gradient",
+		"luxury",
+		"design-system"
+	],
+	"blurb": "A three-surface marketing system organized around alternating black, white, and PlayStation Blue chapters that scroll past the viewer like a console launch trailer.",
+	"tagline": {
+		"en": "Three-surface chapters of black, white and PlayStation Blue",
+		"zh": "黑、白、PlayStation 蓝三幕章节"
+	},
+	"license": "MIT",
+	"origin": {
+		"type": "curated",
+		"upstream": "https://github.com/ricocc/brands-design-md.git",
+		"note": "from brands-design-md (PlayStation)."
+	},
+	"assets": {
+		"spec": "DESIGN.md",
+		"theme": "theme.css",
+		"demo": "demo.html"
+	},
+	"collectedAt": "2026-08-22"
+}

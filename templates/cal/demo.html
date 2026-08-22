@@ -1,0 +1,1349 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Cal.com light design-system reference: Monochrome Utility, Human Touch."
+    />
+    <title>Cal.com — Design System</title>
+    
+    
+    
+    <style>
+      :root {
+        --ink: #202020;
+        --blue: #0099ff;
+        --white: #fff;
+        --paper: #f7f7f7;
+        --graphite: #242424;
+        --slate: #6b7280;
+        --stone: #898989;
+        --silver: #e5e7eb;
+        --info: #eff6fe;
+        --gb: #4285f4;
+        --gy: #fbbc04;
+        --gg: #34a853;
+        --gr: #ea4335;
+        --display: "Cal Sans", "DM Sans", sans-serif;
+        --ui: "Cal Sans UI Variable Light", "DM Sans", sans-serif;
+        --product: "DM Sans", sans-serif;
+        --page: 1120px;
+        --sm:
+          rgba(36, 36, 36, 0.7) 0 1px 5px -4px, rgba(36, 36, 36, 0.05) 0 4px 8px;
+        --subtle: rgba(255, 255, 255, 0.15) 0 2px 0 0 inset;
+        --sm2:
+          rgba(19, 19, 22, 0.7) 0 1px 5px -4px, rgba(34, 42, 53, 0.1) 0 0 0 1px,
+          rgba(34, 42, 53, 0.05) 0 4px 8px;
+        --sm3:
+          rgba(19, 19, 22, 0.7) 0 1px 5px -4px,
+          rgba(34, 42, 53, 0.08) 0 0 0 1px, rgba(34, 42, 53, 0.05) 0 4px 8px;
+        --sm4: rgba(34, 42, 53, 0.05) 0 4px 8px;
+        --subtle2: #fff 0 2px 0 0 inset;
+        --subtle3: rgba(0, 0, 0, 0.1) 0 1px 3px, rgba(0, 0, 0, 0.06) 0 0 2px;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        margin: 0;
+        background: var(--paper);
+        color: var(--ink);
+        font: 300 16px/1.5 var(--ui);
+        letter-spacing: -0.19px;
+      }
+      button,
+      a {
+        font: inherit;
+      }
+      button {
+        cursor: pointer;
+      }
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+      a:focus-visible,
+      button:focus-visible,
+      input:focus-visible {
+        outline: 2px solid var(--ink);
+        outline-offset: 3px;
+      }
+      .shell {
+        width: min(calc(100% - 40px), var(--page));
+        margin: auto;
+      }
+      .site-header {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        background: rgba(247, 247, 247, 0.94);
+        border-bottom: 1px solid rgba(229, 231, 235, 0.8);
+        backdrop-filter: blur(12px);
+      }
+      .nav {
+        min-height: 68px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+      }
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 0;
+        font: 700 20px/1 var(--display);
+        letter-spacing: -1.1px;
+      }
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        color: var(--graphite);
+        font: 500 12px/1.2 var(--ui);
+        letter-spacing: -0.15px;
+      }
+      .nav-links a:hover {
+        color: var(--ink);
+      }
+      .site-link {
+        border: 1px solid var(--ink);
+        border-radius: 8px;
+        padding: 9px 13px;
+        background: var(--ink);
+        color: var(--white);
+        font-weight: 600;
+      }
+      .menu {
+        display: none;
+        width: 38px;
+        height: 34px;
+        padding: 8px;
+        border: 1px solid var(--silver);
+        border-radius: 8px;
+        background: var(--white);
+      }
+      .menu i {
+        display: block;
+        height: 1px;
+        margin: 4px 0;
+        background: var(--ink);
+      }
+      .hero {
+        display: grid;
+        grid-template-columns: minmax(0, 1.03fr) minmax(375px, 0.97fr);
+        align-items: center;
+        gap: clamp(32px, 5vw, 68px);
+        margin-top: 2px;
+        padding: clamp(60px, 8vw, 88px) clamp(24px, 4.2vw, 48px);
+        border: 1px solid var(--silver);
+        border-radius: 10px;
+        background: var(--white);
+        box-shadow: var(--sm4);
+      }
+      .hero h1 {
+        max-width: 540px;
+        margin: 14px 0 0;
+        font: 700 clamp(44px, 5.2vw, 58px)/1.03 var(--display);
+        letter-spacing: -2.6px;
+      }
+      .hero p {
+        max-width: 540px;
+        margin: 18px 0 22px;
+        color: var(--slate);
+        font: 400 14px/1.45 var(--ui);
+        letter-spacing: -0.35px;
+      }
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        max-width: 320px;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 7px;
+      }
+      .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 32px;
+        padding: 9px 14px;
+        border-radius: 7px;
+        border: 1px solid transparent;
+        font: 500 11px/1 var(--product);
+        letter-spacing: -0.1px;
+        transition: background-color 160ms ease, transform 160ms ease;
+      }
+      .button.primary {
+        background: var(--ink);
+        color: var(--white);
+      }
+      .button.primary:hover {
+        background: var(--graphite);
+        transform: translateY(-1px);
+      }
+      .button.ghost {
+        border-color: var(--silver);
+        background: #f3f3f3;
+        color: var(--graphite);
+      }
+      .button.ghost:hover {
+        background: var(--white);
+      }
+      .widget {
+        width: min(100%, 430px);
+        justify-self: end;
+        background: var(--white);
+        border: 1px solid var(--silver);
+        border-radius: 8px;
+        padding: 18px;
+        box-shadow: var(--sm4);
+        font-family: var(--product);
+        animation: widget-enter 650ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+      }
+      .widget-top {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding-bottom: 13px;
+        border-bottom: 1px solid var(--silver);
+      }
+      .avatar {
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        background: var(--ink);
+        color: var(--white);
+        display: grid;
+        place-items: center;
+        font-size: 9px;
+        font-weight: 600;
+      }
+      .widget h2 {
+        margin: 0;
+        font: 600 12px/1.2 var(--product);
+        letter-spacing: -0.1px;
+      }
+      .widget small {
+        display: block;
+        margin-top: 3px;
+        color: var(--slate);
+        font-size: 10px;
+      }
+      .widget-title {
+        margin: 15px 0 5px;
+        font-size: 17px;
+        font-weight: 600;
+        letter-spacing: -0.2px;
+      }
+      .widget-description {
+        margin: 0 0 14px;
+        color: var(--slate);
+        font-size: 12px;
+        line-height: 1.45;
+      }
+      .calendar-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin: 12px 0 8px;
+        font-size: 12px;
+        font-weight: 600;
+      }
+      .cal-arrows {
+        display: flex;
+        gap: 4px;
+      }
+      .cal-arrows button {
+        width: 24px;
+        height: 24px;
+        border: 1px solid var(--silver);
+        border-radius: 4px;
+        background: var(--white);
+        font-size: 12px;
+      }
+      .dates {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 4px;
+        text-align: center;
+      }
+      .dates span {
+        display: grid;
+        place-items: center;
+        min-height: 29px;
+        border-radius: 4px;
+        font-size: 10px;
+      }
+      .dates .muted {
+        color: var(--stone);
+      }
+      .dates .active {
+        background: var(--ink);
+        color: var(--white);
+        font-weight: 600;
+      }
+      .date-week {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        margin-bottom: 5px;
+        color: var(--stone);
+        font: 600 8px/1 var(--product);
+        text-align: center;
+      }
+      .times {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 6px;
+        margin-top: 14px;
+      }
+      .time {
+        min-height: 32px;
+        border: 1px solid var(--silver);
+        border-radius: 8px;
+        background: var(--white);
+        font: 400 11px/1 var(--product);
+        color: var(--graphite);
+      }
+      .time[aria-pressed="true"] {
+        background: var(--ink);
+        color: var(--white);
+        border-color: var(--ink);
+      }
+      .release {
+        display: inline-flex;
+        align-items: center;
+        min-height: 24px;
+        padding: 4px 9px;
+        border-radius: 9999px;
+        background: #f4f4f4;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+        color: #5a5a5a;
+        font: 500 10px/1 var(--product);
+      }
+      .no-card {
+        margin: 1px 0 0;
+        color: var(--stone);
+        font: 400 10px/1.3 var(--product);
+      }
+      .widget-meta {
+        display: flex;
+        gap: 14px;
+        margin-top: 11px;
+        color: var(--graphite);
+        font: 400 10px/1.2 var(--product);
+      }
+      .widget-meta span::before {
+        content: "";
+        display: inline-block;
+        width: 8px;
+        height: 8px;
+        margin-right: 5px;
+        border: 1px solid currentColor;
+        border-radius: 2px;
+        vertical-align: -1px;
+      }
+      .widget-meta span:last-child::before { border-radius: 50%; }
+      .hero-caption {
+        margin-top: 12px;
+        color: var(--stone);
+        font: 400 10px/1.35 var(--product);
+      }
+      main {
+        padding-bottom: 96px;
+      }
+      .section {
+        padding-top: 96px;
+        scroll-margin-top: 70px;
+      }
+      .section-head {
+        max-width: 660px;
+        margin-bottom: 32px;
+      }
+      .section h2 {
+        margin: 0;
+        font: 600 clamp(28px, 4vw, 48px)/1.1 var(--display);
+        letter-spacing: 0.48px;
+      }
+      .section-head p {
+        margin: 12px 0 0;
+        color: var(--graphite);
+        max-width: 65ch;
+      }
+      .grid {
+        display: grid;
+        gap: 12px;
+      }
+      .color-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+      .color {
+        min-height: 138px;
+        padding: 16px;
+        border: 1px solid var(--silver);
+        border-radius: 12px;
+        background: var(--white);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+      .swatch {
+        height: 58px;
+        border-radius: 8px;
+      }
+      .color b {
+        font: 500 13px/1.2 var(--product);
+        letter-spacing: -0.12px;
+      }
+      .color code,
+      .meta {
+        color: var(--slate);
+        font: 400 11px/1.4 var(--product);
+      }
+      .type-list {
+        background: var(--white);
+        border-radius: 12px;
+        overflow: hidden;
+      }
+      .type-row {
+        display: grid;
+        grid-template-columns: 170px minmax(0, 1fr) 130px;
+        align-items: center;
+        gap: 16px;
+        padding: 18px 20px;
+        border-bottom: 1px solid var(--silver);
+      }
+      .type-row:last-child {
+        border: 0;
+      }
+      .type-name {
+        color: var(--slate);
+        font: 400 12px/1.2 var(--product);
+      }
+      .type-sample {
+        margin: 0;
+        overflow-wrap: anywhere;
+      }
+      .caption {
+        font: 300 12px/1.4 var(--ui);
+        letter-spacing: -0.24px;
+      }
+      .body-sm {
+        font: 300 14px/1.5 var(--ui);
+        letter-spacing: -0.2px;
+      }
+      .body-sample {
+        font: 300 16px/1.5 var(--ui);
+        letter-spacing: -0.19px;
+      }
+      .subheading {
+        font: 300 18px/1.4 var(--ui);
+        letter-spacing: -0.2px;
+      }
+      .heading-sm {
+        font: 600 20px/1.3 var(--display);
+        letter-spacing: 0.2px;
+      }
+      .heading {
+        font: 600 24px/1.3 var(--display);
+        letter-spacing: 0.24px;
+      }
+      .heading-lg {
+        font: 600 48px/1.1 var(--display);
+        letter-spacing: 0.48px;
+      }
+      .display {
+        font: 600 64px/1.1 var(--display);
+        letter-spacing: 0.64px;
+      }
+      .token-bars {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+      }
+      .token-panel {
+        padding: 24px;
+        border-radius: 12px;
+        background: var(--white);
+      }
+      .token-panel h3 {
+        margin: 0 0 20px;
+        font: 600 20px/1.3 var(--display);
+        letter-spacing: 0.2px;
+      }
+      .space-list {
+        display: grid;
+        gap: 10px;
+      }
+      .space-row {
+        display: grid;
+        grid-template-columns: 45px 1fr 44px;
+        align-items: center;
+        gap: 10px;
+        font: 400 12px/1 var(--product);
+      }
+      .space-bar {
+        height: 8px;
+        min-width: 4px;
+        border-radius: 9999px;
+        background: var(--ink);
+      }
+      .space-row small {
+        color: var(--slate);
+        text-align: right;
+      }
+      .radii {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+      }
+      .radius {
+        height: 68px;
+        padding: 8px;
+        display: flex;
+        align-items: end;
+        background: var(--paper);
+        font: 400 11px/1 var(--product);
+        color: var(--graphite);
+      }
+      .radius:nth-child(1) {
+        border-radius: 4px;
+      }
+      .radius:nth-child(2) {
+        border-radius: 8px;
+      }
+      .radius:nth-child(3) {
+        border-radius: 12px;
+      }
+      .radius:nth-child(4) {
+        border-radius: 16px;
+      }
+      .radius:nth-child(5) {
+        border-radius: 29px;
+      }
+      .radius:nth-child(6) {
+        border-radius: 9999px;
+      }
+      .radius:nth-child(7) {
+        border-radius: 100px;
+      }
+      .radius:nth-child(8) {
+        border-radius: 120px;
+      }
+      .radius:nth-child(9) {
+        border-radius: 1000px;
+      }
+      .surface-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      .surface {
+        min-height: 176px;
+        padding: 24px;
+        border-radius: 12px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+      .surface.paper {
+        background: var(--paper);
+        border: 1px solid var(--silver);
+      }
+      .surface.white {
+        background: var(--white);
+        box-shadow: var(--sm4);
+      }
+      .surface.ink {
+        background: var(--ink);
+        color: var(--white);
+      }
+      .surface b {
+        font: 600 20px/1.3 var(--display);
+        letter-spacing: 0.2px;
+      }
+      .surface span {
+        font: 400 12px/1.4 var(--product);
+        opacity: 0.7;
+      }
+      .shadow-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      .shadow-card {
+        min-height: 150px;
+        padding: 18px;
+        border-radius: 12px;
+        background: var(--white);
+        display: flex;
+        align-items: flex-end;
+        font: 500 13px/1.2 var(--product);
+        letter-spacing: -0.1px;
+      }
+      .shadow-card[data-shadow="sm"] {
+        box-shadow: var(--sm);
+      }
+      .shadow-card[data-shadow="subtle"] {
+        box-shadow: var(--subtle);
+      }
+      .shadow-card[data-shadow="sm-2"] {
+        box-shadow: var(--sm2);
+      }
+      .shadow-card[data-shadow="sm-3"] {
+        box-shadow: var(--sm3);
+      }
+      .shadow-card[data-shadow="sm-4"] {
+        box-shadow: var(--sm4);
+      }
+      .shadow-card[data-shadow="subtle-2"] {
+        box-shadow: var(--subtle2);
+      }
+      .shadow-card[data-shadow="subtle-3"] {
+        box-shadow: var(--subtle3);
+      }
+      .components {
+        display: grid;
+        grid-template-columns: 0.9fr 1.1fr;
+        gap: 12px;
+      }
+      .component-panel {
+        padding: 24px;
+        border-radius: 12px;
+        background: var(--white);
+      }
+      .component-panel h3 {
+        margin: 0 0 20px;
+        font: 600 20px/1.3 var(--display);
+        letter-spacing: 0.2px;
+      }
+      .control-row {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 12px;
+        margin-top: 14px;
+      }
+      .header-cta {
+        padding: 8px 16px;
+        border: 0;
+        border-radius: 8px;
+        background: var(--ink);
+        color: var(--white);
+        font: 400 14px/1 var(--product);
+      }
+      .tag {
+        padding: 4px 12px;
+        border-radius: 9999px;
+        background: var(--paper);
+        color: var(--graphite);
+        font: 400 12px/1 var(--product);
+      }
+      .field {
+        width: 100%;
+        min-height: 42px;
+        padding: 0 12px;
+        border: 1px solid var(--silver);
+        border-radius: 8px;
+        color: var(--ink);
+        font: 400 14px/1 var(--product);
+      }
+      .info-banner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        margin-top: 24px;
+        padding: 14px 16px;
+        border-radius: 8px;
+        background: var(--info);
+        font: 400 13px/1.4 var(--product);
+      }
+      .info-banner a {
+        color: var(--blue);
+        font-weight: 500;
+      }
+      .integration {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-top: 20px;
+        color: var(--graphite);
+        font: 400 13px/1.3 var(--product);
+      }
+      .google-mark {
+        display: grid;
+        grid-template-columns: repeat(2, 8px);
+        gap: 2px;
+      }
+      .google-mark i {
+        display: block;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+      }
+      .google-mark i:nth-child(1) {
+        background: var(--gb);
+      }
+      .google-mark i:nth-child(2) {
+        background: var(--gr);
+      }
+      .google-mark i:nth-child(3) {
+        background: var(--gy);
+      }
+      .google-mark i:nth-child(4) {
+        background: var(--gg);
+      }
+      .component-widget {
+        width: 100%;
+        max-width: 420px;
+        justify-self: center;
+        box-shadow: var(--sm4);
+        animation: none;
+      }
+      .guide-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .guide {
+        padding: 24px;
+        border-radius: 12px;
+      }
+      .guide.do {
+        background: var(--white);
+        box-shadow: var(--sm4);
+      }
+      .guide.avoid {
+        border: 1px solid var(--silver);
+      }
+      .guide h3 {
+        margin: 0 0 14px;
+        font: 600 20px/1.3 var(--display);
+        letter-spacing: 0.2px;
+      }
+      .guide ul {
+        margin: 0;
+        padding-left: 18px;
+      }
+      .guide li + li {
+        margin-top: 8px;
+      }
+      .downloads {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 24px;
+      }
+      .download {
+        padding: 8px 12px;
+        border: 1px solid var(--silver);
+        border-radius: 9999px;
+        background: var(--white);
+        font: 400 12px/1 var(--product);
+      }
+      .download:hover {
+        background: var(--ink);
+        border-color: var(--ink);
+        color: var(--white);
+      }
+      .footer {
+        background: var(--ink);
+        color: var(--white);
+        padding: 40px 0;
+      }
+      .footer-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+      }
+      .footer p {
+        margin: 0;
+        color: var(--white);
+        opacity: 0.75;
+        font: 300 14px/1.5 var(--ui);
+      }
+      .footer a {
+        font: 400 13px/1 var(--product);
+      }
+      .footer a:hover {
+        color: #fff;
+      }
+      @keyframes widget-enter {
+        from {
+          opacity: 0;
+          transform: translateY(18px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      @media (max-width: 850px) {
+        .nav-links {
+          display: none;
+        }
+        .menu {
+          display: block;
+        }
+        .site-header.menu-open .nav-links {
+          position: absolute;
+          top: 70px;
+          left: 0;
+          right: 0;
+          display: flex;
+          flex-wrap: wrap;
+          padding: 16px 20px;
+          background: var(--paper);
+          border-bottom: 1px solid var(--silver);
+        }
+        .hero {
+          grid-template-columns: 1fr;
+          padding-top: 72px;
+        }
+        .widget {
+          justify-self: start;
+        }
+        .color-grid {
+          grid-template-columns: repeat(3, 1fr);
+        }
+        .type-row {
+          grid-template-columns: 110px minmax(0, 1fr);
+        }
+        .type-row .meta {
+          display: none;
+        }
+        .token-bars,
+        .components {
+          grid-template-columns: 1fr;
+        }
+        .surface-grid,
+        .shadow-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+      @media (max-width: 560px) {
+        .shell {
+          width: min(calc(100% - 28px), var(--page));
+        }
+        .hero {
+          padding-bottom: 72px;
+        }
+        .hero h1 {
+          font-size: 48px;
+        }
+        .section {
+          padding-top: 72px;
+        }
+        .color-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .color {
+          min-height: 122px;
+        }
+        .type-row {
+          grid-template-columns: 1fr;
+          padding: 16px;
+        }
+        .type-name {
+          order: 2;
+        }
+        .type-sample {
+          order: 1;
+        }
+        .display {
+          font-size: 46px;
+        }
+        .heading-lg {
+          font-size: 36px;
+        }
+        .token-panel,
+        .component-panel,
+        .guide {
+          padding: 20px;
+        }
+        .surface-grid,
+        .shadow-grid,
+        .guide-grid {
+          grid-template-columns: 1fr;
+        }
+        .token-bars {
+          gap: 12px;
+        }
+        .footer-inner {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+        .widget {
+          animation: none;
+        }
+        .button {
+          transition: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="site-header" id="top">
+      <nav class="shell nav" aria-label="Main navigation">
+        <a class="brand" href="#top">Cal.com</a>
+        <div class="nav-links" id="nav-links">
+          <a href="#colors">Colors</a><a href="#type">Type</a
+          ><a href="#spacing">Spacing</a><a href="#shadows">Shadows</a
+          ><a href="#components">Components</a
+          ><a
+            class="site-link"
+            href="#"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Site ↗</a
+          >
+        </div>
+        <button
+          class="menu"
+          type="button"
+          aria-label="Toggle navigation"
+          aria-expanded="false"
+          aria-controls="nav-links"
+        >
+          <i></i><i></i><i></i>
+        </button>
+      </nav>
+    </header>
+    <main>
+      <section class="shell hero">
+        <div>
+          <span class="release">Cal.com launches v6.7&nbsp; ›</span>
+          <h1>The better way to schedule your meetings.</h1>
+          <p>
+            A fully customizable scheduling system for individuals, businesses
+            taking calls, and developers building scheduling platforms.
+          </p>
+          <div class="actions">
+            <a class="button primary" href="#components">Explore components</a
+            ><a
+              class="button ghost"
+              href="#"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Visit Cal.com</a
+            >
+            <span class="no-card">No credit card required</span>
+          </div>
+        </div>
+        <article class="widget" aria-label="Scheduling widget example">
+          <div class="widget-top">
+            <span class="avatar" aria-hidden="true">CR</span>
+            <div>
+              <h2>Cédric van Ravesteijn</h2>
+              <small>Partnerships Meeting</small>
+            </div>
+          </div>
+          <p class="widget-title">Pick a time</p>
+          <p class="widget-description">
+            Are you an agency, influencer, SaaS founder, or business looking
+            to collaborate with Cal.com? Let's chat!
+          </p>
+          <div class="calendar-head">
+            <span>May 2025</span
+            ><span class="cal-arrows"
+              ><button type="button" aria-label="Previous month">‹</button
+              ><button type="button" aria-label="Next month">›</button></span
+            >
+          </div>
+          <div class="date-week" aria-hidden="true">
+            <span>SUN</span><span>MON</span><span>TUE</span><span>WED</span
+            ><span>THU</span><span>FRI</span><span>SAT</span>
+          </div>
+          <div class="dates" aria-label="May 2025 calendar">
+            <span class="muted">27</span><span class="muted">28</span
+            ><span class="muted">29</span><span class="muted">30</span
+            ><span>1</span><span>2</span><span>3</span><span>4</span
+            ><span>5</span><span>6</span><span>7</span><span>8</span
+            ><span>9</span><span>10</span><span>11</span><span>12</span
+            ><span>13</span><span>14</span><span class="active">15</span
+            ><span>16</span><span>17</span><span>18</span><span>19</span
+            ><span>20</span><span>21</span><span>22</span><span>23</span
+            ><span>24</span><span>25</span><span>26</span><span>27</span
+            ><span>28</span><span>29</span><span>30</span><span>31</span>
+          </div>
+          <div class="times">
+            <button class="time" type="button" aria-pressed="false">
+              09:00</button
+            ><button class="time" type="button" aria-pressed="true">
+              11:30</button
+            ><button class="time" type="button" aria-pressed="false">
+              15:00
+            </button>
+          </div>
+          <div class="widget-meta"><span>Cal Video</span><span>Europe/Amsterdam</span></div>
+        </article>
+      </section>
+      <p class="shell hero-caption">Marketing-page rhythm applied to the design token reference: off-white canvas, white product surface, near-black actions and compact utility type.</p>
+      <div class="shell">
+        <section class="section reveal" id="colors">
+          <div class="section-head">
+            <h2>Color</h2>
+            <p>
+              Black, white and echelon grays form the product. Blue is
+              functional and Google colors stay inside their integration mark.
+            </p>
+          </div>
+          <div class="color-grid grid">
+            <div class="color">
+              <div class="swatch" style="background: #101010"></div>
+              <b>Ink</b><code>#101010</code>
+            </div>
+            <div class="color">
+              <div class="swatch" style="background: #0099ff"></div>
+              <b>Action Blue</b><code>#0099ff</code>
+            </div>
+            <div class="color">
+              <div
+                class="swatch"
+                style="background: #fff; border: 1px solid #e5e7eb"
+              ></div>
+              <b>White</b><code>#ffffff</code>
+            </div>
+            <div class="color">
+              <div class="swatch" style="background: #f4f4f4"></div>
+              <b>Paper</b><code>#f4f4f4</code>
+            </div>
+            <div class="color">
+              <div class="swatch" style="background: #242424"></div>
+              <b>Graphite</b><code>#242424</code>
+            </div>
+            <div class="color">
+              <div class="swatch" style="background: #6b7280"></div>
+              <b>Slate</b><code>#6b7280</code>
+            </div>
+            <div class="color">
+              <div class="swatch" style="background: #898989"></div>
+              <b>Stone</b><code>#898989</code>
+            </div>
+            <div class="color">
+              <div class="swatch" style="background: #e5e7eb"></div>
+              <b>Silver</b><code>#e5e7eb</code>
+            </div>
+            <div class="color">
+              <div class="swatch" style="background: #eff6fe"></div>
+              <b>Info Banner</b><code>#eff6fe</code>
+            </div>
+            <div class="color">
+              <div class="swatch" style="background: #4285f4"></div>
+              <b>Google Blue</b><code>#4285f4</code>
+            </div>
+            <div class="color">
+              <div class="swatch" style="background: #fbbc04"></div>
+              <b>Google Yellow</b><code>#fbbc04</code>
+            </div>
+            <div class="color">
+              <div class="swatch" style="background: #34a853"></div>
+              <b>Google Green</b><code>#34a853</code>
+            </div>
+            <div class="color">
+              <div class="swatch" style="background: #ea4335"></div>
+              <b>Google Red</b><code>#ea4335</code>
+            </div>
+          </div>
+        </section>
+        <section class="section reveal" id="type">
+          <div class="section-head">
+            <h2>Typography</h2>
+            <p>
+              Cal Sans carries the headlines; the lighter UI face keeps product
+              copy calm and clear.
+            </p>
+          </div>
+          <div class="type-list">
+            <div class="type-row">
+              <span class="type-name">Caption</span>
+              <p class="type-sample caption">
+                Time zones are handled automatically.
+              </p>
+              <span class="meta">12 / 1.4</span>
+            </div>
+            <div class="type-row">
+              <span class="type-name">Body small</span>
+              <p class="type-sample body-sm">
+                Invite anyone and find a slot that works.
+              </p>
+              <span class="meta">14 / 1.5</span>
+            </div>
+            <div class="type-row">
+              <span class="type-name">Body</span>
+              <p class="type-sample body-sample">
+                Scheduling should feel simple, even when your week is full.
+              </p>
+              <span class="meta">16 / 1.5</span>
+            </div>
+            <div class="type-row">
+              <span class="type-name">Subheading</span>
+              <p class="type-sample subheading">
+                Built for people who value their time.
+              </p>
+              <span class="meta">18 / 1.4</span>
+            </div>
+            <div class="type-row">
+              <span class="type-name">Heading small</span>
+              <p class="type-sample heading-sm">Clear availability</p>
+              <span class="meta">20 / 1.3</span>
+            </div>
+            <div class="type-row">
+              <span class="type-name">Heading</span>
+              <p class="type-sample heading">Meet when it matters.</p>
+              <span class="meta">24 / 1.3</span>
+            </div>
+            <div class="type-row">
+              <span class="type-name">Heading large</span>
+              <p class="type-sample heading-lg">Make time work.</p>
+              <span class="meta">48 / 1.1</span>
+            </div>
+            <div class="type-row">
+              <span class="type-name">Display</span>
+              <p class="type-sample display">Cal.</p>
+              <span class="meta">64 / 1.1</span>
+            </div>
+          </div>
+        </section>
+        <section class="section reveal" id="spacing">
+          <div class="section-head">
+            <h2>Spacing &amp; shape</h2>
+            <p>
+              A compact 4px rhythm creates space without making the interface
+              feel ornamental.
+            </p>
+          </div>
+          <div class="token-bars">
+            <article class="token-panel">
+              <h3>Spacing</h3>
+              <div class="space-list">
+                <div class="space-row">
+                  <span>4</span><i class="space-bar" style="width: 4px"></i
+                  ><small>4px</small>
+                </div>
+                <div class="space-row">
+                  <span>5</span><i class="space-bar" style="width: 5px"></i
+                  ><small>5px</small>
+                </div>
+                <div class="space-row">
+                  <span>6</span><i class="space-bar" style="width: 6px"></i
+                  ><small>6px</small>
+                </div>
+                <div class="space-row">
+                  <span>8</span><i class="space-bar" style="width: 8px"></i
+                  ><small>8px</small>
+                </div>
+                <div class="space-row">
+                  <span>10</span><i class="space-bar" style="width: 10px"></i
+                  ><small>10px</small>
+                </div>
+                <div class="space-row">
+                  <span>12</span><i class="space-bar" style="width: 12px"></i
+                  ><small>12px</small>
+                </div>
+                <div class="space-row">
+                  <span>16</span><i class="space-bar" style="width: 16px"></i
+                  ><small>16px</small>
+                </div>
+                <div class="space-row">
+                  <span>20</span><i class="space-bar" style="width: 20px"></i
+                  ><small>20px</small>
+                </div>
+                <div class="space-row">
+                  <span>24</span><i class="space-bar" style="width: 24px"></i
+                  ><small>24px</small>
+                </div>
+                <div class="space-row">
+                  <span>28</span><i class="space-bar" style="width: 28px"></i
+                  ><small>28px</small>
+                </div>
+                <div class="space-row">
+                  <span>32</span><i class="space-bar" style="width: 32px"></i
+                  ><small>32px</small>
+                </div>
+                <div class="space-row">
+                  <span>40</span><i class="space-bar" style="width: 40px"></i
+                  ><small>40px</small>
+                </div>
+                <div class="space-row">
+                  <span>48</span><i class="space-bar" style="width: 48px"></i
+                  ><small>48px</small>
+                </div>
+                <div class="space-row">
+                  <span>80</span><i class="space-bar" style="width: 80px"></i
+                  ><small>80px</small>
+                </div>
+              </div>
+            </article>
+            <article class="token-panel">
+              <h3>Radius</h3>
+              <div class="radii">
+                <div class="radius">4px</div>
+                <div class="radius">8px input</div>
+                <div class="radius">12px card</div>
+                <div class="radius">16px</div>
+                <div class="radius">29px</div>
+                <div class="radius">9999px pill</div>
+                <div class="radius">100px</div>
+                <div class="radius">120px</div>
+                <div class="radius">1000px</div>
+              </div>
+            </article>
+          </div>
+        </section>
+        <section class="section reveal" id="surfaces">
+          <div class="section-head">
+            <h2>Surfaces</h2>
+            <p>
+              Paper establishes the page, white holds product interaction, and
+              ink anchors the most decisive moments.
+            </p>
+          </div>
+          <div class="surface-grid grid">
+            <article class="surface paper">
+              <b>Paper</b><span>#f4f4f4 · page base</span>
+            </article>
+            <article class="surface white">
+              <b>White</b><span>#ffffff · scheduling surface</span>
+            </article>
+            <article class="surface ink">
+              <b>Ink</b><span>#101010 · primary action</span>
+            </article>
+          </div>
+        </section>
+        <section class="section reveal" id="shadows">
+          <div class="section-head">
+            <h2>Shadows</h2>
+            <p>
+              Elevation is restrained and reserved for interactive product
+              surfaces. These are the complete observed shadow tokens.
+            </p>
+          </div>
+          <div class="shadow-grid grid">
+            <div class="shadow-card" data-shadow="sm">sm</div>
+            <div class="shadow-card" data-shadow="subtle">subtle</div>
+            <div class="shadow-card" data-shadow="sm-2">sm-2</div>
+            <div class="shadow-card" data-shadow="sm-3">sm-3</div>
+            <div class="shadow-card" data-shadow="sm-4">sm-4</div>
+            <div class="shadow-card" data-shadow="subtle-2">subtle-2</div>
+            <div class="shadow-card" data-shadow="subtle-3">subtle-3</div>
+          </div>
+        </section>
+        <section class="section reveal" id="components">
+          <div class="section-head">
+            <h2>Components</h2>
+            <p>
+              Each control makes its purpose obvious before it adds personality.
+            </p>
+          </div>
+          <div class="components">
+            <article class="component-panel">
+              <h3>Actions &amp; fields</h3>
+              <div class="control-row">
+                <button class="button primary" type="button">
+                  Book a meeting</button
+                ><button class="button ghost" type="button">Learn more</button
+                ><button class="header-cta" type="button">Get started</button
+                ><span class="tag">30 min</span>
+              </div>
+              <div class="control-row">
+                <input
+                  class="field"
+                  aria-label="Email address"
+                  type="email"
+                  placeholder="name@company.com"
+                />
+              </div>
+              <div class="info-banner">
+                <span>New: automatic time zone detection.</span
+                ><a href="#type">Read update</a>
+              </div>
+              <div class="integration">
+                <span class="google-mark" aria-hidden="true"
+                  ><i></i><i></i><i></i><i></i></span
+                ><span>Google Calendar integration</span>
+              </div>
+            </article>
+            <article class="component-panel">
+              <h3>Scheduling surface</h3>
+              <article
+                class="widget component-widget"
+                aria-label="Scheduling card component"
+              >
+                <div class="widget-top">
+                  <span class="avatar" aria-hidden="true">CA</span>
+                  <div>
+                    <h2>Cal availability</h2>
+                    <small>15 min intro</small>
+                  </div>
+                </div>
+                <p class="widget-title">Pick a time</p>
+                <p class="widget-description">
+                  White card, 12px corners, quiet elevation.
+                </p>
+                <div class="times">
+                  <button class="time" type="button" aria-pressed="false">
+                    10:00</button
+                  ><button class="time" type="button" aria-pressed="true">
+                    13:30</button
+                  ><button class="time" type="button" aria-pressed="false">
+                    16:00
+                  </button>
+                </div>
+              </article>
+            </article>
+          </div>
+        </section>
+        <section class="section reveal" id="guidelines">
+          <div class="section-head">
+            <h2>Use with restraint</h2>
+            <p>
+              Make the scheduling decision easier; leave everything else quiet.
+            </p>
+          </div>
+          <div class="guide-grid grid">
+            <article class="guide do">
+              <h3>Do</h3>
+              <ul>
+                <li>
+                  Use Cal Sans for headings and the UI face for reading text.
+                </li>
+                <li>
+                  Let monochrome hierarchy, spacing and product surfaces do the
+                  work.
+                </li>
+                <li>Use product fragments and integration marks as imagery.</li>
+              </ul>
+            </article>
+            <article class="guide avoid">
+              <h3>Avoid</h3>
+              <ul>
+                <li>Gradients, broad decorative color and sharp corners.</li>
+                <li>Heavy borders on cards or type weights above 600.</li>
+                <li>Lifestyle imagery and display type for paragraph copy.</li>
+              </ul>
+            </article>
+          </div>
+          <div class="downloads" aria-label="Download design files">
+            <a class="download" href="#" download>DESIGN.md</a
+            ><a class="download" href="#" download>tokens.json</a
+            ><a class="download" href="#" download>variables.css</a
+            ><a class="download" href="#" download>theme.css</a>
+          </div>
+        </section>
+      </div>
+    </main>
+    <footer class="footer">
+      <div class="shell footer-inner">
+        <p>Cal.com design reference · Monochrome Utility, Human Touch.</p>
+        <a href="#top">Back to top</a>
+      </div>
+    </footer>
+    
+  </body>
+</html>

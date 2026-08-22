@@ -1,0 +1,33 @@
+{
+	"schemaVersion": 1,
+	"kind": "design-system",
+	"slug": "cohere",
+	"name": "Cohere",
+	"version": "1.0.0",
+	"order": 330,
+	"category": "ai",
+	"vibe": "light",
+	"tags": [
+		"light-ui",
+		"editorial",
+		"enterprise",
+		"design-system"
+	],
+	"blurb": "Cohere's 2026 web system is a controlled enterprise AI interface built from stark white editorial space, deep green-black product bands, soft mineral surfaces, rounded media car…",
+	"tagline": {
+		"en": "Stark white editorial space with deep green control",
+		"zh": "纯白编辑空间，深绿掌控"
+	},
+	"license": "MIT",
+	"origin": {
+		"type": "curated",
+		"upstream": "https://github.com/ricocc/brands-design-md.git",
+		"note": "from brands-design-md (Cohere)."
+	},
+	"assets": {
+		"spec": "DESIGN.md",
+		"theme": "theme.css",
+		"demo": "demo.html"
+	},
+	"collectedAt": "2026-08-22"
+}

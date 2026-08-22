@@ -1,0 +1,1222 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="design-source" content="https://www.clay.com/" />
+    <meta name="theme-color" content="#ffffff" />
+    <title>Clay — Design System</title>
+    
+    
+    
+    <style>
+      :root {
+        --canvas: #fff;
+        --cream: #f9f8f6;
+        --ink: #000;
+        --body: #55534e;
+        --muted: #9f9b93;
+        --sand: #dad4c8;
+        --mist: #e6e8ec;
+        --violet: #3859f9;
+        --lime: #cbd810;
+        --orange: #ff7614;
+        --blue: #429dff;
+        --lavender: #b8a5e8;
+        --pink: #f8b9e3;
+        --cobalt: #0667d9;
+        --font: "Inter", Arial, sans-serif;
+        --max: 1200px;
+      }
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+        scroll-padding-top: 78px;
+      }
+      body {
+        margin: 0;
+        background: var(--canvas);
+        color: var(--body);
+        font-family: var(--font);
+        font-size: 16px;
+        line-height: 1.5;
+        -webkit-font-smoothing: antialiased;
+      }
+      a {
+        color: inherit;
+      }
+      button,
+      input {
+        font: inherit;
+      }
+      ::selection {
+        background: var(--lime);
+        color: var(--ink);
+      }
+      :focus-visible {
+        outline: 2px solid var(--violet);
+        outline-offset: 3px;
+      }
+      .wrap {
+        width: min(100%, calc(var(--max) + 48px));
+        margin: auto;
+        padding-inline: 24px;
+      }
+      .banner {
+        min-height: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 8px 24px;
+        background: var(--lavender);
+        color: var(--ink);
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 0.09em;
+        text-align: center;
+        text-transform: uppercase;
+      }
+      .nav {
+        position: sticky;
+        top: 0;
+        z-index: 30;
+        background: rgba(255, 255, 255, 0.95);
+        border-bottom: 1px solid var(--mist);
+        backdrop-filter: blur(14px);
+      }
+      .nav-inner {
+        min-height: 66px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+      }
+      .nav-left,
+      .nav-right {
+        display: flex;
+        align-items: center;
+      }
+      .nav-left {
+        gap: 10px;
+        text-decoration: none;
+      }
+      .logo-favicon {
+        width: 30px;
+        height: 30px;
+        object-fit: contain;
+      }
+      .wordmark {
+        color: var(--ink);
+        font-size: 19px;
+        font-weight: 700;
+        letter-spacing: -0.04em;
+      }
+      .tag {
+        padding: 4px 9px;
+        background: var(--cream);
+        border-radius: 12px;
+        font-size: 10px;
+        font-weight: 600;
+      }
+      .nav-right {
+        gap: 3px;
+      }
+      .nav-link {
+        padding: 7px 10px;
+        border-radius: 12px;
+        color: var(--body);
+        font-size: 13px;
+        text-decoration: none;
+      }
+      .nav-link:hover {
+        background: var(--cream);
+        color: var(--ink);
+      }
+      .site-link {
+        margin-left: 5px;
+        background: var(--ink);
+        color: #fff;
+      }
+      .hero {
+        min-height: 700px;
+        display: grid;
+        align-content: center;
+        justify-items: center;
+        padding-block: clamp(88px, 11vw, 148px);
+        text-align: center;
+      }
+      .hero-label {
+        margin: 0 0 18px;
+        color: var(--violet);
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.09em;
+        text-transform: uppercase;
+      }
+      .hero h1 {
+        max-width: 940px;
+        margin: 0;
+        color: var(--ink);
+        font-size: clamp(62px, 9vw, 108px);
+        font-weight: 700;
+        letter-spacing: -0.045em;
+        line-height: 0.94;
+      }
+      .hero-copy {
+        max-width: 610px;
+        margin: 24px 0 0;
+        color: var(--body);
+        font-size: 19px;
+      }
+      .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+        margin-top: 30px;
+      }
+      .btn {
+        min-height: 44px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 8px 16px;
+        border: 1px solid var(--mist);
+        border-radius: 1584px;
+        background: transparent;
+        color: var(--ink);
+        font-size: 14px;
+        font-weight: 500;
+        text-decoration: none;
+        transition: transform 0.16s ease;
+      }
+      .btn:hover {
+        transform: translateY(-2px);
+      }
+      .btn-primary {
+        border-color: var(--ink);
+        background: var(--ink);
+        color: #fff;
+        box-shadow:
+          rgba(0, 0, 0, 0.1) 0 1px 1px 0,
+          rgba(0, 0, 0, 0.04) 0 -1px 1px 0 inset,
+          rgba(0, 0, 0, 0.05) 0 -0.5px 1px 0;
+      }
+      .color-ribbon {
+        width: min(820px, 100%);
+        display: grid;
+        grid-template-columns: 1.1fr 0.8fr 1fr 0.7fr 1.2fr;
+        height: 44px;
+        margin-top: 64px;
+        border-radius: 40px;
+        overflow: hidden;
+      }
+      .color-ribbon span:nth-child(1) {
+        background: var(--lime);
+      }
+      .color-ribbon span:nth-child(2) {
+        background: var(--orange);
+      }
+      .color-ribbon span:nth-child(3) {
+        background: var(--blue);
+      }
+      .color-ribbon span:nth-child(4) {
+        background: var(--pink);
+      }
+      .color-ribbon span:nth-child(5) {
+        background: var(--lavender);
+      }
+      .section {
+        padding-block: clamp(80px, 9vw, 120px);
+        border-top: 1px solid var(--mist);
+      }
+      .section-head {
+        display: grid;
+        grid-template-columns: 140px minmax(0, 1fr) minmax(260px, 390px);
+        gap: 28px;
+        margin-bottom: 44px;
+      }
+      .kicker {
+        color: var(--violet);
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.09em;
+        text-transform: uppercase;
+      }
+      .section h2 {
+        margin: 0;
+        color: var(--ink);
+        font-size: clamp(44px, 6vw, 70px);
+        font-weight: 700;
+        letter-spacing: -0.035em;
+        line-height: 0.98;
+      }
+      .section-desc {
+        margin: 4px 0 0;
+        color: var(--body);
+        font-size: 14px;
+      }
+      .color-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 12px;
+      }
+      .swatch {
+        overflow: hidden;
+        background: var(--cream);
+        border: 1px solid var(--mist);
+        border-radius: 12px;
+      }
+      .swatch-color {
+        height: 98px;
+        border-bottom: 1px solid var(--mist);
+      }
+      .swatch-meta {
+        padding: 13px;
+      }
+      .swatch-name {
+        color: var(--ink);
+        font-size: 13px;
+        font-weight: 600;
+      }
+      .token {
+        display: block;
+        margin-top: 3px;
+        color: var(--muted);
+        font-family: ui-monospace, monospace;
+        font-size: 10px;
+      }
+      .font-card {
+        min-height: 240px;
+        padding: 30px;
+        background: var(--cream);
+        border: 1px solid var(--sand);
+        border-radius: 24px;
+      }
+      .glyph {
+        margin: 44px 0 14px;
+        color: var(--ink);
+        font-size: clamp(56px, 8vw, 88px);
+        font-weight: 700;
+        letter-spacing: -0.04em;
+        line-height: 0.84;
+      }
+      .font-card p {
+        margin: 0;
+        color: var(--body);
+        font-size: 13px;
+      }
+      .type-list {
+        margin-top: 36px;
+        border-top: 1px solid var(--mist);
+      }
+      .type-row {
+        display: grid;
+        grid-template-columns: 140px minmax(0, 1fr) 180px;
+        gap: 24px;
+        align-items: baseline;
+        padding: 20px 0;
+        border-bottom: 1px solid var(--mist);
+      }
+      .sample {
+        overflow: hidden;
+        color: var(--ink);
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .spec {
+        color: var(--muted);
+        font-family: ui-monospace, monospace;
+        font-size: 10px;
+        text-align: right;
+      }
+      .metrics {
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr;
+        gap: 48px;
+      }
+      .metric-title {
+        margin: 0 0 22px;
+        color: var(--ink);
+        font-size: 16px;
+        font-weight: 600;
+      }
+      .space-list {
+        display: grid;
+        gap: 12px;
+      }
+      .space-row {
+        display: grid;
+        grid-template-columns: 48px minmax(0, 1fr) 46px;
+        gap: 12px;
+        align-items: center;
+      }
+      .space-bar {
+        height: 6px;
+        background: var(--violet);
+        border-radius: 12px;
+      }
+      .space-row code {
+        color: var(--muted);
+        font-size: 10px;
+      }
+      .radius-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+      }
+      .radius-item {
+        min-height: 112px;
+        display: grid;
+        place-items: center;
+        gap: 7px;
+        background: var(--cream);
+        border: 1px solid var(--sand);
+        text-align: center;
+      }
+      .radius-shape {
+        width: 50px;
+        height: 50px;
+        background: var(--lavender);
+        border: 1px solid var(--ink);
+      }
+      .radius-item code {
+        font-size: 9px;
+      }
+      .surface-strip {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        min-height: 280px;
+        border-radius: 40px;
+        overflow: hidden;
+      }
+      .surface {
+        display: flex;
+        align-items: flex-end;
+        padding: 18px;
+        color: var(--ink);
+        font-size: 12px;
+        font-weight: 600;
+        writing-mode: vertical-rl;
+      }
+      .surface:nth-child(1) {
+        background: var(--lime);
+      }
+      .surface:nth-child(2) {
+        background: var(--orange);
+      }
+      .surface:nth-child(3) {
+        background: var(--blue);
+      }
+      .surface:nth-child(4) {
+        background: var(--pink);
+      }
+      .surface:nth-child(5) {
+        background: var(--lavender);
+      }
+      .surface:nth-child(6) {
+        background: var(--cobalt);
+        color: #fff;
+      }
+      .components {
+        display: grid;
+        gap: 18px;
+      }
+      .component {
+        overflow: hidden;
+        background: var(--canvas);
+        border: 1px solid var(--mist);
+        border-radius: 24px;
+      }
+      .component-head {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+        padding: 17px 22px;
+        border-bottom: 1px solid var(--mist);
+      }
+      .component-head h3 {
+        margin: 0;
+        color: var(--ink);
+        font-size: 14px;
+        font-weight: 600;
+      }
+      .component-head code {
+        color: var(--muted);
+        font-size: 10px;
+      }
+      .stage {
+        min-height: 190px;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 12px;
+        padding: 32px;
+        background: var(--cream);
+      }
+      .announcement {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        gap: 18px;
+        padding: 10px 18px;
+        background: var(--lavender);
+        color: var(--ink);
+        font-size: 13px;
+      }
+      .announcement strong {
+        letter-spacing: 0.09em;
+        text-transform: uppercase;
+      }
+      .testimonials {
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+      }
+      .quote {
+        min-height: 300px;
+        display: flex;
+        flex-direction: column;
+        padding: 32px;
+        border-radius: 40px;
+        color: var(--ink);
+      }
+      .quote:nth-child(1) {
+        background: var(--lime);
+      }
+      .quote:nth-child(2) {
+        background: var(--orange);
+      }
+      .quote:nth-child(3) {
+        background: var(--blue);
+      }
+      .quote-brand {
+        font-weight: 700;
+      }
+      .quote blockquote {
+        margin: 38px 0 28px;
+        font-size: 17px;
+      }
+      .person {
+        width: max-content;
+        margin-top: auto;
+        padding: 10px 12px;
+        background: #fff;
+        border-radius: 12px;
+        font-size: 12px;
+      }
+      .feature {
+        width: min(100%, 650px);
+        display: grid;
+        grid-template-columns: 0.7fr 1.3fr;
+        gap: 22px;
+        align-items: center;
+        padding: 24px;
+        background: #fff;
+        border: 1px solid var(--sand);
+        border-radius: 12px;
+      }
+      .metric {
+        color: var(--ink);
+        font-size: 44px;
+        font-weight: 700;
+      }
+      .feature h4 {
+        margin: 0 0 6px;
+        color: var(--ink);
+        font-size: 16px;
+      }
+      .feature p {
+        margin: 0;
+        color: var(--body);
+        font-size: 14px;
+      }
+      .field {
+        width: min(100%, 480px);
+        display: flex;
+        gap: 8px;
+      }
+      .field input {
+        min-width: 0;
+        flex: 1;
+        height: 46px;
+        padding-inline: 14px;
+        border: 1px solid var(--mist);
+        border-radius: 12px;
+        background: #fff;
+        color: var(--ink);
+      }
+      .guide-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+      .guide {
+        padding: 30px;
+        background: var(--cream);
+        border: 1px solid var(--sand);
+        border-radius: 24px;
+      }
+      .guide h3 {
+        margin: 0 0 20px;
+        color: var(--ink);
+        font-size: 28px;
+      }
+      .guide ul {
+        display: grid;
+        gap: 12px;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+      .guide li {
+        position: relative;
+        padding-left: 20px;
+        color: var(--body);
+        font-size: 14px;
+      }
+      .guide li::before {
+        position: absolute;
+        left: 0;
+        color: var(--violet);
+        content: "+";
+      }
+      .guide.avoid li::before {
+        color: var(--orange);
+        content: "×";
+      }
+      .downloads {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 34px;
+      }
+      .download {
+        padding: 9px 13px;
+        border: 1px solid var(--sand);
+        border-radius: 12px;
+        color: var(--ink);
+        font-family: ui-monospace, monospace;
+        font-size: 11px;
+        text-decoration: none;
+      }
+      .footer {
+        padding-block: 40px;
+        border-top: 1px solid var(--mist);
+      }
+      .footer-inner {
+        display: flex;
+        justify-content: space-between;
+        gap: 24px;
+        color: var(--muted);
+        font-size: 12px;
+      }
+      .reveal {
+        opacity:1;
+        
+        transition:
+          opacity 0.5s ease,
+          transform 0.5s ease;
+      }
+      .reveal.visible {
+        opacity: 1;
+        transform: none;
+      }
+      @media (max-width: 850px) {
+        .nav-link:not(.site-link) {
+          display: none;
+        }
+        .section-head,
+        .metrics {
+          grid-template-columns: 1fr;
+        }
+        .color-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .type-row {
+          grid-template-columns: 110px 1fr;
+        }
+        .spec {
+          grid-column: 2;
+          text-align: left;
+        }
+        .testimonials {
+          grid-template-columns: 1fr;
+        }
+        .quote {
+          min-height: 230px;
+        }
+      }
+      @media (max-width: 560px) {
+        .tag {
+          display: none;
+        }
+        .hero h1 {
+          font-size: 58px;
+        }
+        .hero-copy {
+          font-size: 17px;
+        }
+        .color-grid,
+        .guide-grid {
+          grid-template-columns: 1fr;
+        }
+        .type-row {
+          grid-template-columns: 1fr;
+        }
+        .spec {
+          grid-column: auto;
+        }
+        .radius-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .surface-strip {
+          grid-template-columns: repeat(3, 1fr);
+        }
+        .stage {
+          padding: 20px;
+        }
+        .feature {
+          grid-template-columns: 1fr;
+        }
+        .field {
+          flex-direction: column;
+        }
+        .footer-inner {
+          flex-direction: column;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+        .reveal {
+          opacity: 1;
+          transform: none;
+          transition: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="banner">
+      Sculpt the system · automate the work · grow the result
+    </div>
+    <nav class="nav" aria-label="Design system navigation">
+      <div class="wrap nav-inner">
+        <a class="nav-left" href="#top"
+          ><span class="wordmark">clay</span
+          ><span class="tag">Design System</span></a
+        >
+        <div class="nav-right">
+          <a class="nav-link" href="#colors">Colors</a
+          ><a class="nav-link" href="#type">Type</a
+          ><a class="nav-link" href="#spacing">Spacing</a
+          ><a class="nav-link" href="#components">Components</a
+          ><a
+            class="nav-link site-link"
+            href="#"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Site ↗</a
+          >
+        </div>
+      </div>
+    </nav>
+    <main id="top">
+      <header class="wrap hero">
+        <p class="hero-label">GTM systems, shaped with care</p>
+        <h1>Build systems to grow revenue</h1>
+        <p class="hero-copy">
+          A crisp white interface energized by sculptural color, friendly
+          geometry, and product controls that stay almost entirely neutral.
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#" download
+            >Start with the spec →</a
+          ><a class="btn" href="#components">Explore components</a>
+        </div>
+        <div class="color-ribbon" aria-label="Clay brand color ribbon">
+          <span></span><span></span><span></span><span></span><span></span>
+        </div>
+      </header>
+      <section class="section" id="colors">
+        <div class="wrap reveal">
+          <div class="section-head">
+            <span class="kicker">01 / Foundation</span>
+            <h2>Color as material</h2>
+            <p class="section-desc">
+              Neutrals carry the product UI. Saturated solids appear as isolated
+              announcement and testimonial surfaces.
+            </p>
+          </div>
+          <div class="color-grid">
+            <article class="swatch">
+              <div class="swatch-color" style="background: #000"></div>
+              <div class="swatch-meta">
+                <div class="swatch-name">Black</div>
+                <code class="token">#000000 · primary text</code>
+              </div>
+            </article>
+            <article class="swatch">
+              <div class="swatch-color" style="background: #55534e"></div>
+              <div class="swatch-meta">
+                <div class="swatch-name">Stone Gray</div>
+                <code class="token">#55534e · body</code>
+              </div>
+            </article>
+            <article class="swatch">
+              <div class="swatch-color" style="background: #9f9b93"></div>
+              <div class="swatch-meta">
+                <div class="swatch-name">Tertiary</div>
+                <code class="token">#9f9b93 · muted</code>
+              </div>
+            </article>
+            <article class="swatch">
+              <div class="swatch-color" style="background: #fff"></div>
+              <div class="swatch-meta">
+                <div class="swatch-name">Paper White</div>
+                <code class="token">#ffffff · canvas</code>
+              </div>
+            </article>
+            <article class="swatch">
+              <div class="swatch-color" style="background: #f9f8f6"></div>
+              <div class="swatch-meta">
+                <div class="swatch-name">Cream</div>
+                <code class="token">#f9f8f6 · soft surface</code>
+              </div>
+            </article>
+            <article class="swatch">
+              <div class="swatch-color" style="background: #dad4c8"></div>
+              <div class="swatch-meta">
+                <div class="swatch-name">Sand</div>
+                <code class="token">#dad4c8 · warm border</code>
+              </div>
+            </article>
+            <article class="swatch">
+              <div class="swatch-color" style="background: #e6e8ec"></div>
+              <div class="swatch-meta">
+                <div class="swatch-name">Cool Mist</div>
+                <code class="token">#e6e8ec · cool border</code>
+              </div>
+            </article>
+            <article class="swatch">
+              <div class="swatch-color" style="background: #3859f9"></div>
+              <div class="swatch-meta">
+                <div class="swatch-name">Violet Pulse</div>
+                <code class="token">#3859f9 · links</code>
+              </div>
+            </article>
+            <article class="swatch">
+              <div class="swatch-color" style="background: #cbd810"></div>
+              <div class="swatch-meta">
+                <div class="swatch-name">Lime</div>
+                <code class="token">#cbd810 · color card</code>
+              </div>
+            </article>
+            <article class="swatch">
+              <div class="swatch-color" style="background: #ff7614"></div>
+              <div class="swatch-meta">
+                <div class="swatch-name">Ember Orange</div>
+                <code class="token">#ff7614 · color card</code>
+              </div>
+            </article>
+            <article class="swatch">
+              <div class="swatch-color" style="background: #429dff"></div>
+              <div class="swatch-meta">
+                <div class="swatch-name">Signal Blue</div>
+                <code class="token">#429dff · color card</code>
+              </div>
+            </article>
+            <article class="swatch">
+              <div class="swatch-color" style="background: #b8a5e8"></div>
+              <div class="swatch-meta">
+                <div class="swatch-name">Lavender</div>
+                <code class="token">#b8a5e8 · banner</code>
+              </div>
+            </article>
+            <article class="swatch">
+              <div class="swatch-color" style="background: #f8b9e3"></div>
+              <div class="swatch-meta">
+                <div class="swatch-name">Soft Pink</div>
+                <code class="token">#f8b9e3 · color card</code>
+              </div>
+            </article>
+            <article class="swatch">
+              <div class="swatch-color" style="background: #0667d9"></div>
+              <div class="swatch-meta">
+                <div class="swatch-name">Cobalt</div>
+                <code class="token">#0667d9 · deep accent</code>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+      <section class="section" id="type">
+        <div class="wrap reveal">
+          <div class="section-head">
+            <span class="kicker">02 / Typography</span>
+            <h2>Friendly precision</h2>
+            <p class="section-desc">
+              Roobert is the source family across display and UI, with stylistic
+              alternates enabled. Inter is the open substitute used in this
+              preview.
+            </p>
+          </div>
+          <article class="font-card">
+            <span class="kicker">Roobert substitute</span>
+            <div class="glyph">Grow revenue.</div>
+            <p>Inter · source weights 400, 500, 600, and 700</p>
+          </article>
+          <div class="type-list">
+            <div class="type-row">
+              <code class="token">hero</code>
+              <div
+                class="sample"
+                style="
+                  font-size: clamp(48px, 7vw, 80px);
+                  font-weight: 700;
+                  letter-spacing: -3.2px;
+                  line-height: 1;
+                "
+              >
+                Build systems to grow
+              </div>
+              <code class="spec">80 / 1 / 700 / -3.2</code>
+            </div>
+            <div class="type-row">
+              <code class="token">display</code>
+              <div
+                class="sample"
+                style="
+                  font-size: 60px;
+                  font-weight: 700;
+                  letter-spacing: -1.8px;
+                  line-height: 1;
+                "
+              >
+                Turn ideas into action
+              </div>
+              <code class="spec">60 / 1 / 700 / -1.8</code>
+            </div>
+            <div class="type-row">
+              <code class="token">metric</code>
+              <div class="sample" style="font-size: 44px; font-weight: 700">
+                &gt;2x productivity
+              </div>
+              <code class="spec">44 / 1.1 / 700</code>
+            </div>
+            <div class="type-row">
+              <code class="token">body-lg</code>
+              <div class="sample" style="font-size: 20px; font-weight: 400">
+                Infrastructure for any go-to-market idea.
+              </div>
+              <code class="spec">20 / 1.5 / 400</code>
+            </div>
+            <div class="type-row">
+              <code class="token">body</code>
+              <div class="sample" style="font-size: 16px; font-weight: 400">
+                Run agentic workflows and launch GTM plays.
+              </div>
+              <code class="spec">16 / 1.5 / 400</code>
+            </div>
+            <div class="type-row">
+              <code class="token">button</code>
+              <div class="sample" style="font-size: 14px; font-weight: 500">
+                Start free trial →
+              </div>
+              <code class="spec">14 / 1.5 / 500</code>
+            </div>
+            <div class="type-row">
+              <code class="token">eyebrow</code>
+              <div
+                class="sample"
+                style="
+                  font-size: 12px;
+                  font-weight: 600;
+                  letter-spacing: 0.09em;
+                  text-transform: uppercase;
+                "
+              >
+                Trusted by leading teams
+              </div>
+              <code class="spec">12 / 1.2 / 600 / .09em</code>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="section" id="spacing">
+        <div class="wrap reveal">
+          <div class="section-head">
+            <span class="kicker">03 / Geometry</span>
+            <h2>Soft containers</h2>
+            <p class="section-desc">
+              Compact product controls use 8–12px corners; campaign and
+              testimonial cards expand to a generous 40px silhouette.
+            </p>
+          </div>
+          <div class="metrics">
+            <div>
+              <h3 class="metric-title">Core spacing rhythm</h3>
+              <div class="space-list">
+                <div class="space-row">
+                  <code>4</code>
+                  <div class="space-bar" style="width: 5%"></div>
+                  <code>4px</code>
+                </div>
+                <div class="space-row">
+                  <code>8</code>
+                  <div class="space-bar" style="width: 10%"></div>
+                  <code>8px</code>
+                </div>
+                <div class="space-row">
+                  <code>12</code>
+                  <div class="space-bar" style="width: 15%"></div>
+                  <code>12px</code>
+                </div>
+                <div class="space-row">
+                  <code>16</code>
+                  <div class="space-bar" style="width: 20%"></div>
+                  <code>16px</code>
+                </div>
+                <div class="space-row">
+                  <code>24</code>
+                  <div class="space-bar" style="width: 30%"></div>
+                  <code>24px</code>
+                </div>
+                <div class="space-row">
+                  <code>32</code>
+                  <div class="space-bar" style="width: 40%"></div>
+                  <code>32px</code>
+                </div>
+                <div class="space-row">
+                  <code>40</code>
+                  <div class="space-bar" style="width: 50%"></div>
+                  <code>40px</code>
+                </div>
+                <div class="space-row">
+                  <code>48</code>
+                  <div class="space-bar" style="width: 60%"></div>
+                  <code>48px</code>
+                </div>
+                <div class="space-row">
+                  <code>80</code>
+                  <div class="space-bar" style="width: 100%"></div>
+                  <code>80px</code>
+                </div>
+              </div>
+            </div>
+            <div>
+              <h3 class="metric-title">Observed radii</h3>
+              <div class="radius-grid">
+                <div class="radius-item">
+                  <div class="radius-shape" style="border-radius: 8px"></div>
+                  <code>8px</code>
+                </div>
+                <div class="radius-item">
+                  <div class="radius-shape" style="border-radius: 12px"></div>
+                  <code>12px</code>
+                </div>
+                <div class="radius-item">
+                  <div class="radius-shape" style="border-radius: 16px"></div>
+                  <code>16px</code>
+                </div>
+                <div class="radius-item">
+                  <div class="radius-shape" style="border-radius: 24px"></div>
+                  <code>24px</code>
+                </div>
+                <div class="radius-item">
+                  <div class="radius-shape" style="border-radius: 30px"></div>
+                  <code>30px</code>
+                </div>
+                <div class="radius-item">
+                  <div class="radius-shape" style="border-radius: 40px"></div>
+                  <code>40px</code>
+                </div>
+                <div class="radius-item">
+                  <div class="radius-shape" style="border-radius: 1584px"></div>
+                  <code>1584px</code>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="section" id="surfaces">
+        <div class="wrap reveal">
+          <div class="section-head">
+            <span class="kicker">04 / Color surfaces</span>
+            <h2>One card, one color</h2>
+            <p class="section-desc">
+              Campaign color is delivered as a solid material. Each card owns
+              one hue and keeps its content black or white for clarity.
+            </p>
+          </div>
+          <div class="surface-strip">
+            <div class="surface">Lime</div>
+            <div class="surface">Orange</div>
+            <div class="surface">Signal blue</div>
+            <div class="surface">Soft pink</div>
+            <div class="surface">Lavender</div>
+            <div class="surface">Cobalt</div>
+          </div>
+        </div>
+      </section>
+      <section class="section" id="components">
+        <div class="wrap reveal">
+          <div class="section-head">
+            <span class="kicker">05 / Components</span>
+            <h2>Neutral UI, vivid proof</h2>
+            <p class="section-desc">
+              Conversion controls stay black, white, and outlined; personality
+              enters through campaigns and customer stories.
+            </p>
+          </div>
+          <div class="components">
+            <article class="component">
+              <div class="component-head">
+                <h3>Primary and secondary actions</h3>
+                <code>1584px pill</code>
+              </div>
+              <div class="stage">
+                <button class="btn btn-primary" type="button">
+                  Start building for free →</button
+                ><button class="btn" type="button">Get a demo →</button>
+              </div>
+            </article>
+            <article class="component">
+              <div class="component-head">
+                <h3>Announcement banner</h3>
+                <code>lavender / 36px</code>
+              </div>
+              <div class="stage">
+                <div class="announcement">
+                  <span><strong>Sculpt</strong> · Ideas into GTM systems</span
+                  ><span>New York · June 18 →</span>
+                </div>
+              </div>
+            </article>
+            <article class="component">
+              <div class="component-head">
+                <h3>Testimonial color cards</h3>
+                <code>40px radius</code>
+              </div>
+              <div class="stage">
+                <div class="testimonials">
+                  <article class="quote">
+                    <span class="quote-brand">Vanta</span>
+                    <blockquote>
+                      “Clay changed how our team turns research into pipeline.”
+                    </blockquote>
+                    <span class="person">Maya · Growth</span>
+                  </article>
+                  <article class="quote">
+                    <span class="quote-brand">Canva</span>
+                    <blockquote>
+                      “A flexible system that makes ambitious workflows feel
+                      simple.”
+                    </blockquote>
+                    <span class="person">Jon · GTM</span>
+                  </article>
+                  <article class="quote">
+                    <span class="quote-brand">OpenAI</span>
+                    <blockquote>
+                      “Creative work and structured data finally share one
+                      surface.”
+                    </blockquote>
+                    <span class="person">Sam · Ops</span>
+                  </article>
+                </div>
+              </div>
+            </article>
+            <article class="component">
+              <div class="component-head">
+                <h3>Feature callout and input</h3>
+                <code>12px / warm line</code>
+              </div>
+              <div class="stage">
+                <article class="feature">
+                  <div class="metric">&gt;2x</div>
+                  <div>
+                    <h4>Faster enrichment</h4>
+                    <p>
+                      Compact information density inside a white, warm-bordered
+                      card.
+                    </p>
+                  </div>
+                </article>
+                <label class="field"
+                  ><input
+                    type="email"
+                    placeholder="Work email"
+                    aria-label="Work email"
+                  /><button class="btn btn-primary" type="button">
+                    Start
+                  </button></label
+                >
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+      <section class="section" id="guidelines">
+        <div class="wrap reveal">
+          <div class="section-head">
+            <span class="kicker">06 / Direction</span>
+            <h2>Usage rules</h2>
+            <p class="section-desc">
+              Color supports stories and proof; it does not replace the product
+              hierarchy.
+            </p>
+          </div>
+          <div class="guide-grid">
+            <article class="guide">
+              <h3>Preserve</h3>
+              <ul>
+                <li>Keep the large canvas white or soft cream.</li>
+                <li>Use black as the highest-priority action fill.</li>
+                <li>Give testimonial cards one solid color each.</li>
+                <li>Use 40px corners on large campaign cards.</li>
+              </ul>
+            </article>
+            <article class="guide avoid">
+              <h3>Avoid</h3>
+              <ul>
+                <li>Turning Violet Pulse into a universal CTA fill.</li>
+                <li>Mixing several bright colors inside one card.</li>
+                <li>Adding depth to flat testimonial surfaces.</li>
+                <li>
+                  Using heavy display tracking outside the documented range.
+                </li>
+              </ul>
+            </article>
+          </div>
+          <div class="downloads">
+            <a class="download" href="#" download>DESIGN.md ↓</a
+            ><a class="download" href="#" download>tokens.json ↓</a
+            ><a class="download" href="#" download
+              >variables.css ↓</a
+            ><a class="download" href="#" download>theme.css ↓</a>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer class="footer">
+      <div class="wrap footer-inner">
+        <span>Clay light design reference</span
+        ><a
+          href="#"
+          target="_blank"
+          rel="noopener noreferrer"
+          >clay.com ↗</a
+        >
+      </div>
+    </footer>
+    
+  </body>
+</html>

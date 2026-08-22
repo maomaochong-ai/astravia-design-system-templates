@@ -1,0 +1,768 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#fffaeb" />
+    <title>Mistral AI — Design System</title>
+    <style>
+      :root {
+        --paper: #fffaeb;
+        --card: #fff;
+        --ink: #1f1f1f;
+        --carbon: #000;
+        --graphite: #3c3c3c;
+        --ember: #fa520f;
+        --butter: #fff0c2;
+        --honey: #ecdaa2;
+        --landscape: linear-gradient(
+          135deg,
+          #1f1f1f 0%,
+          #ecdaa2 30%,
+          #fff0c2 48%,
+          #fa520f 83%,
+          #1f1f1f 100%
+        );
+        --shadow:
+          rgba(127, 99, 21, 0.12) -8px 16px 39px 0,
+          rgba(127, 99, 21, 0.1) -33px 64px 72px 0,
+          rgba(127, 99, 21, 0.06) -73px 144px 97px 0,
+          rgba(127, 99, 21, 0.02) -130px 256px 115px 0;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        margin: 0;
+        background: var(--paper);
+        color: var(--ink);
+        font-family: Arial, Helvetica, Inter, system-ui, sans-serif;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 1.5;
+        letter-spacing: -0.025em;
+      }
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+      button {
+        font: inherit;
+        letter-spacing: inherit;
+      }
+      :focus-visible {
+        outline: 2px solid var(--ember);
+        outline-offset: 3px;
+      }
+      .wrap {
+        width: min(100% - 40px, 1120px);
+        margin: auto;
+      }
+      .nav {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        height: 64px;
+        display: flex;
+        align-items: center;
+        background: rgba(255, 250, 235, 0.92);
+        border-bottom: 1px solid var(--honey);
+        backdrop-filter: blur(4px);
+      }
+      .nav .wrap,
+      .nav-left,
+      .nav-links,
+      .nav-right {
+        display: flex;
+        align-items: center;
+      }
+      .nav .wrap {
+        justify-content: space-between;
+      }
+      .nav-left,
+      .nav-links {
+        gap: 12px;
+      }
+      .nav-links {
+        gap: 20px;
+        color: var(--graphite);
+        font-size: 14px;
+      }
+      .nav-links a:hover,
+      .nav-url:hover {
+        color: var(--ember);
+      }
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 16px;
+      }
+      .logo-favicon {
+        width: 30px;
+        height: 30px;
+        object-fit: contain;
+      }
+      .tag,
+      .nav-url {
+        color: var(--graphite);
+        font-size: 14px;
+      }
+      h1,
+      h2,
+      h3,
+      p {
+        margin: 0;
+      }
+      .hero {
+        min-height: 470px;
+        display: grid;
+        place-items: center;
+        padding: 80px 0;
+        background: var(--landscape);
+        border-bottom: 1px solid var(--honey);
+      }
+      .hero-inner {
+        width: min(100% - 40px, 820px);
+      }
+      .hero h1 {
+        max-width: 740px;
+        font-size: clamp(48px, 9vw, 82px);
+        font-weight: 400;
+        line-height: 0.95;
+        letter-spacing: -0.025em;
+        text-wrap: balance;
+      }
+      .hero p {
+        max-width: 540px;
+        margin-top: 24px;
+        color: var(--ink);
+        font-size: 24px;
+        line-height: 1.33;
+      }
+      .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 24px;
+        margin-top: 48px;
+      }
+      .text-action {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 16px;
+        text-decoration: underline;
+        text-underline-offset: 4px;
+      }
+      .arrow {
+        color: var(--ember);
+        font-size: 18px;
+        line-height: 1;
+      }
+      .site {
+        padding-top: 80px;
+      }
+      section {
+        padding: 80px 0;
+        border-bottom: 1px solid var(--honey);
+        scroll-margin-top: 64px;
+      }
+      .section-head {
+        max-width: 650px;
+        margin-bottom: 32px;
+      }
+      .section-head h2 {
+        font-size: clamp(38px, 5vw, 48px);
+        font-weight: 400;
+        line-height: 1;
+        text-wrap: balance;
+      }
+      .section-head p {
+        margin-top: 12px;
+        color: var(--graphite);
+      }
+      .swatches {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 12px;
+      }
+      .swatch {
+        min-height: 140px;
+        display: flex;
+        flex-direction: column;
+        justify-content: end;
+        padding: 16px;
+        border: 1px solid var(--honey);
+        border-radius: 12px;
+      }
+      .swatch strong {
+        font-size: 16px;
+        font-weight: 400;
+      }
+      .swatch code,
+      .spec {
+        margin-top: 4px;
+        font:
+          400 12px/1.4 ui-monospace,
+          SFMono-Regular,
+          monospace;
+        letter-spacing: 0;
+        opacity: 0.78;
+      }
+      .type-list {
+        border-top: 1px solid var(--honey);
+      }
+      .type-row {
+        display: grid;
+        grid-template-columns: 110px 1fr 160px;
+        align-items: baseline;
+        gap: 16px;
+        padding: 20px 0;
+        border-bottom: 1px solid var(--honey);
+      }
+      .type-role,
+      .spec {
+        color: var(--graphite);
+      }
+      .type-sample {
+        font-weight: 400;
+        line-height: 1;
+        text-wrap: balance;
+      }
+      .font-note {
+        margin-top: 20px;
+        color: var(--graphite);
+        font-size: 14px;
+      }
+      .metrics {
+        display: grid;
+        grid-template-columns: 1.4fr 1fr;
+        gap: 48px;
+        align-items: end;
+      }
+      .spacing {
+        display: flex;
+        align-items: end;
+        gap: 8px;
+        min-height: 160px;
+      }
+      .space {
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        justify-content: end;
+        gap: 6px;
+        color: var(--graphite);
+        font-size: 12px;
+        text-align: center;
+      }
+      .bar {
+        width: 100%;
+        background: var(--ink);
+      }
+      .radii {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+      }
+      .radius {
+        min-height: 86px;
+        padding: 12px;
+        display: flex;
+        align-items: end;
+        background: var(--card);
+        border: 1px solid var(--honey);
+        color: var(--graphite);
+        font-size: 14px;
+      }
+      .surfaces {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 32px;
+        align-items: center;
+      }
+      .dark-mockup {
+        min-height: 250px;
+        padding: 24px;
+        border-radius: 12px;
+        background: var(--ink);
+        box-shadow: var(--shadow);
+        color: #fff;
+      }
+      .mockup-bar {
+        width: 88px;
+        height: 8px;
+        background: var(--butter);
+      }
+      .mockup-line {
+        height: 10px;
+        margin-top: 20px;
+        background: rgba(255, 255, 255, 0.2);
+      }
+      .mockup-line.short {
+        width: 62%;
+      }
+      .mockup-line.ember {
+        width: 38%;
+        background: var(--ember);
+      }
+      .mockup-label {
+        margin-top: 52px;
+        color: var(--butter);
+        font-size: 14px;
+      }
+      .surface-copy p {
+        color: var(--graphite);
+      }
+      .tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 20px;
+      }
+      .tag-pill {
+        padding: 8px 12px;
+        border-radius: 9999px;
+        background: var(--butter);
+        font-size: 14px;
+      }
+      .component-layout {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 48px;
+      }
+      .component-title {
+        margin-bottom: 16px;
+        font-size: 24px;
+        font-weight: 400;
+      }
+      .button-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+      .button {
+        min-height: 48px;
+        padding: 16px 20px;
+        border: 1px solid var(--ink);
+        border-radius: 6px;
+        background: transparent;
+        color: var(--ink);
+        cursor: pointer;
+        transition:
+          background-color 0.15s ease,
+          color 0.15s ease;
+      }
+      .button:hover {
+        background: var(--butter);
+      }
+      .button.dark {
+        background: var(--carbon);
+        color: #fff;
+      }
+      .button.dark:hover {
+        background: var(--ink);
+      }
+      .component-note {
+        margin-top: 12px;
+        color: var(--graphite);
+        font-size: 14px;
+      }
+      .feature-list {
+        display: grid;
+        gap: 32px;
+      }
+      .feature-item {
+        display: grid;
+        gap: 8px;
+      }
+      .feature-item h3 {
+        font-size: 32px;
+        font-weight: 400;
+        line-height: 1.15;
+      }
+      .feature-item p {
+        color: var(--graphite);
+      }
+      .guides {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 48px;
+      }
+      .guides h3 {
+        font-size: 24px;
+        font-weight: 400;
+      }
+      .guides ul {
+        margin: 12px 0 0;
+        padding-left: 20px;
+        color: var(--graphite);
+      }
+      .guides li + li {
+        margin-top: 8px;
+      }
+      footer {
+        display: flex;
+        justify-content: space-between;
+        gap: 24px;
+        padding: 32px 0 64px;
+        color: var(--graphite);
+        font-size: 14px;
+      }
+      .downloads {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+      .downloads a:hover {
+        color: var(--ember);
+      }
+      @media (max-width: 760px) {
+        .wrap {
+          width: min(100% - 28px, 1120px);
+        }
+        .nav-links,
+        .tag {
+          display: none;
+        }
+        .hero {
+          min-height: 430px;
+          padding: 64px 0;
+        }
+        .hero p {
+          font-size: 20px;
+        }
+        .site,
+        section {
+          padding: 56px 0;
+        }
+        .swatches {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .type-row {
+          grid-template-columns: 82px 1fr;
+        }
+        .type-row .spec {
+          grid-column: 2;
+          margin-top: -12px;
+        }
+        .metrics,
+        .surfaces,
+        .component-layout,
+        .guides {
+          grid-template-columns: 1fr;
+          gap: 32px;
+        }
+        footer {
+          flex-direction: column;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+        .button {
+          transition: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="nav">
+      <div class="wrap">
+        <div class="nav-left">
+          <a class="brand" href="#top"
+            >Mistral AI</a
+          ><span class="tag">Design system</span>
+        </div>
+        <div class="nav-links">
+          <a href="#colors">Colors</a><a href="#type">Type</a
+          ><a href="#shape">Spacing</a><a href="#components">Components</a>
+        </div>
+        <div class="nav-right">
+          <a
+            href="#"
+            class="nav-url"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Site ↗</a
+          >
+        </div>
+      </div>
+    </nav>
+    <main id="top">
+      <header class="hero">
+        <div class="hero-inner">
+          <h1>Frontier AI. In your hands.</h1>
+          <p>
+            Warm parchment, measured typography, and a single ember accent for a
+            system that feels lit from within.
+          </p>
+          <div class="hero-actions">
+            <a class="text-action" href="#components"
+              >Get in touch <span class="arrow" aria-hidden="true">→</span></a
+            ><a class="text-action" href="#surfaces"
+              >Start building <span class="arrow" aria-hidden="true">→</span></a
+            >
+          </div>
+        </div>
+      </header>
+      <div class="wrap site">
+        <section id="colors">
+          <div class="section-head">
+            <h2>Colors</h2>
+            <p>Cream, ink, and one exact orange make up the working palette.</p>
+          </div>
+          <div class="swatches">
+            <div class="swatch" style="background: #fffaeb">
+              <strong>Parchment</strong><code>#fffaeb</code>
+            </div>
+            <div class="swatch" style="background: #fff">
+              <strong>Pure Card</strong><code>#ffffff</code>
+            </div>
+            <div class="swatch" style="background: #1f1f1f; color: #fff">
+              <strong>Midnight Ink</strong><code>#1f1f1f</code>
+            </div>
+            <div class="swatch" style="background: #000; color: #fff">
+              <strong>Carbon</strong><code>#000000</code>
+            </div>
+            <div class="swatch" style="background: #3c3c3c; color: #fff">
+              <strong>Graphite</strong><code>#3c3c3c</code>
+            </div>
+            <div class="swatch" style="background: #fa520f">
+              <strong>Ember</strong><code>#fa520f</code>
+            </div>
+            <div class="swatch" style="background: #fff0c2">
+              <strong>Soft Butter</strong><code>#fff0c2</code>
+            </div>
+            <div class="swatch" style="background: #ecdaa2">
+              <strong>Honeycomb</strong><code>#ecdaa2</code>
+            </div>
+          </div>
+        </section>
+        <section id="type">
+          <div class="section-head">
+            <h2>Type</h2>
+            <p>
+              Arial at weight 400 only. Tight tracking and scale, not boldness,
+              define hierarchy.
+            </p>
+          </div>
+          <div class="type-list">
+            <div class="type-row">
+              <span class="type-role">Display</span
+              ><span
+                class="type-sample"
+                style="font-size: clamp(40px, 7vw, 82px); line-height: 0.95"
+                >Frontier, held close.</span
+              ><span class="spec">82 / .95 / 400</span>
+            </div>
+            <div class="type-row">
+              <span class="type-role">Heading lg</span
+              ><span class="type-sample" style="font-size: 56px"
+                >Autonomous work.</span
+              ><span class="spec">56 / 1 / 400</span>
+            </div>
+            <div class="type-row">
+              <span class="type-role">Heading</span
+              ><span class="type-sample" style="font-size: 48px"
+                >A calm system.</span
+              ><span class="spec">48 / 1 / 400</span>
+            </div>
+            <div class="type-row">
+              <span class="type-role">Subheading</span
+              ><span
+                class="type-sample"
+                style="font-size: 32px; line-height: 1.15"
+                >A clear point of view.</span
+              ><span class="spec">32 / 1.15 / 400</span>
+            </div>
+            <div class="type-row">
+              <span class="type-role">Body</span
+              ><span
+                class="type-sample"
+                style="font-size: 24px; line-height: 1.33"
+                >The lead voice keeps a generous, legible rhythm.</span
+              ><span class="spec">24 / 1.33 / 400</span>
+            </div>
+            <div class="type-row">
+              <span class="type-role">Caption</span
+              ><span
+                class="type-sample"
+                style="font-size: 14px; line-height: 1.43"
+                >Labels, metadata and compact context.</span
+              ><span class="spec">14 / 1.43 / 400</span>
+            </div>
+          </div>
+          <p class="font-note">
+            Arial · fallback: Helvetica, Inter, system-ui · tracking: −0.025em
+          </p>
+        </section>
+        <section id="shape">
+          <div class="section-head">
+            <h2>Spacing &amp; shape</h2>
+            <p>
+              Comfortable spacing gives the paper canvas its composure; action
+              geometry stays precise.
+            </p>
+          </div>
+          <div class="metrics">
+            <div class="spacing">
+              <div class="space">
+                <div class="bar" style="height: 4px"></div>
+                <span>4</span>
+              </div>
+              <div class="space">
+                <div class="bar" style="height: 8px"></div>
+                <span>8</span>
+              </div>
+              <div class="space">
+                <div class="bar" style="height: 16px"></div>
+                <span>16</span>
+              </div>
+              <div class="space">
+                <div class="bar" style="height: 24px"></div>
+                <span>24</span>
+              </div>
+              <div class="space">
+                <div class="bar" style="height: 40px"></div>
+                <span>40</span>
+              </div>
+              <div class="space">
+                <div class="bar" style="height: 64px"></div>
+                <span>64</span>
+              </div>
+              <div class="space">
+                <div class="bar" style="height: 80px"></div>
+                <span>80</span>
+              </div>
+              <div class="space">
+                <div class="bar" style="height: 112px"></div>
+                <span>100</span>
+              </div>
+            </div>
+            <div class="radii">
+              <div class="radius" style="border-radius: 6px">
+                Button<br />6px
+              </div>
+              <div class="radius" style="border-radius: 8px">
+                Input<br />8px
+              </div>
+              <div class="radius" style="border-radius: 12px">
+                Card<br />12px
+              </div>
+              <div class="radius" style="border-radius: 9999px">
+                Tag<br />9999px
+              </div>
+            </div>
+          </div>
+        </section>
+        <section id="surfaces">
+          <div class="section-head">
+            <h2>Surfaces &amp; elevation</h2>
+            <p>
+              Dark product UI is the contrast break: it floats on paper with a
+              long, warm shadow.
+            </p>
+          </div>
+          <div class="surfaces">
+            <div class="surface-copy">
+              <h3 class="component-title">Dark product mockup</h3>
+              <p>
+                Midnight Ink surfaces show the application layer. Their shadow
+                uses olive-gold, never neutral gray.
+              </p>
+              <div class="tags">
+                <span class="tag-pill">Workflow automation</span
+                ><span class="tag-pill">Enterprise search</span
+                ><span class="tag-pill">Content creation</span>
+              </div>
+            </div>
+            <div class="dark-mockup">
+              <div class="mockup-bar"></div>
+              <div class="mockup-line short"></div>
+              <div class="mockup-line"></div>
+              <div class="mockup-line ember"></div>
+              <p class="mockup-label">Warm shadow / four layers</p>
+            </div>
+          </div>
+        </section>
+        <section id="components">
+          <div class="section-head">
+            <h2>Components</h2>
+            <p>
+              Buttons are crisp rectangles; tags are soft pills. Their contrast
+              keeps action and categorization distinct.
+            </p>
+          </div>
+          <div class="component-layout">
+            <div>
+              <h3 class="component-title">Actions</h3>
+              <div class="button-row">
+                <button class="button">Contact Sales</button
+                ><button class="button dark">Try Studio</button>
+              </div>
+              <p class="component-note">
+                Outlined hover fills Soft Butter. Primary action stays Carbon,
+                not Ember.
+              </p>
+            </div>
+            <div class="feature-list">
+              <div class="feature-item">
+                <span class="arrow" aria-hidden="true">→</span>
+                <h3>Open feature list</h3>
+                <p>
+                  Ember begins the item; typography and whitespace complete the
+                  structure without a container.
+                </p>
+              </div>
+              <div class="feature-item">
+                <span class="arrow" aria-hidden="true">→</span>
+                <h3>Warm punctuation</h3>
+                <p>
+                  Accent color is specific and low-frequency, never a broad
+                  action surface.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section id="guidelines">
+          <div class="section-head"><h2>Keep the fire contained.</h2></div>
+          <div class="guides">
+            <div>
+              <h3>Do</h3>
+              <ul>
+                <li>Use Parchment as the full-page canvas.</li>
+                <li>Keep Ember to small directional accents.</li>
+                <li>Keep Arial at 400 with −0.025em tracking.</li>
+                <li>Use the warm four-layer shadow on dark product panels.</li>
+              </ul>
+            </div>
+            <div>
+              <h3>Avoid</h3>
+              <ul>
+                <li>Cool-gray shadows or extra chromatic accents.</li>
+                <li>Bold weight and Ember-filled CTAs.</li>
+                <li>Pill-shaped buttons and cards.</li>
+                <li>Dense multi-column card grids.</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+        <footer>
+          <span>Mistral AI design system</span>
+          <div class="downloads">
+            <a href="#" download>DESIGN.md</a
+            ><a href="#" download>tokens.json</a
+            ><a href="#" download>variables.css</a
+            ><a href="#" download>theme.css</a>
+          </div>
+        </footer>
+      </div>
+    </main>
+  </body>
+</html>

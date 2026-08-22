@@ -1,0 +1,33 @@
+{
+	"schemaVersion": 1,
+	"kind": "design-system",
+	"slug": "supabase",
+	"name": "Supabase",
+	"version": "1.0.0",
+	"order": 660,
+	"category": "dev",
+	"vibe": "light",
+	"tags": [
+		"light-ui",
+		"minimal",
+		"developer-focused",
+		"design-system"
+	],
+	"blurb": "An inspired interpretation of Supabaze's design language — an open-source database platform built on a clean white-and-near-black system with a single signature emerald-green CT…",
+	"tagline": {
+		"en": "Clean open-source database with bright green",
+		"zh": "清爽开源数据库 + 明亮绿"
+	},
+	"license": "MIT",
+	"origin": {
+		"type": "curated",
+		"upstream": "https://github.com/ricocc/brands-design-md.git",
+		"note": "from brands-design-md (Supabaze-Inspired); unofficial inspired variant."
+	},
+	"assets": {
+		"spec": "DESIGN.md",
+		"theme": "theme.css",
+		"demo": "demo.html"
+	},
+	"collectedAt": "2026-08-22"
+}

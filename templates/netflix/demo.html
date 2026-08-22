@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Netflix — component reference</title>
+<style>
+	/* Mirrors theme.css. Plain custom properties so this file opens standalone. */
+	:root {
+		--color-primary: #e50914;
+		--color-primary-foreground: #ffffff;
+		--color-surface: #141414;
+		--color-surface-foreground: #ffffff;
+		--color-surface-raised: #1f1f1f;
+		--color-muted: #808080;
+		--color-accent: #46d369;
+		--color-danger: #eb3942;
+		--color-border: #303030;
+
+		--radius-sm: 2px;
+		--radius-md: 4px;
+		--radius-lg: 4px;
+		--radius-xl: 8px;
+		--radius-2xl: 12px;
+
+		--shadow-sm: 0 2px 4px rgb(0 0 0 / 0.5);
+		--shadow-md: 0 8px 20px rgb(0 0 0 / 0.6);
+		--shadow-lg: 0 20px 60px rgb(0 0 0 / 0.8);
+
+		--sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+	}
+
+	*, *::before, *::after { box-sizing: border-box; }
+	body {
+		margin: 0;
+		background: var(--color-surface);
+		color: var(--color-surface-foreground);
+		font-family: var(--sans);
+		font-size: 14px;
+		line-height: 1.5;
+		-webkit-font-smoothing: antialiased;
+	}
+	h1, h2, h3 { margin: 0; font-weight: 800; letter-spacing: -0.02em; line-height: 1.1; }
+	p { margin: 0; }
+	::selection { background: rgb(229 9 20 / 0.5); }
+	.spacer { flex: 1; }
+	.muted { color: var(--color-muted); }
+
+	/* ── Chrome floats over the artwork; it never sits in a bar ───── */
+	.topbar {
+		position: absolute; top: 0; left: 0; right: 0; z-index: 3;
+		display: flex; align-items: center; gap: 22px;
+		padding: 18px 20px;
+		background: linear-gradient(180deg, rgb(0 0 0 / 0.75), transparent);
+	}
+	@media (min-width: 768px) { .topbar { padding: 20px 48px; } }
+	.wordmark { color: var(--color-primary); font-weight: 800; font-size: 24px; letter-spacing: -0.04em; }
+	.topnav { display: none; gap: 18px; font-size: 14px; color: #e5e5e5; }
+	@media (min-width: 820px) { .topnav { display: flex; } }
+	.topnav .is-active { font-weight: 700; }
+	.profile { width: 30px; height: 30px; border-radius: var(--radius-md); background: linear-gradient(135deg, #e50914, #7a0009); }
+
+	/* ── Hero: full-bleed artwork, gradient anchors the text ──────── */
+	.hero { position: relative; min-height: 480px; display: flex; align-items: flex-end; overflow: hidden; }
+	@media (min-width: 768px) { .hero { min-height: 620px; } }
+	.hero-art {
+		position: absolute; inset: 0;
+		background:
+			radial-gradient(120% 90% at 78% 22%, #6b1015 0%, #2a0508 45%, #141414 82%),
+			linear-gradient(115deg, #1b1b1b, #141414);
+	}
+	/* Two gradients: one horizontal to hold the text, one vertical to the shelf. */
+	.hero-scrim-h { position: absolute; inset: 0; background: linear-gradient(90deg, rgb(20 20 20 / 0.95) 0%, rgb(20 20 20 / 0.55) 42%, transparent 70%); }
+	.hero-scrim-v { position: absolute; left: 0; right: 0; bottom: 0; height: 200px; background: linear-gradient(180deg, transparent, var(--color-surface)); }
+	.hero-body { position: relative; z-index: 2; padding: 0 20px 56px; max-width: 640px; }
+	@media (min-width: 768px) { .hero-body { padding: 0 48px 88px; } }
+	.hero .kick { display: flex; align-items: center; gap: 8px; font-size: 13px; letter-spacing: 0.16em; text-transform: uppercase; color: #e5e5e5; }
+	.nbadge { color: var(--color-primary); font-weight: 800; font-size: 15px; }
+	.hero h1 { font-size: 42px; margin: 14px 0 0; }
+	@media (min-width: 768px) { .hero h1 { font-size: 68px; } }
+	.hero .meta { display: flex; align-items: center; gap: 12px; margin-top: 16px; font-size: 14px; flex-wrap: wrap; }
+	.match { color: var(--color-accent); font-weight: 700; }
+	.chip-age { border: 1px solid rgb(255 255 255 / 0.4); padding: 0 7px; font-size: 12px; color: #e5e5e5; }
+	.hero p { margin-top: 16px; font-size: 16px; color: #e0e0e0; max-width: 46ch; text-shadow: 0 1px 4px rgb(0 0 0 / 0.6); }
+	.hero .actions { display: flex; gap: 12px; margin-top: 26px; flex-wrap: wrap; }
+
+	/* ── Buttons: 4px radius, red is THE action ───────────────────── */
+	.btn {
+		font: inherit; font-size: 15px; font-weight: 600;
+		height: 44px; padding: 0 24px;
+		border: 0; border-radius: var(--radius-md);
+		background: var(--color-primary); color: var(--color-primary-foreground);
+		cursor: pointer; display: inline-flex; align-items: center; gap: 9px;
+		transition: background-color 140ms ease, opacity 140ms ease;
+	}
+	.btn:hover { background: #f6121d; }
+	.btn:focus-visible { outline: none; box-shadow: 0 0 0 3px rgb(255 255 255 / 0.7); }
+	/* Secondary is translucent white — it has to work on top of any frame. */
+	.btn-glass { background: rgb(109 109 110 / 0.7); color: #fff; }
+	.btn-glass:hover { background: rgb(109 109 110 / 0.5); }
+	.btn-white { background: #fff; color: #141414; }
+	.btn-white:hover { background: rgb(255 255 255 / 0.82); }
+	.btn[disabled] { cursor: not-allowed; background: #3a3a3a; color: #8c8c8c; }
+
+	/* ── Shelves: tight gaps, imagery forms a wall ────────────────── */
+	.shelf { padding: 0 20px 34px; }
+	@media (min-width: 768px) { .shelf { padding: 0 48px 40px; } }
+	.shelf-head { display: flex; align-items: baseline; gap: 12px; margin-bottom: 12px; }
+	.shelf-head h2 { font-size: 18px; font-weight: 700; letter-spacing: -0.01em; }
+	@media (min-width: 768px) { .shelf-head h2 { font-size: 20px; } }
+	.shelf-head span { font-size: 12px; color: var(--color-muted); letter-spacing: 0.08em; text-transform: uppercase; }
+	.rowposters { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+	@media (min-width: 620px) { .rowposters { grid-template-columns: repeat(4, 1fr); gap: 10px; } }
+	@media (min-width: 1000px) { .rowposters { grid-template-columns: repeat(6, 1fr); gap: 10px; } }
+	/* At rest a poster has no chrome at all. */
+	.poster { border-radius: var(--radius-md); overflow: hidden; position: relative; transition: transform 220ms ease, box-shadow 220ms ease; background: var(--color-surface-raised); }
+	.poster:hover { transform: scale(1.08); box-shadow: var(--shadow-lg); z-index: 2; }
+	.poster .art { aspect-ratio: 16/9; display: grid; place-items: center; font-weight: 800; font-size: 20px; letter-spacing: -0.03em; color: rgb(255 255 255 / 0.9); }
+	.poster .strip { background: var(--color-surface-raised); padding: 8px 10px 10px; display: none; }
+	.poster:hover .strip { display: block; }
+	.poster .strip .line1 { display: flex; align-items: center; gap: 8px; font-size: 12px; }
+	.poster .strip .line2 { font-size: 11px; color: var(--color-muted); margin-top: 4px; }
+	.play-dot { width: 22px; height: 22px; border-radius: 50%; background: #fff; color: #141414; display: grid; place-items: center; font-size: 9px; }
+	.top10 { position: absolute; left: 0; top: 0; background: var(--color-primary); color: #fff; font-size: 10px; font-weight: 800; padding: 2px 5px; letter-spacing: 0.06em; }
+
+	/* ── Reference sections ───────────────────────────────────────── */
+	.wrap { max-width: 1160px; margin: 0 auto; padding: 0 20px 90px; }
+	@media (min-width: 768px) { .wrap { padding: 0 48px 112px; } }
+	.section { padding-top: 52px; }
+	.section-label { font-size: 12px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--color-primary); margin-bottom: 10px; }
+	.section h2 { font-size: 28px; }
+	@media (min-width: 768px) { .section h2 { font-size: 34px; } }
+	.lede { color: var(--color-muted); margin-top: 12px; max-width: 62ch; font-size: 15px; }
+	.note { margin-top: 18px; font-size: 13px; color: var(--color-muted); }
+	.row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+
+	.swatches { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-top: 24px; }
+	@media (min-width: 720px) { .swatches { grid-template-columns: repeat(4, 1fr); } }
+	.sw .fill { height: 60px; border-radius: var(--radius-md); }
+	.sw b { display: block; font-size: 13px; font-weight: 700; margin-top: 8px; }
+	.sw span { font-size: 12px; color: var(--color-muted); }
+
+	/* ── Mobile ───────────────────────────────────────────────────── */
+	.mobile { display: grid; grid-template-columns: minmax(0, 1fr); gap: 30px; margin-top: 28px; align-items: start; }
+	@media (min-width: 860px) { .mobile { grid-template-columns: 280px 1fr; gap: 44px; } }
+	.phone {
+		width: 280px; max-width: 100%; margin: 0 auto;
+		border-radius: 22px; overflow: hidden; background: var(--color-surface);
+		box-shadow: var(--shadow-lg);
+	}
+	.phone-status { display: flex; justify-content: space-between; padding: 9px 16px 4px; font-size: 10px; color: #e5e5e5; position: relative; z-index: 3; }
+	.m-hero { position: relative; height: 300px; display: flex; align-items: flex-end; margin-top: -22px; }
+	/* Portrait artwork on phones — the frame changes, the treatment doesn't. */
+	.m-hero .art { position: absolute; inset: 0; background: radial-gradient(120% 80% at 60% 22%, #6b1015, #2a0508 55%, #141414 90%); }
+	.m-hero .scrim { position: absolute; inset: 0; background: linear-gradient(180deg, rgb(0 0 0 / 0.5) 0%, transparent 30%, rgb(20 20 20 / 0.95) 92%); }
+	.m-hero .body { position: relative; z-index: 2; padding: 0 14px 12px; text-align: center; width: 100%; }
+	.m-hero h5 { font-size: 24px; font-weight: 800; letter-spacing: -0.03em; margin: 0; }
+	.m-hero .meta { font-size: 10px; color: #d0d0d0; margin-top: 6px; }
+	.m-hero .btns { display: flex; gap: 6px; margin-top: 10px; }
+	.m-hero .btns .btn { flex: 1; height: 32px; font-size: 12px; padding: 0 10px; justify-content: center; }
+	.m-shelf { padding: 12px 14px 4px; }
+	.m-shelf h6 { margin: 0 0 8px; font-size: 13px; font-weight: 700; }
+	.m-row { display: flex; gap: 6px; }
+	.m-row .p { flex: 1; aspect-ratio: 2/3; border-radius: var(--radius-md); display: grid; place-items: center; font-size: 11px; font-weight: 800; color: rgb(255 255 255 / 0.85); }
+	.m-tabs { display: flex; background: #0b0b0b; margin-top: 10px; }
+	.m-tabs div { flex: 1; text-align: center; font-size: 10px; color: var(--color-muted); padding: 8px 0 13px; }
+	.m-tabs .is-active { color: #fff; font-weight: 600; }
+	.m-tabs .g { display: block; width: 16px; height: 16px; border: 1.6px solid currentColor; border-radius: 3px; margin: 0 auto 4px; }
+
+	.rules { margin: 0; padding: 0; list-style: none; }
+	.rules li { padding: 14px 0; border-bottom: 1px solid var(--color-border); font-size: 14px; color: var(--color-muted); }
+	.rules b { display: block; color: #fff; font-size: 15px; font-weight: 700; margin-bottom: 3px; }
+
+	/* ── Off-style ────────────────────────────────────────────────── */
+	.compare { display: grid; grid-template-columns: 1fr; gap: 14px; margin-top: 24px; }
+	@media (min-width: 720px) { .compare { grid-template-columns: repeat(2, 1fr); } }
+	.cmp-off { padding: 20px; border-radius: 18px; background: var(--color-surface-raised); border: 1px solid #4a4a4a; font-size: 15px; font-weight: 700; }
+	.cmp-off small { display: block; font-weight: 400; font-size: 13px; color: var(--color-muted); margin-top: 8px; line-height: 1.6; }
+	.cmp-on { padding: 0; border-radius: var(--radius-md); overflow: hidden; }
+	.cmp-on .art { aspect-ratio: 16/9; background: radial-gradient(110% 90% at 70% 25%, #6b1015, #2a0508 60%, #141414); display: flex; align-items: flex-end; padding: 14px; font-size: 15px; font-weight: 700; }
+	.cmp-on small { display: block; font-weight: 400; font-size: 13px; color: var(--color-muted); margin-top: 8px; line-height: 1.6; }
+</style>
+</head>
+<body>
+
+<!-- COVER — the browse screen. Artwork is the page; chrome floats on gradients
+     and there is exactly one red thing on screen. -->
+<div class="hero">
+	<div class="hero-art"></div>
+	<div class="hero-scrim-h"></div>
+	<div class="hero-scrim-v"></div>
+
+	<div class="topbar">
+		<span class="wordmark">VETTA</span>
+		<nav class="topnav"><span class="is-active">Home</span><span>Series</span><span>Films</span><span>New &amp; popular</span><span>My list</span></nav>
+		<span class="spacer"></span>
+		<span style="font-size:15px">⌕</span>
+		<span class="profile"></span>
+	</div>
+
+	<div class="hero-body">
+		<div class="kick"><span class="nbadge">V</span> Series</div>
+		<h1>The Hairline</h1>
+		<div class="meta">
+			<span class="match">97% match</span>
+			<span>2026</span>
+			<span class="chip-age">16+</span>
+			<span>3 seasons</span>
+			<span class="chip-age">4K HDR</span>
+		</div>
+		<p>A design team discovers that everything holding their interface together is one pixel
+			wide — and that someone has been quietly removing it.</p>
+		<div class="actions">
+			<button class="btn btn-white">▶ Play</button>
+			<button class="btn btn-glass">＋ My list</button>
+			<button class="btn btn-glass">ⓘ More info</button>
+		</div>
+	</div>
+</div>
+
+<div class="shelf">
+	<div class="shelf-head"><h2>Trending now</h2><span>Explore all ›</span></div>
+	<div class="rowposters">
+		<div class="poster"><span class="top10">TOP 10</span><div class="art" style="background:radial-gradient(100% 100% at 30% 20%, #7a1015, #24070a)">S1</div>
+			<div class="strip"><div class="line1"><span class="play-dot">▶</span><span class="match">98%</span><span class="chip-age">16+</span></div><div class="line2">Thriller · Design · 3 seasons</div></div></div>
+		<div class="poster"><div class="art" style="background:radial-gradient(100% 100% at 30% 20%, #14406b, #061323)">S2</div>
+			<div class="strip"><div class="line1"><span class="play-dot">▶</span><span class="match">91%</span><span class="chip-age">12+</span></div><div class="line2">Documentary · 1 season</div></div></div>
+		<div class="poster"><div class="art" style="background:radial-gradient(100% 100% at 30% 20%, #4b1d6b, #170824)">S3</div>
+			<div class="strip"><div class="line1"><span class="play-dot">▶</span><span class="match">88%</span><span class="chip-age">18+</span></div><div class="line2">Drama · Limited series</div></div></div>
+		<div class="poster"><div class="art" style="background:radial-gradient(100% 100% at 30% 20%, #6b4a10, #241704)">S4</div>
+			<div class="strip"><div class="line1"><span class="play-dot">▶</span><span class="match">94%</span><span class="chip-age">12+</span></div><div class="line2">Comedy · 2 seasons</div></div></div>
+		<div class="poster"><div class="art" style="background:radial-gradient(100% 100% at 30% 20%, #106b4a, #04241a)">S5</div>
+			<div class="strip"><div class="line1"><span class="play-dot">▶</span><span class="match">85%</span><span class="chip-age">16+</span></div><div class="line2">Sci-fi · Film</div></div></div>
+		<div class="poster"><div class="art" style="background:radial-gradient(100% 100% at 30% 20%, #6b1046, #240418)">S6</div>
+			<div class="strip"><div class="line1"><span class="play-dot">▶</span><span class="match">90%</span><span class="chip-age">16+</span></div><div class="line2">Mystery · 4 seasons</div></div></div>
+	</div>
+</div>
+
+<div class="shelf">
+	<div class="shelf-head"><h2>Continue watching</h2></div>
+	<div class="rowposters">
+		<div class="poster"><div class="art" style="background:radial-gradient(100% 100% at 30% 20%, #33383f, #121417)">E4</div></div>
+		<div class="poster"><div class="art" style="background:radial-gradient(100% 100% at 30% 20%, #3f3327, #17130e)">E2</div></div>
+		<div class="poster"><div class="art" style="background:radial-gradient(100% 100% at 30% 20%, #27333f, #0e1317)">E7</div></div>
+		<div class="poster"><div class="art" style="background:radial-gradient(100% 100% at 30% 20%, #3f2733, #170e13)">E1</div></div>
+		<div class="poster"><div class="art" style="background:radial-gradient(100% 100% at 30% 20%, #2b3f27, #101710)">E9</div></div>
+		<div class="poster"><div class="art" style="background:radial-gradient(100% 100% at 30% 20%, #3a3f27, #15170e)">E3</div></div>
+	</div>
+</div>
+
+<div class="wrap">
+
+	<!-- 01 -->
+	<section class="section">
+		<p class="section-label">01 — Artwork first</p>
+		<h2>The interface disappears</h2>
+		<p class="lede">A poster at rest has no border, no label, no radius beyond 4px and no shadow.
+			All of that arrives on hover: the card scales to 1.08, takes <code>shadow-lg</code>, and reveals a
+			metadata strip. Text over artwork always sits on a gradient — never in a box.</p>
+		<div class="swatches">
+			<div class="sw"><div class="fill" style="background: var(--color-primary)"></div><b>primary</b><span>#e50914 · the action</span></div>
+			<div class="sw"><div class="fill" style="background: var(--color-accent)"></div><b>accent</b><span>#46d369 · match % only</span></div>
+			<div class="sw"><div class="fill" style="background: var(--color-surface)"></div><b>surface</b><span>#141414 · the stage</span></div>
+			<div class="sw"><div class="fill" style="background: var(--color-surface-raised)"></div><b>raised</b><span>#1f1f1f · hover strip</span></div>
+		</div>
+		<p class="note">Red belongs to the wordmark, the Top 10 flag and the play button. It never fills a panel, tints a background or colors a paragraph.</p>
+	</section>
+
+	<!-- 02 -->
+	<section class="section">
+		<p class="section-label">02 — Controls</p>
+		<h2>Solid, translucent, done</h2>
+		<div class="row" style="margin-top: 22px;">
+			<button class="btn btn-white">▶ Play</button>
+			<button class="btn">Subscribe</button>
+			<button class="btn btn-glass">＋ My list</button>
+			<button class="btn" disabled>Unavailable</button>
+		</div>
+		<p class="note">Secondary buttons are a translucent gray-white fill, because they usually sit on top of artwork and cannot rely on a fixed background. Radius stays at 4px — nothing in this system is bubbly.</p>
+	</section>
+
+	<!-- 03 MOBILE -->
+	<section class="section">
+		<p class="section-label">03 — Mobile</p>
+		<h2>Landscape shelves become portrait walls</h2>
+		<p class="lede">The one real change on a phone is aspect ratio: 16:9 stills give way to 2:3
+			portrait art, because a phone screen is tall and six thumbnails per row would be unreadable.
+			Everything else — gradients, sharp corners, one red button — is unchanged.</p>
+		<div class="mobile">
+			<div class="phone">
+				<div class="phone-status"><span>9:41</span><span>LTE ▮</span></div>
+				<div class="m-hero">
+					<div class="art"></div><div class="scrim"></div>
+					<div class="body">
+						<h5>The Hairline</h5>
+						<div class="meta">Thriller · Design · Mystery</div>
+						<div class="btns">
+							<button class="btn btn-white">▶ Play</button>
+							<button class="btn btn-glass">＋ List</button>
+						</div>
+					</div>
+				</div>
+				<div class="m-shelf">
+					<h6>Trending now</h6>
+					<div class="m-row">
+						<span class="p" style="background:radial-gradient(100% 100% at 30% 20%, #7a1015, #24070a)">S1</span>
+						<span class="p" style="background:radial-gradient(100% 100% at 30% 20%, #14406b, #061323)">S2</span>
+						<span class="p" style="background:radial-gradient(100% 100% at 30% 20%, #4b1d6b, #170824)">S3</span>
+					</div>
+				</div>
+				<div class="m-tabs">
+					<div class="is-active"><span class="g"></span>Home</div>
+					<div><span class="g"></span>New</div>
+					<div><span class="g"></span>Search</div>
+					<div><span class="g"></span>Downloads</div>
+				</div>
+			</div>
+			<ul class="rules">
+				<li><b>Aspect ratio</b>16:9 → 2:3. Three portrait posters per row instead of six landscape ones, still at 6–8px gaps so the artwork keeps forming a wall.</li>
+				<li><b>Hero</b>The horizontal scrim becomes a vertical one and the text block centers. Title 68px → 24px; the synopsis is dropped entirely in favour of a genre line.</li>
+				<li><b>Hover states</b>There are none. The scale-and-reveal card becomes a tap that opens the title page, so no metadata is stranded behind an interaction the device cannot perform.</li>
+				<li><b>Buttons</b>Play and My List pair up full width at 32–44px. Play stays white-on-dark; the translucent gray secondary still works over any artwork.</li>
+				<li><b>Chrome</b>The top nav collapses to the wordmark and profile over a gradient, never a solid bar. The four destinations move to a bottom tab bar on near-black.</li>
+				<li><b>Gutters</b>48px → 14px. Artwork is allowed to run closer to the edge on a phone; that is what makes it feel full-bleed.</li>
+				<li><b>Badges</b>Match percentage, maturity chip and the red Top 10 flag all keep their exact desktop treatment — they are small enough to survive untouched.</li>
+			</ul>
+		</div>
+	</section>
+
+	<!-- 04 DON'T -->
+	<section class="section">
+		<p class="section-label">04 — Off-style, for contrast</p>
+		<h2>What breaks the cinema</h2>
+		<div class="compare">
+			<div class="cmp-off">Bordered rounded card
+				<small>18px radius · visible 1px border · a chrome box wrapped around content. Borders and big radii both announce the interface, which is exactly what this system refuses to do.</small></div>
+			<div class="cmp-on"><div class="art">Same content, on-style</div>
+				<small>4px radius, no border, artwork to the edges, text sitting on a gradient. Darkness does the separating.</small></div>
+		</div>
+		<p class="note">Also out: white backgrounds, red as a panel fill or text color, and any UI chrome crowded on top of artwork without a gradient underneath it.</p>
+	</section>
+</div>
+
+</body>
+</html>

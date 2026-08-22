@@ -1,0 +1,682 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#fefbff" />
+    <title>Slack — Design System</title>
+    
+    
+    
+    <style>
+      :root {
+        --aub: #611f69;
+        --plum: #481a54;       
+        --haze: #f9f0ff;
+        --lav: #eac8fe;
+        --violet: linear-gradient(104deg, #000 9.56%, #ba01ff 102.66%);
+        --carbon: #1d1c1d;
+        --char: #454245;
+        --fog: #edeaed;
+        --white: #fff;
+        --canvas: #fefbff;
+        --shot: rgba(0, 0, 0, 0.1) 0 0 32px 0;
+        --nav: rgba(0, 0, 0, 0.08) 0 1px 3px 0;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        margin: 0;
+        background: var(--canvas);
+        color: var(--carbon);
+        font:
+          16px/1.5 "Salesforce-Sans",
+          "DM Sans",
+          sans-serif;
+        letter-spacing: -0.01em;
+      }
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+      button {
+        font: inherit;
+      }
+      :focus-visible {
+        outline: 2px solid var(--aub);
+        outline-offset: 3px;
+      }
+      .wrap {
+        width: min(100% - 40px, 1120px);
+        margin: auto;
+      }
+      .nav {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        height: 64px;
+        display: flex;
+        align-items: center;
+        background: rgba(255, 255, 255, 0.94);
+        box-shadow: var(--nav);
+      }
+      .nav .wrap,
+      .nav-left,
+      .nav-links {
+        display: flex;
+        align-items: center;
+      }
+      .nav .wrap {
+        justify-content: space-between;
+      }
+      .nav-left,
+      .nav-links {
+        gap: 12px;
+      }
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 16px;
+        font-weight: 600;
+      }
+      .logo-favicon {
+        width: 30px;
+        height: 30px;
+        object-fit: contain;
+      }
+      .tag,
+      .nav-links,
+      .nav-url {
+        color: var(--char);
+        font-size: 14px;
+      }
+      .nav-links {
+        gap: 18px;
+      }
+      .nav-links a:hover,
+      .nav-url:hover {
+        color: var(--aub);
+      }
+      .hero {
+        padding: 88px 0 96px;
+        background: var(--plum);
+        color: var(--white);
+      }
+      .hero-inner {
+        max-width: 820px;
+      }
+      .hero h1,
+      h2,
+      h3 {
+        font-family: "Salesforce-Avant-Garde", "Inter Tight", sans-serif;
+        font-weight: 400;
+      }
+      .hero h1 {
+        font-size: clamp(48px, 8vw, 76px);
+        line-height: 1.05;
+        letter-spacing: -0.012em;
+        text-wrap: balance;
+      }
+      .hero p {
+        max-width: 600px;
+        margin-top: 20px;
+        font-size: 18px;
+        color: rgba(255, 255, 255, 0.88);
+      }
+      .buttons {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 32px;
+      }
+      .button {
+        min-height: 52px;
+        padding: 16px 24px;
+        border: 1px solid transparent;
+        border-radius: 4px;
+        background: var(--aub);
+        color: #fff;
+        font-weight: 700;
+        cursor: pointer;
+        transition: background 0.15s;
+      }
+      .button:hover {
+        background: #4f1856;
+      }
+      .button.ghost {
+        background: transparent;
+        color: #fff;
+      }
+      .button.ghost:hover {
+        text-decoration: underline;
+      }
+      .site {
+        padding-top: 80px;
+      }
+      section {
+        padding: 80px 0;
+        border-bottom: 1px solid var(--fog);
+        scroll-margin-top: 64px;
+      }
+      .section-head {
+        max-width: 690px;
+        margin-bottom: 32px;
+      }
+      h2 {
+        font-size: clamp(38px, 5vw, 64px);
+        line-height: 1.12;
+        letter-spacing: -0.012em;
+        text-wrap: balance;
+      }
+      .section-head p {
+        margin-top: 12px;
+        color: var(--char);
+      }
+      .gradient-word {
+        background: var(--violet);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+      .swatches {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 12px;
+      }
+      .swatch {
+        min-height: 132px;
+        display: flex;
+        flex-direction: column;
+        justify-content: end;
+        padding: 16px;
+        border: 1px solid var(--fog);
+        border-radius: 16px;
+      }
+      .swatch strong {
+        font-size: 16px;
+      }
+      .swatch code,
+      .spec {
+        margin-top: 4px;
+        font:
+          12px/1.4 ui-monospace,
+          monospace;
+        letter-spacing: 0;
+        opacity: 0.76;
+      }
+      .type-list {
+        border-top: 1px solid var(--fog);
+      }
+      .type-row {
+        display: grid;
+        grid-template-columns: 110px 1fr 150px;
+        gap: 16px;
+        align-items: baseline;
+        padding: 20px 0;
+        border-bottom: 1px solid var(--fog);
+      }
+      .type-role,
+      .spec {
+        color: var(--char);
+      }
+      .type-sample {
+        font-family: "Salesforce-Avant-Garde", "Inter Tight", sans-serif;
+        font-weight: 400;
+        line-height: 1.1;
+      }
+      .metrics {
+        display: grid;
+        grid-template-columns: 1.4fr 1fr;
+        gap: 48px;
+        align-items: end;
+      }
+      .spacing {
+        min-height: 160px;
+        display: flex;
+        align-items: end;
+        gap: 8px;
+      }
+      .space {
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        justify-content: end;
+        gap: 6px;
+        text-align: center;
+        font-size: 12px;
+        color: var(--char);
+      }
+      .bar {
+        width: 100%;
+        background: var(--aub);
+      }
+      .radii {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+      }
+      .radius {
+        min-height: 84px;
+        display: flex;
+        align-items: end;
+        padding: 12px;
+        border: 1px solid var(--lav);
+        background: var(--white);
+        color: var(--char);
+        font-size: 14px;
+      }
+      .surface {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 48px;
+        align-items: center;
+      }
+      .screenshot {
+        min-height: 248px;
+        padding: 20px;
+        border-radius: 16px;
+        background: #fff;
+        box-shadow: var(--shot);
+      }
+      .app {
+        height: 208px;
+        display: grid;
+        grid-template-columns: 32% 1fr;
+        border-radius: 8px;
+        overflow: hidden;
+        background: #fff;
+        border: 1px solid var(--fog);
+      }
+      .sidebar {
+        padding: 16px;
+        background: #4a154b;
+        color: #fff;
+        font-size: 13px;
+      }
+      .channel {
+        height: 8px;
+        margin: 14px 0;
+        background: rgba(255, 255, 255, 0.35);
+      }
+      .messages {
+        padding: 20px;
+      }
+      .line {
+        height: 9px;
+        margin: 14px 0;
+        background: var(--fog);
+      }
+      .line.short {
+        width: 58%;
+      }
+      .line.accent {
+        width: 36%;
+        background: #1264a3;
+      }
+      .surface p {
+        color: var(--char);
+      }
+      .component-layout,
+      .guides {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 48px;
+      }
+      .component-title,
+      .guides h3 {
+        font-size: 24px;
+        line-height: 1.2;
+      }
+      .component-note {
+        margin-top: 12px;
+        color: var(--char);
+        font-size: 14px;
+      }
+      .card {
+        padding: 24px;
+        border: 1px solid var(--lav);
+        border-radius: 16px;
+      }
+      .card p {
+        margin-top: 8px;
+        color: var(--char);
+      }
+      .guides ul {
+        margin: 12px 0 0;
+        padding-left: 20px;
+        color: var(--char);
+      }
+      .guides li + li {
+        margin-top: 8px;
+      }
+      footer {
+        display: flex;
+        justify-content: space-between;
+        gap: 24px;
+        padding: 32px 0 64px;
+        color: var(--char);
+        font-size: 14px;
+      }
+      .downloads {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+      .downloads a:hover {
+        color: var(--aub);
+      }
+      @media (max-width: 760px) {
+        .wrap {
+          width: min(100% - 28px, 1120px);
+        }
+        .nav-links,
+        .tag {
+          display: none;
+        }
+        .hero {
+          padding: 64px 0;
+        }
+        .site,
+        section {
+          padding: 56px 0;
+        }
+        .swatches {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .type-row {
+          grid-template-columns: 82px 1fr;
+        }
+        .type-row .spec {
+          grid-column: 2;
+          margin-top: -12px;
+        }
+        .metrics,
+        .surface,
+        .component-layout,
+        .guides {
+          grid-template-columns: 1fr;
+          gap: 32px;
+        }
+        footer {
+          flex-direction: column;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+        .button {
+          transition: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="nav">
+      <div class="wrap">
+        <div class="nav-left">
+          <a class="brand" href="#top"
+            >Slack</a
+          ><span class="tag">Design system</span>
+        </div>
+        <div class="nav-links">
+          <a href="#colors">Colors</a><a href="#type">Type</a
+          ><a href="#shape">Spacing</a><a href="#components">Components</a>
+        </div>
+        <a
+          href="#"
+          class="nav-url"
+          target="_blank"
+          rel="noopener noreferrer"
+          >Site ↗</a
+        >
+      </div>
+    </nav>
+    <main id="top">
+      <header class="hero">
+        <div class="wrap hero-inner">
+          <h1>Where work happens.</h1>
+          <p>
+            An airy light system interrupted by concentrated pools of
+            aubergine—the product surface carries the complexity.
+          </p>
+          <div class="buttons">
+            <button class="button">Try Slack</button
+            ><button class="button ghost">Talk to sales</button>
+          </div>
+        </div>
+      </header>
+      <div class="wrap site">
+        <section id="colors">
+          <div class="section-head">
+            <h2>Colors</h2>
+            <p>
+              Aubergine grounds actions and dark bands; the rest of the system
+              remains almost white.
+            </p>
+          </div>
+          <div class="swatches">
+            <div class="swatch" style="background: #611f69; color: #fff">
+              <strong>Aubergine</strong><code>#611f69</code>
+            </div>
+            <div class="swatch" style="background: #481a54; color: #fff">
+              <strong>Deep Plum</strong><code>#481a54</code>
+            </div>
+            <div class="swatch" style="background: #f9f0ff">
+              <strong>Purple Haze</strong><code>#f9f0ff</code>
+            </div>
+            <div class="swatch" style="background: #eac8fe">
+              <strong>Lavender Mist</strong><code>#eac8fe</code>
+            </div>
+            <div class="swatch" style="background: #3d0157; color: #fff">
+              <strong>Plum Shadow</strong><code>#3d0157</code>
+            </div>
+            <div class="swatch" style="background: #730394; color: #fff">
+              <strong>Iris</strong><code>#730394</code>
+            </div>
+            <div class="swatch" style="background: #1264a3; color: #fff">
+              <strong>Channel Blue</strong><code>#1264a3</code>
+            </div>
+            <div class="swatch" style="background: #fefbff">
+              <strong>Soft White</strong><code>#fefbff</code>
+            </div>
+          </div>
+        </section>
+        <section id="type">
+          <div class="section-head">
+            <h2>
+              Type with a <span class="gradient-word">single spark.</span>
+            </h2>
+            <p>
+              Avant Garde owns the architecture. Salesforce Sans makes the
+              everyday interface readable.
+            </p>
+          </div>
+          <div class="type-list">
+            <div class="type-row">
+              <span class="type-role">Display</span
+              ><span
+                class="type-sample"
+                style="font-size: clamp(38px, 6vw, 76px)"
+                >Make work simpler.</span
+              ><span class="spec">76 / 1.2 / 400</span>
+            </div>
+            <div class="type-row">
+              <span class="type-role">Heading</span
+              ><span class="type-sample" style="font-size: 64px"
+                >A clear signal.</span
+              ><span class="spec">64 / 1.12 / 400</span>
+            </div>
+            <div class="type-row">
+              <span class="type-role">Subheading</span
+              ><span class="type-sample" style="font-size: 32px"
+                >Design for the team.</span
+              ><span class="spec">32 / 1.25 / 400</span>
+            </div>
+            <div class="type-row">
+              <span class="type-role">Body</span
+              ><span style="font-size: 16px"
+                >The workhorse voice for navigation, messages and useful
+                context.</span
+              ><span class="spec">16 / 1.5 / 400</span>
+            </div>
+          </div>
+        </section>
+        <section id="shape">
+          <div class="section-head">
+            <h2>Spacing &amp; shape</h2>
+            <p>
+              Comfortable rhythm lets the oversized type breathe; actions remain
+              precise rectangles.
+            </p>
+          </div>
+          <div class="metrics">
+            <div class="spacing">
+              <div class="space">
+                <div class="bar" style="height: 4px"></div>
+                <span>4</span>
+              </div>
+              <div class="space">
+                <div class="bar" style="height: 8px"></div>
+                <span>8</span>
+              </div>
+              <div class="space">
+                <div class="bar" style="height: 16px"></div>
+                <span>16</span>
+              </div>
+              <div class="space">
+                <div class="bar" style="height: 24px"></div>
+                <span>24</span>
+              </div>
+              <div class="space">
+                <div class="bar" style="height: 40px"></div>
+                <span>40</span>
+              </div>
+              <div class="space">
+                <div class="bar" style="height: 72px"></div>
+                <span>96</span>
+              </div>
+            </div>
+            <div class="radii">
+              <div class="radius" style="border-radius: 4px">CTA<br />4px</div>
+              <div class="radius" style="border-radius: 16px">
+                Card<br />16px
+              </div>
+              <div class="radius" style="border-radius: 999px">
+                Nav pill<br />999px
+              </div>
+              <div class="radius" style="border-radius: 90px">
+                Badge<br />90px
+              </div>
+            </div>
+          </div>
+        </section>
+        <section>
+          <div class="section-head">
+            <h2>Product UI carries depth.</h2>
+            <p>
+              The only broad ambient shadow sits beneath an authentic
+              product-surface scale.
+            </p>
+          </div>
+          <div class="surface">
+            <div>
+              <h3 class="component-title">Screenshot card</h3>
+              <p>
+                White card, 16px radius, 32px ambient shadow. In-product Channel
+                Blue remains confined to the workspace.
+              </p>
+            </div>
+            <div class="screenshot">
+              <div class="app">
+                <div class="sidebar">
+                  <div>Acme Inc.</div>
+                  <div class="channel"></div>
+                  <div class="channel"></div>
+                  <div class="channel"></div>
+                </div>
+                <div class="messages">
+                  <div class="line short"></div>
+                  <div class="line"></div>
+                  <div class="line accent"></div>
+                  <div class="line"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section id="components">
+          <div class="section-head">
+            <h2>Components</h2>
+            <p>
+              Default cards are bordered, not elevated; rectangular actions
+              retain a firm, usable feel.
+            </p>
+          </div>
+          <div class="component-layout">
+            <div>
+              <h3 class="component-title">Actions</h3>
+              <div class="buttons" style="margin-top: 0">
+                <button class="button">Primary action</button
+                ><button
+                  class="button"
+                  style="background: transparent; color: #3d0157"
+                >
+                  Ghost action
+                </button>
+              </div>
+              <p class="component-note">
+                Aubergine fill, white text, 4px radius. The secondary action
+                relies on Plum Shadow text.
+              </p>
+            </div>
+            <div class="card">
+              <h3 class="component-title">Feature card</h3>
+              <p>
+                Transparent surface · Lavender Mist border · 16px radius · no
+                shadow.
+              </p>
+            </div>
+          </div>
+        </section>
+        <section id="guidelines">
+          <div class="section-head"><h2>Make purple structural.</h2></div>
+          <div class="guides">
+            <div>
+              <h3>Do</h3>
+              <ul>
+                <li>Reserve Aubergine for filled CTAs.</li>
+                <li>Use Deep Plum for full inverted bands.</li>
+                <li>Keep product shadows to screenshot surfaces.</li>
+                <li>Highlight only one headline phrase with Vivid Violet.</li>
+              </ul>
+            </div>
+            <div>
+              <h3>Avoid</h3>
+              <ul>
+                <li>Pill-shaped primary actions.</li>
+                <li>Gradient UI surfaces.</li>
+                <li>Channel Blue marketing CTAs.</li>
+                <li>Lavender borders around product screenshots.</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+        <footer>
+          <span>Slack design system</span>
+          <div class="downloads">
+            <a href="#" download>DESIGN.md</a
+            ><a href="#" download>tokens.json</a
+            ><a href="#" download>variables.css</a
+            ><a href="#" download>theme.css</a>
+          </div>
+        </footer>
+      </div>
+    </main>
+  </body>
+</html>

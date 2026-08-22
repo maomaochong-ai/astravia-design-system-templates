@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tesla — Design System</title>
+
+
+
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+
+:root{
+  --obsidian:#000000;
+  --carbon:#171a20;
+  --slate:#1c1e21;
+  --graphite:#393c41;
+  --smoke:#5c5e62;
+  --pearl:#f4f4f4;
+  --ivory:#fbfbfb;
+  --canvas-white:#ffffff;
+  --silver:#babfc3;
+  --onyx:#171a20;
+  --ember-red:#e82127;
+  --ember-hover:#cc1c21;
+  --signal-red:#e31837;
+  --glass-overlay:rgba(0,0,0,0.5);
+
+  --r-md:4px;--r-lg:8px;--r-xl:12px;--r-full:9999px;
+}
+
+::selection{background:rgba(232,33,39,.2);color:var(--canvas-white)}
+html{scroll-behavior:smooth}
+
+body{
+  font-family:'Inter',system-ui,-apple-system,sans-serif;
+  background:var(--canvas-white);color:var(--onyx);
+  font-size:14px;line-height:1.6;letter-spacing:.02px;
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
+}
+
+.page{max-width:1200px;margin:0 auto}
+
+/* ── NAV ── */
+.nav{
+  display:flex;justify-content:space-between;align-items:center;
+  height:56px;padding:0 32px;position:sticky;top:0;z-index:100;
+  background:rgba(255,255,255,.92);backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);border-bottom:1px solid rgba(0,0,0,.06);
+}
+.nav-left{display:flex;align-items:center;gap:12px}
+.nav-wordmark{
+  font-size:18px;font-weight:600;letter-spacing:-.35px;
+  color:var(--onyx);text-decoration:none;
+}
+.nav-tag{
+  font-size:10px;font-weight:500;color:var(--ember-red);
+  background:rgba(232,33,39,.06);padding:3px 10px;border-radius:var(--r-full);
+  border:1px solid rgba(232,33,39,.1);letter-spacing:.06px;text-transform:uppercase;
+}
+.nav-right{display:flex;align-items:center;gap:4px}
+.nav-link{
+  font-size:13px;font-weight:400;color:var(--smoke);text-decoration:none;
+  padding:6px 14px;border-radius:var(--r-md);transition:all .2s;letter-spacing:.02px;
+}
+.nav-link:hover{color:var(--onyx);background:var(--pearl)}
+.nav-link--active{color:var(--onyx);font-weight:500}
+.nav-url{font-size:12px;font-weight:400;color:var(--smoke);text-decoration:none;padding:4px 8px;border-radius:var(--r-md);transition:all .2s;letter-spacing:.02px}
+.nav-url:hover{color:var(--onyx);background:var(--pearl)}
+
+/* ── HERO ── */
+.hero{
+  padding:120px 48px 80px;text-align:center;
+  background:var(--obsidian);color:var(--canvas-white);
+  position:relative;overflow:hidden;min-height:80vh;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  margin:0 -0px;
+}
+.hero::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 50% 0%,rgba(232,33,39,.06),transparent 60%);
+  pointer-events:none;
+}
+.hero-label{
+  font-size:11px;font-weight:600;letter-spacing:.12px;
+  text-transform:uppercase;color:var(--ember-red);margin-bottom:24px;
+}
+.hero-title{
+  font-size:clamp(48px,8vw,80px);font-weight:300;line-height:1;
+  letter-spacing:-.04em;color:var(--canvas-white);
+}
+.hero-subtitle{
+  font-size:18px;line-height:1.5;color:var(--smoke);
+  margin-top:20px;max-width:480px;
+}
+.hero-tags{display:flex;gap:8px;margin-top:32px;flex-wrap:wrap;justify-content:center}
+.hero-tag{
+  font-size:10px;font-weight:500;color:var(--smoke);
+  background:var(--carbon);padding:5px 14px;border-radius:var(--r-full);
+  border:1px solid var(--graphite);letter-spacing:.06px;text-transform:uppercase;
+}
+.hero-actions{display:flex;gap:12px;margin-top:40px}
+.hero-scroll{
+  position:absolute;bottom:32px;left:50%;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+}
+.hero-scroll-text{font-size:10px;letter-spacing:.12px;text-transform:uppercase;color:var(--smoke)}
+.hero-scroll-line{width:1px;height:40px;background:linear-gradient(180deg,var(--graphite),transparent)}
+
+/* ── BUTTONS ── */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:6px;
+  font-family:inherit;font-size:13px;font-weight:500;line-height:1;
+  letter-spacing:.02px;padding:12px 48px;border-radius:var(--r-full);
+  cursor:pointer;text-decoration:none;white-space:nowrap;
+  transition:all .2s cubic-bezier(.22,1,.36,1);
+}
+.btn:active{transform:scale(.97)}
+.btn-primary{background:var(--ember-red);color:var(--canvas-white);border:1px solid transparent}
+.btn-primary:hover{background:var(--ember-hover)}
+.btn-secondary{background:transparent;color:var(--canvas-white);border:1px solid var(--canvas-white)}
+.btn-secondary:hover{background:rgba(255,255,255,.08)}
+.btn-dark{background:transparent;color:var(--onyx);border:1px solid var(--onyx)}
+.btn-dark:hover{background:var(--onyx);color:var(--canvas-white)}
+.btn-red-outline{background:transparent;color:var(--ember-red);border:1px solid var(--ember-red)}
+.btn-red-outline:hover{background:var(--ember-red);color:var(--canvas-white)}
+
+/* ── SECTIONS ── */
+.section{
+  padding:96px 48px;
+}
+.section--dark{
+  background:var(--obsidian);color:var(--canvas-white);
+  margin-left:calc(-50vw + 50%);margin-right:calc(-50vw + 50%);
+  padding-left:calc(50vw - 50% + 48px);padding-right:calc(50vw - 50% + 48px);
+}
+.section--light{
+  background:var(--pearl);color:var(--onyx);
+  margin-left:calc(-50vw + 50%);margin-right:calc(-50vw + 50%);
+  padding-left:calc(50vw - 50% + 48px);padding-right:calc(50vw - 50% + 48px);
+}
+.section--white{
+  background:var(--canvas-white);color:var(--onyx);
+}
+.section-header{margin-bottom:48px;text-align:center}
+.section-label{
+  font-size:10px;font-weight:600;letter-spacing:.12px;
+  text-transform:uppercase;color:var(--ember-red);margin-bottom:12px;
+}
+.section-title{
+  font-size:32px;font-weight:300;letter-spacing:-.025em;line-height:1.15;
+}
+.section-desc{
+  font-size:15px;line-height:1.6;color:var(--smoke);
+  margin-top:16px;max-width:560px;margin-left:auto;margin-right:auto;
+}
+.section--light .section-desc{color:var(--silver)}
+
+/* ── COLOR TOKENS ── */
+.color-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:16px;
+}
+.color-token{
+  background:var(--ivory);border:1px solid rgba(0,0,0,.06);
+  border-radius:var(--r-lg);overflow:hidden;transition:border-color .2s;
+}
+.section--dark .color-token{
+  background:var(--carbon);border-color:var(--graphite);
+}
+.color-token:hover{border-color:var(--ember-red)}
+.color-swatch{width:100%;height:72px}
+.color-info{padding:14px 16px}
+.color-name{font-size:13px;font-weight:600;letter-spacing:.01px}
+.color-hex{
+  font-size:11px;font-weight:400;color:var(--smoke);margin-top:2px;
+  font-variant-numeric:tabular-nums;letter-spacing:.02px;
+}
+.section--dark .color-hex{color:var(--smoke)}
+.color-role{font-size:11px;color:var(--silver);margin-top:6px;line-height:1.4}
+
+/* ── TYPE SCALE ── */
+.type-table{
+  display:flex;flex-direction:column;border:1px solid rgba(0,0,0,.06);
+  border-radius:var(--r-lg);overflow:hidden;
+}
+.section--dark .type-table{border-color:var(--graphite)}
+.type-row{
+  display:grid;grid-template-columns:100px 1fr 220px;align-items:baseline;
+  padding:18px 24px;border-bottom:1px solid rgba(0,0,0,.06);
+}
+.section--dark .type-row{border-bottom-color:var(--graphite)}
+.type-row:last-child{border-bottom:none}
+.type-row:hover{background:rgba(0,0,0,.02)}
+.section--dark .type-row:hover{background:rgba(255,255,255,.02)}
+.type-meta{
+  font-size:10px;font-weight:600;color:var(--ember-red);
+  letter-spacing:.08px;text-transform:uppercase;
+}
+.type-sample{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.type-specs{
+  font-size:11px;color:var(--smoke);text-align:right;
+  font-variant-numeric:tabular-nums;letter-spacing:.02px;
+}
+
+/* ── SPACING ── */
+.spacing-bars{display:flex;align-items:flex-end;gap:16px;height:120px}
+.spacing-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px}
+.spacing-bar{
+  width:100%;border-radius:var(--r-md);
+  background:var(--ember-red);opacity:.2;transition:opacity .3s;
+}
+.spacing-col:hover .spacing-bar{opacity:.5}
+.spacing-val{font-size:11px;font-weight:600;letter-spacing:.02px}
+.spacing-name{font-size:10px;font-weight:400;color:var(--smoke);letter-spacing:.02px}
+
+/* ── SHAPES ── */
+.shapes-row{display:flex;flex-wrap:wrap;gap:24px;align-items:flex-end}
+.shape-item{display:flex;flex-direction:column;align-items:center;gap:8px}
+.shape-box{
+  width:72px;height:72px;
+  background:var(--ivory);border:1.5px solid rgba(0,0,0,.08);
+  transition:all .3s cubic-bezier(.22,1,.36,1);
+}
+.section--dark .shape-box{background:var(--carbon);border-color:var(--graphite)}
+.shape-box:hover{border-color:var(--ember-red);transform:scale(1.06)}
+.shape-label{font-size:11px;font-weight:500;color:var(--smoke);letter-spacing:.02px;white-space:nowrap}
+.shape-value{
+  font-size:10px;font-weight:400;color:var(--silver);letter-spacing:.02px;
+  font-variant-numeric:tabular-nums;
+}
+
+/* ── SURFACES ── */
+.surface-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:16px}
+.surface-item{
+  border-radius:var(--r-lg);padding:28px 20px;
+  text-align:center;border:1px solid rgba(0,0,0,.06);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:6px;min-height:100px;transition:transform .3s;
+}
+.surface-item:hover{transform:scale(1.02)}
+.surface-name{font-size:13px;font-weight:600;letter-spacing:.01px}
+.surface-val{
+  font-size:11px;font-weight:400;color:var(--smoke);
+  font-variant-numeric:tabular-nums;letter-spacing:.02px;
+}
+
+/* ── COMPONENTS ── */
+.component-card{
+  background:var(--ivory);border:1px solid rgba(0,0,0,.06);
+  border-radius:var(--r-lg);padding:32px;margin-bottom:20px;
+  transition:border-color .2s;
+}
+.section--dark .component-card{background:var(--carbon);border-color:var(--graphite)}
+.component-card:hover{border-color:var(--ember-red)}
+.component-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px}
+.component-name{font-size:15px;font-weight:600;letter-spacing:.01px}
+.component-role{font-size:12px;color:var(--smoke);margin-top:4px;letter-spacing:.02px}
+.component-class{
+  font-size:10px;font-weight:500;color:var(--ember-red);
+  background:rgba(232,33,39,.06);padding:3px 10px;border-radius:var(--r-full);
+  border:1px solid rgba(232,33,39,.1);letter-spacing:.02px;
+  font-family:'SFMono-Regular',Consolas,monospace;
+}
+.component-preview{
+  display:flex;gap:16px;align-items:center;flex-wrap:wrap;
+  padding:24px;background:var(--canvas-white);border-radius:var(--r-md);
+  border:1px solid rgba(0,0,0,.04);
+}
+.section--dark .component-preview{background:var(--obsidian);border-color:var(--graphite)}
+.component-desc{
+  font-size:12px;color:var(--smoke);line-height:1.5;
+  margin-top:12px;max-width:480px;
+}
+
+/* ── SPEC ROW ── */
+.spec-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:0;
+  border:1px solid rgba(0,0,0,.06);border-radius:var(--r-lg);overflow:hidden;
+}
+.section--dark .spec-grid{border-color:var(--graphite)}
+.spec-row{
+  display:flex;justify-content:space-between;align-items:baseline;
+  padding:18px 24px;border-bottom:1px solid rgba(0,0,0,.06);
+}
+.section--dark .spec-row{border-bottom-color:var(--graphite)}
+.spec-row:last-child{border-bottom:none}
+.spec-label{font-size:13px;font-weight:400;color:var(--smoke);letter-spacing:.02px}
+.spec-value{font-size:16px;font-weight:500;letter-spacing:-.01px}
+
+/* ── DO/DON'T ── */
+.guide-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.guide-card{
+  border-radius:var(--r-lg);padding:28px;
+  border:1px solid rgba(0,0,0,.06);
+}
+.section--dark .guide-card{border-color:var(--graphite)}
+.guide-card--do{background:rgba(232,33,39,.02);border-color:rgba(232,33,39,.1)}
+.guide-card--dont{background:rgba(92,94,98,.04);border-color:rgba(92,94,98,.12)}
+.guide-label{font-size:10px;font-weight:600;letter-spacing:.08px;text-transform:uppercase;margin-bottom:16px}
+.guide-card--do .guide-label{color:var(--ember-red)}
+.guide-card--dont .guide-label{color:var(--smoke)}
+.guide-list{
+  list-style:none;display:flex;flex-direction:column;gap:10px;
+}
+.guide-list li{
+  font-size:13px;line-height:1.5;padding-left:20px;position:relative;
+  color:var(--onyx);
+}
+.section--dark .guide-list li{color:var(--silver)}
+.guide-card--do .guide-list li::before{
+  content:'✓';position:absolute;left:0;color:var(--ember-red);font-weight:700;font-size:12px;
+}
+.guide-card--dont .guide-list li::before{
+  content:'✕';position:absolute;left:0;color:var(--smoke);font-weight:700;font-size:12px;
+}
+
+/* ── FOOTER ── */
+.footer{
+  margin-top:0;padding:48px;
+  background:var(--obsidian);color:var(--smoke);
+  display:flex;justify-content:space-between;align-items:center;
+  margin-left:calc(-50vw + 50%);margin-right:calc(-50vw + 50%);
+  padding-left:calc(50vw - 50% + 48px);padding-right:calc(50vw - 50% + 48px);
+}
+.footer-left{font-size:14px;font-weight:500;opacity:.6}
+.footer-right{display:flex;gap:24px}
+.footer-link{
+  font-size:12px;font-weight:400;color:var(--smoke);text-decoration:none;
+  transition:color .2s;letter-spacing:.02px;
+}
+.footer-link:hover{color:var(--canvas-white)}
+
+/* ── RESPONSIVE ── */
+@media(max-width:768px){
+  .section{padding:64px 24px}
+  .section--dark,.section--light{
+    padding-left:calc(50vw - 50% + 24px);padding-right:calc(50vw - 50% + 24px);
+  }
+  .hero{padding:80px 24px 60px;min-height:60vh}
+  .nav{padding:0 20px}
+  .section-title{font-size:24px}
+  .type-row{grid-template-columns:70px 1fr;gap:8px}
+  .type-specs{display:none}
+  .guide-grid{grid-template-columns:1fr}
+  .color-grid{grid-template-columns:repeat(auto-fill,minmax(140px,1fr))}
+  .hero-title{font-size:40px}
+  .spec-grid{grid-template-columns:1fr}
+  .footer{flex-direction:column;gap:24px;text-align:center;
+    padding-left:24px;padding-right:24px;
+  }
+}
+
+/* ── ENTRANCE ANIMATION ── */
+.section,.hero{opacity:1;transition:opacity .6s cubic-bezier(.22,1,.36,1),transform .6s cubic-bezier(.22,1,.36,1)}
+.section.visible,.hero.visible{opacity:1;transform:translateY(0)}
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="nav-left">
+      <a href="#" class="nav-wordmark">Tesla</a>
+      <span class="nav-tag">Design System</span>
+      <a href="#" class="nav-url" target="_blank">tesla.com</a>
+    </div>
+    <div class="nav-right">
+      <a href="#colors" class="nav-link nav-link--active">Colors</a>
+      <a href="#typography" class="nav-link">Type</a>
+      <a href="#spacing" class="nav-link">Spacing</a>
+      <a href="#components" class="nav-link">Components</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-label">Design System</div>
+    <h1 class="hero-title">Model S</h1>
+    <p class="hero-subtitle">Obsidian minimalism, bold contrast. A design system built on radical simplicity and premium restraint.</p>
+    <div class="hero-tags">
+      <span class="hero-tag">14 color tokens</span>
+      <span class="hero-tag">11 type steps</span>
+      <span class="hero-tag">4px grid</span>
+      <span class="hero-tag">6 surface levels</span>
+    </div>
+    <div class="hero-actions">
+      <a href="#" class="btn btn-primary" download>Download Spec</a>
+      <a href="#" class="btn btn-secondary" download>theme.css</a>
+      <a href="#" class="btn btn-secondary" download>tokens.json</a>
+      <a href="#" class="btn btn-secondary" download>variables.css</a>
+    </div>
+    <div class="hero-scroll">
+      <span class="hero-scroll-text">Scroll</span>
+      <div class="hero-scroll-line"></div>
+    </div>
+  </div>
+
+  <!-- COLORS -->
+  <section class="section section--light" id="colors">
+    <div class="section-header">
+      <div class="section-label">Foundation</div>
+      <h2 class="section-title">Color Tokens</h2>
+      <p class="section-desc">Pure black and white with a single assertive red accent. 14 tokens across surfaces, text, interaction, and overlays.</p>
+    </div>
+    <div class="color-grid">
+      <div class="color-token">
+        <div class="color-swatch" style="background:#000000"></div>
+        <div class="color-info"><div class="color-name">Obsidian</div><div class="color-hex">#000000</div><div class="color-role">Dark background, hero sections</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#171a20"></div>
+        <div class="color-info"><div class="color-name">Carbon</div><div class="color-hex">#171a20</div><div class="color-role">Elevated dark surfaces</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#1c1e21"></div>
+        <div class="color-info"><div class="color-name">Slate</div><div class="color-hex">#1c1e21</div><div class="color-role">Secondary dark sections</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#393c41"></div>
+        <div class="color-info"><div class="color-name">Graphite</div><div class="color-hex">#393c41</div><div class="color-role">Borders, dividers</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#5c5e62"></div>
+        <div class="color-info"><div class="color-name">Smoke</div><div class="color-hex">#5c5e62</div><div class="color-role">Secondary text, placeholders</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#babfc3"></div>
+        <div class="color-info"><div class="color-name">Silver</div><div class="color-hex">#babfc3</div><div class="color-role">Captions, subtle labels</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#f4f4f4"></div>
+        <div class="color-info"><div class="color-name">Pearl</div><div class="color-hex">#f4f4f4</div><div class="color-role">Light background sections</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#fbfbfb"></div>
+        <div class="color-info"><div class="color-name">Ivory</div><div class="color-hex">#fbfbfb</div><div class="color-role">Elevated light surfaces</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#ffffff;border:1px solid rgba(0,0,0,.08)"></div>
+        <div class="color-info"><div class="color-name">Canvas White</div><div class="color-hex">#ffffff</div><div class="color-role">Primary white canvas</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#e82127"></div>
+        <div class="color-info"><div class="color-name">Ember Red</div><div class="color-hex">#e82127</div><div class="color-role">Primary CTA, brand accent</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#cc1c21"></div>
+        <div class="color-info"><div class="color-name">Ember Hover</div><div class="color-hex">#cc1c21</div><div class="color-role">Button hover state</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#e31837"></div>
+        <div class="color-info"><div class="color-name">Signal Red</div><div class="color-hex">#e31837</div><div class="color-role">Alerts, critical emphasis</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TYPOGRAPHY -->
+  <section class="section section--dark" id="typography">
+    <div class="section-header">
+      <div class="section-label">Typography</div>
+      <h2 class="section-title">Type Scale</h2>
+      <p class="section-desc">Inter as substitute for Tesla Gothic. Ultra-light display weights with tight negative tracking for that premium, spacious feel.</p>
+    </div>
+    <div class="type-table">
+      <div class="type-row">
+        <span class="type-meta">Display-lg</span>
+        <span class="type-sample" style="font-size:36px;font-weight:300;line-height:1;letter-spacing:-.04em">Model S</span>
+        <span class="type-specs">72px / 1.0 / −0.04em</span>
+      </div>
+      <div class="type-row">
+        <span class="type-meta">Display</span>
+        <span class="type-sample" style="font-size:28px;font-weight:300;line-height:1.05;letter-spacing:-.04em">Plaid</span>
+        <span class="type-specs">56px / 1.05 / −0.04em</span>
+      </div>
+      <div class="type-row">
+        <span class="type-meta">Display-sm</span>
+        <span class="type-sample" style="font-size:22px;font-weight:300;line-height:1.1;letter-spacing:-.025em">Beyond Ludicrous</span>
+        <span class="type-specs">40px / 1.1 / −0.025em</span>
+      </div>
+      <div class="type-row">
+        <span class="type-meta">Heading-lg</span>
+        <span class="type-sample" style="font-size:18px;font-weight:300;line-height:1.2;letter-spacing:-.025em">Interior</span>
+        <span class="type-specs">32px / 1.2 / −0.025em</span>
+      </div>
+      <div class="type-row">
+        <span class="type-meta">Heading</span>
+        <span class="type-sample" style="font-size:16px;font-weight:500;line-height:1.25;letter-spacing:-.015em">Section heading</span>
+        <span class="type-specs">24px / 1.25 / −0.015em</span>
+      </div>
+      <div class="type-row">
+        <span class="type-meta">Body-md</span>
+        <span class="type-sample" style="font-size:16px;font-weight:400;line-height:1.5;letter-spacing:.02em">Default body text for readable content</span>
+        <span class="type-specs">16px / 1.5 / 0.02em</span>
+      </div>
+      <div class="type-row">
+        <span class="type-meta">Body</span>
+        <span class="type-sample" style="font-size:14px;font-weight:400;line-height:1.6;letter-spacing:.02em">Standard body text for descriptions and UI</span>
+        <span class="type-specs">14px / 1.6 / 0.02em</span>
+      </div>
+      <div class="type-row">
+        <span class="type-meta">Body-sm</span>
+        <span class="type-sample" style="font-size:13px;font-weight:400;line-height:1.5;letter-spacing:.02em">Dense data, comparison rows</span>
+        <span class="type-specs">13px / 1.5 / 0.02em</span>
+      </div>
+      <div class="type-row">
+        <span class="type-meta">Caption</span>
+        <span class="type-sample" style="font-size:12px;font-weight:400;line-height:1.5;letter-spacing:.08em;text-transform:uppercase">Meta info · Labels</span>
+        <span class="type-specs">12px / 1.5 / 0.08em</span>
+      </div>
+    </div>
+
+    <h3 style="font-size:14px;font-weight:500;color:var(--canvas-white);margin:48px 0 20px;letter-spacing:.01px">Fonts</h3>
+    <div style="display:flex;flex-direction:column;border:1px solid var(--graphite);border-radius:var(--r-lg);overflow:hidden">
+      <div style="padding:20px 24px;border-bottom:1px solid var(--graphite);display:flex;align-items:baseline;gap:16px">
+        <span style="font-size:10px;font-weight:600;color:var(--ember-red);letter-spacing:.08px;text-transform:uppercase;flex:0 0 60px">Primary</span>
+        <span style="font-size:16px;font-weight:500;color:var(--canvas-white);letter-spacing:-.01em">Inter</span>
+        <span style="font-size:11px;color:var(--smoke);letter-spacing:.02px">300–700 · 12–72px · Substitute for Tesla Gothic</span>
+      </div>
+      <div style="padding:20px 24px;display:flex;align-items:baseline;gap:16px">
+        <span style="font-size:10px;font-weight:600;color:var(--ember-red);letter-spacing:.08px;text-transform:uppercase;flex:0 0 60px">Mono</span>
+        <span style="font-size:16px;font-weight:500;color:var(--canvas-white);letter-spacing:-.01em">SF Mono / JetBrains Mono</span>
+        <span style="font-size:11px;color:var(--smoke);letter-spacing:.02px">400 · Spec values only</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- SPACING & SHAPES -->
+  <section class="section section--white" id="spacing">
+    <div class="section-header">
+      <div class="section-label">Layout</div>
+      <h2 class="section-title">Spacing & Shapes</h2>
+      <p class="section-desc">Base unit 4px. Spacious density with generous breathing room. 16-step spacing scale, pill buttons throughout.</p>
+    </div>
+
+    <h3 style="font-size:14px;font-weight:500;margin-bottom:20px;letter-spacing:.01px">Spacing Scale (4px base)</h3>
+    <div class="spacing-bars">
+      <div class="spacing-col"><div class="spacing-bar" style="height:8px"></div><span class="spacing-val">4</span><span class="spacing-name">4px</span></div>
+      <div class="spacing-col"><div class="spacing-bar" style="height:12px"></div><span class="spacing-val">8</span><span class="spacing-name">8px</span></div>
+      <div class="spacing-col"><div class="spacing-bar" style="height:18px"></div><span class="spacing-val">12</span><span class="spacing-name">12px</span></div>
+      <div class="spacing-col"><div class="spacing-bar" style="height:24px"></div><span class="spacing-val">16</span><span class="spacing-name">16px</span></div>
+      <div class="spacing-col"><div class="spacing-bar" style="height:36px"></div><span class="spacing-val">24</span><span class="spacing-name">24px</span></div>
+      <div class="spacing-col"><div class="spacing-bar" style="height:48px"></div><span class="spacing-val">32</span><span class="spacing-name">32px</span></div>
+      <div class="spacing-col"><div class="spacing-bar" style="height:64px"></div><span class="spacing-val">48</span><span class="spacing-name">48px</span></div>
+      <div class="spacing-col"><div class="spacing-bar" style="height:80px"></div><span class="spacing-val">64</span><span class="spacing-name">64px</span></div>
+      <div class="spacing-col"><div class="spacing-bar" style="height:100px"></div><span class="spacing-val">96</span><span class="spacing-name">96px</span></div>
+    </div>
+
+    <h3 style="font-size:14px;font-weight:500;margin:48px 0 20px;letter-spacing:.01px">Border Radius</h3>
+    <div class="shapes-row">
+      <div class="shape-item">
+        <div class="shape-box" style="border-radius:4px"></div>
+        <span class="shape-label">default</span>
+        <span class="shape-value">4px</span>
+      </div>
+      <div class="shape-item">
+        <div class="shape-box" style="border-radius:4px"></div>
+        <span class="shape-label">input</span>
+        <span class="shape-value">4px</span>
+      </div>
+      <div class="shape-item">
+        <div class="shape-box" style="border-radius:8px"></div>
+        <span class="shape-label">cards</span>
+        <span class="shape-value">8px</span>
+      </div>
+      <div class="shape-item">
+        <div class="shape-box" style="border-radius:9999px"></div>
+        <span class="shape-label">pill</span>
+        <span class="shape-value">9999px</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- SURFACES -->
+  <section class="section section--light" id="surfaces">
+    <div class="section-header">
+      <div class="section-label">Elevation</div>
+      <h2 class="section-title">Surface System</h2>
+      <p class="section-desc">Six distinct surface levels spanning dark and light themes. Flat surfaces with color contrast for elevation — no shadows.</p>
+    </div>
+    <div class="surface-grid">
+      <div class="surface-item" style="background:#000000;color:#ffffff">
+        <span class="surface-name">Obsidian</span>
+        <span class="surface-val" style="color:rgba(255,255,255,.5)">#000000</span>
+      </div>
+      <div class="surface-item" style="background:#171a20;color:#ffffff">
+        <span class="surface-name">Carbon</span>
+        <span class="surface-val" style="color:rgba(255,255,255,.5)">#171a20</span>
+      </div>
+      <div class="surface-item" style="background:#1c1e21;color:#ffffff">
+        <span class="surface-name">Slate</span>
+        <span class="surface-val" style="color:rgba(255,255,255,.5)">#1c1e21</span>
+      </div>
+      <div class="surface-item" style="background:#f4f4f4">
+        <span class="surface-name">Pearl</span>
+        <span class="surface-val">#f4f4f4</span>
+      </div>
+      <div class="surface-item" style="background:#fbfbfb">
+        <span class="surface-name">Ivory</span>
+        <span class="surface-val">#fbfbfb</span>
+      </div>
+      <div class="surface-item" style="background:#ffffff">
+        <span class="surface-name">Canvas White</span>
+        <span class="surface-val">#ffffff</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- SPECS -->
+  <section class="section section--dark" id="specs">
+    <div class="section-header">
+      <div class="section-label">Data Display</div>
+      <h2 class="section-title">Spec Rows</h2>
+      <p class="section-desc">The signature Tesla data display pattern — clean label/value pairs in a structured grid with minimal dividers.</p>
+    </div>
+    <div class="spec-grid">
+      <div class="spec-row"><span class="spec-label">Range (EPA est.)</span><span class="spec-value" style="color:var(--canvas-white)">405 mi</span></div>
+      <div class="spec-row"><span class="spec-label">0–60 mph</span><span class="spec-value" style="color:var(--canvas-white)">1.99 s</span></div>
+      <div class="spec-row"><span class="spec-label">Top Speed</span><span class="spec-value" style="color:var(--canvas-white)">200 mph</span></div>
+      <div class="spec-row"><span class="spec-label">Peak Power</span><span class="spec-value" style="color:var(--canvas-white)">1,020 hp</span></div>
+      <div class="spec-row"><span class="spec-label">Drag Coefficient</span><span class="spec-value" style="color:var(--canvas-white)">0.208 Cd</span></div>
+      <div class="spec-row"><span class="spec-label">Drive</span><span class="spec-value" style="color:var(--canvas-white)">Tri Motor AWD</span></div>
+    </div>
+  </section>
+
+  <!-- COMPONENTS -->
+  <section class="section section--white" id="components">
+    <div class="section-header">
+      <div class="section-label">Components</div>
+      <h2 class="section-title">Button Variants</h2>
+      <p class="section-desc">All buttons use pill shape (9999px radius). Primary CTA in Ember Red, secondary options in outlined or ghost styles.</p>
+    </div>
+
+    <div class="component-card">
+      <div class="component-header">
+        <div><div class="component-name">Primary CTA Button (Pill)</div><div class="component-role">Main call to action — ordering, configuring</div></div>
+        <span class="component-class">.btn-primary</span>
+      </div>
+      <div class="component-preview">
+        <button class="btn btn-primary">Order Now</button>
+        <button class="btn btn-primary" style="background:var(--ember-hover)">Hover state</button>
+      </div>
+      <div class="component-desc">Ember Red (#e82127) background, Canvas White text, 9999px radius, 12px/48px padding. Highest visual weight.</div>
+    </div>
+
+    <div class="component-card">
+      <div class="component-header">
+        <div><div class="component-name">Secondary Pill Button (Outlined)</div><div class="component-role">Learn more, explore, compare</div></div>
+        <span class="component-class">.btn-dark</span>
+      </div>
+      <div class="component-preview">
+        <button class="btn btn-dark">Learn More</button>
+        <button class="btn btn-dark" style="background:var(--onyx);color:var(--canvas-white)">Hover state</button>
+      </div>
+      <div class="component-desc">Transparent background, Onyx text, 1px Onyx border, 9999px radius. Hover fills with Onyx.</div>
+    </div>
+
+    <div class="component-card">
+      <div class="component-header">
+        <div><div class="component-name">Red Outline Button</div><div class="component-role">Secondary action on dark backgrounds</div></div>
+        <span class="component-class">.btn-red-outline</span>
+      </div>
+      <div class="component-preview" style="background:var(--obsidian);border-color:var(--graphite)">
+        <button class="btn btn-red-outline">Configure</button>
+        <button class="btn btn-red-outline" style="background:var(--ember-red);color:var(--canvas-white)">Hover state</button>
+      </div>
+      <div class="component-desc">Transparent background, Ember Red text and border, 9999px radius. Hover fills with Ember Red.</div>
+    </div>
+
+    <div class="component-card">
+      <div class="component-header">
+        <div><div class="component-name">Secondary Outlined (Light)</div><div class="component-role">Secondary actions on light backgrounds</div></div>
+        <span class="component-class">.btn-secondary</span>
+      </div>
+      <div class="component-preview">
+        <button class="btn btn-secondary" style="color:var(--onyx);border-color:var(--onyx)">Learn More</button>
+      </div>
+      <div class="component-desc">Transparent background, Canvas White text, 1px Canvas White border, 9999px radius.</div>
+    </div>
+
+    <div class="component-card">
+      <div class="component-header">
+        <div><div class="component-name">Ghost Navigation Link</div><div class="component-role">Header navigation items</div></div>
+        <span class="component-class">.nav-link</span>
+      </div>
+      <div class="component-preview">
+        <a href="#" style="color:var(--onyx);text-decoration:none;font-size:14px;font-weight:400;letter-spacing:.02px;padding:6px 14px">Model S</a>
+        <a href="#" style="color:var(--onyx);text-decoration:none;font-size:14px;font-weight:400;letter-spacing:.02px;padding:6px 14px">Model 3</a>
+        <a href="#" style="color:var(--onyx);text-decoration:none;font-size:14px;font-weight:400;letter-spacing:.02px;padding:6px 14px">Model X</a>
+        <a href="#" style="color:var(--onyx);text-decoration:none;font-size:14px;font-weight:400;letter-spacing:.02px;padding:6px 14px">Model Y</a>
+      </div>
+      <div class="component-desc">Onyx text, transparent background, 14px, weight 400, letter-spacing 0.02. Hover lightens.</div>
+    </div>
+
+    <div class="component-card">
+      <div class="component-header">
+        <div><div class="component-name">Input Field</div><div class="component-role">User text input</div></div>
+        <span class="component-class">input</span>
+      </div>
+      <div class="component-preview">
+        <div style="display:flex;flex-direction:column;gap:12px;flex:1;max-width:360px">
+          <input type="text" placeholder="Email address" style="background:transparent;border:1px solid var(--graphite);border-radius:4px;padding:12px 16px;color:var(--onyx);font-size:14px;font-family:inherit;outline:none">
+          <input type="text" value="Focused state" style="background:transparent;border:1px solid var(--onyx);border-radius:4px;padding:12px 16px;color:var(--onyx);font-size:14px;font-family:inherit;outline:none">
+        </div>
+      </div>
+      <div class="component-desc">Transparent background, Onyx text, 4px radius. Focus state uses solid Onyx border.</div>
+    </div>
+  </section>
+
+  <!-- DO'S & DON'TS -->
+  <section class="section section--dark" id="guidelines">
+    <div class="section-header">
+      <div class="section-label">Guidelines</div>
+      <h2 class="section-title">Do's & Don'ts</h2>
+    </div>
+    <div class="guide-grid">
+      <div class="guide-card guide-card--do">
+        <div class="guide-label">Do — Embrace</div>
+        <ul class="guide-list">
+          <li>Pure black (#000000) and white (#ffffff) as primary canvases</li>
+          <li>Ember Red (#e82127) exclusively for primary CTAs</li>
+          <li>Pill-shaped buttons (9999px radius) everywhere</li>
+          <li>Generous spacing — sections breathe with large padding</li>
+          <li>Tight letter-spacing on headings for premium feel</li>
+          <li>Full-bleed hero imagery at viewport scale</li>
+          <li>Subtle Graphite borders for minimal separation</li>
+          <li>Stark weight/size hierarchy over color variety</li>
+        </ul>
+      </div>
+      <div class="guide-card guide-card--dont">
+        <div class="guide-label">Don't — Avoid</div>
+        <ul class="guide-list">
+          <li>Additional accent colors beyond red variants</li>
+          <li>Rounded corners >8px on non-button elements</li>
+          <li>Cramped, dense layouts without breathing room</li>
+          <li>Decoratory shadows — use flat color contrast</li>
+          <li>Playful or casual typography choices</li>
+          <li>Gradient backgrounds on primary surfaces</li>
+          <li>Bright saturated colors for secondary elements</li>
+          <li>Heavy dividers or visual noise</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-left">Tesla Design System</div>
+    <div class="footer-right">
+      <a href="#colors" class="footer-link">Colors</a>
+      <a href="#typography" class="footer-link">Typography</a>
+      <a href="#spacing" class="footer-link">Spacing</a>
+      <a href="#components" class="footer-link">Components</a>
+      <a href="#" class="footer-link" download>Download Spec</a>
+    </div>
+  </footer>
+
+</div>
+
+
+
+</body>
+</html>

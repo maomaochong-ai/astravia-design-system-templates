@@ -1,0 +1,31 @@
+{
+	"schemaVersion": 1,
+	"kind": "design-system",
+	"slug": "clay",
+	"name": "Clay",
+	"version": "1.0.0",
+	"order": 310,
+	"category": "productivity",
+	"vibe": "light",
+	"tags": [
+		"light-ui",
+		"design-system"
+	],
+	"blurb": "A vibrant claymation-meets-data interface for Clay.com (GTM data-orchestration platform).",
+	"tagline": {
+		"en": "Claymation-meets-data, playful yet precise",
+		"zh": "黏土动画 × 数据，俏皮而精确"
+	},
+	"license": "MIT",
+	"origin": {
+		"type": "curated",
+		"upstream": "https://github.com/ricocc/brands-design-md.git",
+		"note": "from brands-design-md (Clay)."
+	},
+	"assets": {
+		"spec": "DESIGN.md",
+		"theme": "theme.css",
+		"demo": "demo.html"
+	},
+	"collectedAt": "2026-08-22"
+}

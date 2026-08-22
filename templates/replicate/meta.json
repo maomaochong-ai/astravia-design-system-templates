@@ -1,0 +1,33 @@
+{
+	"schemaVersion": 1,
+	"kind": "design-system",
+	"slug": "replicate",
+	"name": "Replicate",
+	"version": "1.0.0",
+	"order": 580,
+	"category": "ai",
+	"vibe": "light",
+	"tags": [
+		"light-ui",
+		"editorial",
+		"developer-focused",
+		"design-system"
+	],
+	"blurb": "Replicate's marketing surfaces pair the warm-cream developer-tools aesthetic\nof an indie ML playground with a confident hot-orange brand accent and a\nsignature display typeface…",
+	"tagline": {
+		"en": "Warm-cream indie ML playground with red accents",
+		"zh": "暖奶油独立 ML 游乐场 + 红色点缀"
+	},
+	"license": "MIT",
+	"origin": {
+		"type": "curated",
+		"upstream": "https://github.com/ricocc/brands-design-md.git",
+		"note": "from brands-design-md (Replicate)."
+	},
+	"assets": {
+		"spec": "DESIGN.md",
+		"theme": "theme.css",
+		"demo": "demo.html"
+	},
+	"collectedAt": "2026-08-22"
+}

@@ -1,0 +1,32 @@
+{
+	"schemaVersion": 1,
+	"kind": "design-system",
+	"slug": "ibm",
+	"name": "IBM",
+	"version": "1.0.0",
+	"order": 400,
+	"category": "premium",
+	"vibe": "light",
+	"tags": [
+		"light-ui",
+		"enterprise",
+		"design-system"
+	],
+	"blurb": "An enterprise-marketing canvas faithful to Carbon Design System: white surfaces, charcoal type, IBM Blue (#0f62fe) as the single confident accent, and a deliberately flat-square…",
+	"tagline": {
+		"en": "Faithful Carbon Design System: white, charcoal, IBM Blue",
+		"zh": "忠于 Carbon 设计系统：白、炭黑、IBM 蓝"
+	},
+	"license": "MIT",
+	"origin": {
+		"type": "curated",
+		"upstream": "https://github.com/ricocc/brands-design-md.git",
+		"note": "from brands-design-md (IBM)."
+	},
+	"assets": {
+		"spec": "DESIGN.md",
+		"theme": "theme.css",
+		"demo": "demo.html"
+	},
+	"collectedAt": "2026-08-22"
+}

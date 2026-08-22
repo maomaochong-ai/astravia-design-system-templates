@@ -1,0 +1,33 @@
+{
+	"schemaVersion": 1,
+	"kind": "design-system",
+	"slug": "posthog",
+	"name": "PostHog",
+	"version": "1.0.0",
+	"order": 550,
+	"category": "dev",
+	"vibe": "light",
+	"tags": [
+		"light-ui",
+		"developer-focused",
+		"playful",
+		"design-system"
+	],
+	"blurb": "A playful developer-tools system rendered on a warm cream canvas with hand-drawn hedgehog mascots dotted across every page like marginalia in a sketchbook.",
+	"tagline": {
+		"en": "Playful cream canvas with hedgehog mascots",
+		"zh": "俏皮奶油画布 + 刺猬吉祥物"
+	},
+	"license": "MIT",
+	"origin": {
+		"type": "curated",
+		"upstream": "https://github.com/ricocc/brands-design-md.git",
+		"note": "from brands-design-md (PostHog)."
+	},
+	"assets": {
+		"spec": "DESIGN.md",
+		"theme": "theme.css",
+		"demo": "demo.html"
+	},
+	"collectedAt": "2026-08-22"
+}

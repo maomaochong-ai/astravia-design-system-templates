@@ -1,0 +1,409 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Discord — component reference</title>
+<style>
+	/* Mirrors theme.css. Plain custom properties so this file opens standalone. */
+	:root {
+		--color-primary: #5865f2;
+		--color-primary-foreground: #ffffff;
+		--color-surface: #313338;
+		--color-surface-foreground: #f2f3f5;
+		--color-surface-raised: #2b2d31;
+		--color-muted: #949ba4;
+		--color-accent: #23a559;
+		--color-danger: #f23f43;
+		--color-border: #3f4147;
+
+		--radius-sm: 4px;
+		--radius-md: 8px;
+		--radius-lg: 8px;
+		--radius-xl: 12px;
+		--radius-2xl: 16px;
+
+		--shadow-sm: 0 1px 2px rgb(0 0 0 / 0.3);
+		--shadow-md: 0 4px 12px rgb(0 0 0 / 0.4);
+		--shadow-lg: 0 12px 36px rgb(0 0 0 / 0.55);
+
+		/* The third, darkest layer. Never pure black. */
+		--layer-rail: #1e1f22;
+		--sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+	}
+
+	*, *::before, *::after { box-sizing: border-box; }
+	body {
+		margin: 0;
+		background: var(--color-surface);
+		color: var(--color-surface-foreground);
+		font-family: var(--sans);
+		font-size: 15px;
+		line-height: 1.55;
+		-webkit-font-smoothing: antialiased;
+	}
+	h1, h2, h3 { margin: 0; font-weight: 700; line-height: 1.25; }
+	p { margin: 0; }
+	::selection { background: rgb(88 101 242 / 0.45); }
+	.spacer { flex: 1; }
+	.muted { color: var(--color-muted); }
+
+	/* ── Three layers of charcoal do all the structural work ──────── */
+	.app { display: grid; grid-template-columns: 72px 1fr; }
+	@media (min-width: 940px) { .app { grid-template-columns: 72px 240px 1fr 240px; } }
+
+	.rail { background: var(--layer-rail); padding: 12px 0; display: flex; flex-direction: column; align-items: center; gap: 8px; }
+	.server {
+		width: 48px; height: 48px; border-radius: 50%;
+		display: grid; place-items: center; font-weight: 700; font-size: 15px;
+		background: var(--color-surface-raised); color: var(--color-surface-foreground);
+		transition: border-radius 160ms ease, background-color 160ms ease;
+		position: relative;
+	}
+	.server:hover { border-radius: var(--radius-xl); background: var(--color-primary); }
+	.server.is-active { border-radius: var(--radius-xl); background: var(--color-primary); }
+	/* The little white pill on the left edge marks where you are. */
+	.server.is-active::before { content: ""; position: absolute; left: -12px; top: 12px; width: 4px; height: 24px; border-radius: 0 4px 4px 0; background: #fff; }
+	.server .ping { position: absolute; right: -2px; bottom: -2px; background: var(--color-danger); color: #fff; font-size: 11px; font-weight: 700; border-radius: 9999px; padding: 0 5px; border: 3px solid var(--layer-rail); }
+	.rail .sep { width: 32px; height: 2px; border-radius: 1px; background: var(--color-border); margin: 4px 0; }
+	.server.add { color: var(--color-accent); font-size: 20px; }
+
+	.chanlist { background: var(--color-surface-raised); display: none; flex-direction: column; }
+	@media (min-width: 940px) { .chanlist { display: flex; } }
+	.guild-head { display: flex; align-items: center; padding: 14px 16px; box-shadow: var(--shadow-sm); font-weight: 700; font-size: 16px; }
+	.cat { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: var(--color-muted); padding: 16px 10px 4px; }
+	.chan { display: flex; align-items: center; gap: 6px; height: 32px; margin: 0 8px; padding: 0 8px; border-radius: var(--radius-sm); color: var(--color-muted); font-size: 15px; }
+	.chan .h { font-size: 17px; opacity: 0.65; }
+	.chan:hover { background: rgb(255 255 255 / 0.04); color: #dbdee1; }
+	.chan.is-active { background: rgb(255 255 255 / 0.1); color: #fff; font-weight: 500; }
+	.chan.unread { color: #fff; font-weight: 500; }
+	.chan .badge { margin-left: auto; background: var(--color-danger); color: #fff; font-size: 11px; font-weight: 700; border-radius: 9999px; padding: 0 6px; }
+	.voice-user { display: flex; align-items: center; gap: 8px; margin: 2px 8px 0 26px; font-size: 14px; color: var(--color-muted); }
+	.voice-user .av { width: 22px; height: 22px; border-radius: 50%; }
+	.userbar { margin-top: auto; background: #232428; padding: 8px 10px; display: flex; align-items: center; gap: 8px; }
+	.userbar .av { width: 32px; height: 32px; border-radius: 50%; background: var(--color-primary); position: relative; flex: none; }
+	.userbar .av::after { content: ""; position: absolute; right: -1px; bottom: -1px; width: 12px; height: 12px; border-radius: 50%; background: var(--color-accent); border: 3px solid #232428; }
+	.userbar b { display: block; font-size: 14px; font-weight: 600; }
+	.userbar span { font-size: 12px; color: var(--color-muted); }
+
+	.chat { display: flex; flex-direction: column; min-width: 0; }
+	.chat-head { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; padding: 13px 16px; box-shadow: var(--shadow-sm); font-size: 16px; font-weight: 700; }
+	.chat-head .hash { color: var(--color-muted); font-weight: 400; font-size: 19px; }
+	.chat-head .topic { font-size: 13px; color: var(--color-muted); font-weight: 400; border-left: 1px solid var(--color-border); padding-left: 10px; display: none; }
+	@media (min-width: 700px) { .chat-head .topic { display: block; } }
+
+	.msgs { padding: 16px 16px 8px; }
+	.msg { display: flex; gap: 14px; padding: 4px 8px; margin: 0 -8px; border-radius: var(--radius-sm); position: relative; }
+	.msg:hover { background: rgb(0 0 0 / 0.1); }
+	.msg + .msg { margin-top: 14px; }
+	.av { width: 40px; height: 40px; border-radius: 50%; flex: none; display: grid; place-items: center; font-weight: 700; font-size: 14px; color: #fff; }
+	.msg .head { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+	.msg .who { font-size: 15px; font-weight: 500; }
+	.msg .who.role-blurple { color: #949cf7; }
+	.msg .who.role-green { color: #4ec27f; }
+	.msg .when { font-size: 12px; color: var(--color-muted); }
+	.tag { background: var(--color-primary); color: #fff; font-size: 10px; font-weight: 600; border-radius: var(--radius-sm); padding: 1px 4px; text-transform: uppercase; letter-spacing: 0.02em; }
+	.msg .txt { font-size: 15px; }
+	.mention { background: rgb(88 101 242 / 0.3); color: #dee0fc; border-radius: var(--radius-sm); padding: 0 2px; font-weight: 500; }
+	.reacts { display: flex; gap: 6px; margin-top: 6px; flex-wrap: wrap; }
+	.react { display: inline-flex; align-items: center; gap: 5px; background: rgb(255 255 255 / 0.06); border-radius: var(--radius-md); padding: 2px 8px; font-size: 13px; font-weight: 600; color: var(--color-muted); }
+	.react.is-mine { background: rgb(88 101 242 / 0.18); box-shadow: inset 0 0 0 1px var(--color-primary); color: #c9cdfb; }
+	/* Floating toolbar on hover — the only shadowed thing in the chat column. */
+	.msgtools { position: absolute; right: 12px; top: -14px; display: flex; gap: 2px; background: var(--color-surface-raised); border-radius: var(--radius-md); box-shadow: var(--shadow-md); padding: 3px; }
+	.msgtools span { width: 28px; height: 28px; display: grid; place-items: center; border-radius: var(--radius-sm); font-size: 13px; color: var(--color-muted); }
+
+	.embed { border-left: 4px solid var(--color-primary); background: var(--color-surface-raised); border-radius: var(--radius-sm); padding: 12px 14px; margin-top: 8px; max-width: 460px; }
+	.embed b { display: block; font-size: 15px; color: #dee0fc; }
+	.embed p { font-size: 14px; color: #dbdee1; margin-top: 4px; }
+
+	.composer { margin: 8px 16px 20px; background: #383a40; border-radius: var(--radius-md); padding: 11px 14px; display: flex; align-items: center; gap: 12px; color: var(--color-muted); }
+	.composer .plus { width: 22px; height: 22px; border-radius: 50%; background: var(--color-muted); color: #383a40; display: grid; place-items: center; font-size: 14px; font-weight: 700; flex: none; }
+
+	.members { background: var(--color-surface-raised); padding: 16px 8px; display: none; }
+	@media (min-width: 940px) { .members { display: block; } }
+	.m-cat { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; color: var(--color-muted); padding: 12px 8px 6px; }
+	.member { display: flex; align-items: center; gap: 10px; height: 42px; padding: 0 8px; border-radius: var(--radius-sm); font-size: 15px; }
+	.member:hover { background: rgb(255 255 255 / 0.04); }
+	.member .av { width: 32px; height: 32px; font-size: 12px; position: relative; }
+	.member .av .st { position: absolute; right: -2px; bottom: -2px; width: 12px; height: 12px; border-radius: 50%; border: 3px solid var(--color-surface-raised); background: var(--color-muted); }
+	.member .av .st.online { background: var(--color-accent); }
+	.member .av .st.dnd { background: var(--color-danger); }
+	.member.offline { opacity: 0.4; }
+
+	/* ── Reference sections ───────────────────────────────────────── */
+	.wrap { max-width: 1000px; margin: 0 auto; padding: 0 20px 90px; }
+	@media (min-width: 768px) { .wrap { padding: 0 32px 112px; } }
+	.section { padding-top: 52px; }
+	.section-label { font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #949cf7; margin-bottom: 8px; }
+	.section h2 { font-size: 24px; }
+	@media (min-width: 768px) { .section h2 { font-size: 30px; } }
+	.lede { color: var(--color-muted); margin-top: 12px; max-width: 62ch; }
+	.note { margin-top: 18px; font-size: 13px; color: var(--color-muted); }
+	.row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+
+	/* ── Buttons: filled charcoal or blurple, never bordered ─────── */
+	.btn {
+		font: inherit; font-size: 14px; font-weight: 600;
+		height: 40px; padding: 0 18px;
+		border: 0; border-radius: var(--radius-sm);
+		background: var(--color-primary); color: var(--color-primary-foreground);
+		cursor: pointer; transition: background-color 140ms ease;
+	}
+	.btn:hover { background: #4752c4; }
+	.btn:focus-visible { outline: none; box-shadow: 0 0 0 3px rgb(88 101 242 / 0.45); }
+	.btn-secondary { background: #4e5058; }
+	.btn-secondary:hover { background: #6d6f78; }
+	.btn-success { background: var(--color-accent); }
+	.btn-success:hover { background: #1e8f4e; }
+	.btn-danger { background: var(--color-danger); }
+	.btn-danger:hover { background: #da373c; }
+	.btn-link { background: transparent; color: #00a8fc; padding: 0 8px; }
+	.btn-link:hover { background: transparent; text-decoration: underline; }
+	.btn[disabled] { cursor: not-allowed; background: #4e5058; opacity: 0.5; }
+
+	.input {
+		font: inherit; font-size: 15px; width: 100%; max-width: 360px; height: 42px; padding: 0 12px;
+		border: 1px solid #1e1f22; border-radius: var(--radius-sm);
+		background: #1e1f22; color: var(--color-surface-foreground);
+	}
+	.input::placeholder { color: #87898c; }
+	.input:focus { outline: none; border-color: var(--color-primary); }
+
+	.swatches { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-top: 24px; }
+	@media (min-width: 720px) { .swatches { grid-template-columns: repeat(4, 1fr); } }
+	.sw .fill { height: 60px; border-radius: var(--radius-md); }
+	.sw b { display: block; font-size: 13px; font-weight: 600; margin-top: 8px; }
+	.sw span { font-size: 12px; color: var(--color-muted); }
+
+	/* ── Mobile ───────────────────────────────────────────────────── */
+	.mobile { display: grid; grid-template-columns: minmax(0, 1fr); gap: 30px; margin-top: 26px; align-items: start; }
+	@media (min-width: 860px) { .mobile { grid-template-columns: 288px 1fr; gap: 42px; } }
+	.phone {
+		width: 288px; max-width: 100%; margin: 0 auto;
+		border-radius: 26px; overflow: hidden; background: var(--color-surface);
+		box-shadow: var(--shadow-lg);
+	}
+	.phone-status { display: flex; justify-content: space-between; padding: 10px 16px 4px; font-size: 10px; color: var(--color-muted); background: var(--color-surface-raised); }
+	.phone-head { display: flex; align-items: center; gap: 8px; background: var(--color-surface-raised); padding: 4px 12px 12px; font-size: 14px; font-weight: 700; }
+	.phone-head .srv { width: 24px; height: 24px; border-radius: var(--radius-md); background: var(--color-primary); display: grid; place-items: center; font-size: 10px; }
+	.phone-msgs { padding: 12px 12px 4px; }
+	.phone-msgs .msg + .msg { margin-top: 10px; }
+	.phone-msgs .av { width: 32px; height: 32px; font-size: 11px; }
+	.phone-msgs .txt { font-size: 13px; }
+	.phone-msgs .who { font-size: 13px; }
+	.m-composer { margin: 6px 12px 10px; background: #383a40; border-radius: var(--radius-md); padding: 9px 12px; font-size: 12px; color: var(--color-muted); display: flex; gap: 10px; align-items: center; }
+	.m-tabs { display: flex; background: var(--color-surface-raised); }
+	.m-tabs div { flex: 1; text-align: center; font-size: 10px; color: var(--color-muted); padding: 8px 0 13px; position: relative; }
+	.m-tabs .is-active { color: #fff; font-weight: 600; }
+	.m-tabs .g { display: block; width: 18px; height: 18px; border: 2px solid currentColor; border-radius: 50%; margin: 0 auto 4px; }
+	.m-tabs .n { position: absolute; top: 4px; right: 20px; background: var(--color-danger); color: #fff; font-size: 9px; font-weight: 700; border-radius: 9999px; padding: 0 5px; }
+
+	.rules { margin: 0; padding: 0; list-style: none; }
+	.rules li { padding: 13px 0; border-bottom: 1px solid var(--color-border); font-size: 14px; color: var(--color-muted); }
+	.rules b { display: block; color: var(--color-surface-foreground); font-size: 15px; font-weight: 700; margin-bottom: 2px; }
+
+	/* ── Off-style ────────────────────────────────────────────────── */
+	.compare { display: grid; grid-template-columns: 1fr; gap: 14px; margin-top: 22px; }
+	@media (min-width: 720px) { .compare { grid-template-columns: repeat(2, 1fr); } }
+	.cmp-off { padding: 22px; border-radius: 0; background: #000; border: 1px solid #555; font-size: 15px; font-weight: 400; color: #cfcfcf; }
+	.cmp-off small { display: block; font-size: 13px; color: #8a8a8a; margin-top: 8px; line-height: 1.6; }
+	.cmp-on { padding: 22px; border-radius: var(--radius-md); background: var(--color-surface-raised); font-size: 15px; font-weight: 700; }
+	.cmp-on small { display: block; font-weight: 400; font-size: 13px; color: var(--color-muted); margin-top: 8px; line-height: 1.6; }
+</style>
+</head>
+<body>
+
+<!-- COVER — the clubhouse. Three charcoal layers, round everything, blurple
+     for energy and green strictly for "online". -->
+<div class="app">
+	<nav class="rail">
+		<span class="server is-active">V</span>
+		<span class="sep"></span>
+		<span class="server" style="background:#c94f7a">DS</span>
+		<span class="server" style="background:#3f6fd8">PL<span class="ping">3</span></span>
+		<span class="server" style="background:#d99a3c">GM</span>
+		<span class="server" style="background:#4e9e6b">RD</span>
+		<span class="server add">＋</span>
+	</nav>
+
+	<aside class="chanlist">
+		<div class="guild-head">Vetta Design <span class="spacer"></span><span class="muted" style="font-weight:400">⌄</span></div>
+		<div class="cat">▾ Text channels</div>
+		<div class="chan is-active"><span class="h">#</span>design-system</div>
+		<div class="chan unread"><span class="h">#</span>releases<span class="badge">3</span></div>
+		<div class="chan"><span class="h">#</span>screenshots</div>
+		<div class="chan"><span class="h">#</span>off-topic</div>
+		<div class="cat">▾ Voice channels</div>
+		<div class="chan"><span class="h">◊</span>Design jam</div>
+		<div class="voice-user"><span class="av" style="background:#c94f7a"></span>Ana</div>
+		<div class="voice-user"><span class="av" style="background:#4e9e6b"></span>Jun</div>
+		<div class="chan"><span class="h">◊</span>Focus room</div>
+		<div class="userbar">
+			<span class="av"></span>
+			<span><b>kaori</b><span>#0421</span></span>
+			<span class="spacer"></span>
+			<span class="muted" style="font-size:13px">⚙</span>
+		</div>
+	</aside>
+
+	<main class="chat">
+		<div class="chat-head">
+			<span class="hash">#</span>design-system
+			<span class="topic">Tokens, components, and strong opinions about corner radius</span>
+			<span class="spacer"></span>
+			<span class="muted" style="font-size:14px">⌕ ⌸ ⓘ</span>
+		</div>
+
+		<div class="msgs">
+			<div class="msg">
+				<span class="av" style="background:#c94f7a">A</span>
+				<div>
+					<div class="head"><span class="who role-blurple">ana</span><span class="when">Today at 9:41</span></div>
+					<div class="txt">Radius audit is done — every component pulls from the scale now.
+						<span class="mention">@jun</span> the table was the last holdout.</div>
+					<div class="reacts"><span class="react is-mine">✅ 4</span><span class="react">🎉 2</span></div>
+				</div>
+			</div>
+
+			<div class="msg">
+				<span class="av" style="background:#4e9e6b">J</span>
+				<div>
+					<div class="head"><span class="who role-green">jun</span><span class="tag">Bot</span><span class="when">Today at 9:52</span></div>
+					<div class="txt">Nice. Reminder for anyone theming this server:</div>
+					<div class="embed">
+						<b>Layers, not borders</b>
+						<p>Depth comes from three charcoal steps — rail #1e1f22, sidebar #2b2d31, content #313338.
+							A 1px gray hairline anywhere in here reads as a different app.</p>
+					</div>
+					<div class="reacts"><span class="react">👀 1</span><span class="react">🔥 5</span></div>
+				</div>
+				<div class="msgtools"><span>😀</span><span>💬</span><span>⇪</span><span>⋯</span></div>
+			</div>
+
+			<div class="msg">
+				<span class="av" style="background:#d99a3c">M</span>
+				<div>
+					<div class="head"><span class="who">mo</span><span class="when">Today at 10:04</span></div>
+					<div class="txt">Ship it. I'll take the changelog.</div>
+					<div class="reacts"><span class="react">🙌 3</span></div>
+				</div>
+			</div>
+		</div>
+
+		<div class="composer"><span class="plus">＋</span>Message #design-system<span class="spacer"></span><span>🎁 GIF 😀</span></div>
+	</main>
+
+	<aside class="members">
+		<div class="m-cat">Online — 3</div>
+		<div class="member"><span class="av" style="background:#c94f7a">A<span class="st online"></span></span><span class="role-blurple" style="color:#949cf7">ana</span></div>
+		<div class="member"><span class="av" style="background:#4e9e6b">J<span class="st online"></span></span><span style="color:#4ec27f">jun</span></div>
+		<div class="member"><span class="av" style="background:#d99a3c">M<span class="st dnd"></span></span>mo</div>
+		<div class="m-cat">Offline — 2</div>
+		<div class="member offline"><span class="av" style="background:#5865f2">K<span class="st"></span></span>kaori</div>
+		<div class="member offline"><span class="av" style="background:#7a5ad9">R<span class="st"></span></span>rin</div>
+	</aside>
+</div>
+
+<div class="wrap">
+
+	<!-- 01 -->
+	<section class="section">
+		<p class="section-label">01 — Layers</p>
+		<h2>Three charcoals, zero hairlines</h2>
+		<p class="lede">The rail is the darkest, the sidebar sits one step up, and the chat column is the
+			lightest. That ordering is the entire depth system — there are no 1px gray dividers anywhere,
+			and there is no pure black.</p>
+		<div class="swatches">
+			<div class="sw"><div class="fill" style="background: var(--layer-rail)"></div><b>rail</b><span>#1e1f22 · deepest</span></div>
+			<div class="sw"><div class="fill" style="background: var(--color-surface-raised)"></div><b>raised</b><span>#2b2d31 · sidebars</span></div>
+			<div class="sw"><div class="fill" style="background: var(--color-surface)"></div><b>surface</b><span>#313338 · the chat</span></div>
+			<div class="sw"><div class="fill" style="background: var(--color-primary)"></div><b>primary</b><span>#5865f2 · blurple</span></div>
+		</div>
+		<p class="note">Hover is a black/10 wash, active is a white/10 pill. Both are overlays on the layer beneath — never a new fill color.</p>
+	</section>
+
+	<!-- 02 -->
+	<section class="section">
+		<p class="section-label">02 — Shapes &amp; states</p>
+		<h2>Nothing has a sharp corner</h2>
+		<p class="lede">Avatars are circles, panels are 8px, badges are pills, and the server icon
+			morphs from circle to squircle when it becomes active. Green appears only on a status dot or a
+			voice-connected state; red is only a ping or a destructive action.</p>
+		<div class="row" style="margin-top: 22px;">
+			<button class="btn">Join voice</button>
+			<button class="btn btn-secondary">Cancel</button>
+			<button class="btn btn-success">Accept invite</button>
+			<button class="btn btn-danger">Kick</button>
+			<button class="btn btn-link">Learn more</button>
+			<button class="btn" disabled>Connecting…</button>
+		</div>
+		<div class="row" style="margin-top: 16px;">
+			<input class="input" placeholder="Search or jump to…">
+			<span class="react is-mine">✅ 4</span><span class="react">🎉 2</span>
+		</div>
+		<p class="note">Secondary buttons are a lighter charcoal fill, never an outline. A bordered ghost button is the clearest sign someone brought a different design system into this one.</p>
+	</section>
+
+	<!-- 03 MOBILE -->
+	<section class="section">
+		<p class="section-label">03 — Mobile</p>
+		<h2>Four panes, one at a time</h2>
+		<p class="lede">The rail, channel list, chat and member list each become their own screen. The
+			layer order survives as a navigation order: swipe right for the darker panes, left for members.</p>
+		<div class="mobile">
+			<div class="phone">
+				<div class="phone-status"><span>9:41</span><span>LTE ▮</span></div>
+				<div class="phone-head"><span class="srv">V</span><span class="muted" style="font-weight:400">#</span>design-system<span class="spacer"></span><span class="muted" style="font-size:12px">⌕</span></div>
+				<div class="phone-msgs">
+					<div class="msg">
+						<span class="av" style="background:#c94f7a">A</span>
+						<div>
+							<div class="head"><span class="who role-blurple">ana</span><span class="when">9:41</span></div>
+							<div class="txt">Radius audit is done — everything pulls from the scale now.</div>
+							<div class="reacts"><span class="react is-mine">✅ 4</span><span class="react">🎉 2</span></div>
+						</div>
+					</div>
+					<div class="msg">
+						<span class="av" style="background:#4e9e6b">J</span>
+						<div>
+							<div class="head"><span class="who role-green">jun</span><span class="tag">Bot</span></div>
+							<div class="txt">Layers, not borders — three charcoal steps do all the work.</div>
+						</div>
+					</div>
+				</div>
+				<div class="m-composer"><span>＋</span>Message #design-system<span class="spacer"></span><span>😀</span></div>
+				<div class="m-tabs">
+					<div class="is-active"><span class="g"></span>Servers</div>
+					<div><span class="g"></span><span class="n">3</span>Messages</div>
+					<div><span class="g"></span>Notifications</div>
+					<div><span class="g"></span>You</div>
+				</div>
+			</div>
+			<ul class="rules">
+				<li><b>&lt; 940px — panes</b>Channel list and member list slide away. A left swipe reveals the server rail plus channels on their darker layers; a right swipe reveals members. The chat column is always the destination.</li>
+				<li><b>Layer order</b>Preserved as depth cues during the swipe: the pane sliding in is visibly darker, which is how the hierarchy stays legible without any borders.</li>
+				<li><b>Message rows</b>Avatar 40px → 32px, text 15px → 13px, group spacing 14px → 10px. Messages stay left-aligned rows with the name above — they never become chat bubbles.</li>
+				<li><b>Hover toolbar</b>Becomes a long-press sheet with the same four actions. Reaction chips stay tappable at 24px minimum height with their blurple selected ring intact.</li>
+				<li><b>Composer</b>Docks above the keyboard, keeps the #383a40 fill and the circular plus button. Attachment, GIF and emoji shortcuts stay in the same order.</li>
+				<li><b>Pings</b>Red counters move from the rail and channel rows onto the bottom tab bar, at the same 11px bold in a pill.</li>
+				<li><b>Round everything</b>Nothing squares off for mobile. Server icons stay circular until active, avatars stay circular, panels stay at 8px.</li>
+			</ul>
+		</div>
+	</section>
+
+	<!-- 04 DON'T -->
+	<section class="section">
+		<p class="section-label">04 — Off-style, for contrast</p>
+		<h2>What breaks the clubhouse</h2>
+		<div class="compare">
+			<div class="cmp-off">Pure black with hairlines
+				<small>#000 fill · 1px gray border · square corners · light font weight. This is the exact opposite of the system: cold, flat and sharp instead of layered and soft.</small></div>
+			<div class="cmp-on">Same content, on-style
+				<small>#2b2d31 fill one step up from the page, 8px radius, no border at all, weight 700. Layers make the depth; roundness makes the warmth.</small></div>
+		</div>
+		<p class="note">Also out: blurple as body text, green used decoratively, thin or light font weights, and any sharp corner.</p>
+	</section>
+</div>
+
+</body>
+</html>

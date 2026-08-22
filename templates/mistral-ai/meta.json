@@ -1,0 +1,32 @@
+{
+	"schemaVersion": 1,
+	"kind": "design-system",
+	"slug": "mistral-ai",
+	"name": "Mistral",
+	"version": "1.0.0",
+	"order": 470,
+	"category": "ai",
+	"vibe": "light",
+	"tags": [
+		"light-ui",
+		"gradient",
+		"design-system"
+	],
+	"blurb": "Mistral AI brands itself with a singular signature — atmospheric sunset gradients (mustard, orange, deep red) layered over photography of mountains, plus a horizontal \"sunset st…",
+	"tagline": {
+		"en": "Atmospheric sunset gradients as brand signature",
+		"zh": "氛围感日落渐变作为品牌签名"
+	},
+	"license": "MIT",
+	"origin": {
+		"type": "curated",
+		"upstream": "https://github.com/ricocc/brands-design-md.git",
+		"note": "from brands-design-md (Mistral-AI)."
+	},
+	"assets": {
+		"spec": "DESIGN.md",
+		"theme": "theme.css",
+		"demo": "demo.html"
+	},
+	"collectedAt": "2026-08-22"
+}

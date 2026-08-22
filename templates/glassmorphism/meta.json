@@ -1,0 +1,36 @@
+{
+	"schemaVersion": 1,
+	"kind": "design-system",
+	"slug": "glassmorphism",
+	"name": "Glassmorphism",
+	"version": "1.0.0",
+	"order": 155,
+	"category": "premium",
+	"vibe": "dark",
+	"tags": [
+		"premium",
+		"dark",
+		"glass",
+		"blur",
+		"cinematic",
+		"consumer"
+	],
+	"blurb": "Nocturne glassmorphism: colourless white glass at 5-12% over a deep ink night scene lit by soft radial light wells, with heavy backdrop blur, a saturation boost, directional inset edges and one champagne accent. The scene owns the colour; the glass only borrows its light.",
+	"tagline": {
+		"en": "Colourless glass over a deep night scene",
+		"zh": "深夜场景之上，一层不着色的玻璃"
+	},
+	"license": "CC-BY-4.0",
+	"origin": {
+		"type": "collected",
+		"upstream": "https://www.stylekit.top",
+		"sourceUrl": "https://www.stylekit.top/en/styles/glassmorphism",
+		"note": "Vetta-adapted from the StyleKit Glassmorphism guide and its showcase page: rewritten as Vetta spec prose and re-expressed in Vetta base tokens. Glass alphas, blur, light-well and shadow values follow the showcase's own CSS. No upstream assets included."
+	},
+	"assets": {
+		"spec": "DESIGN.md",
+		"theme": "theme.css",
+		"demo": "demo.html"
+	},
+	"collectedAt": "2026-08-11"
+}

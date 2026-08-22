@@ -1,0 +1,44 @@
+/* Geometric Bold — Bauhaus / constructivist poster. Pure primaries, no soft anything.
+   Palette adapted from the StyleKit「几何大胆风」guide (see meta.json origin). */
+@theme {
+	--color-primary: #000000;
+	--color-primary-foreground: #ffffff;
+	--color-surface: #ffffff;
+	--color-surface-foreground: #000000;
+	--color-surface-raised: #ffffff;
+	--color-muted: #6c3b00;
+	--color-accent: #0000ff;
+	--color-danger: #ff0000;
+	--color-border: #000000;
+
+	/* Shape palette — the four poster inks. Use as full blocks, never as tints. */
+	--color-block-red: #ff0000;
+	--color-block-blue: #0000ff;
+	--color-block-yellow: #ffff00;
+	--color-block-earth: #6c3b00;
+
+	/* Foregrounds that stay legible on each block. */
+	--color-block-red-foreground: #ffffff;
+	--color-block-blue-foreground: #ffffff;
+	--color-block-yellow-foreground: #000000;
+	--color-block-earth-foreground: #ffffff;
+
+	/* Two radii only: a shape is either a hard rectangle or a perfect circle. */
+	--radius-sm: 0px;
+	--radius-md: 0px;
+	--radius-lg: 0px;
+	--radius-xl: 0px;
+	--radius-2xl: 0px;
+	--radius-full: 9999px;
+
+	/* Structure comes from 4px borders. Border widths, not elevation. */
+	--border-width-hair: 2px;
+	--border-width-base: 4px;
+	--border-width-heavy: 8px;
+
+	/* No blur, ever. Floating layers get a hard offset block so they still read
+	   as "above" without introducing soft depth. */
+	--shadow-sm: none;
+	--shadow-md: none;
+	--shadow-lg: 8px 8px 0 0 #000000;
+}

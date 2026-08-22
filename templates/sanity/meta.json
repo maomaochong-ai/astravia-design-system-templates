@@ -1,0 +1,33 @@
+{
+	"schemaVersion": 1,
+	"kind": "design-system",
+	"slug": "sanity",
+	"name": "Sanity",
+	"version": "1.0.0",
+	"order": 620,
+	"category": "dev",
+	"vibe": "light",
+	"tags": [
+		"light-ui",
+		"developer-focused",
+		"playful",
+		"design-system"
+	],
+	"blurb": "Sanity's website is a developer-content platform rendered as a nocturnal command center -- dark, precise, and deeply structured.",
+	"tagline": {
+		"en": "Nocturnal command center, dark and precise",
+		"zh": "夜间指挥中心，暗色精确"
+	},
+	"license": "MIT",
+	"origin": {
+		"type": "curated",
+		"upstream": "https://github.com/ricocc/brands-design-md.git",
+		"note": "from brands-design-md (Sanity)."
+	},
+	"assets": {
+		"spec": "DESIGN.md",
+		"theme": "theme.css",
+		"demo": "demo.html"
+	},
+	"collectedAt": "2026-08-22"
+}

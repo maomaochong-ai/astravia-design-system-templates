@@ -1,0 +1,33 @@
+{
+	"schemaVersion": 1,
+	"kind": "design-system",
+	"slug": "vercel-dark",
+	"name": "Vercel Dark",
+	"version": "1.0.0",
+	"order": 720,
+	"category": "dev",
+	"vibe": "dark",
+	"tags": [
+		"dark-ui",
+		"minimal",
+		"developer-focused",
+		"design-system"
+	],
+	"blurb": "A dark interpretation of Vercel's Geist interface language: a true-black developer canvas, compact white typography, charcoal surface steps, and a single blue interaction signal.",
+	"tagline": {
+		"en": "True-black Geist with compact white typography",
+		"zh": "纯黑 Geist + 紧凑白字"
+	},
+	"license": "MIT",
+	"origin": {
+		"type": "curated",
+		"upstream": "https://github.com/ricocc/brands-design-md.git",
+		"note": "from brands-design-md (Vercel Dark)."
+	},
+	"assets": {
+		"spec": "DESIGN.md",
+		"theme": "theme.css",
+		"demo": "demo.html"
+	},
+	"collectedAt": "2026-08-22"
+}

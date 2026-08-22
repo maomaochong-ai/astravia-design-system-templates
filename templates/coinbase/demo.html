@@ -1,0 +1,378 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Coinbase — component reference</title>
+<style>
+	/* Mirrors theme.css. Plain custom properties so this file opens standalone. */
+	:root {
+		--color-primary: #0052ff;
+		--color-primary-foreground: #ffffff;
+		--color-surface: #ffffff;
+		--color-surface-foreground: #0a0b0d;
+		--color-surface-raised: #f7f8fa;
+		--color-muted: #5b616e;
+		--color-accent: #00d395;
+		--color-danger: #cf202f;
+		--color-border: #dfe1e4;
+
+		--radius-sm: 6px;
+		--radius-md: 8px;
+		--radius-lg: 12px;
+		--radius-xl: 16px;
+		--radius-2xl: 24px;
+
+		--shadow-sm: 0 1px 2px rgb(10 11 13 / 0.06);
+		--shadow-md: 0 4px 12px rgb(10 11 13 / 0.08);
+		--shadow-lg: 0 12px 32px rgb(10 11 13 / 0.12);
+
+		--sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+	}
+
+	*, *::before, *::after { box-sizing: border-box; }
+	body {
+		margin: 0;
+		background: var(--color-surface);
+		color: var(--color-surface-foreground);
+		font-family: var(--sans);
+		font-size: 14px;
+		line-height: 1.5;
+		-webkit-font-smoothing: antialiased;
+	}
+	h1, h2, h3 { margin: 0; font-weight: 600; letter-spacing: -0.02em; line-height: 1.2; }
+	p { margin: 0; }
+	::selection { background: rgb(0 82 255 / 0.18); }
+	.spacer { flex: 1; }
+	.num { font-variant-numeric: tabular-nums; }
+
+	.wrap { max-width: 1120px; margin: 0 auto; padding: 0 20px; }
+	@media (min-width: 768px) { .wrap { padding: 0 32px; } }
+
+	/* ── Chrome ───────────────────────────────────────────────────── */
+	.topbar { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; min-height: 64px; border-bottom: 1px solid var(--color-border); }
+	.brand { display: flex; align-items: center; gap: 10px; font-weight: 600; font-size: 18px; }
+	.brand .mk { width: 26px; height: 26px; border-radius: 50%; background: var(--color-primary); position: relative; }
+	.brand .mk::after { content: ""; position: absolute; left: 8px; top: 11px; width: 10px; height: 4px; background: #fff; border-radius: 1px; }
+	.topnav { display: none; gap: 22px; font-size: 14px; color: var(--color-muted); }
+	@media (min-width: 820px) { .topnav { display: flex; } }
+	.topnav .is-active { color: var(--color-surface-foreground); font-weight: 600; }
+
+	/* ── Portfolio header: the balance is the page ────────────────── */
+	.layout { display: grid; grid-template-columns: minmax(0, 1fr); gap: 32px; padding: 32px 0 56px; }
+	@media (min-width: 940px) { .layout { grid-template-columns: minmax(0, 1fr) 360px; gap: 40px; } }
+	.balance-label { font-size: 14px; color: var(--color-muted); }
+	.balance { font-size: clamp(28px, 9vw, 38px); font-weight: 600; letter-spacing: -0.03em; margin-top: 6px; }
+	@media (min-width: 768px) { .balance { font-size: 48px; } }
+	.delta-pill {
+		display: inline-flex; align-items: center; gap: 6px; margin-top: 10px;
+		font-size: 14px; font-weight: 600; color: #007a5a;
+	}
+	.delta-pill .tri { width: 0; height: 0; border-left: 5px solid transparent; border-right: 5px solid transparent; border-bottom: 7px solid #007a5a; }
+	.delta-pill.down { color: var(--color-danger); }
+	.delta-pill.down .tri { border-bottom: 0; border-top: 7px solid var(--color-danger); }
+
+	.tabs { display: flex; gap: 22px; margin-top: 28px; border-bottom: 1px solid var(--color-border); overflow-x: auto; }
+	.tabs span { flex: none; }
+	.tabs span { padding: 0 0 12px; font-size: 14px; color: var(--color-muted); }
+	.tabs .is-active { color: var(--color-surface-foreground); font-weight: 600; box-shadow: inset 0 -2px 0 var(--color-primary); }
+
+	.chart { margin-top: 20px; }
+	.chart svg { display: block; width: 100%; height: auto; }
+	.ranges { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
+	.range { border: 1px solid var(--color-border); border-radius: 9999px; padding: 4px 12px; font-size: 13px; color: var(--color-muted); }
+	.range.is-active { border-color: var(--color-primary); color: var(--color-primary); font-weight: 600; }
+
+	/* ── Asset rows: 64px, hairline dividers, numbers right ───────── */
+	.assets { margin-top: 32px; }
+	.assets h2 { font-size: 20px; margin-bottom: 4px; }
+	.arow { display: flex; align-items: center; gap: 14px; height: 64px; border-bottom: 1px solid var(--color-border); }
+	.coin { width: 36px; height: 36px; border-radius: 50%; flex: none; display: grid; place-items: center; color: #fff; font-size: 13px; font-weight: 700; }
+	.aname { min-width: 0; }
+	.aname b { display: block; font-weight: 600; font-size: 15px; }
+	.aname span { font-size: 13px; color: var(--color-muted); }
+	.spark { flex: none; width: 88px; display: none; }
+	@media (min-width: 620px) { .spark { display: block; } }
+	.spark svg { display: block; width: 100%; height: 28px; }
+	.aprice { margin-left: auto; text-align: right; flex: none; }
+	.aprice b { display: block; font-weight: 600; font-size: 15px; font-variant-numeric: tabular-nums; }
+	.aprice span { font-size: 13px; font-weight: 600; font-variant-numeric: tabular-nums; color: #007a5a; }
+	.aprice span.down { color: var(--color-danger); }
+
+	/* ── Trade panel: one of two places a shadow appears ──────────── */
+	.trade { border: 1px solid var(--color-border); border-radius: var(--radius-xl); box-shadow: var(--shadow-md); padding: 20px; align-self: start; min-width: 0; }
+	.seg { display: flex; background: var(--color-surface-raised); border-radius: 9999px; padding: 3px; }
+	.seg span { flex: 1; text-align: center; padding: 7px 0; border-radius: 9999px; font-size: 14px; font-weight: 600; color: var(--color-muted); }
+	.seg .is-active { background: var(--color-surface); color: var(--color-surface-foreground); box-shadow: var(--shadow-sm); }
+	.amountwell { background: var(--color-surface-raised); border-radius: var(--radius-lg); padding: 20px; margin-top: 16px; text-align: center; }
+	.amountwell .big { font-size: clamp(26px, 8vw, 34px); font-weight: 600; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+	.amountwell .sub { font-size: 13px; color: var(--color-muted); margin-top: 4px; }
+	.trow { display: flex; align-items: center; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid var(--color-border); font-size: 14px; }
+	.trow .k { color: var(--color-muted); }
+	.trow .v { font-weight: 600; font-variant-numeric: tabular-nums; }
+
+	/* ── Buttons: 44px pills, blue or nothing ─────────────────────── */
+	.btn {
+		font: inherit; font-size: 15px; font-weight: 600;
+		height: 44px; padding: 0 24px; width: 100%;
+		border: 0; border-radius: 9999px;
+		background: var(--color-primary); color: var(--color-primary-foreground);
+		cursor: pointer; transition: background-color 140ms ease;
+	}
+	.btn:hover { background: #0043d1; }
+	.btn:focus-visible { outline: none; box-shadow: 0 0 0 3px rgb(0 82 255 / 0.35); }
+	/* Secondary is a raised fill with ink text — no borders, no tinted blue. */
+	.btn-secondary { background: var(--color-surface-raised); color: var(--color-surface-foreground); }
+	.btn-secondary:hover { background: #eceef2; }
+	.btn-danger { background: var(--color-danger); }
+	.btn-danger:hover { background: #b41b28; }
+	.btn[disabled] { cursor: not-allowed; background: var(--color-surface-raised); color: #9aa0aa; }
+	.btn-auto { width: auto; }
+	.btn-sm { height: 36px; font-size: 14px; padding: 0 18px; }
+
+	.input {
+		font: inherit; font-size: 15px; width: 100%; max-width: 360px; height: 48px; padding: 0 18px;
+		border: 1px solid var(--color-border); border-radius: var(--radius-lg);
+		background: var(--color-surface); color: var(--color-surface-foreground);
+	}
+	.input::placeholder { color: #9aa0aa; }
+	.input:focus { outline: none; border-color: var(--color-primary); box-shadow: 0 0 0 3px rgb(0 82 255 / 0.15); }
+
+	/* ── Sections ─────────────────────────────────────────────────── */
+	.section { padding: 48px 0; border-top: 1px solid var(--color-border); }
+	@media (min-width: 768px) { .section { padding: 64px 0; } }
+	.section-label { font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-primary); margin-bottom: 10px; }
+	.section h2 { font-size: 24px; }
+	@media (min-width: 768px) { .section h2 { font-size: 30px; } }
+	.lede { color: var(--color-muted); margin-top: 12px; max-width: 62ch; font-size: 15px; }
+	.note { margin-top: 18px; font-size: 13px; color: var(--color-muted); }
+	.row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+
+	.swatches { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-top: 24px; }
+	@media (min-width: 720px) { .swatches { grid-template-columns: repeat(4, 1fr); } }
+	.sw .fill { height: 60px; border-radius: var(--radius-lg); border: 1px solid var(--color-border); }
+	.sw b { display: block; font-size: 13px; font-weight: 600; margin-top: 8px; }
+	.sw span { font-size: 12px; color: var(--color-muted); }
+
+	/* ── Mobile ───────────────────────────────────────────────────── */
+	.mobile { display: grid; grid-template-columns: minmax(0, 1fr); gap: 30px; margin-top: 28px; align-items: start; }
+	@media (min-width: 860px) { .mobile { grid-template-columns: 288px 1fr; gap: 44px; } }
+	.phone {
+		width: 288px; max-width: 100%; margin: 0 auto;
+		border: 1px solid var(--color-border); border-radius: 28px;
+		overflow: hidden; background: var(--color-surface); box-shadow: var(--shadow-lg);
+	}
+	.phone-status { display: flex; justify-content: space-between; padding: 11px 18px 4px; font-size: 10px; color: var(--color-muted); }
+	.phone-body { padding: 10px 16px 4px; }
+	.phone-body .balance { font-size: 30px; }
+	.phone-body .balance-label { font-size: 12px; }
+	.m-arow { display: flex; align-items: center; gap: 10px; height: 56px; border-bottom: 1px solid var(--color-border); }
+	.m-arow .coin { width: 30px; height: 30px; font-size: 11px; }
+	.m-arow .aname b { font-size: 14px; }
+	.m-arow .aname span { font-size: 11px; }
+	.m-arow .aprice b { font-size: 14px; }
+	.m-arow .aprice span { font-size: 11px; }
+	.m-cta { display: flex; gap: 8px; padding: 12px 16px 14px; }
+	.m-tabs { display: flex; border-top: 1px solid var(--color-border); }
+	.m-tabs div { flex: 1; text-align: center; font-size: 10px; color: var(--color-muted); padding: 8px 0 12px; }
+	.m-tabs .is-active { color: var(--color-primary); font-weight: 600; }
+	.m-tabs .g { display: block; width: 16px; height: 16px; border: 1.6px solid currentColor; border-radius: 4px; margin: 0 auto 4px; }
+
+	.rules { margin: 0; padding: 0; list-style: none; }
+	.rules li { padding: 14px 0; border-bottom: 1px solid var(--color-border); font-size: 14px; color: var(--color-muted); }
+	.rules b { display: block; color: var(--color-surface-foreground); font-size: 14px; font-weight: 600; margin-bottom: 2px; }
+
+	/* ── Off-style ────────────────────────────────────────────────── */
+	.compare { display: grid; grid-template-columns: 1fr; gap: 14px; margin-top: 24px; }
+	@media (min-width: 720px) { .compare { grid-template-columns: repeat(2, 1fr); } }
+	.cmp-off { padding: 22px; border-radius: var(--radius-xl); background: linear-gradient(135deg, rgb(0 82 255 / 0.12), rgb(0 211 149 / 0.18)); font-size: 16px; font-weight: 600; color: var(--color-primary); }
+	.cmp-off small { display: block; font-weight: 400; font-size: 13px; color: var(--color-muted); margin-top: 8px; line-height: 1.6; }
+	.cmp-on { padding: 22px; border-radius: var(--radius-xl); background: var(--color-surface-raised); font-size: 16px; font-weight: 600; }
+	.cmp-on small { display: block; font-weight: 400; font-size: 13px; color: var(--color-muted); margin-top: 8px; line-height: 1.6; }
+
+	footer { border-top: 1px solid var(--color-border); padding: 32px 0 56px; font-size: 13px; color: var(--color-muted); }
+</style>
+</head>
+<body>
+
+<!-- COVER — the portfolio. Numbers are the interface: one huge balance, one
+     blue line, and green/red only where the market actually moved. -->
+<div class="wrap">
+	<div class="topbar">
+		<span class="brand"><span class="mk"></span>Vetta</span>
+		<nav class="topnav"><span class="is-active">Portfolio</span><span>Trade</span><span>Earn</span><span>Pay</span><span>Learn</span></nav>
+		<span class="spacer"></span>
+		<button class="btn btn-auto btn-sm">Buy crypto</button>
+	</div>
+
+	<div class="layout">
+		<main>
+			<div class="balance-label">Portfolio balance</div>
+			<div class="balance num">$48,210.94</div>
+			<div class="delta-pill"><span class="tri"></span>$1,204.18 (2.56%) today</div>
+
+			<div class="tabs"><span class="is-active">Overview</span><span>Assets</span><span>Activity</span><span>Statements</span></div>
+
+			<div class="chart">
+				<svg viewBox="0 0 720 200" role="img" aria-label="Portfolio value over the last 24 hours">
+					<path d="M0 150 C 60 146, 90 120, 150 128 S 240 92, 300 104 S 380 60, 440 74 S 540 40, 600 34 S 680 52, 720 42"
+						fill="none" stroke="#0052ff" stroke-width="2.5" stroke-linecap="round"/>
+					<circle cx="720" cy="42" r="4.5" fill="#0052ff"/>
+				</svg>
+			</div>
+			<div class="ranges">
+				<span class="range is-active">1H</span><span class="range">24H</span><span class="range">1W</span>
+				<span class="range">1M</span><span class="range">1Y</span><span class="range">ALL</span>
+			</div>
+
+			<div class="assets">
+				<h2>Your assets</h2>
+				<div class="arow">
+					<span class="coin" style="background:#f7931a">BTC</span>
+					<span class="aname"><b>Bitcoin</b><span>0.4182 BTC</span></span>
+					<span class="spark"><svg viewBox="0 0 88 28"><path d="M0 22 L14 18 L28 20 L42 11 L56 14 L70 6 L88 4" fill="none" stroke="#00a37a" stroke-width="2"/></svg></span>
+					<span class="aprice"><b>$28,410.02</b><span>+3.12%</span></span>
+				</div>
+				<div class="arow">
+					<span class="coin" style="background:#627eea">ETH</span>
+					<span class="aname"><b>Ethereum</b><span>5.9004 ETH</span></span>
+					<span class="spark"><svg viewBox="0 0 88 28"><path d="M0 10 L14 14 L28 9 L42 16 L56 13 L70 19 L88 22" fill="none" stroke="#cf202f" stroke-width="2"/></svg></span>
+					<span class="aprice"><b>$14,882.40</b><span class="down">−1.04%</span></span>
+				</div>
+				<div class="arow">
+					<span class="coin" style="background:#2775ca">USDC</span>
+					<span class="aname"><b>USD Coin</b><span>3,904.12 USDC</span></span>
+					<span class="spark"><svg viewBox="0 0 88 28"><path d="M0 14 L14 14 L28 13 L42 14 L56 14 L70 13 L88 14" fill="none" stroke="#5b616e" stroke-width="2"/></svg></span>
+					<span class="aprice"><b>$3,904.12</b><span style="color:var(--color-muted)">0.00%</span></span>
+				</div>
+				<div class="arow">
+					<span class="coin" style="background:#0a0b0d">SOL</span>
+					<span class="aname"><b>Solana</b><span>42.10 SOL</span></span>
+					<span class="spark"><svg viewBox="0 0 88 28"><path d="M0 20 L14 16 L28 18 L42 10 L56 12 L70 8 L88 5" fill="none" stroke="#00a37a" stroke-width="2"/></svg></span>
+					<span class="aprice"><b>$1,014.40</b><span>+6.44%</span></span>
+				</div>
+			</div>
+		</main>
+
+		<aside class="trade">
+			<div class="seg"><span class="is-active">Buy</span><span>Sell</span><span>Convert</span></div>
+			<div class="amountwell">
+				<div class="big">$500.00</div>
+				<div class="sub num">≈ 0.00734 BTC</div>
+			</div>
+			<div class="trow"><span class="k">Pay with</span><span class="v">Bank ···4021</span></div>
+			<div class="trow"><span class="k">Price</span><span class="v num">$68,102.40</span></div>
+			<div class="trow"><span class="k">Fee</span><span class="v num">$2.49</span></div>
+			<div class="trow" style="border-bottom:0"><span class="k">Total</span><span class="v num">$502.49</span></div>
+			<button class="btn" style="margin-top: 16px;">Preview buy</button>
+			<button class="btn btn-secondary" style="margin-top: 8px;">Add funds</button>
+		</aside>
+	</div>
+</div>
+
+<div class="wrap">
+
+	<!-- 01 -->
+	<section class="section">
+		<p class="section-label">01 — Numbers</p>
+		<h2>The figure is the interface</h2>
+		<p class="lede">Balances run 38–48px in semibold with tight tracking and tabular figures. Every
+			numeric column in the system is tabular, so a price that ticks does not shift the layout next to it.
+			Deltas always carry a sign and a color; a bare percentage is never shown.</p>
+		<div class="row" style="margin-top: 22px; gap: 24px;">
+			<span class="delta-pill"><span class="tri"></span>+3.12%</span>
+			<span class="delta-pill down"><span class="tri"></span>−1.04%</span>
+			<span style="color:var(--color-muted);font-weight:600">0.00%</span>
+			<span class="note" style="margin:0">flat is muted, never green</span>
+		</div>
+	</section>
+
+	<!-- 02 -->
+	<section class="section">
+		<p class="section-label">02 — Color</p>
+		<h2>Blue is solid or absent</h2>
+		<p class="lede">Blue owns buttons, links, active tabs and the chart line — always at full
+			strength. It never appears as a tinted wash, a 10% background or a gradient. Green and red are
+			market signals, not decoration.</p>
+		<div class="swatches">
+			<div class="sw"><div class="fill" style="background: var(--color-primary)"></div><b>primary</b><span>#0052ff · every action</span></div>
+			<div class="sw"><div class="fill" style="background: var(--color-accent)"></div><b>accent</b><span>#00d395 · positive only</span></div>
+			<div class="sw"><div class="fill" style="background: var(--color-danger)"></div><b>danger</b><span>#cf202f · negative only</span></div>
+			<div class="sw"><div class="fill" style="background: var(--color-surface-raised)"></div><b>raised</b><span>#f7f8fa · wells, secondary</span></div>
+		</div>
+		<div class="row" style="margin-top: 24px;">
+			<button class="btn btn-auto">Buy</button>
+			<button class="btn btn-auto btn-secondary">Sell</button>
+			<button class="btn btn-auto btn-danger">Close position</button>
+			<button class="btn btn-auto" disabled>Confirming…</button>
+		</div>
+		<div class="row" style="margin-top: 16px;"><input class="input" placeholder="Search 240+ assets"></div>
+		<p class="note">Secondary buttons are a raised gray fill with ink text — never a blue outline and never a blue tint. That restraint is what makes the one blue button unambiguous.</p>
+	</section>
+
+	<!-- 03 MOBILE -->
+	<section class="section">
+		<p class="section-label">03 — Mobile</p>
+		<h2>Phone first, by nature</h2>
+		<p class="lede">Most of this product is used on a phone at a moment of decision, so the mobile
+			layout gets the same hierarchy at a smaller scale: balance, chart, rows, then a pair of pinned
+			actions. The trade panel becomes a bottom sheet rather than a separate page.</p>
+		<div class="mobile">
+			<div class="phone">
+				<div class="phone-status"><span>9:41</span><span>5G ▮</span></div>
+				<div class="phone-body">
+					<div class="balance-label">Portfolio balance</div>
+					<div class="balance num">$48,210.94</div>
+					<div class="delta-pill" style="font-size:12px"><span class="tri"></span>$1,204.18 (2.56%)</div>
+					<svg viewBox="0 0 250 70" style="width:100%;height:auto;margin-top:10px" role="img" aria-label="Portfolio trend">
+						<path d="M0 54 C 24 50, 34 40, 52 44 S 86 30, 106 36 S 136 18, 156 24 S 196 10, 216 8 S 240 16, 250 12" fill="none" stroke="#0052ff" stroke-width="2" stroke-linecap="round"/>
+					</svg>
+					<div class="ranges" style="margin-top:8px"><span class="range is-active" style="font-size:11px;padding:2px 9px">1H</span><span class="range" style="font-size:11px;padding:2px 9px">24H</span><span class="range" style="font-size:11px;padding:2px 9px">1W</span><span class="range" style="font-size:11px;padding:2px 9px">1M</span></div>
+					<div class="m-arow" style="margin-top:8px">
+						<span class="coin" style="background:#f7931a">BTC</span>
+						<span class="aname"><b>Bitcoin</b><span>0.4182 BTC</span></span>
+						<span class="aprice"><b>$28,410.02</b><span>+3.12%</span></span>
+					</div>
+					<div class="m-arow">
+						<span class="coin" style="background:#627eea">ETH</span>
+						<span class="aname"><b>Ethereum</b><span>5.9004 ETH</span></span>
+						<span class="aprice"><b>$14,882.40</b><span class="down">−1.04%</span></span>
+					</div>
+				</div>
+				<div class="m-cta"><button class="btn">Buy</button><button class="btn btn-secondary">Sell</button></div>
+				<div class="m-tabs">
+					<div class="is-active"><span class="g"></span>Home</div>
+					<div><span class="g"></span>Trade</div>
+					<div><span class="g"></span>Earn</div>
+					<div><span class="g"></span>You</div>
+				</div>
+			</div>
+			<ul class="rules">
+				<li><b>Balance</b>48px → 30px, and that is the smallest it is ever allowed to be. If space is short, something else leaves the screen.</li>
+				<li><b>Asset rows</b>64px → 56px. The sparkline column drops below 620px; the icon, name, ticker, price and delta all stay, because that is the minimum a decision needs.</li>
+				<li><b>Trade panel</b>The 360px side panel becomes a bottom sheet on <code>shadow-md</code>, keeping the Buy / Sell / Convert segmented control at the top of the sheet.</li>
+				<li><b>Pinned actions</b>Buy and Sell pin above the tab bar as a 44px pill pair — full-strength blue for buy, raised gray for sell, never two blues.</li>
+				<li><b>Chart</b>Same single blue line at 2px, gridlines and axis labels omitted at every size. Range chips shrink to 11px but stay pill-shaped and bordered.</li>
+				<li><b>Whitespace</b>Section padding 64px → 48px, gutters 32px → 20px. Air is how this system communicates safety, so it is compressed last, not first.</li>
+				<li><b>Tabs</b>The top nav becomes a four-item bottom bar; the underlined tab set inside the page stays horizontal and scrolls.</li>
+			</ul>
+		</div>
+	</section>
+
+	<!-- 04 DON'T -->
+	<section class="section">
+		<p class="section-label">04 — Off-style, for contrast</p>
+		<h2>What breaks the bank-grade feel</h2>
+		<div class="compare">
+			<div class="cmp-off">Blue-to-green wash
+				<small>Tinted gradient panel · blue used at 12% · green as decoration. Diluted blue and decorative green together make the interface look speculative rather than regulated.</small></div>
+			<div class="cmp-on">Same content, on-style
+				<small>Flat #f7f8fa well, ink text, one solid blue action. Blue is solid or it is not there; green appears only when a number actually went up.</small></div>
+		</div>
+		<p class="note">Also out: gradients of any kind, glass effects, dark panels mixed into the light app, and cramped rows — space is part of the trust signal here.</p>
+	</section>
+</div>
+
+<footer><div class="wrap">Vetta design reference — coinbase · one blue, tabular everything.</div></footer>
+</body>
+</html>

@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IBM — Design System</title>
+
+
+
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+
+:root{
+  --white:#ffffff;
+  --ibm-blue:#0F62FE;
+  --blue-hover:#0353e9;
+  --blue-active:#002d9c;
+  --blue-20:#d0e2ff;
+  --blue-10:#edf5ff;
+  --gray-100:#161616;
+  --gray-90:#262626;
+  --gray-80:#393939;
+  --gray-70:#525252;
+  --gray-60:#6f6f6f;
+  --gray-50:#8d8d8d;
+  --gray-40:#a8a8a8;
+  --gray-30:#c6c6c6;
+  --gray-20:#e0e0e0;
+  --gray-10:#f4f4f4;
+  --green:#24a148;
+  --yellow:#f1c21b;
+  --red:#da1e28;
+  --purple:#8a3ffc;
+  --teal:#009d9a;
+
+  --r-default:0px;--r-sm:2px;--r-md:4px;--r-lg:8px;--r-xl:12px;--r-pill:100px;
+}
+
+::selection{background:rgba(15,98,254,.2);color:var(--gray-100)}
+html{scroll-behavior:smooth}
+
+body{
+  font-family:'IBM Plex Sans',system-ui,-apple-system,sans-serif;
+  background:var(--white);color:var(--gray-100);
+  font-size:14px;line-height:1.29;letter-spacing:.01em;
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
+}
+
+.page{max-width:1200px;margin:0 auto;padding:0 32px 120px}
+
+/* ── NAV ── */
+.nav{
+  display:flex;justify-content:space-between;align-items:center;
+  height:48px;padding:0 16px;position:sticky;top:0;z-index:100;
+  background:rgba(255,255,255,.96);backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);border-bottom:1px solid var(--gray-20);
+  margin:0 -32px;
+}
+.nav-left{display:flex;align-items:center;gap:12px}
+.nav-wordmark{
+  font-size:18px;font-weight:600;letter-spacing:-.02em;
+  color:var(--gray-100);text-decoration:none;
+}
+.nav-tag{
+  font-size:11px;font-weight:400;color:var(--ibm-blue);
+  background:var(--blue-10);padding:2px 8px;border-radius:var(--r-default);
+  border:1px solid var(--blue-20);letter-spacing:.02em;
+}
+.nav-right{display:flex;align-items:center;gap:4px}
+.nav-link{
+  font-size:14px;font-weight:400;color:var(--gray-70);text-decoration:none;
+  padding:12px 16px;transition:all .15s;letter-spacing:.01em;
+}
+.nav-link:hover{color:var(--gray-100);background:var(--gray-10)}
+.nav-link--active{color:var(--gray-100);font-weight:600}
+.nav-url{
+  font-size:11px;font-weight:400;color:var(--gray-70);text-decoration:none;
+  padding:4px 10px;border-radius:var(--r-default);transition:all .2s;
+  background:rgba(0,0,0,.03);border:1px solid rgba(0,0,0,.06);
+  letter-spacing:.02px;white-space:nowrap;
+}
+.nav-url:hover{color:var(--gray-100);background:rgba(0,0,0,.06);border-color:rgba(0,0,0,.1)}
+
+/* ── SECTIONS ── */
+.section{
+  padding:64px 0 0;
+  border-top:1px solid var(--gray-20);
+  margin-top:48px;
+}
+.section:first-of-type{border-top:none;margin-top:32px}
+.section-header{margin-bottom:32px}
+.section-label{
+  font-size:12px;font-weight:400;letter-spacing:.02em;
+  text-transform:uppercase;color:var(--gray-60);margin-bottom:8px;
+}
+.section-title{
+  font-size:36px;font-weight:400;letter-spacing:-.01em;line-height:1.20;
+  color:var(--gray-100);
+}
+.section-desc{
+  font-size:14px;line-height:1.43;color:var(--gray-70);
+  margin-top:8px;max-width:640px;
+}
+
+/* ── HERO ── */
+.hero{
+  padding:64px 0 48px;
+  border-bottom:1px solid var(--gray-20);
+  margin:0 -32px;padding-left:32px;padding-right:32px;
+  position:relative;overflow:hidden;
+}
+.hero::before{
+  content:'';position:absolute;
+  width:600px;height:600px;
+  background:radial-gradient(circle,rgba(15,98,254,.04),transparent 70%);
+  border-radius:50%;filter:blur(80px);
+  right:-120px;top:-200px;pointer-events:none;
+}
+.hero-label{
+  font-size:12px;font-weight:400;letter-spacing:.02em;
+  text-transform:uppercase;color:var(--ibm-blue);margin-bottom:16px;
+}
+.hero-title{
+  font-size:clamp(42px,6vw,68px);font-weight:300;line-height:1;
+  letter-spacing:-.02em;color:var(--gray-100);
+}
+.hero-title em{
+  font-style:normal;color:var(--ibm-blue);
+}
+.hero-subtitle{
+  font-size:16px;line-height:1.5;color:var(--gray-70);
+  margin-top:16px;max-width:560px;
+}
+.hero-tags{display:flex;gap:8px;margin-top:24px;flex-wrap:wrap}
+.hero-tag{
+  font-size:12px;font-weight:400;color:var(--gray-70);
+  background:var(--gray-10);padding:4px 12px;
+  border:1px solid var(--gray-20);letter-spacing:.02em;
+}
+.hero-actions{display:flex;gap:8px;margin-top:24px}
+
+/* ── BUTTONS ── */
+.btn{
+  display:inline-flex;align-items:center;gap:8px;
+  font-family:inherit;font-size:14px;font-weight:400;line-height:1;
+  letter-spacing:.01em;padding:13px 48px;
+  cursor:pointer;text-decoration:none;white-space:nowrap;
+  transition:all .15s;height:48px;
+}
+.btn:active{transform:scale(.98)}
+.btn-primary{background:var(--ibm-blue);color:var(--white);border:1px solid transparent}
+.btn-primary:hover{background:var(--blue-hover)}
+.btn-secondary{background:transparent;color:var(--ibm-blue);border:1px solid var(--ibm-blue)}
+.btn-secondary:hover{background:var(--blue-10)}
+.btn-ghost{background:transparent;color:var(--ibm-blue);border:1px solid transparent}
+.btn-ghost:hover{background:var(--gray-10)}
+.btn-danger{background:var(--red);color:var(--white);border:1px solid transparent}
+.btn-danger:hover{background:#ba1220}
+
+/* ── COLOR TOKENS ── */
+.color-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:1px;
+  background:var(--gray-20);border:1px solid var(--gray-20);
+}
+.color-token{
+  background:var(--white);transition:background .15s;
+}
+.color-token:hover{background:var(--gray-10)}
+.color-swatch{width:100%;height:64px}
+.color-info{padding:12px 16px}
+.color-name{font-size:12px;font-weight:600;letter-spacing:.02em;color:var(--gray-100)}
+.color-hex{
+  font-size:12px;font-weight:400;color:var(--gray-60);margin-top:2px;
+  font-variant-numeric:tabular-nums;letter-spacing:.02em;
+  font-family:'IBM Plex Mono',monospace;
+}
+.color-role{font-size:11px;color:var(--gray-50);margin-top:4px;line-height:1.33}
+
+/* ── TYPE SCALE ── */
+.type-table{
+  display:flex;flex-direction:column;border:1px solid var(--gray-20);
+}
+.type-row{
+  display:grid;grid-template-columns:140px 1fr 220px;align-items:baseline;
+  padding:16px 24px;border-bottom:1px solid var(--gray-20);
+}
+.type-row:last-child{border-bottom:none}
+.type-row:hover{background:var(--gray-10)}
+.type-meta{
+  font-size:12px;font-weight:400;color:var(--gray-60);
+  letter-spacing:.02em;text-transform:uppercase;
+  font-family:'IBM Plex Mono',monospace;
+}
+.type-sample{color:var(--gray-100);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.type-specs{
+  font-size:12px;color:var(--gray-50);text-align:right;
+  font-variant-numeric:tabular-nums;letter-spacing:.02em;
+  font-family:'IBM Plex Mono',monospace;
+}
+
+/* ── SPACING ── */
+.spacing-bars{display:flex;align-items:flex-end;gap:16px;height:120px}
+.spacing-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px}
+.spacing-bar{
+  width:100%;background:var(--ibm-blue);opacity:.2;transition:opacity .3s;
+}
+.spacing-col:hover .spacing-bar{opacity:.5}
+.spacing-val{font-size:12px;font-weight:600;color:var(--gray-100);letter-spacing:.02em;font-family:'IBM Plex Mono',monospace}
+.spacing-name{font-size:11px;font-weight:400;color:var(--gray-50);letter-spacing:.02em}
+
+/* ── SHAPES ── */
+.shapes-row{display:flex;flex-wrap:wrap;gap:24px;align-items:flex-end}
+.shape-item{display:flex;flex-direction:column;align-items:center;gap:8px}
+.shape-box{
+  width:72px;height:72px;background:var(--gray-10);
+  border:1px solid var(--gray-30);transition:all .2s;
+}
+.shape-box:hover{border-color:var(--ibm-blue);transform:scale(1.04)}
+.shape-label{font-size:12px;font-weight:400;color:var(--gray-60);letter-spacing:.02em;white-space:nowrap}
+.shape-value{
+  font-size:11px;font-weight:400;color:var(--gray-50);letter-spacing:.02em;
+  font-variant-numeric:tabular-nums;font-family:'IBM Plex Mono',monospace;
+}
+
+/* ── DEPTH ── */
+.depth-row{
+  display:flex;align-items:center;gap:16px;padding:16px 0;
+  border-bottom:1px solid var(--gray-20);
+}
+.depth-row:last-child{border-bottom:none}
+.depth-swatch{
+  width:48px;height:48px;flex-shrink:0;
+}
+.depth-info{flex:1}
+.depth-name{font-size:14px;font-weight:600;letter-spacing:.01em;color:var(--gray-100)}
+.depth-desc{font-size:12px;color:var(--gray-60);margin-top:2px;letter-spacing:.02em}
+.depth-value{
+  font-size:12px;font-weight:400;color:var(--gray-50);
+  font-variant-numeric:tabular-nums;letter-spacing:.02em;
+  font-family:'IBM Plex Mono',monospace;
+}
+
+/* ── SURFACES ── */
+.surface-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1px;background:var(--gray-20);border:1px solid var(--gray-20)}
+.surface-item{
+  padding:28px 20px;
+  text-align:center;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:6px;min-height:100px;transition:transform .2s;background:var(--white);
+}
+.surface-item:hover{transform:scale(1.01)}
+.surface-name{font-size:14px;font-weight:600;letter-spacing:.01em}
+.surface-val{
+  font-size:12px;font-weight:400;color:var(--gray-60);
+  font-variant-numeric:tabular-nums;letter-spacing:.02em;
+  font-family:'IBM Plex Mono',monospace;
+}
+
+/* ── COMPONENTS ── */
+.component-card{
+  background:var(--white);border:1px solid var(--gray-20);
+  padding:32px;margin-bottom:1px;
+  transition:border-color .15s;
+}
+.component-card:hover{border-color:var(--gray-30)}
+.component-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px}
+.component-name{font-size:14px;font-weight:600;letter-spacing:.01em;color:var(--gray-100)}
+.component-role{font-size:12px;color:var(--gray-60);margin-top:4px;letter-spacing:.02em}
+.component-class{
+  font-size:11px;font-weight:400;color:var(--ibm-blue);
+  background:var(--blue-10);padding:2px 8px;
+  border:1px solid var(--blue-20);letter-spacing:.02em;
+  font-family:'IBM Plex Mono',monospace;
+}
+.component-preview{
+  display:flex;gap:16px;align-items:center;flex-wrap:wrap;
+  padding:24px;background:var(--gray-10);
+  border:1px solid var(--gray-20);
+}
+.component-desc{
+  font-size:12px;color:var(--gray-60);line-height:1.43;
+  margin-top:12px;max-width:560px;
+}
+
+/* ── DO/DON'T ── */
+.guide-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--gray-20);border:1px solid var(--gray-20)}
+.guide-card{
+  padding:28px;background:var(--white);
+}
+.guide-label{font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;margin-bottom:16px}
+.guide-card--do .guide-label{color:var(--green)}
+.guide-card--dont .guide-label{color:var(--red)}
+.guide-list{
+  list-style:none;display:flex;flex-direction:column;gap:8px;
+}
+.guide-list li{
+  font-size:13px;line-height:1.43;padding-left:20px;position:relative;
+  color:var(--gray-80);
+}
+.guide-card--do .guide-list li::before{
+  content:'';position:absolute;left:0;top:6px;width:8px;height:8px;background:var(--green);
+}
+.guide-card--dont .guide-list li::before{
+  content:'';position:absolute;left:0;top:6px;width:8px;height:8px;background:var(--red);
+}
+
+/* ── FOOTER ── */
+.footer{
+  margin-top:96px;padding:24px 0;
+  border-top:1px solid var(--gray-20);
+  display:flex;justify-content:space-between;align-items:center;
+}
+.footer-left{font-size:14px;font-weight:400;color:var(--gray-50)}
+.footer-right{display:flex;gap:16px}
+.footer-link{
+  font-size:12px;font-weight:400;color:var(--gray-60);text-decoration:none;
+  transition:color .15s;letter-spacing:.02em;
+}
+.footer-link:hover{color:var(--ibm-blue)}
+
+/* ── RESPONSIVE ── */
+@media(max-width:768px){
+  .page{padding:0 16px 80px}
+  .hero{margin:0 -16px;padding-left:16px;padding-right:16px;padding-top:40px}
+  .nav{margin:0 -16px}
+  .section-title{font-size:28px}
+  .type-row{grid-template-columns:100px 1fr;gap:8px}
+  .type-specs{display:none}
+  .guide-grid{grid-template-columns:1fr}
+  .color-grid{grid-template-columns:repeat(auto-fill,minmax(140px,1fr))}
+  .hero-title{font-size:36px}
+}
+
+/* ── ENTRANCE ANIMATION ── */
+.section,.hero{opacity:1;transition:opacity .4s cubic-bezier(.22,1,.36,1),transform .4s cubic-bezier(.22,1,.36,1)}
+.section.visible,.hero.visible{opacity:1;transform:translateY(0)}
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="nav-left">
+      <a href="#" class="nav-wordmark">IBM</a>
+      <span class="nav-tag">Design System</span>
+      <a href="#" class="nav-url">https://www.ibm.com</a>
+    </div>
+    <div class="nav-right">
+      <a href="#colors" class="nav-link nav-link--active">Colors</a>
+      <a href="#typography" class="nav-link">Type</a>
+      <a href="#spacing" class="nav-link">Spacing</a>
+      <a href="#components" class="nav-link">Components</a>
+      <a href="#" target="_blank" rel="noopener noreferrer" style="display:flex;align-items:center;justify-content:center;width:36px;height:36px;color:var(--gray-60);transition:color .15s;text-decoration:none" title="Carbon Design System">
+        <svg width="20" height="20" viewBox="0 0 32 32" fill="currentColor"><path d="M16 2a14 14 0 1014 14A14 14 0 0016 2zm-1.87 24.13L7.38 17.87a1.87 1.87 0 010-2.64l6.75-8.26A1.87 1.87 0 0116.75 6h12.5a1.87 1.87 0 011.87 1.87v12.26a1.87 1.87 0 01-1.87 1.87h-12.5a1.87 1.87 0 01-1.62-.87z"/></svg>
+      </a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-label">Design System</div>
+    <h1 class="hero-title">Enterprise<br>design,<br><em>at scale.</em></h1>
+    <p class="hero-subtitle">A disciplined, accessible design system built on the Carbon Design System. IBM Plex typography, a systematic gray scale, and IBM Blue as the primary interactive color.</p>
+    <div class="hero-tags">
+      <span class="hero-tag">21 color tokens</span>
+      <span class="hero-tag">18 type steps</span>
+      <span class="hero-tag">2px grid</span>
+      <span class="hero-tag">4 surface levels</span>
+    </div>
+    <div class="hero-actions">
+      <a href="#" class="btn btn-primary" download>Download Spec</a>
+      <a href="#" class="btn btn-secondary" download>theme.css</a>
+      <a href="#" class="btn btn-secondary" download>tokens.json</a>
+      <a href="#" class="btn btn-secondary" download>variables.css</a>
+    </div>
+  </div>
+
+  <!-- COLORS -->
+  <section class="section" id="colors">
+    <div class="section-header">
+      <div class="section-label">Foundation</div>
+      <h2 class="section-title">Color Tokens</h2>
+      <p class="section-desc">Clean whites with a disciplined gray scale and IBM Blue as the primary interactive color. 21 tokens across surfaces, text hierarchy, interaction, and semantic states.</p>
+    </div>
+    <div class="color-grid">
+      <div class="color-token">
+        <div class="color-swatch" style="background:#ffffff;border-bottom:1px solid var(--gray-20)"></div>
+        <div class="color-info"><div class="color-name">White</div><div class="color-hex">#ffffff</div><div class="color-role">Primary background</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#0F62FE"></div>
+        <div class="color-info"><div class="color-name">IBM Blue</div><div class="color-hex">#0F62FE</div><div class="color-role">Primary interactive</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#0353e9"></div>
+        <div class="color-info"><div class="color-name">Blue Hover</div><div class="color-hex">#0353e9</div><div class="color-role">Hover state</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#002d9c"></div>
+        <div class="color-info"><div class="color-name">Blue Active</div><div class="color-hex">#002d9c</div><div class="color-role">Active state</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#d0e2ff"></div>
+        <div class="color-info"><div class="color-name">Blue 20</div><div class="color-hex">#d0e2ff</div><div class="color-role">Highlights, tags</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#edf5ff"></div>
+        <div class="color-info"><div class="color-name">Blue 10</div><div class="color-hex">#edf5ff</div><div class="color-role">Subtle highlights</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#161616"></div>
+        <div class="color-info"><div class="color-name">Gray 100</div><div class="color-hex">#161616</div><div class="color-role">Primary text</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#262626"></div>
+        <div class="color-info"><div class="color-name">Gray 90</div><div class="color-hex">#262626</div><div class="color-role">Secondary text</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#393939"></div>
+        <div class="color-info"><div class="color-name">Gray 80</div><div class="color-hex">#393939</div><div class="color-role">Tertiary text</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#525252"></div>
+        <div class="color-info"><div class="color-name">Gray 70</div><div class="color-hex">#525252</div><div class="color-role">Placeholder text</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#6f6f6f"></div>
+        <div class="color-info"><div class="color-name">Gray 60</div><div class="color-hex">#6f6f6f</div><div class="color-role">Helper text</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#8d8d8d"></div>
+        <div class="color-info"><div class="color-name">Gray 50</div><div class="color-hex">#8d8d8d</div><div class="color-role">Disabled text</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#a8a8a8"></div>
+        <div class="color-info"><div class="color-name">Gray 40</div><div class="color-hex">#a8a8a8</div><div class="color-role">Disabled on dark</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#c6c6c6"></div>
+        <div class="color-info"><div class="color-name">Gray 30</div><div class="color-hex">#c6c6c6</div><div class="color-role">Borders, dividers</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#e0e0e0"></div>
+        <div class="color-info"><div class="color-name">Gray 20</div><div class="color-hex">#e0e0e0</div><div class="color-role">Subtle borders</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#f4f4f4"></div>
+        <div class="color-info"><div class="color-name">Gray 10</div><div class="color-hex">#f4f4f4</div><div class="color-role">Secondary bg</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#24a148"></div>
+        <div class="color-info"><div class="color-name">Green</div><div class="color-hex">#24a148</div><div class="color-role">Success</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#f1c21b"></div>
+        <div class="color-info"><div class="color-name">Yellow</div><div class="color-hex">#f1c21b</div><div class="color-role">Warning</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#da1e28"></div>
+        <div class="color-info"><div class="color-name">Red</div><div class="color-hex">#da1e28</div><div class="color-role">Error, destructive</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#8a3ffc"></div>
+        <div class="color-info"><div class="color-name">Purple</div><div class="color-hex">#8a3ffc</div><div class="color-role">Decorative accent</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#009d9a"></div>
+        <div class="color-info"><div class="color-name">Teal</div><div class="color-hex">#009d9a</div><div class="color-role">Secondary accent</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TYPOGRAPHY -->
+  <section class="section" id="typography">
+    <div class="section-header">
+      <div class="section-label">Typography</div>
+      <h2 class="section-title">Type Scale</h2>
+      <p class="section-desc">IBM Plex Sans as primary typeface with IBM Plex Mono for code. Disciplined weight range (300–700) with precise letter-spacing for enterprise readability.</p>
+    </div>
+    <div class="type-table">
+      <div class="type-row">
+        <span class="type-meta">Display 03</span>
+        <span class="type-sample" style="font-size:42px;font-weight:300;line-height:1;letter-spacing:-.02em">Enterprise</span>
+        <span class="type-specs">68px / 1.0 / −0.02em</span>
+      </div>
+      <div class="type-row">
+        <span class="type-meta">Display 02</span>
+        <span class="type-sample" style="font-size:32px;font-weight:300;line-height:1.14;letter-spacing:.01em">Build at scale</span>
+        <span class="type-specs">54px / 1.14 / 0.01em</span>
+      </div>
+      <div class="type-row">
+        <span class="type-meta">Prod H05</span>
+        <span class="type-sample" style="font-size:24px;font-weight:400;line-height:1.2;letter-spacing:.01em">Section heading</span>
+        <span class="type-specs">36px / 1.20 / 0.01em</span>
+      </div>
+      <div class="type-row">
+        <span class="type-meta">Prod H04</span>
+        <span class="type-sample" style="font-size:20px;font-weight:400;line-height:1.29;letter-spacing:.01em">Watson AI Platform</span>
+        <span class="type-specs">28px / 1.29 / 0.01em</span>
+      </div>
+      <div class="type-row">
+        <span class="type-meta">Heading 02</span>
+        <span class="type-sample" style="font-size:16px;font-weight:600;line-height:1.29;letter-spacing:.01em">Subsection heading</span>
+        <span class="type-specs">16px / 1.29 / 0.01em</span>
+      </div>
+      <div class="type-row">
+        <span class="type-meta">Body 02</span>
+        <span class="type-sample" style="font-size:16px;font-weight:400;line-height:1.5;letter-spacing:.01em">Default body text for readable content</span>
+        <span class="type-specs">16px / 1.50 / 0.01em</span>
+      </div>
+      <div class="type-row">
+        <span class="type-meta">Body 01</span>
+        <span class="type-sample" style="font-size:14px;font-weight:400;line-height:1.43;letter-spacing:.01em">Dense data, comparison rows</span>
+        <span class="type-specs">14px / 1.43 / 0.01em</span>
+      </div>
+      <div class="type-row">
+        <span class="type-meta">Code 01</span>
+        <span class="type-sample" style="font-size:14px;font-weight:400;line-height:1.43;letter-spacing:.02em;font-family:'IBM Plex Mono',monospace">const ibm = new DesignSystem();</span>
+        <span class="type-specs">14px / 1.43 / Mono</span>
+      </div>
+      <div class="type-row">
+        <span class="type-meta">Caption 01</span>
+        <span class="type-sample" style="font-size:12px;font-weight:400;line-height:1.33;letter-spacing:.02em">Meta info · Footer · Labels</span>
+        <span class="type-specs">12px / 1.33 / 0.02em</span>
+      </div>
+    </div>
+
+    <h3 style="font-size:14px;font-weight:600;color:var(--gray-100);margin:32px 0 16px;letter-spacing:.01em">Fonts</h3>
+    <div style="display:flex;flex-direction:column;border:1px solid var(--gray-20)">
+      <div style="padding:16px 24px;border-bottom:1px solid var(--gray-20);display:flex;align-items:baseline;gap:16px">
+        <span style="font-size:12px;font-weight:400;color:var(--gray-60);letter-spacing:.02em;text-transform:uppercase;flex:0 0 60px;font-family:'IBM Plex Mono',monospace">Primary</span>
+        <span style="font-size:16px;font-weight:600;color:var(--gray-100);letter-spacing:-.01em">IBM Plex Sans</span>
+        <span style="font-size:12px;color:var(--gray-50);letter-spacing:.02em">300, 400, 600, 700 · 12–68px</span>
+      </div>
+      <div style="padding:16px 24px;border-bottom:1px solid var(--gray-20);display:flex;align-items:baseline;gap:16px">
+        <span style="font-size:12px;font-weight:400;color:var(--gray-60);letter-spacing:.02em;text-transform:uppercase;flex:0 0 60px;font-family:'IBM Plex Mono',monospace">Mono</span>
+        <span style="font-size:16px;font-weight:400;color:var(--gray-100);letter-spacing:-.01em">IBM Plex Mono</span>
+        <span style="font-size:12px;color:var(--gray-50);letter-spacing:.02em">400 · 12–16px · Code only</span>
+      </div>
+      <div style="padding:16px 24px;display:flex;align-items:baseline;gap:16px">
+        <span style="font-size:12px;font-weight:400;color:var(--gray-60);letter-spacing:.02em;text-transform:uppercase;flex:0 0 60px;font-family:'IBM Plex Mono',monospace">Fallback</span>
+        <span style="font-size:16px;font-weight:400;color:var(--gray-100);letter-spacing:-.01em">system-ui, -apple-system, sans-serif</span>
+        <span style="font-size:12px;color:var(--gray-50);letter-spacing:.02em">Substitute for all above</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- SPACING & SHAPES -->
+  <section class="section" id="spacing">
+    <div class="section-header">
+      <div class="section-label">Layout</div>
+      <h2 class="section-title">Spacing & Shapes</h2>
+      <p class="section-desc">Base unit 2px. Compact density with disciplined spacing. 13-step spacing scale plus 6 layout tokens, 6 border radius values.</p>
+    </div>
+
+    <h3 style="font-size:14px;font-weight:600;color:var(--gray-100);margin-bottom:16px;letter-spacing:.01em">Spacing Scale (2px base)</h3>
+    <div class="spacing-bars">
+      <div class="spacing-col"><div class="spacing-bar" style="height:4px"></div><span class="spacing-val">01</span><span class="spacing-name">2px</span></div>
+      <div class="spacing-col"><div class="spacing-bar" style="height:8px"></div><span class="spacing-val">02</span><span class="spacing-name">4px</span></div>
+      <div class="spacing-col"><div class="spacing-bar" style="height:16px"></div><span class="spacing-val">03</span><span class="spacing-name">8px</span></div>
+      <div class="spacing-col"><div class="spacing-bar" style="height:24px"></div><span class="spacing-val">04</span><span class="spacing-name">12px</span></div>
+      <div class="spacing-col"><div class="spacing-bar" style="height:32px"></div><span class="spacing-val">05</span><span class="spacing-name">16px</span></div>
+      <div class="spacing-col"><div class="spacing-bar" style="height:48px"></div><span class="spacing-val">06</span><span class="spacing-name">24px</span></div>
+      <div class="spacing-col"><div class="spacing-bar" style="height:64px"></div><span class="spacing-val">07</span><span class="spacing-name">32px</span></div>
+      <div class="spacing-col"><div class="spacing-bar" style="height:80px"></div><span class="spacing-val">09</span><span class="spacing-name">48px</span></div>
+      <div class="spacing-col"><div class="spacing-bar" style="height:100px"></div><span class="spacing-val">11</span><span class="spacing-name">80px</span></div>
+      <div class="spacing-col"><div class="spacing-bar" style="height:120px"></div><span class="spacing-val">13</span><span class="spacing-name">128px</span></div>
+    </div>
+
+    <h3 style="font-size:14px;font-weight:600;color:var(--gray-100);margin:32px 0 16px;letter-spacing:.01em">Border Radius</h3>
+    <div class="shapes-row">
+      <div class="shape-item">
+        <div class="shape-box" style="border-radius:0"></div>
+        <span class="shape-label">default</span>
+        <span class="shape-value">0px</span>
+      </div>
+      <div class="shape-item">
+        <div class="shape-box" style="border-radius:2px"></div>
+        <span class="shape-label">sm</span>
+        <span class="shape-value">2px</span>
+      </div>
+      <div class="shape-item">
+        <div class="shape-box" style="border-radius:4px"></div>
+        <span class="shape-label">md</span>
+        <span class="shape-value">4px</span>
+      </div>
+      <div class="shape-item">
+        <div class="shape-box" style="border-radius:8px"></div>
+        <span class="shape-label">lg</span>
+        <span class="shape-value">8px</span>
+      </div>
+      <div class="shape-item">
+        <div class="shape-box" style="border-radius:12px"></div>
+        <span class="shape-label">xl</span>
+        <span class="shape-value">12px</span>
+      </div>
+      <div class="shape-item">
+        <div class="shape-box" style="border-radius:100px"></div>
+        <span class="shape-label">pill</span>
+        <span class="shape-value">100px</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- DEPTH & SURFACES -->
+  <section class="section" id="depth">
+    <div class="section-header">
+      <div class="section-label">Elevation</div>
+      <h2 class="section-title">Depth & Surfaces</h2>
+      <p class="section-desc">Flat and functional. Minimal shadows, clean borders. 4 distinct surface levels using the gray and blue scales.</p>
+    </div>
+
+    <h3 style="font-size:14px;font-weight:600;color:var(--gray-100);margin-bottom:16px;letter-spacing:.01em">Depth Levels</h3>
+    <div style="margin-bottom:32px">
+      <div class="depth-row">
+        <div class="depth-swatch" style="background:#ffffff;border:1px solid var(--gray-20)"></div>
+        <div class="depth-info"><div class="depth-name">White</div><div class="depth-desc">Base page background — the canvas</div></div>
+        <div class="depth-value">Level 0</div>
+      </div>
+      <div class="depth-row">
+        <div class="depth-swatch" style="background:#f4f4f4;border:1px solid var(--gray-20)"></div>
+        <div class="depth-info"><div class="depth-name">Gray 10</div><div class="depth-desc">Sections, alternating rows, card backgrounds</div></div>
+        <div class="depth-value">Level 1</div>
+      </div>
+      <div class="depth-row">
+        <div class="depth-swatch" style="background:#edf5ff;border:1px solid var(--blue-20)"></div>
+        <div class="depth-info"><div class="depth-name">Blue 10</div><div class="depth-desc">Interactive highlights, selected states</div></div>
+        <div class="depth-value">Level 2</div>
+      </div>
+      <div class="depth-row">
+        <div class="depth-swatch" style="background:#d0e2ff;border:1px solid var(--blue-20)"></div>
+        <div class="depth-info"><div class="depth-name">Blue 20</div><div class="depth-desc">Active selections, emphasis highlights</div></div>
+        <div class="depth-value">Level 3</div>
+      </div>
+    </div>
+
+    <h3 style="font-size:14px;font-weight:600;color:var(--gray-100);margin-bottom:16px;letter-spacing:.01em">Surface System</h3>
+    <div class="surface-grid">
+      <div class="surface-item" style="background:#ffffff;border-bottom:1px solid var(--gray-20)">
+        <span class="surface-name">White</span>
+        <span class="surface-val">#ffffff</span>
+      </div>
+      <div class="surface-item" style="background:#f4f4f4">
+        <span class="surface-name">Gray 10</span>
+        <span class="surface-val">#f4f4f4</span>
+      </div>
+      <div class="surface-item" style="background:#edf5ff">
+        <span class="surface-name">Blue 10</span>
+        <span class="surface-val">#edf5ff</span>
+      </div>
+      <div class="surface-item" style="background:#d0e2ff">
+        <span class="surface-name">Blue 20</span>
+        <span class="surface-val">#d0e2ff</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPONENTS -->
+  <section class="section" id="components">
+    <div class="section-header">
+      <div class="section-label">Components</div>
+      <h2 class="section-title">Button Variants</h2>
+      <p class="section-desc">Primary (IBM Blue), secondary (outlined), ghost, and danger variants. Sharp corners, 48px height, consistent IBM Plex Sans typography.</p>
+    </div>
+
+    <div class="component-card">
+      <div class="component-header">
+        <div><div class="component-name">Primary Button</div><div class="component-role">Main call to action — highest visual weight</div></div>
+        <span class="component-class">.btn-primary</span>
+      </div>
+      <div class="component-preview">
+        <button class="btn btn-primary">Sign up for free</button>
+        <button class="btn btn-primary" style="background:var(--blue-hover)">Hover state</button>
+      </div>
+      <div class="component-desc">IBM Blue (#0F62FE) background, White text, 0px radius. Use for the single most important action. Hover: #0353e9.</div>
+    </div>
+
+    <div class="component-card">
+      <div class="component-header">
+        <div><div class="component-name">Secondary Button</div><div class="component-role">Secondary actions, alternative options</div></div>
+        <span class="component-class">.btn-secondary</span>
+      </div>
+      <div class="component-preview">
+        <button class="btn btn-secondary">Learn more</button>
+        <button class="btn btn-secondary" style="background:var(--blue-10)">Hover state</button>
+      </div>
+      <div class="component-desc">IBM Blue text, 1px IBM Blue border, transparent background. Hover: Blue 10 (#edf5ff) fill.</div>
+    </div>
+
+    <div class="component-card">
+      <div class="component-header">
+        <div><div class="component-name">Ghost Button</div><div class="component-role">Tertiary actions, less prominent interactions</div></div>
+        <span class="component-class">.btn-ghost</span>
+      </div>
+      <div class="component-preview">
+        <button class="btn btn-ghost">View documentation</button>
+        <button class="btn btn-ghost" style="background:var(--gray-10)">Hover state</button>
+      </div>
+      <div class="component-desc">IBM Blue text, no border, transparent background. Hover: Gray 10 (#f4f4f4) fill.</div>
+    </div>
+
+    <div class="component-card">
+      <div class="component-header">
+        <div><div class="component-name">Danger Button</div><div class="component-role">Destructive actions, irreversible operations</div></div>
+        <span class="component-class">.btn-danger</span>
+      </div>
+      <div class="component-preview">
+        <button class="btn btn-danger">Delete resource</button>
+        <button class="btn btn-danger" style="background:#ba1220">Hover state</button>
+      </div>
+      <div class="component-desc">Red (#da1e28) background, White text. Use sparingly for destructive actions only.</div>
+    </div>
+
+    <div class="component-card">
+      <div class="component-header">
+        <div><div class="component-name">Text Input</div><div class="component-role">User text input fields</div></div>
+        <span class="component-class">input</span>
+      </div>
+      <div class="component-preview">
+        <div style="display:flex;flex-direction:column;gap:12px;flex:1;max-width:400px">
+          <input type="text" placeholder="Enter your email" style="background:var(--white);border:1px solid var(--gray-30);padding:12px 16px;color:var(--gray-100);font-size:14px;font-family:inherit;outline:none;height:48px">
+          <input type="text" value="Focused state" style="background:var(--white);border:2px solid var(--ibm-blue);padding:12px 16px;color:var(--gray-100);font-size:14px;font-family:inherit;outline:none;height:48px">
+        </div>
+      </div>
+      <div class="component-desc">White background, 1px Gray 30 border, 0px radius, 48px height. Focus: 2px IBM Blue border.</div>
+    </div>
+
+    <div class="component-card">
+      <div class="component-header">
+        <div><div class="component-name">Tag</div><div class="component-role">Labels, categories, status indicators</div></div>
+        <span class="component-class">.tag</span>
+      </div>
+      <div class="component-preview">
+        <span style="display:inline-flex;align-items:center;padding:2px 8px;font-size:12px;font-weight:400;background:var(--blue-10);color:var(--ibm-blue);border:1px solid var(--blue-20);letter-spacing:.02em">Info</span>
+        <span style="display:inline-flex;align-items:center;padding:2px 8px;font-size:12px;font-weight:400;background:#defbe6;color:var(--green);border:1px solid #a7f0ba;letter-spacing:.02em">Success</span>
+        <span style="display:inline-flex;align-items:center;padding:2px 8px;font-size:12px;font-weight:400;background:var(--yellow);color:var(--gray-100);border:1px solid #d2a106;letter-spacing:.02em">Warning</span>
+        <span style="display:inline-flex;align-items:center;padding:2px 8px;font-size:12px;font-weight:400;background:#fff1f1;color:var(--red);border:1px solid #ffd7d9;letter-spacing:.02em">Error</span>
+      </div>
+      <div class="component-desc">Inline-flex, 0px radius, semantic color coding. Use for status, categories, and labels.</div>
+    </div>
+  </section>
+
+  <!-- DO'S & DON'TS -->
+  <section class="section" id="guidelines">
+    <div class="section-header">
+      <div class="section-label">Guidelines</div>
+      <h2 class="section-title">Do's & Don'ts</h2>
+    </div>
+    <div class="guide-grid">
+      <div class="guide-card guide-card--do">
+        <div class="guide-label">Do — Embrace</div>
+        <ul class="guide-list">
+          <li>White (#ffffff) as primary page background</li>
+          <li>IBM Blue (#0F62FE) for all interactive elements</li>
+          <li>Gray scale systematically for text hierarchy</li>
+          <li>Sharp 0px radius on components (Carbon standard)</li>
+          <li>IBM Plex Sans for all text, IBM Plex Mono for code</li>
+          <li>WCAG 2.1 AA contrast ratios (4.5:1 minimum)</li>
+          <li>2px-based spacing with 8/16/24/32px increments</li>
+          <li>Green for success, Red for errors only</li>
+        </ul>
+      </div>
+      <div class="guide-card guide-card--dont">
+        <div class="guide-label">Don't — Avoid</div>
+        <ul class="guide-list">
+          <li>IBM Blue for large surfaces or backgrounds</li>
+          <li>Rounded corners on primary components</li>
+          <li>Red/Yellow/Green for non-semantic purposes</li>
+          <li>Decorative gradients or glow effects</li>
+          <li>Mixing IBM Plex with other display fonts</li>
+          <li>Dense, cramped layouts without breathing room</li>
+          <li>Heavy drop shadows or elevation effects</li>
+          <li>Gray 70 or lighter for primary body text</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-left">IBM Design System</div>
+    <div class="footer-right">
+      <a href="#colors" class="footer-link">Colors</a>
+      <a href="#typography" class="footer-link">Typography</a>
+      <a href="#spacing" class="footer-link">Spacing</a>
+      <a href="#components" class="footer-link">Components</a>
+      <a href="#" class="footer-link" download>Download Spec</a>
+    </div>
+  </footer>
+
+</div>
+
+
+
+</body>
+</html>

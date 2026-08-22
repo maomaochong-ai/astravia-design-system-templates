@@ -1,0 +1,31 @@
+{
+	"schemaVersion": 1,
+	"kind": "design-system",
+	"slug": "shopify",
+	"name": "Shopify",
+	"version": "1.0.0",
+	"order": 190,
+	"category": "commerce",
+	"vibe": "light",
+	"tags": [
+		"light-ui",
+		"design-system"
+	],
+	"blurb": "An inspired interpretation of Shopifi's design language — a cinematic commerce platform that runs two parallel design tracks.",
+	"tagline": {
+		"en": "Cinematic commerce on two parallel surfaces",
+		"zh": "双平行表面的电影感电商"
+	},
+	"license": "MIT",
+	"origin": {
+		"type": "curated",
+		"upstream": "https://github.com/ricocc/brands-design-md.git",
+		"note": "from brands-design-md (Shopifi-Inspired); unofficial inspired variant."
+	},
+	"assets": {
+		"spec": "DESIGN.md",
+		"theme": "theme.css",
+		"demo": "demo.html"
+	},
+	"collectedAt": "2026-08-22"
+}

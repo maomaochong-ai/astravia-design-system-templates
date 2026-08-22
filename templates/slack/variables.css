@@ -1,0 +1,59 @@
+:root {
+  --slack-aubergine: #611f69;
+  --slack-deep-plum: #481a54;
+  --slack-purple-haze: #f9f0ff;
+  --slack-lavender-mist: #eac8fe;
+  --slack-vivid-violet: linear-gradient(
+    104deg,
+    rgb(0, 0, 0) 9.56%,
+    rgb(186, 1, 255) 102.66%
+  );
+  --slack-plum-shadow: #3d0157;
+  --slack-iris: #730394;
+  --slack-iris-light: #d17dfe;
+  --slack-channel-blue: #1264a3;
+  --slack-mid-blue: #0b4c8c;
+  --slack-carbon: #1d1c1d;
+  --slack-charcoal: #454245;
+  --slack-mid-gray: #696969;
+  --slack-fog: #edeaed;
+  --slack-white: #fff;
+  --slack-soft-white: #fefbff;
+  --slack-font-display:
+    "Salesforce-Avant-Garde", "Inter Tight", "DM Sans", sans-serif;
+  --slack-font-body: "Salesforce-Sans", Inter, "IBM Plex Sans", sans-serif;
+  --slack-text-eyebrow: 12px;
+  --slack-text-caption: 14px;
+  --slack-text-body-sm: 16px;
+  --slack-text-body: 18px;
+  --slack-text-subheading: 32px;
+  --slack-text-heading-sm: 50px;
+  --slack-text-heading: 64px;
+  --slack-text-heading-lg: 76px;
+  --slack-text-display: 96px;
+  --slack-space-4: 4px;
+  --slack-space-6: 6px;
+  --slack-space-7: 7px;
+  --slack-space-8: 8px;
+  --slack-space-10: 10px;
+  --slack-space-12: 12px;
+  --slack-space-16: 16px;
+  --slack-space-18: 18px;
+  --slack-space-19: 19px;
+  --slack-space-20: 20px;
+  --slack-space-24: 24px;
+  --slack-space-32: 32px;
+  --slack-space-40: 40px;
+  --slack-space-48: 48px;
+  --slack-space-96: 96px;
+  --slack-space-98: 98px;
+  --slack-page-max: 1200px;
+  --slack-radius-button: 4px;
+  --slack-radius-card: 16px;
+  --slack-radius-pill: 999px;
+  --slack-radius-badge: 90px;
+  --slack-shadow-xl: rgba(0, 0, 0, 0.1) 0 0 32px 0;
+  --slack-shadow-subtle: rgb(97, 31, 105) 0 0 0 1px inset;
+  --slack-shadow-subtle-2: rgba(0, 0, 0, 0.08) 0 1px 3px 0;
+  --slack-shadow-lg: rgba(0, 0, 0, 0.1) 0 5px 20px 0;
+}

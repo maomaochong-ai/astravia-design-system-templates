@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Resend — Design System</title>
+
+
+
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+
+:root{
+  --pure-white:#ffffff;
+  --carbon-black:#000000;
+  --ink-gray:#111111;
+  --smoke:#666666;
+  --silver:#999999;
+  --cloud:#eaeaea;
+  --mist:#f5f5f5;
+  --ghost:#fafafa;
+  --slate:#333333;
+  --success:#0070f3;
+  --alert-red:#ee0000;
+  --amber:#f5a623;
+  --mint:#50e3c2;
+
+  --r-sm:4px;--r-md:6px;--r-lg:8px;--r-xl:12px;--r-full:9999px;
+}
+
+::selection{background:rgba(0,0,0,.08);color:var(--carbon-black)}
+html{scroll-behavior:smooth}
+
+body{
+  font-family:'Inter',system-ui,-apple-system,sans-serif;
+  background:var(--pure-white);color:var(--carbon-black);
+  font-size:15px;line-height:1.6;
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
+}
+
+.page{max-width:1080px;margin:0 auto;padding:0 32px 120px}
+
+/* ── NAV ── */
+.nav{
+  display:flex;justify-content:space-between;align-items:center;
+  height:56px;padding:0 16px;position:sticky;top:0;z-index:100;
+  background:rgba(255,255,255,.92);backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--cloud);
+  margin:0 -32px;
+}
+.nav-left{display:flex;align-items:center;gap:12px}
+.nav-wordmark{
+  font-size:16px;font-weight:700;letter-spacing:-.3px;
+  color:var(--carbon-black);text-decoration:none;
+}
+.nav-tag{
+  font-size:11px;font-weight:500;color:var(--smoke);
+  background:var(--mist);padding:3px 10px;border-radius:var(--r-full);
+  letter-spacing:.02px;
+}
+.nav-right{display:flex;align-items:center;gap:4px}
+.nav-link{
+  font-size:14px;font-weight:400;color:var(--slate);text-decoration:none;
+  padding:6px 12px;border-radius:var(--r-md);transition:all .15s;
+}
+.nav-link:hover{color:var(--carbon-black)}
+.nav-link--active{color:var(--carbon-black);font-weight:500}
+.nav-url{font-size:13px;font-weight:400;color:var(--slate);text-decoration:none;padding:4px 8px;border-radius:var(--r-md);transition:all .15s}
+.nav-url:hover{color:var(--carbon-black)}
+
+/* ── SECTIONS ── */
+.section{
+  padding:96px 0 0;
+  border-top:1px solid var(--cloud);
+  margin-top:64px;
+}
+.section:first-of-type{border-top:none;margin-top:48px}
+.section-header{margin-bottom:40px}
+.section-label{
+  font-size:11px;font-weight:600;letter-spacing:.08px;
+  text-transform:uppercase;color:var(--smoke);margin-bottom:8px;
+}
+.section-title{
+  font-size:24px;font-weight:600;letter-spacing:-.02em;line-height:1.3;
+  color:var(--carbon-black);
+}
+.section-desc{
+  font-size:15px;line-height:1.6;color:var(--smoke);
+  margin-top:8px;max-width:560px;
+}
+
+/* ── HERO ── */
+.hero{
+  padding:80px 0 56px;
+  border-bottom:1px solid var(--cloud);
+  margin:0 -32px;padding-left:32px;padding-right:32px;
+}
+.hero-label{
+  font-size:11px;font-weight:600;letter-spacing:.1px;
+  text-transform:uppercase;color:var(--smoke);margin-bottom:16px;
+}
+.hero-title{
+  font-size:clamp(36px,5vw,48px);font-weight:700;line-height:1.1;
+  letter-spacing:-.04em;color:var(--carbon-black);
+}
+.hero-title em{
+  font-style:normal;color:var(--smoke);
+}
+.hero-subtitle{
+  font-size:16px;line-height:1.6;color:var(--smoke);
+  margin-top:16px;max-width:480px;
+}
+.hero-tags{display:flex;gap:8px;margin-top:24px;flex-wrap:wrap}
+.hero-tag{
+  font-size:12px;font-weight:500;color:var(--smoke);
+  background:var(--mist);padding:4px 12px;border-radius:var(--r-full);
+  letter-spacing:.015px;
+}
+.hero-actions{display:flex;gap:12px;margin-top:28px}
+
+/* ── BUTTONS ── */
+.btn{
+  display:inline-flex;align-items:center;gap:6px;
+  font-family:inherit;font-size:14px;font-weight:500;line-height:1;
+  letter-spacing:0;padding:10px 20px;border-radius:var(--r-md);
+  cursor:pointer;text-decoration:none;white-space:nowrap;
+  transition:opacity .15s,transform .15s,background .15s,border-color .15s;
+}
+.btn:active{transform:scale(.97)}
+.btn-primary{background:var(--carbon-black);color:var(--pure-white);border:1px solid transparent}
+.btn-primary:hover{opacity:.85}
+.btn-secondary{background:var(--pure-white);color:var(--carbon-black);border:1px solid var(--cloud)}
+.btn-secondary:hover{border-color:var(--slate);background:var(--ghost)}
+.btn-ghost{background:transparent;color:var(--carbon-black);border:1px solid var(--cloud)}
+.btn-ghost:hover{border-color:var(--carbon-black)}
+
+/* ── COLOR TOKENS ── */
+.color-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:16px;
+}
+.color-token{
+  background:var(--pure-white);border:1px solid var(--cloud);
+  border-radius:var(--r-lg);overflow:hidden;transition:border-color .2s;
+}
+.color-token:hover{border-color:var(--carbon-black)}
+.color-swatch{width:100%;height:64px}
+.color-info{padding:12px 14px}
+.color-name{font-size:13px;font-weight:600;letter-spacing:.01px;color:var(--carbon-black)}
+.color-hex{
+  font-size:12px;font-weight:400;color:var(--smoke);margin-top:2px;
+  font-variant-numeric:tabular-nums;letter-spacing:.015px;
+}
+.color-role{font-size:11px;color:var(--silver);margin-top:4px;line-height:1.4}
+
+/* ── TYPE SCALE ── */
+.type-table{
+  display:flex;flex-direction:column;border:1px solid var(--cloud);
+  border-radius:var(--r-lg);overflow:hidden;
+}
+.type-row{
+  display:grid;grid-template-columns:100px 1fr 200px;align-items:baseline;
+  padding:16px 24px;border-bottom:1px solid var(--cloud);
+}
+.type-row:last-child{border-bottom:none}
+.type-row:hover{background:var(--ghost)}
+.type-meta{
+  font-size:10px;font-weight:600;color:var(--smoke);
+  letter-spacing:.06px;text-transform:uppercase;
+}
+.type-sample{color:var(--carbon-black);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.type-specs{
+  font-size:11px;color:var(--silver);text-align:right;
+  font-variant-numeric:tabular-nums;letter-spacing:.015px;
+}
+
+/* ── SPACING ── */
+.spacing-bars{display:flex;align-items:flex-end;gap:20px;height:120px}
+.spacing-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px}
+.spacing-bar{
+  width:100%;border-radius:var(--r-sm);
+  background:var(--carbon-black);opacity:.12;transition:opacity .3s;
+}
+.spacing-col:hover .spacing-bar{opacity:.3}
+.spacing-val{font-size:11px;font-weight:600;color:var(--carbon-black);letter-spacing:.015px}
+.spacing-name{font-size:10px;font-weight:400;color:var(--silver);letter-spacing:.015px}
+
+/* ── SHAPES ── */
+.shapes-row{display:flex;flex-wrap:wrap;gap:24px;align-items:flex-end}
+.shape-item{display:flex;flex-direction:column;align-items:center;gap:8px}
+.shape-box{
+  width:72px;height:72px;background:var(--mist);
+  border:1px solid var(--cloud);transition:all .3s cubic-bezier(.22,1,.36,1);
+}
+.shape-box:hover{border-color:var(--carbon-black);transform:scale(1.06)}
+.shape-label{font-size:11px;font-weight:500;color:var(--smoke);letter-spacing:.015px;white-space:nowrap}
+.shape-value{
+  font-size:10px;font-weight:400;color:var(--silver);letter-spacing:.015px;
+  font-variant-numeric:tabular-nums;
+}
+
+/* ── DEPTH ── */
+.depth-row{
+  display:flex;align-items:center;gap:20px;padding:20px 0;
+  border-bottom:1px solid var(--cloud);
+}
+.depth-row:last-child{border-bottom:none}
+.depth-swatch{
+  width:56px;height:56px;border-radius:var(--r-md);flex-shrink:0;
+  border:1px solid var(--cloud);
+}
+.depth-info{flex:1}
+.depth-name{font-size:14px;font-weight:600;letter-spacing:0;color:var(--carbon-black)}
+.depth-desc{font-size:12px;color:var(--smoke);margin-top:2px;letter-spacing:.015px}
+.depth-value{
+  font-size:12px;font-weight:500;color:var(--silver);
+  font-variant-numeric:tabular-nums;letter-spacing:.015px;
+}
+
+/* ── SURFACES ── */
+.surface-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px}
+.surface-item{
+  border-radius:var(--r-lg);padding:28px 20px;
+  text-align:center;border:1px solid var(--cloud);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:6px;min-height:110px;transition:transform .3s;
+}
+.surface-item:hover{transform:scale(1.02);border-color:var(--carbon-black)}
+.surface-name{font-size:14px;font-weight:600;letter-spacing:0;color:var(--carbon-black)}
+.surface-val{
+  font-size:11px;font-weight:400;color:var(--silver);
+  font-variant-numeric:tabular-nums;letter-spacing:.015px;
+}
+
+/* ── COMPONENTS ── */
+.component-card{
+  background:var(--pure-white);border:1px solid var(--cloud);
+  border-radius:var(--r-lg);padding:32px;margin-bottom:16px;
+  transition:border-color .2s;
+}
+.component-card:hover{border-color:var(--carbon-black)}
+.component-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px}
+.component-name{font-size:15px;font-weight:600;letter-spacing:0;color:var(--carbon-black)}
+.component-role{font-size:13px;color:var(--smoke);margin-top:4px;letter-spacing:0}
+.component-class{
+  font-size:11px;font-weight:500;color:var(--smoke);
+  background:var(--mist);padding:3px 10px;border-radius:var(--r-full);
+  letter-spacing:.015px;
+  font-family:'SFMono-Regular',Consolas,monospace;
+}
+.component-preview{
+  display:flex;gap:16px;align-items:center;flex-wrap:wrap;
+  padding:20px;background:var(--mist);border-radius:var(--r-md);
+  border:1px solid var(--cloud);
+}
+.component-desc{
+  font-size:13px;color:var(--smoke);line-height:1.5;
+  margin-top:12px;max-width:480px;
+}
+
+/* ── DO/DON'T ── */
+.guide-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.guide-card{
+  border-radius:var(--r-lg);padding:28px;
+  border:1px solid var(--cloud);
+}
+.guide-card--do{background:rgba(0,112,243,.03);border-color:rgba(0,112,243,.12)}
+.guide-card--dont{background:rgba(238,0,0,.02);border-color:rgba(238,0,0,.1)}
+.guide-label{font-size:11px;font-weight:600;letter-spacing:.06px;text-transform:uppercase;margin-bottom:16px}
+.guide-card--do .guide-label{color:var(--success)}
+.guide-card--dont .guide-label{color:var(--alert-red)}
+.guide-list{
+  list-style:none;display:flex;flex-direction:column;gap:10px;
+}
+.guide-list li{
+  font-size:13px;line-height:1.5;padding-left:20px;position:relative;
+  color:var(--ink-gray);
+}
+.guide-card--do .guide-list li::before{
+  content:'\2713';position:absolute;left:0;color:var(--success);font-weight:700;font-size:12px;
+}
+.guide-card--dont .guide-list li::before{
+  content:'\2717';position:absolute;left:0;color:var(--alert-red);font-weight:700;font-size:12px;
+}
+
+/* ── BORDERS DEMO ── */
+.border-row{
+  display:flex;align-items:center;gap:20px;padding:16px 0;
+  border-bottom:1px solid var(--cloud);
+}
+.border-row:last-child{border-bottom:none}
+.border-swatch{
+  width:120px;height:48px;border-radius:var(--r-md);flex-shrink:0;
+}
+.border-info{flex:1}
+.border-name{font-size:14px;font-weight:500;color:var(--carbon-black)}
+.border-desc{font-size:12px;color:var(--smoke);margin-top:2px}
+
+/* ── FOOTER ── */
+.footer{
+  margin-top:96px;padding:32px 0;
+  border-top:1px solid var(--cloud);
+  display:flex;justify-content:space-between;align-items:center;
+}
+.footer-left{font-size:14px;font-weight:400;color:var(--silver)}
+.footer-right{display:flex;gap:20px}
+.footer-link{
+  font-size:13px;font-weight:400;color:var(--smoke);text-decoration:none;
+  transition:color .15s;
+}
+.footer-link:hover{color:var(--carbon-black)}
+
+/* ── RESPONSIVE ── */
+@media(max-width:768px){
+  .page{padding:0 20px 80px}
+  .hero{margin:0 -20px;padding-left:20px;padding-right:20px;padding-top:56px}
+  .nav{margin:0 -20px}
+  .section-title{font-size:20px}
+  .type-row{grid-template-columns:70px 1fr;gap:8px}
+  .type-specs{display:none}
+  .guide-grid{grid-template-columns:1fr}
+  .color-grid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}
+  .hero-title{font-size:32px}
+}
+
+/* ── ENTRANCE ANIMATION ── */
+.section,.hero{opacity:1;transition:opacity .5s cubic-bezier(.22,1,.36,1),transform .5s cubic-bezier(.22,1,.36,1)}
+.section.visible,.hero.visible{opacity:1;transform:translateY(0)}
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="nav-left">
+      <a href="#" class="nav-wordmark">Resend</a>
+      <span class="nav-tag">Design System</span>
+      <a href="#" class="nav-url" target="_blank">resend.com</a>
+    </div>
+    <div class="nav-right">
+      <a href="#colors" class="nav-link nav-link--active">Colors</a>
+      <a href="#typography" class="nav-link">Type</a>
+      <a href="#spacing" class="nav-link">Spacing</a>
+      <a href="#components" class="nav-link">Components</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-label">Design System</div>
+    <h1 class="hero-title">Email for<br>developers,<br><em>done right.</em></h1>
+    <p class="hero-subtitle">A clean canvas with precise typography, thin borders, and restrained color. Every element earns its place through clarity, not decoration.</p>
+    <div class="hero-tags">
+      <span class="hero-tag">14 color tokens</span>
+      <span class="hero-tag">10 type steps</span>
+      <span class="hero-tag">4px grid</span>
+      <span class="hero-tag">4 surface levels</span>
+    </div>
+    <div class="hero-actions">
+      <a href="#" class="btn btn-primary" download>Download Spec</a>
+      <a href="#" class="btn btn-secondary" download>theme.css</a>
+      <a href="#" class="btn btn-secondary" download>tokens.json</a>
+      <a href="#" class="btn btn-secondary" download>variables.css</a>
+    </div>
+  </div>
+
+  <!-- COLORS -->
+  <section class="section" id="colors">
+    <div class="section-header">
+      <div class="section-label">Foundation</div>
+      <h2 class="section-title">Color Tokens</h2>
+      <p class="section-desc">A near-monochrome palette with functional accents. 14 tokens spanning surfaces, text hierarchy, borders, and status indicators.</p>
+    </div>
+    <div class="color-grid">
+      <div class="color-token">
+        <div class="color-swatch" style="background:#ffffff;border-bottom:1px solid var(--cloud)"></div>
+        <div class="color-info"><div class="color-name">Pure White</div><div class="color-hex">#ffffff</div><div class="color-role">Page background, canvas</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#000000"></div>
+        <div class="color-info"><div class="color-name">Carbon Black</div><div class="color-hex">#000000</div><div class="color-role">Primary text, headings, CTAs</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#111111"></div>
+        <div class="color-info"><div class="color-name">Ink Gray</div><div class="color-hex">#111111</div><div class="color-role">Body text, secondary headings</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#333333"></div>
+        <div class="color-info"><div class="color-name">Slate</div><div class="color-hex">#333333</div><div class="color-role">Navigation, interactive text</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#666666"></div>
+        <div class="color-info"><div class="color-name">Smoke</div><div class="color-hex">#666666</div><div class="color-role">Secondary text, descriptions</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#999999"></div>
+        <div class="color-info"><div class="color-name">Silver</div><div class="color-hex">#999999</div><div class="color-role">Placeholders, disabled states</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#eaeaea"></div>
+        <div class="color-info"><div class="color-name">Cloud</div><div class="color-hex">#eaeaea</div><div class="color-role">Default borders, dividers</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#f5f5f5"></div>
+        <div class="color-info"><div class="color-name">Mist</div><div class="color-hex">#f5f5f5</div><div class="color-role">Secondary sections, code blocks</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#fafafa"></div>
+        <div class="color-info"><div class="color-name">Ghost</div><div class="color-hex">#fafafa</div><div class="color-role">Hover states, subtle shifts</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#0070f3"></div>
+        <div class="color-info"><div class="color-name">Success</div><div class="color-hex">#0070f3</div><div class="color-role">Active states, primary accent</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#ee0000"></div>
+        <div class="color-info"><div class="color-name">Alert Red</div><div class="color-hex">#ee0000</div><div class="color-role">Error states, destructive</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#f5a623"></div>
+        <div class="color-info"><div class="color-name">Amber</div><div class="color-hex">#f5a623</div><div class="color-role">Warnings, caution indicators</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#50e3c2"></div>
+        <div class="color-info"><div class="color-name">Mint</div><div class="color-hex">#50e3c2</div><div class="color-role">Success, confirmation</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TYPOGRAPHY -->
+  <section class="section" id="typography">
+    <div class="section-header">
+      <div class="section-label">Typography</div>
+      <h2 class="section-title">Type Scale</h2>
+      <p class="section-desc">Inter as the sole typeface — neutral, engineered, legible at every size. Tight letter-spacing for headings, relaxed for body copy.</p>
+    </div>
+    <div class="type-table">
+      <div class="type-row">
+        <span class="type-meta">Display-lg</span>
+        <span class="type-sample" style="font-size:28px;font-weight:700;line-height:1.2;letter-spacing:-.04em">Email for developers</span>
+        <span class="type-specs">48px / 1.2 / −0.04em</span>
+      </div>
+      <div class="type-row">
+        <span class="type-meta">Display</span>
+        <span class="type-sample" style="font-size:22px;font-weight:700;line-height:1.2;letter-spacing:-.03em">Ship faster</span>
+        <span class="type-specs">40px / 1.2 / −0.03em</span>
+      </div>
+      <div class="type-row">
+        <span class="type-meta">Heading-lg</span>
+        <span class="type-sample" style="font-size:18px;font-weight:600;line-height:1.3;letter-spacing:-.02em">Section heading</span>
+        <span class="type-specs">24px / 1.3 / −0.02px</span>
+      </div>
+      <div class="type-row">
+        <span class="type-meta">Heading</span>
+        <span class="type-sample" style="font-size:16px;font-weight:600;line-height:1.3;letter-spacing:-.02em">Subsection heading</span>
+        <span class="type-specs">20px / 1.3 / −0.02px</span>
+      </div>
+      <div class="type-row">
+        <span class="type-meta">Body</span>
+        <span class="type-sample" style="font-size:15px;font-weight:400;line-height:1.6">The best API to reach humans instead of spam folders</span>
+        <span class="type-specs">15px / 1.6 / 0</span>
+      </div>
+      <div class="type-row">
+        <span class="type-meta">Body-sm</span>
+        <span class="type-sample" style="font-size:14px;font-weight:400;line-height:1.5">Dense data, comparison rows, metadata</span>
+        <span class="type-specs">14px / 1.5 / 0</span>
+      </div>
+      <div class="type-row">
+        <span class="type-meta">Caption</span>
+        <span class="type-sample" style="font-size:13px;font-weight:400;line-height:1.5;letter-spacing:.02px">Meta info · Status labels · Helper text</span>
+        <span class="type-specs">13px / 1.5 / 0.02px</span>
+      </div>
+    </div>
+
+    <h3 style="font-size:14px;font-weight:600;color:var(--carbon-black);margin:40px 0 20px;letter-spacing:0">Fonts</h3>
+    <div style="display:flex;flex-direction:column;border:1px solid var(--cloud);border-radius:var(--r-lg);overflow:hidden">
+      <div style="padding:20px 24px;border-bottom:1px solid var(--cloud);display:flex;align-items:baseline;gap:16px">
+        <span style="font-size:10px;font-weight:600;color:var(--smoke);letter-spacing:.06px;text-transform:uppercase;flex:0 0 60px">Primary</span>
+        <span style="font-size:16px;font-weight:600;color:var(--carbon-black)">Inter</span>
+        <span style="font-size:11px;color:var(--silver)">400–700 · 13–48px</span>
+      </div>
+      <div style="padding:20px 24px;border-bottom:1px solid var(--cloud);display:flex;align-items:baseline;gap:16px">
+        <span style="font-size:10px;font-weight:600;color:var(--smoke);letter-spacing:.06px;text-transform:uppercase;flex:0 0 60px">Mono</span>
+        <span style="font-size:16px;font-weight:500;color:var(--carbon-black)">Inter Mono</span>
+        <span style="font-size:11px;color:var(--silver)">400–500 · 13–14px · Code only</span>
+      </div>
+      <div style="padding:20px 24px;display:flex;align-items:baseline;gap:16px">
+        <span style="font-size:10px;font-weight:600;color:var(--smoke);letter-spacing:.06px;text-transform:uppercase;flex:0 0 60px">Fallback</span>
+        <span style="font-size:16px;font-weight:500;color:var(--carbon-black)">system-ui</span>
+        <span style="font-size:11px;color:var(--silver)">Platform default sans-serif</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- SPACING & SHAPES -->
+  <section class="section" id="spacing">
+    <div class="section-header">
+      <div class="section-label">Layout</div>
+      <h2 class="section-title">Spacing & Shapes</h2>
+      <p class="section-desc">Base unit 4px. Compact density with generous vertical rhythm. 14-step spacing scale, 5 border radius values.</p>
+    </div>
+
+    <h3 style="font-size:14px;font-weight:600;color:var(--carbon-black);margin-bottom:20px;letter-spacing:0">Spacing Scale (4px base)</h3>
+    <div class="spacing-bars">
+      <div class="spacing-col"><div class="spacing-bar" style="height:8px"></div><span class="spacing-val">4</span><span class="spacing-name">4px</span></div>
+      <div class="spacing-col"><div class="spacing-bar" style="height:14px"></div><span class="spacing-val">8</span><span class="spacing-name">8px</span></div>
+      <div class="spacing-col"><div class="spacing-bar" style="height:22px"></div><span class="spacing-val">12</span><span class="spacing-name">12px</span></div>
+      <div class="spacing-col"><div class="spacing-bar" style="height:30px"></div><span class="spacing-val">16</span><span class="spacing-name">16px</span></div>
+      <div class="spacing-col"><div class="spacing-bar" style="height:40px"></div><span class="spacing-val">24</span><span class="spacing-name">24px</span></div>
+      <div class="spacing-col"><div class="spacing-bar" style="height:54px"></div><span class="spacing-val">32</span><span class="spacing-name">32px</span></div>
+      <div class="spacing-col"><div class="spacing-bar" style="height:72px"></div><span class="spacing-val">48</span><span class="spacing-name">48px</span></div>
+      <div class="spacing-col"><div class="spacing-bar" style="height:96px"></div><span class="spacing-val">96</span><span class="spacing-name">96px</span></div>
+    </div>
+
+    <h3 style="font-size:14px;font-weight:600;color:var(--carbon-black);margin:40px 0 20px;letter-spacing:0">Border Radius</h3>
+    <div class="shapes-row">
+      <div class="shape-item">
+        <div class="shape-box" style="border-radius:4px"></div>
+        <span class="shape-label">sm</span>
+        <span class="shape-value">4px</span>
+      </div>
+      <div class="shape-item">
+        <div class="shape-box" style="border-radius:6px"></div>
+        <span class="shape-label">md</span>
+        <span class="shape-value">6px</span>
+      </div>
+      <div class="shape-item">
+        <div class="shape-box" style="border-radius:8px"></div>
+        <span class="shape-label">lg</span>
+        <span class="shape-value">8px</span>
+      </div>
+      <div class="shape-item">
+        <div class="shape-box" style="border-radius:12px"></div>
+        <span class="shape-label">xl</span>
+        <span class="shape-value">12px</span>
+      </div>
+      <div class="shape-item">
+        <div class="shape-box" style="border-radius:9999px"></div>
+        <span class="shape-label">full</span>
+        <span class="shape-value">9999px</span>
+      </div>
+    </div>
+
+    <h3 style="font-size:14px;font-weight:600;color:var(--carbon-black);margin:40px 0 20px;letter-spacing:0">Borders</h3>
+    <div style="margin-bottom:8px">
+      <div class="border-row">
+        <div class="border-swatch" style="border:1px solid var(--cloud)"></div>
+        <div class="border-info"><div class="border-name">Default</div><div class="border-desc">1px solid #eaeaea — cards, dividers, containers</div></div>
+      </div>
+      <div class="border-row">
+        <div class="border-swatch" style="border:1px solid var(--mist)"></div>
+        <div class="border-info"><div class="border-name">Subtle</div><div class="border-desc">1px solid #f5f5f5 — soft separation, nested elements</div></div>
+      </div>
+      <div class="border-row">
+        <div class="border-swatch" style="border:1px solid var(--carbon-black)"></div>
+        <div class="border-info"><div class="border-name">Interactive</div><div class="border-desc">1px solid #000000 — hover states, active cards</div></div>
+      </div>
+      <div class="border-row">
+        <div class="border-swatch" style="border:2px solid var(--carbon-black);outline:2px solid rgba(0,0,0,.1);outline-offset:2px"></div>
+        <div class="border-info"><div class="border-name">Focus Ring</div><div class="border-desc">2px solid #000000 + 2px offset — keyboard focus</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DEPTH & SURFACES -->
+  <section class="section" id="depth">
+    <div class="section-header">
+      <div class="section-label">Elevation</div>
+      <h2 class="section-title">Depth & Surfaces</h2>
+      <p class="section-desc">No shadows — elevation is communicated through border contrast and background shifts. 4 surface levels on a white canvas.</p>
+    </div>
+
+    <h3 style="font-size:14px;font-weight:600;color:var(--carbon-black);margin-bottom:16px;letter-spacing:0">Depth Levels</h3>
+    <div style="margin-bottom:40px">
+      <div class="depth-row">
+        <div class="depth-swatch" style="background:#ffffff"></div>
+        <div class="depth-info"><div class="depth-name">Pure White</div><div class="depth-desc">Base page background — the canvas</div></div>
+        <div class="depth-value">Level 0</div>
+      </div>
+      <div class="depth-row">
+        <div class="depth-swatch" style="background:#fafafa"></div>
+        <div class="depth-info"><div class="depth-name">Ghost</div><div class="depth-desc">Hover states, subtle background shifts</div></div>
+        <div class="depth-value">Level 1</div>
+      </div>
+      <div class="depth-row">
+        <div class="depth-swatch" style="background:#f5f5f5"></div>
+        <div class="depth-info"><div class="depth-name">Mist</div><div class="depth-desc">Code blocks, secondary sections, table rows</div></div>
+        <div class="depth-value">Level 2</div>
+      </div>
+      <div class="depth-row">
+        <div class="depth-swatch" style="background:#ffffff;border:1px solid var(--cloud)"></div>
+        <div class="depth-info"><div class="depth-name">Card</div><div class="depth-desc">Elevated panels, cards, modals</div></div>
+        <div class="depth-value">Level 3</div>
+      </div>
+    </div>
+
+    <h3 style="font-size:14px;font-weight:600;color:var(--carbon-black);margin-bottom:16px;letter-spacing:0">Surface System</h3>
+    <div class="surface-grid">
+      <div class="surface-item" style="background:#ffffff">
+        <span class="surface-name">Pure White</span>
+        <span class="surface-val">#ffffff</span>
+      </div>
+      <div class="surface-item" style="background:#fafafa">
+        <span class="surface-name">Ghost</span>
+        <span class="surface-val">#fafafa</span>
+      </div>
+      <div class="surface-item" style="background:#f5f5f5">
+        <span class="surface-name">Mist</span>
+        <span class="surface-val">#f5f5f5</span>
+      </div>
+      <div class="surface-item" style="background:#ffffff;border:1px solid var(--cloud)">
+        <span class="surface-name">Card</span>
+        <span class="surface-val">#ffffff + border</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPONENTS -->
+  <section class="section" id="components">
+    <div class="section-header">
+      <div class="section-label">Components</div>
+      <h2 class="section-title">Button & Input Variants</h2>
+      <p class="section-desc">Minimal component set — primary (Carbon Black), secondary (bordered), and ghost variants. Inputs use thin borders with focus rings.</p>
+    </div>
+
+    <div class="component-card">
+      <div class="component-header">
+        <div><div class="component-name">Primary Button</div><div class="component-role">Main call to action — highest visual weight</div></div>
+        <span class="component-class">.btn-primary</span>
+      </div>
+      <div class="component-preview">
+        <button class="btn btn-primary">Get started</button>
+        <button class="btn btn-primary" style="opacity:.85">Hover state</button>
+      </div>
+      <div class="component-desc">Carbon Black (#000000) background, Pure White text, 6px radius, 10px 20px padding. Use exclusively for the single most important action.</div>
+    </div>
+
+    <div class="component-card">
+      <div class="component-header">
+        <div><div class="component-name">Secondary Button</div><div class="component-role">Supporting actions, navigation</div></div>
+        <span class="component-class">.btn-secondary</span>
+      </div>
+      <div class="component-preview">
+        <button class="btn btn-secondary">View documentation</button>
+        <button class="btn btn-secondary" style="border-color:var(--slate);background:var(--ghost)">Hover state</button>
+      </div>
+      <div class="component-desc">Pure White background, Carbon Black text, 1px Cloud border. Hover adds subtle Ghost background and darker border.</div>
+    </div>
+
+    <div class="component-card">
+      <div class="component-header">
+        <div><div class="component-name">Ghost Button</div><div class="component-role">Tertiary actions, inline actions</div></div>
+        <span class="component-class">.btn-ghost</span>
+      </div>
+      <div class="component-preview">
+        <button class="btn btn-ghost">Learn more</button>
+        <button class="btn btn-ghost" style="border-color:var(--carbon-black)">Hover state</button>
+      </div>
+      <div class="component-desc">Transparent background, Carbon Black text, 1px Cloud border. Hover tightens border to Carbon Black.</div>
+    </div>
+
+    <div class="component-card">
+      <div class="component-header">
+        <div><div class="component-name">Input Field</div><div class="component-role">Text entry, form inputs</div></div>
+        <span class="component-class">input</span>
+      </div>
+      <div class="component-preview">
+        <div style="display:flex;flex-direction:column;gap:12px;flex:1;max-width:360px">
+          <input type="text" placeholder="you@example.com" style="background:var(--pure-white);border:1px solid var(--cloud);border-radius:6px;padding:10px 14px;color:var(--carbon-black);font-size:14px;font-family:inherit;outline:none">
+          <input type="text" value="Focused state" style="background:var(--pure-white);border:2px solid var(--carbon-black);border-radius:6px;padding:10px 14px;color:var(--carbon-black);font-size:14px;font-family:inherit;outline:none">
+        </div>
+      </div>
+      <div class="component-desc">Pure White background, 1px Cloud border, 6px radius. Focus state switches to 2px Carbon Black border.</div>
+    </div>
+
+    <div class="component-card">
+      <div class="component-header">
+        <div><div class="component-name">Card</div><div class="component-role">Content containers, feature blocks</div></div>
+        <span class="component-class">.card</span>
+      </div>
+      <div class="component-preview">
+        <div style="background:var(--pure-white);border:1px solid var(--cloud);border-radius:8px;padding:24px;max-width:320px;transition:border-color .2s" onmouseover="this.style.borderColor='#000'" onmouseout="this.style.borderColor='#eaeaea'">
+          <div style="font-size:15px;font-weight:600;color:var(--carbon-black);margin-bottom:8px">Email API</div>
+          <div style="font-size:14px;color:var(--smoke);line-height:1.5">Send transactional emails with a few lines of code.</div>
+        </div>
+      </div>
+      <div class="component-desc">Pure White background, 1px Cloud border, 8px radius, 24px padding. Hover elevates border to Carbon Black. No shadows.</div>
+    </div>
+
+    <div class="component-card">
+      <div class="component-header">
+        <div><div class="component-name">Code Block</div><div class="component-role">Code snippets, API examples</div></div>
+        <span class="component-class">.code-block</span>
+      </div>
+      <div class="component-preview">
+        <div style="background:var(--mist);border:1px solid var(--cloud);border-radius:6px;padding:16px;max-width:400px;width:100%">
+          <code style="font-family:'SFMono-Regular',Consolas,monospace;font-size:13px;line-height:1.6;color:var(--carbon-black)">curl https://api.resend.com/emails \<br>&nbsp;&nbsp;-H 'Authorization: Bearer re_123'</code>
+        </div>
+      </div>
+      <div class="component-desc">Mist (#f5f5f5) background, 1px Cloud border, 6px radius, 16px padding. Monospace at 13px with 1.6 line height.</div>
+    </div>
+  </section>
+
+  <!-- DO'S & DON'TS -->
+  <section class="section" id="guidelines">
+    <div class="section-header">
+      <div class="section-label">Guidelines</div>
+      <h2 class="section-title">Do's & Don'ts</h2>
+    </div>
+    <div class="guide-grid">
+      <div class="guide-card guide-card--do">
+        <div class="guide-label">Do — Embrace</div>
+        <ul class="guide-list">
+          <li>Pure White (#ffffff) as the canvas for everything</li>
+          <li>Carbon Black (#000000) for all primary text and CTAs</li>
+          <li>Cloud (#eaeaea) for all default borders — barely visible</li>
+          <li>1px thin borders consistently — no thick or decorative</li>
+          <li>Inter at weights 400–700 only</li>
+          <li>4px-based spacing with generous vertical rhythm</li>
+          <li>Border contrast for elevation, never shadows</li>
+        </ul>
+      </div>
+      <div class="guide-card guide-card--dont">
+        <div class="guide-label">Don't — Avoid</div>
+        <ul class="guide-list">
+          <li>Drop shadows or box shadows of any kind</li>
+          <li>Bright accent colors for backgrounds</li>
+          <li>Border radius larger than 12px</li>
+          <li>More than two font weights per component</li>
+          <li>Background gradients — flat color only</li>
+          <li>Decorative or illustrative imagery</li>
+          <li>Colored borders except focus/error states</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-left">Resend Design System</div>
+    <div class="footer-right">
+      <a href="#colors" class="footer-link">Colors</a>
+      <a href="#typography" class="footer-link">Typography</a>
+      <a href="#spacing" class="footer-link">Spacing</a>
+      <a href="#components" class="footer-link">Components</a>
+      <a href="#" class="footer-link" download>Download Spec</a>
+    </div>
+  </footer>
+
+</div>
+
+
+
+</body>
+</html>

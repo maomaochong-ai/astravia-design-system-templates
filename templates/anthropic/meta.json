@@ -1,0 +1,31 @@
+{
+	"schemaVersion": 1,
+	"kind": "design-system",
+	"slug": "anthropic",
+	"name": "Anthropic",
+	"version": "1.1.0",
+	"order": 110,
+	"category": "ai",
+	"vibe": "light",
+	"tags": [
+		"ai",
+		"light"
+	],
+	"blurb": "Warm book-cloth cream; ink primary, clay accent, serif headings, literary and unhurried.",
+	"tagline": {
+		"en": "Book-cloth cream, serif and clay",
+		"zh": "书页米色，衬线与陶土"
+	},
+	"license": "MIT",
+	"origin": {
+		"type": "curated",
+		"upstream": "https://github.com/VoltAgent/awesome-design-md",
+		"note": "Vetta-adapted from awesome-design-md (MIT)."
+	},
+	"assets": {
+		"spec": "DESIGN.md",
+		"theme": "theme.css",
+		"demo": "demo.html"
+	},
+	"collectedAt": "2026-08-11"
+}

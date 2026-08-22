@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Framer — Design System</title>
+
+
+
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+
+:root{
+  --canvas:#ffffff;
+  --surface:#f8f9fb;
+  --raised:#ffffff;
+  --border:#e5e7eb;
+  --border-strong:#d1d5db;
+  --text:#111827;
+  --text-secondary:#6b7280;
+  --text-tertiary:#9ca3af;
+  --accent:#0055FF;
+  --accent-hover:#0047d6;
+  --accent-light:#e8f0ff;
+  --success:#10b981;
+  --warning:#f59e0b;
+  --error:#ef4444;
+  --shadow-sm:0 1px 2px rgba(0,0,0,0.05);
+  --shadow-md:0 4px 6px -1px rgba(0,0,0,0.07),0 2px 4px -2px rgba(0,0,0,0.05);
+  --shadow-lg:0 10px 15px -3px rgba(0,0,0,0.08),0 4px 6px -4px rgba(0,0,0,0.04);
+  --r-sm:8px;--r-md:12px;--r-lg:16px;--r-xl:20px;--r-2xl:24px;--r-full:9999px;
+}
+
+[data-theme="dark"]{
+  --canvas:#0a0f1a;--surface:#111827;--raised:#1a2236;
+  --border:#1f2937;--border-strong:#374151;
+  --text:#f9fafb;--text-secondary:#9ca3af;--text-tertiary:#6b7280;
+  --accent:#3b82f6;--accent-hover:#60a5fa;--accent-light:rgba(59,130,246,0.12);
+  --success:#34d399;--warning:#fbbf24;--error:#f87171;
+  --shadow-sm:0 1px 2px rgba(0,0,0,0.2);
+  --shadow-md:0 4px 6px -1px rgba(0,0,0,0.3),0 2px 4px -2px rgba(0,0,0,0.2);
+  --shadow-lg:0 10px 15px -3px rgba(0,0,0,0.35),0 4px 6px -4px rgba(0,0,0,0.2);
+}
+
+::selection{background:rgba(0,85,255,.15);color:var(--text)}
+[data-theme="dark"] ::selection{background:rgba(59,130,246,.25)}
+html{scroll-behavior:smooth}
+
+body{
+  font-family:'Inter',system-ui,-apple-system,sans-serif;
+  background:var(--canvas);color:var(--text);
+  font-size:15px;line-height:1.6;
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
+}
+
+.page{max-width:960px;margin:0 auto;padding:0 32px 120px}
+
+/* ── NAV ── */
+.nav{
+  display:flex;justify-content:space-between;align-items:center;
+  height:64px;padding:0 16px;position:sticky;top:0;z-index:100;
+  background:color-mix(in srgb,var(--canvas) 85%,transparent);
+  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--border);margin:0 -32px;
+}
+.nav-left{display:flex;align-items:center;gap:12px}
+.nav-wordmark{
+  font-size:18px;font-weight:700;letter-spacing:-.35px;
+  color:var(--text);text-decoration:none;
+}
+.nav-tag{
+  font-size:11px;font-weight:500;color:var(--accent);
+  background:var(--accent-light);padding:3px 10px;border-radius:var(--r-full);
+  border:1px solid color-mix(in srgb,var(--accent) 15%,transparent);
+}
+.nav-right{display:flex;align-items:center;gap:8px}
+.nav-link{
+  font-size:13px;font-weight:500;color:var(--text-secondary);text-decoration:none;
+  padding:6px 12px;border-radius:var(--r-sm);transition:all .2s;
+}
+.nav-link:hover{color:var(--text);background:var(--surface)}
+.nav-link--active{color:var(--accent)}
+.nav-url{
+  font-size:11px;font-weight:400;color:var(--text-secondary);text-decoration:none;
+  padding:4px 10px;border-radius:var(--r-full);transition:all .2s;
+  background:rgba(0,0,0,.03);border:1px solid rgba(0,0,0,.06);
+  letter-spacing:.02px;white-space:nowrap;
+}
+.nav-url:hover{color:var(--accent);background:rgba(0,0,0,.06);border-color:rgba(0,0,0,.1)}
+
+/* ── THEME TOGGLE ── */
+.theme-toggle{
+  display:flex;align-items:center;justify-content:center;
+  width:36px;height:36px;border-radius:var(--r-full);
+  border:1px solid var(--border);background:var(--raised);
+  cursor:pointer;color:var(--text-secondary);transition:all .2s;
+  font-size:16px;
+}
+.theme-toggle:hover{color:var(--text);border-color:var(--border-strong)}
+
+/* ── SECTIONS ── */
+.section{
+  padding:80px 0 0;
+  border-top:1px solid var(--border);
+  margin-top:64px;
+}
+.section:first-of-type{border-top:none;margin-top:48px}
+.section-header{margin-bottom:40px}
+.section-label{
+  font-size:11px;font-weight:600;letter-spacing:.08px;
+  text-transform:uppercase;color:var(--accent);margin-bottom:8px;
+}
+.section-title{
+  font-size:32px;font-weight:700;letter-spacing:-.5px;line-height:1.15;
+  color:var(--text);
+}
+.section-desc{
+  font-size:15px;line-height:1.6;color:var(--text-secondary);
+  margin-top:12px;max-width:560px;
+}
+
+/* ── HERO ── */
+.hero{
+  padding:80px 0 48px;
+  border-bottom:1px solid var(--border);
+  margin:0 -32px;padding-left:32px;padding-right:32px;
+  position:relative;overflow:hidden;
+}
+.hero::before{
+  content:'';position:absolute;
+  width:500px;height:500px;
+  background:radial-gradient(circle,rgba(0,85,255,.08),transparent 70%);
+  border-radius:50%;filter:blur(80px);
+  right:-100px;top:-160px;pointer-events:none;
+}
+[data-theme="dark"] .hero::before{
+  background:radial-gradient(circle,rgba(59,130,246,.12),transparent 70%);
+}
+.hero::after{
+  content:'';position:absolute;
+  width:300px;height:300px;
+  background:radial-gradient(circle,rgba(0,136,255,.05),transparent 70%);
+  border-radius:50%;filter:blur(60px);
+  left:20%;bottom:-80px;pointer-events:none;
+}
+.hero-label{
+  font-size:11px;font-weight:600;letter-spacing:.1px;
+  text-transform:uppercase;color:var(--accent);margin-bottom:16px;
+}
+.hero-title{
+  font-size:clamp(40px,6vw,56px);font-weight:700;line-height:1;
+  letter-spacing:-.035em;color:var(--text);
+}
+.hero-title em{
+  font-style:normal;
+  background:linear-gradient(135deg,var(--accent),#0088ff);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+[data-theme="dark"] .hero-title em{
+  background:linear-gradient(135deg,#3b82f6,#60a5fa);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.hero-subtitle{
+  font-size:17px;line-height:1.6;color:var(--text-secondary);
+  margin-top:20px;max-width:480px;
+}
+.hero-tags{display:flex;gap:8px;margin-top:28px;flex-wrap:wrap}
+.hero-tag{
+  font-size:11px;font-weight:500;color:var(--text-tertiary);
+  background:var(--surface);padding:5px 12px;border-radius:var(--r-full);
+  border:1px solid var(--border);
+}
+.hero-actions{display:flex;gap:12px;margin-top:28px}
+
+/* ── BUTTONS ── */
+.btn{
+  display:inline-flex;align-items:center;gap:6px;
+  font-family:inherit;font-size:13px;font-weight:600;line-height:1;
+  letter-spacing:.01px;padding:10px 24px;border-radius:var(--r-md);
+  cursor:pointer;text-decoration:none;white-space:nowrap;
+  transition:all .15s ease;border:none;
+}
+.btn:active{transform:scale(.97)}
+.btn-primary{
+  background:linear-gradient(135deg,#0055FF,#0088ff);
+  color:#fff;box-shadow:0 2px 8px rgba(0,85,255,.25);
+}
+.btn-primary:hover{box-shadow:0 4px 16px rgba(0,85,255,.35);transform:translateY(-1px)}
+[data-theme="dark"] .btn-primary{
+  background:linear-gradient(135deg,#3b82f6,#60a5fa);
+  box-shadow:0 2px 8px rgba(59,130,246,.3);
+}
+[data-theme="dark"] .btn-primary:hover{box-shadow:0 4px 16px rgba(59,130,246,.4)}
+.btn-secondary{
+  background:transparent;color:var(--accent);border:1px solid var(--accent);
+}
+.btn-secondary:hover{background:var(--accent-light)}
+.btn-ghost{
+  background:transparent;color:var(--text-secondary);border:1px solid var(--border);
+}
+.btn-ghost:hover{color:var(--text);border-color:var(--border-strong);background:var(--surface)}
+
+/* ── COLOR TOKENS ── */
+.color-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;
+}
+.color-token{
+  background:var(--raised);border:1px solid var(--border);
+  border-radius:var(--r-lg);overflow:hidden;transition:border-color .2s;
+}
+.color-token:hover{border-color:var(--border-strong)}
+.color-swatch{width:100%;height:72px}
+.color-info{padding:14px 16px}
+.color-name{font-size:13px;font-weight:600;color:var(--text)}
+.color-hex{
+  font-size:12px;font-weight:500;color:var(--text-tertiary);margin-top:2px;
+  font-variant-numeric:tabular-nums;font-family:'JetBrains Mono',monospace;
+}
+.color-role{font-size:11px;color:var(--text-tertiary);margin-top:6px;line-height:1.4}
+
+/* ── GRADIENT TOKENS ── */
+.gradient-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
+.gradient-token{
+  border-radius:var(--r-lg);padding:24px;border:1px solid var(--border);
+  min-height:100px;display:flex;flex-direction:column;justify-content:flex-end;
+}
+.gradient-name{
+  font-size:12px;font-weight:500;color:var(--text-tertiary);
+  font-family:'JetBrains Mono',monospace;margin-bottom:4px;
+}
+.gradient-desc{font-size:12px;color:var(--text-tertiary);line-height:1.4}
+
+/* ── TYPE SCALE ── */
+.type-table{
+  display:flex;flex-direction:column;border:1px solid var(--border);
+  border-radius:var(--r-lg);overflow:hidden;
+}
+.type-row{
+  display:grid;grid-template-columns:100px 1fr 220px;align-items:baseline;
+  padding:16px 24px;border-bottom:1px solid var(--border);
+}
+.type-row:last-child{border-bottom:none}
+.type-row:hover{background:color-mix(in srgb,var(--accent) 3%,var(--raised))}
+.type-meta{
+  font-size:10px;font-weight:600;color:var(--accent);
+  letter-spacing:.06px;text-transform:uppercase;
+}
+.type-sample{color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.type-specs{
+  font-size:11px;color:var(--text-tertiary);text-align:right;
+  font-variant-numeric:tabular-nums;font-family:'JetBrains Mono',monospace;
+}
+
+/* ── SPACING ── */
+.spacing-bars{display:flex;align-items:flex-end;gap:20px;height:120px}
+.spacing-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px}
+.spacing-bar{
+  width:100%;border-radius:var(--r-sm);
+  background:linear-gradient(180deg,var(--accent),color-mix(in srgb,var(--accent) 60%,#0088ff));
+  opacity:.2;transition:opacity .3s;
+}
+.spacing-col:hover .spacing-bar{opacity:.5}
+.spacing-val{font-size:11px;font-weight:600;color:var(--text);letter-spacing:.015px}
+.spacing-name{font-size:10px;font-weight:500;color:var(--text-tertiary)}
+
+/* ── SHAPES ── */
+.shapes-row{display:flex;flex-wrap:wrap;gap:24px;align-items:flex-end}
+.shape-item{display:flex;flex-direction:column;align-items:center;gap:8px}
+.shape-box{
+  width:72px;height:72px;background:var(--surface);
+  border:1.5px solid var(--border);transition:all .3s cubic-bezier(.22,1,.36,1);
+}
+.shape-box:hover{border-color:var(--accent);transform:scale(1.06)}
+.shape-label{font-size:11px;font-weight:500;color:var(--text-secondary);white-space:nowrap}
+.shape-value{
+  font-size:10px;color:var(--text-tertiary);
+  font-variant-numeric:tabular-nums;font-family:'JetBrains Mono',monospace;
+}
+
+/* ── SHADOWS ── */
+.shadow-grid{display:flex;flex-wrap:wrap;gap:16px}
+.shadow-item{
+  width:140px;height:90px;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  border-radius:var(--r-md);background:var(--raised);border:1px solid var(--border);
+}
+.shadow-name{font-size:11px;font-weight:500;color:var(--text-secondary);margin-bottom:4px}
+.shadow-val{font-size:10px;color:var(--text-tertiary);font-family:'JetBrains Mono',monospace}
+
+/* ── SURFACES ── */
+.surface-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px}
+.surface-item{
+  border-radius:var(--r-lg);padding:28px 20px;
+  text-align:center;border:1px solid var(--border);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:6px;min-height:110px;transition:transform .3s;
+}
+.surface-item:hover{transform:scale(1.02)}
+.surface-name{font-size:14px;font-weight:600;color:var(--text)}
+.surface-val{
+  font-size:11px;color:var(--text-tertiary);
+  font-variant-numeric:tabular-nums;font-family:'JetBrains Mono',monospace;
+}
+
+/* ── COMPONENTS ── */
+.component-card{
+  background:var(--raised);border:1px solid var(--border);
+  border-radius:var(--r-lg);padding:32px;margin-bottom:20px;
+  transition:border-color .2s;
+}
+.component-card:hover{border-color:var(--border-strong)}
+.component-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px}
+.component-name{font-size:15px;font-weight:600;color:var(--text)}
+.component-role{font-size:12px;color:var(--text-secondary);margin-top:4px}
+.component-class{
+  font-size:11px;font-weight:500;color:var(--accent);
+  background:var(--accent-light);padding:3px 10px;border-radius:var(--r-full);
+  border:1px solid color-mix(in srgb,var(--accent) 15%,transparent);
+  font-family:'JetBrains Mono',monospace;
+}
+.component-preview{
+  display:flex;gap:16px;align-items:center;flex-wrap:wrap;
+  padding:24px;background:var(--surface);border-radius:var(--r-md);
+  border:1px solid var(--border);
+}
+.component-desc{
+  font-size:12px;color:var(--text-tertiary);line-height:1.5;
+  margin-top:12px;max-width:480px;
+}
+
+/* ── DO/DON'T ── */
+.guide-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.guide-card{
+  border-radius:var(--r-lg);padding:28px;
+  border:1px solid var(--border);
+}
+.guide-card--do{background:color-mix(in srgb,var(--success) 4%,var(--canvas));border-color:color-mix(in srgb,var(--success) 15%,var(--border))}
+.guide-card--dont{background:color-mix(in srgb,var(--error) 4%,var(--canvas));border-color:color-mix(in srgb,var(--error) 12%,var(--border))}
+.guide-label{font-size:11px;font-weight:600;letter-spacing:.06px;text-transform:uppercase;margin-bottom:16px}
+.guide-card--do .guide-label{color:var(--success)}
+.guide-card--dont .guide-label{color:var(--error)}
+.guide-list{list-style:none;display:flex;flex-direction:column;gap:10px}
+.guide-list li{
+  font-size:13px;line-height:1.5;padding-left:20px;position:relative;
+  color:var(--text-secondary);
+}
+.guide-card--do .guide-list li::before{
+  content:'✓';position:absolute;left:0;color:var(--success);font-weight:700;font-size:12px;
+}
+.guide-card--dont .guide-list li::before{
+  content:'✕';position:absolute;left:0;color:var(--error);font-weight:700;font-size:12px;
+}
+
+/* ── INPUT ── */
+.input-demo{
+  background:var(--raised);border:1px solid var(--border);
+  border-radius:var(--r-md);padding:12px 16px;color:var(--text);
+  font-size:15px;font-family:inherit;outline:none;transition:all .2s;
+  width:100%;max-width:360px;
+}
+.input-demo:focus{border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 15%,transparent)}
+.input-demo::placeholder{color:var(--text-tertiary)}
+
+/* ── TAG ── */
+.tag{
+  display:inline-flex;align-items:center;
+  font-size:13px;font-weight:500;color:var(--accent);
+  background:var(--accent-light);padding:4px 12px;border-radius:var(--r-full);
+}
+
+/* ── FOOTER ── */
+.footer{
+  margin-top:96px;padding:32px 0;
+  border-top:1px solid var(--border);
+  display:flex;justify-content:space-between;align-items:center;
+}
+.footer-left{font-size:14px;font-weight:500;color:var(--text-secondary);opacity:.6}
+.footer-right{display:flex;gap:20px}
+.footer-link{
+  font-size:12px;font-weight:500;color:var(--text-secondary);text-decoration:none;
+  transition:color .2s;
+}
+.footer-link:hover{color:var(--accent)}
+
+/* ── RESPONSIVE ── */
+@media(max-width:768px){
+  .page{padding:0 20px 80px}
+  .hero{margin:0 -20px;padding-left:20px;padding-right:20px;padding-top:56px}
+  .nav{margin:0 -20px}
+  .section-title{font-size:24px}
+  .type-row{grid-template-columns:70px 1fr;gap:8px}
+  .type-specs{display:none}
+  .guide-grid{grid-template-columns:1fr}
+  .color-grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr))}
+  .hero-title{font-size:36px}
+}
+
+/* ── ENTRANCE ANIMATION ── */
+.section,.hero{
+  opacity:1;
+  transition:opacity .6s cubic-bezier(.22,1,.36,1),transform .6s cubic-bezier(.22,1,.36,1);
+}
+.section.visible,.hero.visible{opacity:1;transform:translateY(0)}
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="nav-left">
+      <a href="#" class="nav-wordmark">Framer</a>
+      <span class="nav-tag">Design System</span>
+      <a href="#" class="nav-url">https://www.framer.com</a>
+    </div>
+    <div class="nav-right">
+      <a href="#colors" class="nav-link nav-link--active">Colors</a>
+      <a href="#typography" class="nav-link">Type</a>
+      <a href="#spacing" class="nav-link">Spacing</a>
+      <a href="#components" class="nav-link">Components</a>
+      <button class="theme-toggle" onclick="toggleTheme()" title="Toggle dark mode" aria-label="Toggle dark mode">
+        <span class="theme-icon">◐</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-label">Design System</div>
+    <h1 class="hero-title">Design with<br>clarity,<br><em>ship faster.</em></h1>
+    <p class="hero-subtitle">A clean, modern design system built on precision typography, generous spacing, and a signature blue accent. Light and dark mode, always.</p>
+    <div class="hero-tags">
+      <span class="hero-tag">14 color tokens</span>
+      <span class="hero-tag">11 type steps</span>
+      <span class="hero-tag">4px grid</span>
+      <span class="hero-tag">6 radius values</span>
+      <span class="hero-tag">light + dark</span>
+    </div>
+    <div class="hero-actions">
+      <a href="#" class="btn btn-primary" download>Download Spec</a>
+      <a href="#" class="btn btn-secondary" download>theme.css</a>
+      <a href="#" class="btn btn-ghost" download>tokens.json</a>
+      <a href="#" class="btn btn-ghost" download>variables.css</a>
+    </div>
+  </div>
+
+  <!-- COLORS -->
+  <section class="section" id="colors">
+    <div class="section-header">
+      <div class="section-label">Foundation</div>
+      <h2 class="section-title">Color Tokens</h2>
+      <p class="section-desc">Clean neutrals with a signature #0055FF blue accent. 14 tokens across surfaces, text hierarchy, interactive states, and semantic colors. Full light/dark support.</p>
+    </div>
+    <div class="color-grid">
+      <div class="color-token">
+        <div class="color-swatch" style="background:#ffffff;border-bottom:1px solid var(--border)"></div>
+        <div class="color-info"><div class="color-name">Canvas</div><div class="color-hex">#ffffff</div><div class="color-role">Page background</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#f8f9fb"></div>
+        <div class="color-info"><div class="color-name">Surface</div><div class="color-hex">#f8f9fb</div><div class="color-role">Secondary sections</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#111827"></div>
+        <div class="color-info"><div class="color-name">Text Primary</div><div class="color-hex">#111827</div><div class="color-role">Headings, body text</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#6b7280"></div>
+        <div class="color-info"><div class="color-name">Text Secondary</div><div class="color-hex">#6b7280</div><div class="color-role">Descriptions, labels</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#9ca3af"></div>
+        <div class="color-info"><div class="color-name">Text Tertiary</div><div class="color-hex">#9ca3af</div><div class="color-role">Placeholders, captions</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#0055FF"></div>
+        <div class="color-info"><div class="color-name">Accent</div><div class="color-hex">#0055FF</div><div class="color-role">Brand color, links, CTAs</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#e8f0ff"></div>
+        <div class="color-info"><div class="color-name">Accent Light</div><div class="color-hex">#e8f0ff</div><div class="color-role">Accent backgrounds, tags</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#e5e7eb"></div>
+        <div class="color-info"><div class="color-name">Border</div><div class="color-hex">#e5e7eb</div><div class="color-role">Borders, dividers</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#10b981"></div>
+        <div class="color-info"><div class="color-name">Success</div><div class="color-hex">#10b981</div><div class="color-role">Positive actions</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#f59e0b"></div>
+        <div class="color-info"><div class="color-name">Warning</div><div class="color-hex">#f59e0b</div><div class="color-role">Caution states</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#ef4444"></div>
+        <div class="color-info"><div class="color-name">Error</div><div class="color-hex">#ef4444</div><div class="color-role">Destructive actions</div></div>
+      </div>
+    </div>
+
+    <h3 style="font-size:16px;font-weight:600;color:var(--text);margin:40px 0 20px;letter-spacing:-.2px">Gradients</h3>
+    <div class="gradient-grid">
+      <div class="gradient-token" style="background:linear-gradient(135deg,rgba(0,85,255,.12) 0%,rgba(0,136,255,.08) 100%)">
+        <div class="gradient-name">accent</div>
+        <div class="gradient-desc">CTA buttons, hero accents, gradient fills</div>
+      </div>
+      <div class="gradient-token" style="background:radial-gradient(circle at 70% 30%,rgba(0,85,255,.06),transparent 60%)">
+        <div class="gradient-name">accent-glow</div>
+        <div class="gradient-desc">Subtle background glows, hero decorations</div>
+      </div>
+      <div class="gradient-token" style="background:linear-gradient(180deg,var(--surface) 0%,var(--canvas) 100%)">
+        <div class="gradient-name">surface-fade</div>
+        <div class="gradient-desc">Section transitions, subtle depth</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TYPOGRAPHY -->
+  <section class="section" id="typography">
+    <div class="section-header">
+      <div class="section-label">Typography</div>
+      <h2 class="section-title">Type Scale</h2>
+      <p class="section-desc">Inter for all UI text — clean, highly legible, and optimized for screens. 11-step scale from caption to display with tight tracking on large sizes.</p>
+    </div>
+    <div class="type-table">
+      <div class="type-row">
+        <span class="type-meta">Display</span>
+        <span class="type-sample" style="font-size:28px;font-weight:700;line-height:1.1;letter-spacing:-.025em">Design with clarity</span>
+        <span class="type-specs">48px / 1.1 / −0.025em</span>
+      </div>
+      <div class="type-row">
+        <span class="type-meta">4XL</span>
+        <span class="type-sample" style="font-size:22px;font-weight:700;line-height:1.2;letter-spacing:-.025em">Ship faster</span>
+        <span class="type-specs">36px / 1.2 / −0.025em</span>
+      </div>
+      <div class="type-row">
+        <span class="type-meta">3XL</span>
+        <span class="type-sample" style="font-size:20px;font-weight:700;line-height:1.2;letter-spacing:-.025em">Section heading</span>
+        <span class="type-specs">30px / 1.2 / −0.025em</span>
+      </div>
+      <div class="type-row">
+        <span class="type-meta">2XL</span>
+        <span class="type-sample" style="font-size:18px;font-weight:700;line-height:1.2;letter-spacing:-.02em">Subsection</span>
+        <span class="type-specs">24px / 1.2 / −0.02em</span>
+      </div>
+      <div class="type-row">
+        <span class="type-meta">LG</span>
+        <span class="type-sample" style="font-size:16px;font-weight:600;line-height:1.4;letter-spacing:-.01em">Card heading</span>
+        <span class="type-specs">18px / 1.4 / −0.01em</span>
+      </div>
+      <div class="type-row">
+        <span class="type-meta">Base</span>
+        <span class="type-sample" style="font-size:15px;font-weight:400;line-height:1.6;letter-spacing:0">Default body text for readable content across the interface</span>
+        <span class="type-specs">15px / 1.6 / 0</span>
+      </div>
+      <div class="type-row">
+        <span class="type-meta">SM</span>
+        <span class="type-sample" style="font-size:14px;font-weight:400;line-height:1.5;letter-spacing:0">Secondary text, descriptions, metadata</span>
+        <span class="type-specs">14px / 1.5 / 0</span>
+      </div>
+      <div class="type-row">
+        <span class="type-meta">Caption</span>
+        <span class="type-sample" style="font-size:12px;font-weight:400;line-height:1.5;letter-spacing:.01em">Meta info · Labels · Helper text</span>
+        <span class="type-specs">12px / 1.5 / 0.01em</span>
+      </div>
+    </div>
+
+    <h3 style="font-size:14px;font-weight:600;color:var(--text);margin:40px 0 20px">Fonts</h3>
+    <div style="display:flex;flex-direction:column;border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden">
+      <div style="padding:20px 24px;border-bottom:1px solid var(--border);display:flex;align-items:baseline;gap:16px">
+        <span style="font-size:10px;font-weight:600;color:var(--accent);letter-spacing:.06px;text-transform:uppercase;flex:0 0 60px">Primary</span>
+        <span style="font-size:16px;font-weight:600;color:var(--text)">Inter</span>
+        <span style="font-size:11px;color:var(--text-tertiary)">400–700 · 12–48px · All UI text</span>
+      </div>
+      <div style="padding:20px 24px;display:flex;align-items:baseline;gap:16px">
+        <span style="font-size:10px;font-weight:600;color:var(--accent);letter-spacing:.06px;text-transform:uppercase;flex:0 0 60px">Mono</span>
+        <span style="font-size:16px;font-weight:500;color:var(--text)">JetBrains Mono</span>
+        <span style="font-size:11px;color:var(--text-tertiary)">400–500 · 12–14px · Code only</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- SPACING & SHAPES -->
+  <section class="section" id="spacing">
+    <div class="section-header">
+      <div class="section-label">Layout</div>
+      <h2 class="section-title">Spacing & Shapes</h2>
+      <p class="section-desc">Base unit 4px. Comfortable density with generous breathing room. 14-step spacing scale, 6 border radius values, 4 shadow levels.</p>
+    </div>
+
+    <h3 style="font-size:14px;font-weight:600;color:var(--text);margin-bottom:20px">Spacing Scale (4px base)</h3>
+    <div class="spacing-bars">
+      <div class="spacing-col"><div class="spacing-bar" style="height:8px"></div><span class="spacing-val">4</span><span class="spacing-name">4px</span></div>
+      <div class="spacing-col"><div class="spacing-bar" style="height:14px"></div><span class="spacing-val">8</span><span class="spacing-name">8px</span></div>
+      <div class="spacing-col"><div class="spacing-bar" style="height:20px"></div><span class="spacing-val">12</span><span class="spacing-name">12px</span></div>
+      <div class="spacing-col"><div class="spacing-bar" style="height:28px"></div><span class="spacing-val">16</span><span class="spacing-name">16px</span></div>
+      <div class="spacing-col"><div class="spacing-bar" style="height:36px"></div><span class="spacing-val">24</span><span class="spacing-name">24px</span></div>
+      <div class="spacing-col"><div class="spacing-bar" style="height:48px"></div><span class="spacing-val">32</span><span class="spacing-name">32px</span></div>
+      <div class="spacing-col"><div class="spacing-bar" style="height:64px"></div><span class="spacing-val">48</span><span class="spacing-name">48px</span></div>
+      <div class="spacing-col"><div class="spacing-bar" style="height:90px"></div><span class="spacing-val">96</span><span class="spacing-name">96px</span></div>
+    </div>
+
+    <h3 style="font-size:14px;font-weight:600;color:var(--text);margin:40px 0 20px">Border Radius</h3>
+    <div class="shapes-row">
+      <div class="shape-item">
+        <div class="shape-box" style="border-radius:8px"></div>
+        <span class="shape-label">sm</span>
+        <span class="shape-value">8px</span>
+      </div>
+      <div class="shape-item">
+        <div class="shape-box" style="border-radius:12px"></div>
+        <span class="shape-label">md</span>
+        <span class="shape-value">12px</span>
+      </div>
+      <div class="shape-item">
+        <div class="shape-box" style="border-radius:16px"></div>
+        <span class="shape-label">lg</span>
+        <span class="shape-value">16px</span>
+      </div>
+      <div class="shape-item">
+        <div class="shape-box" style="border-radius:20px"></div>
+        <span class="shape-label">xl</span>
+        <span class="shape-value">20px</span>
+      </div>
+      <div class="shape-item">
+        <div class="shape-box" style="border-radius:24px"></div>
+        <span class="shape-label">2xl</span>
+        <span class="shape-value">24px</span>
+      </div>
+      <div class="shape-item">
+        <div class="shape-box" style="border-radius:9999px"></div>
+        <span class="shape-label">full</span>
+        <span class="shape-value">9999px</span>
+      </div>
+    </div>
+
+    <h3 style="font-size:14px;font-weight:600;color:var(--text);margin:40px 0 20px">Shadows</h3>
+    <div class="shadow-grid">
+      <div class="shadow-item" style="box-shadow:var(--shadow-sm)">
+        <span class="shadow-name">sm</span>
+        <span class="shadow-val">subtle lift</span>
+      </div>
+      <div class="shadow-item" style="box-shadow:var(--shadow-md)">
+        <span class="shadow-name">md</span>
+        <span class="shadow-val">cards</span>
+      </div>
+      <div class="shadow-item" style="box-shadow:var(--shadow-lg)">
+        <span class="shadow-name">lg</span>
+        <span class="shadow-val">modals</span>
+      </div>
+      <div class="shadow-item" style="box-shadow:var(--shadow-xl)">
+        <span class="shadow-name">xl</span>
+        <span class="shadow-val">hero</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- SURFACES -->
+  <section class="section" id="surfaces">
+    <div class="section-header">
+      <div class="section-label">Elevation</div>
+      <h2 class="section-title">Surfaces</h2>
+      <p class="section-desc">4 distinct surface levels. Light mode uses white and near-white; dark mode uses navy depths. Shadows increase with elevation in light mode; lighter surfaces signal depth in dark mode.</p>
+    </div>
+    <div class="surface-grid">
+      <div class="surface-item" style="background:var(--canvas)">
+        <span class="surface-name">Canvas</span>
+        <span class="surface-val">#ffffff / #0a0f1a</span>
+      </div>
+      <div class="surface-item" style="background:var(--surface)">
+        <span class="surface-name">Surface</span>
+        <span class="surface-val">#f8f9fb / #111827</span>
+      </div>
+      <div class="surface-item" style="background:var(--raised);box-shadow:var(--shadow-sm)">
+        <span class="surface-name">Raised</span>
+        <span class="surface-val">#ffffff / #1a2236</span>
+      </div>
+      <div class="surface-item" style="background:color-mix(in srgb,var(--text) 50%,transparent)">
+        <span class="surface-name" style="color:#fff">Overlay</span>
+        <span class="surface-val" style="color:rgba(255,255,255,.7)">scrim / backdrop</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPONENTS -->
+  <section class="section" id="components">
+    <div class="section-header">
+      <div class="section-label">Components</div>
+      <h2 class="section-title">Buttons & Inputs</h2>
+      <p class="section-desc">Three button variants for interaction hierarchy: gradient primary for CTAs, outlined secondary for supporting actions, and ghost for tertiary. Inputs use clean borders with accent focus rings.</p>
+    </div>
+
+    <div class="component-card">
+      <div class="component-header">
+        <div><div class="component-name">Primary Button</div><div class="component-role">Main call to action — gradient accent</div></div>
+        <span class="component-class">.btn-primary</span>
+      </div>
+      <div class="component-preview">
+        <button class="btn btn-primary">Get started free</button>
+        <button class="btn btn-primary" style="opacity:.85">Hover state</button>
+      </div>
+      <div class="component-desc">Accent gradient (135deg, #0055FF → #0088ff), white text, 12px radius, subtle glow shadow. Use for the single most important action.</div>
+    </div>
+
+    <div class="component-card">
+      <div class="component-header">
+        <div><div class="component-name">Secondary Button</div><div class="component-role">Supporting actions</div></div>
+        <span class="component-class">.btn-secondary</span>
+      </div>
+      <div class="component-preview">
+        <button class="btn btn-secondary">Watch demo</button>
+        <button class="btn btn-secondary" style="background:var(--accent-light)">Hover state</button>
+      </div>
+      <div class="component-desc">Accent text, accent border, transparent background. Hover fills with Accent Light.</div>
+    </div>
+
+    <div class="component-card">
+      <div class="component-header">
+        <div><div class="component-name">Ghost Button</div><div class="component-role">Tertiary actions, navigation</div></div>
+        <span class="component-class">.btn-ghost</span>
+      </div>
+      <div class="component-preview">
+        <button class="btn btn-ghost">Learn more</button>
+        <button class="btn btn-ghost" style="color:var(--text);border-color:var(--border-strong);background:var(--surface)">Hover state</button>
+      </div>
+      <div class="component-desc">Text Secondary, border, transparent background. For less prominent actions.</div>
+    </div>
+
+    <div class="component-card">
+      <div class="component-header">
+        <div><div class="component-name">Input Field</div><div class="component-role">Text input with accent focus ring</div></div>
+        <span class="component-class">input</span>
+      </div>
+      <div class="component-preview" style="flex-direction:column;gap:12px;align-items:stretch">
+        <input type="text" class="input-demo" placeholder="Enter your email">
+        <input type="text" class="input-demo" value="Focused state" style="border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 15%,transparent)">
+      </div>
+      <div class="component-desc">Raised background, Border border, 12px radius. Focus uses Accent border with 3px offset ring.</div>
+    </div>
+
+    <div class="component-card">
+      <div class="component-header">
+        <div><div class="component-name">Tag / Badge</div><div class="component-role">Labels, categories, status</div></div>
+        <span class="component-class">.tag</span>
+      </div>
+      <div class="component-preview">
+        <span class="tag">New</span>
+        <span class="tag">Design</span>
+        <span class="tag">Components</span>
+      </div>
+      <div class="component-desc">Accent Light background, Accent text, pill radius, 13px weight-500 text.</div>
+    </div>
+  </section>
+
+  <!-- DO'S & DON'TS -->
+  <section class="section" id="guidelines">
+    <div class="section-header">
+      <div class="section-label">Guidelines</div>
+      <h2 class="section-title">Do's & Don'ts</h2>
+    </div>
+    <div class="guide-grid">
+      <div class="guide-card guide-card--do">
+        <div class="guide-label">Do — Embrace</div>
+        <ul class="guide-list">
+          <li>Canvas (#ffffff) as primary background</li>
+          <li>Accent (#0055FF) for CTAs, links, active states</li>
+          <li>Accent gradient for hero buttons and key accents</li>
+          <li>12px radius for buttons, 16px for cards</li>
+          <li>Inter at 15px for body text</li>
+          <li>64px section gaps, 24px card padding</li>
+          <li>Soft shadows (sm, md) for subtle elevation</li>
+        </ul>
+      </div>
+      <div class="guide-card guide-card--dont">
+        <div class="guide-label">Don't — Avoid</div>
+        <ul class="guide-list">
+          <li>Accent for large background fills</li>
+          <li>Sharp corners (0px radius)</li>
+          <li>Mixing font families beyond Inter</li>
+          <li>Pure black (#000) for text — use #111827</li>
+          <li>Heavy decorative drop shadows</li>
+          <li>More than 2 font sizes per component</li>
+          <li>Dense packing without breathing room</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-left">Framer Design System</div>
+    <div class="footer-right">
+      <a href="#colors" class="footer-link">Colors</a>
+      <a href="#typography" class="footer-link">Typography</a>
+      <a href="#spacing" class="footer-link">Spacing</a>
+      <a href="#components" class="footer-link">Components</a>
+      <a href="#" class="footer-link" download>Download Spec</a>
+    </div>
+  </footer>
+
+</div>
+
+
+
+</body>
+</html>

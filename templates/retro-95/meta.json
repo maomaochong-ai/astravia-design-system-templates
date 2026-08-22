@@ -1,0 +1,31 @@
+{
+	"schemaVersion": 1,
+	"kind": "design-system",
+	"slug": "retro-95",
+	"name": "Retro 95",
+	"version": "1.1.0",
+	"order": 210,
+	"category": "retro",
+	"vibe": "light",
+	"tags": [
+		"retro",
+		"light"
+	],
+	"blurb": "1995 desktop nostalgia; beveled silver chrome, navy title bars, zero border radius.",
+	"tagline": {
+		"en": "1995 desktop, beveled silver, zero radius",
+		"zh": "1995 桌面，斜面银灰零圆角"
+	},
+	"license": "MIT",
+	"origin": {
+		"type": "curated",
+		"upstream": "https://github.com/VoltAgent/awesome-design-md",
+		"note": "Vetta-adapted from awesome-design-md (MIT)."
+	},
+	"assets": {
+		"spec": "DESIGN.md",
+		"theme": "theme.css",
+		"demo": "demo.html"
+	},
+	"collectedAt": "2026-08-11"
+}

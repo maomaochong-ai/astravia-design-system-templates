@@ -1,0 +1,33 @@
+{
+	"schemaVersion": 1,
+	"kind": "design-system",
+	"slug": "vodafone",
+	"name": "Vodafone",
+	"version": "1.0.0",
+	"order": 730,
+	"category": "premium",
+	"vibe": "light",
+	"tags": [
+		"light-ui",
+		"editorial",
+		"minimal",
+		"design-system"
+	],
+	"blurb": "An inspired interpretation of Vodafone's design language — a telecom super-brand whose web surface alternates between editorial photography hero bands with massive uppercase dis…",
+	"tagline": {
+		"en": "Signal red telecom super-brand",
+		"zh": "信号红电信超级品牌"
+	},
+	"license": "MIT",
+	"origin": {
+		"type": "curated",
+		"upstream": "https://github.com/ricocc/brands-design-md.git",
+		"note": "from brands-design-md (Vodafone-Inspired); unofficial inspired variant."
+	},
+	"assets": {
+		"spec": "DESIGN.md",
+		"theme": "theme.css",
+		"demo": "demo.html"
+	},
+	"collectedAt": "2026-08-22"
+}

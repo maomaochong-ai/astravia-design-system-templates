@@ -1,0 +1,31 @@
+{
+	"schemaVersion": 1,
+	"kind": "design-system",
+	"slug": "binance",
+	"name": "Binance",
+	"version": "1.0.0",
+	"order": 240,
+	"category": "fintech",
+	"vibe": "light",
+	"tags": [
+		"light-ui",
+		"design-system"
+	],
+	"blurb": "A confident financial-platform interface anchored on a deep near-black canvas, where Binance's iconic yellow (#FCD535) carries every primary CTA, brand accent, and value-claim m…",
+	"tagline": {
+		"en": "Deep black canvas with iconic yellow brand voltage",
+		"zh": "深黑画布 + 标志性黄色能量"
+	},
+	"license": "MIT",
+	"origin": {
+		"type": "curated",
+		"upstream": "https://github.com/ricocc/brands-design-md.git",
+		"note": "from brands-design-md (Binance)."
+	},
+	"assets": {
+		"spec": "DESIGN.md",
+		"theme": "theme.css",
+		"demo": "demo.html"
+	},
+	"collectedAt": "2026-08-22"
+}

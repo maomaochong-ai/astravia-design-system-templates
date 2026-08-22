@@ -1,0 +1,33 @@
+{
+	"schemaVersion": 1,
+	"kind": "design-system",
+	"slug": "mintlify",
+	"name": "Mintlify",
+	"version": "1.0.0",
+	"order": 460,
+	"category": "dev",
+	"vibe": "light",
+	"tags": [
+		"light-ui",
+		"gradient",
+		"developer-focused",
+		"design-system"
+	],
+	"blurb": "Mintlify presents documentation infrastructure with a dual-mode aesthetic — atmospheric sky-gradient marketing heroes (cloud illustration backdrops, soft cream-to-blue washes) p…",
+	"tagline": {
+		"en": "Dual-mode docs: sky gradient marketing, crisp code",
+		"zh": "双模式文档：天空渐变营销 + 清晰代码"
+	},
+	"license": "MIT",
+	"origin": {
+		"type": "curated",
+		"upstream": "https://github.com/ricocc/brands-design-md.git",
+		"note": "from brands-design-md (Mintlify)."
+	},
+	"assets": {
+		"spec": "DESIGN.md",
+		"theme": "theme.css",
+		"demo": "demo.html"
+	},
+	"collectedAt": "2026-08-22"
+}

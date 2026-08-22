@@ -1,0 +1,1445 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sentry — Design System</title>
+    
+    
+    
+    <style>
+      *,
+      *::before,
+      *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      :root {
+        --arctic-white: #ffffff;
+        --snow-gray: #faf9fb;
+        --pearl: #f2f0f5;
+        --mist: #e9e6ed;
+        --storm-gray: #d6d0dc;
+        --slate: #80708f;
+        --charcoal: #3e2c4c;
+        --obsidian: #1d1d2e;
+        --sentry-purple: #6c5fc7;
+        --purple-light: #a397e0;
+        --purple-muted: #e7e1f1;
+        --error-red: #f55459;
+        --error-surface: #fdf0f0;
+        --warning-amber: #e2a309;
+        --warning-surface: #fffdf0;
+        --success-green: #2ba176;
+        --success-surface: #f0fff5;
+        --info-blue: #2675b2;
+        --info-surface: #f0f7ff;
+
+        --r-sm: 3px;
+        --r-md: 4px;
+        --r-default: 6px;
+        --r-lg: 8px;
+        --r-xl: 12px;
+        --r-pill: 100px;
+      }
+
+      ::selection {
+        background: rgba(108, 95, 199, 0.2);
+        color: var(--obsidian);
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        font-family:
+          "Inter",
+          system-ui,
+          -apple-system,
+          sans-serif;
+        background: var(--arctic-white);
+        color: var(--obsidian);
+        font-size: 14px;
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+
+      .page {
+        max-width: 960px;
+        margin: 0 auto;
+        padding: 0 32px 120px;
+      }
+
+      /* ── NAV ── */
+      .nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 52px;
+        padding: 0 16px;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border-bottom: 1px solid var(--mist);
+        margin: 0 -32px;
+      }
+      .nav-left {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .nav-wordmark {
+        font-size: 18px;
+        font-weight: 700;
+        letter-spacing: -0.35px;
+        color: var(--sentry-purple);
+        text-decoration: none;
+      }
+      .nav-tag {
+        font-size: 11px;
+        font-weight: 600;
+        color: var(--sentry-purple);
+        background: var(--purple-muted);
+        padding: 3px 10px;
+        border-radius: var(--r-pill);
+        letter-spacing: 0.02px;
+      }
+      .nav-right {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .nav-link {
+        font-size: 13px;
+        font-weight: 500;
+        color: var(--slate);
+        text-decoration: none;
+        padding: 6px 12px;
+        border-radius: var(--r-default);
+        transition: all 0.2s;
+      }
+      .nav-link:hover {
+        color: var(--obsidian);
+        background: var(--pearl);
+      }
+      .nav-link--active {
+        color: var(--sentry-purple);
+        background: var(--purple-muted);
+      }
+      .nav-url {
+        font-size: 12px;
+        font-weight: 500;
+        color: var(--slate);
+        text-decoration: none;
+        padding: 4px 8px;
+        border-radius: var(--r-default);
+        transition: all 0.2s;
+      }
+      .nav-url:hover {
+        color: var(--obsidian);
+        background: var(--pearl);
+      }
+
+      /* ── SECTIONS ── */
+      .section {
+        padding: 48px 0 0;
+        border-top: 1px solid var(--mist);
+        margin-top: 40px;
+      }
+      .section:first-of-type {
+        border-top: none;
+        margin-top: 32px;
+      }
+      .section-header {
+        margin-bottom: 32px;
+      }
+      .section-label {
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        color: var(--sentry-purple);
+        margin-bottom: 8px;
+      }
+      .section-title {
+        font-size: 24px;
+        font-weight: 600;
+        letter-spacing: -0.02em;
+        line-height: 1.3;
+        color: var(--obsidian);
+      }
+      .section-desc {
+        font-size: 14px;
+        line-height: 1.6;
+        color: var(--slate);
+        margin-top: 8px;
+        max-width: 560px;
+      }
+
+      /* ── HERO ── */
+      .hero {
+        padding: 48px 0 32px;
+        border-bottom: 1px solid var(--mist);
+        margin: 0 -32px;
+        padding-left: 32px;
+        padding-right: 32px;
+        background: var(--snow-gray);
+      }
+      .hero-label {
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        color: var(--sentry-purple);
+        margin-bottom: 12px;
+      }
+      .hero-title {
+        font-size: clamp(28px, 5vw, 40px);
+        font-weight: 700;
+        line-height: 1.15;
+        letter-spacing: -0.02em;
+        color: var(--obsidian);
+      }
+      .hero-title em {
+        font-style: normal;
+        color: var(--sentry-purple);
+      }
+      .hero-subtitle {
+        font-size: 16px;
+        line-height: 1.6;
+        color: var(--slate);
+        margin-top: 12px;
+        max-width: 480px;
+      }
+      .hero-tags {
+        display: flex;
+        gap: 8px;
+        margin-top: 20px;
+        flex-wrap: wrap;
+      }
+      .hero-tag {
+        font-size: 11px;
+        font-weight: 500;
+        color: var(--slate);
+        background: var(--arctic-white);
+        padding: 4px 12px;
+        border-radius: var(--r-pill);
+        border: 1px solid var(--mist);
+      }
+      .hero-actions {
+        display: flex;
+        gap: 12px;
+        margin-top: 20px;
+      }
+
+      /* ── BUTTONS ── */
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-family: inherit;
+        font-size: 13px;
+        font-weight: 600;
+        line-height: 1;
+        padding: 8px 20px;
+        border-radius: var(--r-default);
+        cursor: pointer;
+        text-decoration: none;
+        white-space: nowrap;
+        transition: all 0.12s ease;
+        border: 1px solid transparent;
+      }
+      .btn:active {
+        transform: scale(0.97);
+      }
+      .btn-primary {
+        background: var(--sentry-purple);
+        color: white;
+      }
+      .btn-primary:hover {
+        background: var(--purple-light);
+      }
+      .btn-secondary {
+        background: var(--arctic-white);
+        color: var(--obsidian);
+        border-color: var(--mist);
+      }
+      .btn-secondary:hover {
+        background: var(--pearl);
+        border-color: var(--storm-gray);
+      }
+      .btn-danger {
+        background: var(--error-red);
+        color: white;
+      }
+      .btn-danger:hover {
+        opacity: 0.9;
+      }
+      .btn-ghost {
+        background: transparent;
+        color: var(--sentry-purple);
+        border-color: transparent;
+      }
+      .btn-ghost:hover {
+        background: var(--purple-muted);
+      }
+
+      /* ── COLOR TOKENS ── */
+      .color-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 16px;
+      }
+      .color-token {
+        background: var(--arctic-white);
+        border: 1px solid var(--mist);
+        border-radius: var(--r-lg);
+        overflow: hidden;
+        transition: border-color 0.2s;
+      }
+      .color-token:hover {
+        border-color: var(--storm-gray);
+      }
+      .color-swatch {
+        width: 100%;
+        height: 64px;
+      }
+      .color-info {
+        padding: 12px 14px;
+      }
+      .color-name {
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--obsidian);
+      }
+      .color-hex {
+        font-size: 12px;
+        font-weight: 500;
+        color: var(--slate);
+        margin-top: 2px;
+        font-family: "Roboto Mono", monospace;
+      }
+      .color-role {
+        font-size: 11px;
+        color: var(--slate);
+        margin-top: 4px;
+        line-height: 1.4;
+      }
+
+      /* ── TYPE SCALE ── */
+      .type-table {
+        display: flex;
+        flex-direction: column;
+        border: 1px solid var(--mist);
+        border-radius: var(--r-lg);
+        overflow: hidden;
+      }
+      .type-row {
+        display: grid;
+        grid-template-columns: 80px 1fr 200px;
+        align-items: baseline;
+        padding: 12px 20px;
+        border-bottom: 1px solid var(--mist);
+      }
+      .type-row:last-child {
+        border-bottom: none;
+      }
+      .type-row:hover {
+        background: var(--snow-gray);
+      }
+      .type-meta {
+        font-size: 10px;
+        font-weight: 600;
+        color: var(--sentry-purple);
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
+      .type-sample {
+        color: var(--obsidian);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .type-specs {
+        font-size: 11px;
+        color: var(--slate);
+        font-family: "Roboto Mono", monospace;
+        text-align: right;
+        letter-spacing: 0;
+      }
+
+      /* ── SPACING ── */
+      .spacing-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .spacing-row {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+      }
+      .spacing-bar {
+        height: 24px;
+        background: var(--sentry-purple);
+        border-radius: var(--r-sm);
+        opacity: 0.7;
+      }
+      .spacing-label {
+        font-size: 12px;
+        font-weight: 500;
+        color: var(--slate);
+        font-family: "Roboto Mono", monospace;
+        min-width: 60px;
+      }
+
+      /* ── BUTTON SHOWCASE ── */
+      .button-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        align-items: center;
+      }
+
+      /* ── INPUT SHOWCASE ── */
+      .input-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+        gap: 16px;
+      }
+      .input-group {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+      .input-label {
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--charcoal);
+        letter-spacing: 0.01em;
+      }
+      .input {
+        font-family: inherit;
+        font-size: 14px;
+        padding: 8px 12px;
+        border: 1px solid var(--mist);
+        border-radius: var(--r-default);
+        background: var(--arctic-white);
+        color: var(--obsidian);
+        outline: none;
+        transition:
+          border-color 0.12s,
+          box-shadow 0.12s;
+      }
+      .input:focus {
+        border-color: var(--sentry-purple);
+        box-shadow: 0 0 0 3px rgba(108, 95, 199, 0.15);
+      }
+      .input--error {
+        border-color: var(--error-red);
+        box-shadow: 0 0 0 3px rgba(245, 84, 89, 0.15);
+      }
+      .input--disabled {
+        background: var(--snow-gray);
+        color: var(--storm-gray);
+        cursor: not-allowed;
+      }
+      .input-helper {
+        font-size: 12px;
+        color: var(--slate);
+      }
+      .input-helper--error {
+        color: var(--error-red);
+      }
+
+      /* ── BADGES ── */
+      .badge-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        align-items: center;
+      }
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        font-size: 11px;
+        font-weight: 600;
+        padding: 3px 10px;
+        border-radius: var(--r-sm);
+        letter-spacing: 0.01em;
+      }
+      .badge--default {
+        background: var(--pearl);
+        color: var(--charcoal);
+      }
+      .badge--purple {
+        background: var(--purple-muted);
+        color: var(--sentry-purple);
+      }
+      .badge--error {
+        background: var(--error-surface);
+        color: var(--error-red);
+        border: 1px solid var(--error-red);
+      }
+      .badge--warning {
+        background: var(--warning-surface);
+        color: var(--warning-amber);
+        border: 1px solid var(--warning-amber);
+      }
+      .badge--success {
+        background: var(--success-surface);
+        color: var(--success-green);
+        border: 1px solid var(--success-green);
+      }
+      .badge--outline {
+        background: transparent;
+        color: var(--slate);
+        border: 1px solid var(--mist);
+      }
+
+      /* ── ISSUE LIST ── */
+      .issue-list {
+        border: 1px solid var(--mist);
+        border-radius: var(--r-lg);
+        overflow: hidden;
+      }
+      .issue-row {
+        display: grid;
+        grid-template-columns: auto 1fr auto auto;
+        gap: 12px;
+        align-items: center;
+        padding: 12px 16px;
+        border-bottom: 1px solid var(--mist);
+        transition: background 0.12s;
+      }
+      .issue-row:last-child {
+        border-bottom: none;
+      }
+      .issue-row:hover {
+        background: var(--snow-gray);
+      }
+      .issue-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        flex-shrink: 0;
+      }
+      .issue-dot--error {
+        background: var(--error-red);
+      }
+      .issue-dot--warning {
+        background: var(--warning-amber);
+      }
+      .issue-dot--success {
+        background: var(--success-green);
+      }
+      .issue-info {
+        min-width: 0;
+      }
+      .issue-title {
+        font-size: 13px;
+        font-weight: 500;
+        color: var(--obsidian);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .issue-meta {
+        font-size: 12px;
+        color: var(--slate);
+        margin-top: 2px;
+        font-family: "Roboto Mono", monospace;
+      }
+      .issue-count {
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--charcoal);
+        font-family: "Roboto Mono", monospace;
+        text-align: right;
+      }
+      .issue-time {
+        font-size: 12px;
+        color: var(--slate);
+        text-align: right;
+      }
+
+      /* ── CARD ── */
+      .card-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 16px;
+      }
+      .card {
+        background: var(--arctic-white);
+        border: 1px solid var(--mist);
+        border-radius: var(--r-lg);
+        padding: 20px;
+        transition:
+          border-color 0.2s,
+          box-shadow 0.2s;
+      }
+      .card:hover {
+        border-color: var(--storm-gray);
+        box-shadow: 0 2px 8px rgba(29, 29, 46, 0.08);
+      }
+      .card-title {
+        font-size: 16px;
+        font-weight: 600;
+        color: var(--obsidian);
+      }
+      .card-value {
+        font-size: 32px;
+        font-weight: 700;
+        color: var(--obsidian);
+        margin-top: 8px;
+        font-family: "Roboto Mono", monospace;
+      }
+      .card-change {
+        font-size: 12px;
+        font-weight: 500;
+        margin-top: 4px;
+      }
+      .card-change--up {
+        color: var(--success-green);
+      }
+      .card-change--down {
+        color: var(--error-red);
+      }
+
+      /* ── CHART PLACEHOLDER ── */
+      .chart-placeholder {
+        background: var(--snow-gray);
+        border: 1px solid var(--mist);
+        border-radius: var(--r-lg);
+        padding: 24px;
+        min-height: 200px;
+        display: flex;
+        align-items: flex-end;
+        gap: 8px;
+      }
+      .chart-bar {
+        flex: 1;
+        border-radius: var(--r-sm) var(--r-sm) 0 0;
+        transition: opacity 0.2s;
+      }
+      .chart-bar:hover {
+        opacity: 0.8;
+      }
+
+      /* ── SHADOWS ── */
+      .shadow-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 16px;
+      }
+      .shadow-token {
+        background: var(--arctic-white);
+        border: 1px solid var(--mist);
+        border-radius: var(--r-lg);
+        padding: 24px;
+        text-align: center;
+      }
+      .shadow-name {
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--obsidian);
+        margin-bottom: 4px;
+      }
+      .shadow-value {
+        font-size: 11px;
+        color: var(--slate);
+        font-family: "Roboto Mono", monospace;
+        word-break: break-all;
+      }
+
+      /* ── CODE BLOCK ── */
+      .code-block {
+        background: var(--obsidian);
+        color: var(--pearl);
+        font-family: "Roboto Mono", monospace;
+        font-size: 13px;
+        line-height: 1.5;
+        padding: 16px 20px;
+        border-radius: var(--r-lg);
+        overflow-x: auto;
+      }
+      .code-block .keyword {
+        color: var(--purple-light);
+      }
+      .code-block .string {
+        color: var(--success-green);
+      }
+      .code-block .comment {
+        color: var(--slate);
+      }
+      .code-block .error-text {
+        color: var(--error-red);
+      }
+
+      /* ── FOOTER ── */
+      .footer {
+        margin-top: 64px;
+        padding-top: 24px;
+        border-top: 1px solid var(--mist);
+        font-size: 12px;
+        color: var(--slate);
+        text-align: center;
+      }
+      body {
+        background: #1f1633;
+        color: #ececf1;
+      }
+      .page {
+        max-width: 1200px;
+      }
+      .nav {
+        background: rgba(31, 22, 51, 0.98);
+        border-bottom-color: #362d59;
+      }
+      .nav-wordmark {
+        color: #e2abe0;
+      }
+      .nav-tag {
+        background: #362d59;
+        color: #e2abe0;
+      }
+      .nav-link,
+      .nav-url {
+        color: #cfcfdb;
+      }
+      .nav-link:hover,
+      .nav-url:hover {
+        color: #fff;
+        background: #362d59;
+      }
+      .nav-link--active {
+        color: #ffdb4a;
+        background: #362d59;
+      }
+      .nav-url {
+        border: 1px solid #584674;
+        border-radius: 9999px;
+      }
+      .section {
+        border-color: #362d59;
+      }
+      .section-label {
+        color: #e2abe0;
+      }
+      .section-title,
+      .hero-title {
+        color: #ececf1;
+      }
+      .section-desc,
+      .hero-subtitle {
+        color: #cfcfdb;
+      }
+      .hero {
+        background: #181225;
+        border-color: #362d59;
+      }
+      .hero-title em {
+        color: #e2abe0;
+      }
+      .hero-tag {
+        background: #362d59;
+        border-color: #584674;
+        color: #ececf1;
+      }
+      .btn-primary {
+        background: #ffdb4a;
+        color: #181225;
+      }
+      .btn-secondary {
+        background: transparent;
+        border-color: #e2abe0;
+        color: #e2abe0;
+      }
+      .footer {
+        border-color: #362d59;
+        color: #cfcfdb;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <!-- NAV -->
+      <nav class="nav">
+        <div class="nav-left">
+          
+          <a href="#" class="nav-wordmark">Sentry</a>
+          <span class="nav-tag">Design System</span>
+        </div>
+        <div class="nav-right">
+          <a href="#colors" class="nav-link">Colors</a>
+          <a href="#typography" class="nav-link nav-link--active">Typography</a>
+          <a href="#components" class="nav-link">Components</a>
+          <a href="#spacing" class="nav-link">Spacing</a>
+          <a
+            href="#"
+            class="nav-url"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Site ↗</a
+          >
+        </div>
+      </nav>
+
+      <!-- HERO -->
+      <div class="hero">
+        <div class="hero-label">Sentry Design System · Dark Theme</div>
+        <h1 class="hero-title">Code <em>observability</em> with clarity</h1>
+        <p class="hero-subtitle">
+          A clean, developer-focused design system for error monitoring,
+          performance tracking, and application health dashboards.
+        </p>
+        <div class="hero-tags">
+          <span class="hero-tag">Rich Black #1f1633</span>
+          <span class="hero-tag">Purple Accent</span>
+          <span class="hero-tag">Developer Tools</span>
+          <span class="hero-tag">Error Monitoring</span>
+        </div>
+        <div class="hero-actions">
+          <button class="btn btn-primary">Get Started</button>
+          <button class="btn btn-secondary">Documentation</button>
+        </div>
+      </div>
+
+      <!-- COLORS -->
+      <div class="section" id="colors">
+        <div class="section-header">
+          <div class="section-label">Foundation</div>
+          <h2 class="section-title">Color Tokens</h2>
+          <p class="section-desc">
+            Surface colors for light theme, semantic colors for issue states and
+            alerts, with purple as the primary brand accent.
+          </p>
+        </div>
+        <div class="color-grid">
+          <div class="color-token">
+            <div
+              class="color-swatch"
+              style="background: #ffffff; border-bottom: 1px solid var(--mist)"
+            ></div>
+            <div class="color-info">
+              <div class="color-name">Arctic White</div>
+              <div class="color-hex">#FFFFFF</div>
+              <div class="color-role">Primary background, card surfaces</div>
+            </div>
+          </div>
+          <div class="color-token">
+            <div class="color-swatch" style="background: #faf9fb"></div>
+            <div class="color-info">
+              <div class="color-name">Snow Gray</div>
+              <div class="color-hex">#FAF9FB</div>
+              <div class="color-role">Secondary background, sidebar</div>
+            </div>
+          </div>
+          <div class="color-token">
+            <div class="color-swatch" style="background: #f2f0f5"></div>
+            <div class="color-info">
+              <div class="color-name">Pearl</div>
+              <div class="color-hex">#F2F0F5</div>
+              <div class="color-role">Hover states, selected rows</div>
+            </div>
+          </div>
+          <div class="color-token">
+            <div class="color-swatch" style="background: #e9e6ed"></div>
+            <div class="color-info">
+              <div class="color-name">Mist</div>
+              <div class="color-hex">#E9E6ED</div>
+              <div class="color-role">Borders, dividers, gridlines</div>
+            </div>
+          </div>
+          <div class="color-token">
+            <div class="color-swatch" style="background: #d6d0dc"></div>
+            <div class="color-info">
+              <div class="color-name">Storm Gray</div>
+              <div class="color-hex">#D6D0DC</div>
+              <div class="color-role">Disabled states, inactive borders</div>
+            </div>
+          </div>
+          <div class="color-token">
+            <div class="color-swatch" style="background: #80708f"></div>
+            <div class="color-info">
+              <div class="color-name">Slate</div>
+              <div class="color-hex">#80708F</div>
+              <div class="color-role">Secondary text, placeholders</div>
+            </div>
+          </div>
+          <div class="color-token">
+            <div class="color-swatch" style="background: #3e2c4c"></div>
+            <div class="color-info">
+              <div class="color-name">Charcoal</div>
+              <div class="color-hex">#3E2C4C</div>
+              <div class="color-role">Headings, emphasized text</div>
+            </div>
+          </div>
+          <div class="color-token">
+            <div class="color-swatch" style="background: #1d1d2e"></div>
+            <div class="color-info">
+              <div class="color-name">Obsidian</div>
+              <div class="color-hex">#1D1D2E</div>
+              <div class="color-role">Primary text, code output</div>
+            </div>
+          </div>
+          <div class="color-token">
+            <div class="color-swatch" style="background: #6c5fc7"></div>
+            <div class="color-info">
+              <div class="color-name">Sentry Purple</div>
+              <div class="color-hex">#6C5FC7</div>
+              <div class="color-role">Brand accent, actions, active states</div>
+            </div>
+          </div>
+          <div class="color-token">
+            <div class="color-swatch" style="background: #a397e0"></div>
+            <div class="color-info">
+              <div class="color-name">Purple Light</div>
+              <div class="color-hex">#A397E0</div>
+              <div class="color-role">Hover state, selected tabs</div>
+            </div>
+          </div>
+          <div class="color-token">
+            <div class="color-swatch" style="background: #e7e1f1"></div>
+            <div class="color-info">
+              <div class="color-name">Purple Muted</div>
+              <div class="color-hex">#E7E1F1</div>
+              <div class="color-role">Purple backgrounds, badges</div>
+            </div>
+          </div>
+          <div class="color-token">
+            <div class="color-swatch" style="background: #f55459"></div>
+            <div class="color-info">
+              <div class="color-name">Error Red</div>
+              <div class="color-hex">#F55459</div>
+              <div class="color-role">Errors, critical alerts, crashes</div>
+            </div>
+          </div>
+          <div class="color-token">
+            <div class="color-swatch" style="background: #fdf0f0"></div>
+            <div class="color-info">
+              <div class="color-name">Error Surface</div>
+              <div class="color-hex">#FDF0F0</div>
+              <div class="color-role">Error backgrounds, failed tests</div>
+            </div>
+          </div>
+          <div class="color-token">
+            <div class="color-swatch" style="background: #e2a309"></div>
+            <div class="color-info">
+              <div class="color-name">Warning Amber</div>
+              <div class="color-hex">#E2A309</div>
+              <div class="color-role">Warnings, performance alerts</div>
+            </div>
+          </div>
+          <div class="color-token">
+            <div class="color-swatch" style="background: #2ba176"></div>
+            <div class="color-info">
+              <div class="color-name">Success Green</div>
+              <div class="color-hex">#2BA176</div>
+              <div class="color-role">Resolved, healthy status</div>
+            </div>
+          </div>
+          <div class="color-token">
+            <div class="color-swatch" style="background: #2675b2"></div>
+            <div class="color-info">
+              <div class="color-name">Info Blue</div>
+              <div class="color-hex">#2675B2</div>
+              <div class="color-role">Informational, docs links</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TYPOGRAPHY -->
+      <div class="section" id="typography">
+        <div class="section-header">
+          <div class="section-label">Foundation</div>
+          <h2 class="section-title">Typography Scale</h2>
+          <p class="section-desc">
+            Inter for UI text, Roboto Mono for code and technical data. Compact
+            scale optimized for dense developer interfaces.
+          </p>
+        </div>
+        <div class="type-table">
+          <div class="type-row">
+            <div class="type-meta">Overline</div>
+            <div
+              class="type-sample"
+              style="
+                font-size: 11px;
+                font-weight: 600;
+                letter-spacing: 0.04em;
+                text-transform: uppercase;
+              "
+            >
+              ISSUE SUMMARY
+            </div>
+            <div class="type-specs">11px / 1.2 / .04em / 600</div>
+          </div>
+          <div class="type-row">
+            <div class="type-meta">Caption</div>
+            <div class="type-sample" style="font-size: 12px">
+              Last seen 2 hours ago
+            </div>
+            <div class="type-specs">12px / 1.5 / .01em / 400</div>
+          </div>
+          <div class="type-row">
+            <div class="type-meta">Code SM</div>
+            <div
+              class="type-sample"
+              style="
+                font-size: 12px;
+                font-family: &quot;Roboto Mono&quot;, monospace;
+              "
+            >
+              src/utils/handler.ts:42
+            </div>
+            <div class="type-specs">12px / 1.5 / 0 / 400</div>
+          </div>
+          <div class="type-row">
+            <div class="type-meta">Body SM</div>
+            <div class="type-sample" style="font-size: 13px">
+              TypeError: Cannot read property 'map' of undefined
+            </div>
+            <div class="type-specs">13px / 1.5 / .01em / 400</div>
+          </div>
+          <div class="type-row">
+            <div class="type-meta">Code</div>
+            <div
+              class="type-sample"
+              style="
+                font-size: 14px;
+                font-family: &quot;Roboto Mono&quot;, monospace;
+              "
+            >
+              at render (components/App.tsx:127:15)
+            </div>
+            <div class="type-specs">14px / 1.5 / 0 / 400</div>
+          </div>
+          <div class="type-row">
+            <div class="type-meta">Body</div>
+            <div class="type-sample" style="font-size: 14px">
+              This issue has been occurring across multiple environments.
+            </div>
+            <div class="type-specs">14px / 1.6 / 0 / 400</div>
+          </div>
+          <div class="type-row">
+            <div class="type-meta">Subheading</div>
+            <div class="type-sample" style="font-size: 16px; font-weight: 500">
+              Stack Trace
+            </div>
+            <div class="type-specs">16px / 1.5 / 0 / 500</div>
+          </div>
+          <div class="type-row">
+            <div class="type-meta">Heading SM</div>
+            <div class="type-sample" style="font-size: 18px; font-weight: 600">
+              Issue Details
+            </div>
+            <div class="type-specs">18px / 1.4 / -.01em / 600</div>
+          </div>
+          <div class="type-row">
+            <div class="type-meta">Heading</div>
+            <div class="type-sample" style="font-size: 20px; font-weight: 600">
+              Performance Summary
+            </div>
+            <div class="type-specs">20px / 1.4 / -.01em / 600</div>
+          </div>
+          <div class="type-row">
+            <div class="type-meta">Heading LG</div>
+            <div class="type-sample" style="font-size: 24px; font-weight: 600">
+              Project Settings
+            </div>
+            <div class="type-specs">24px / 1.3 / -.02em / 600</div>
+          </div>
+          <div class="type-row">
+            <div class="type-meta">Display</div>
+            <div class="type-sample" style="font-size: 32px; font-weight: 700">
+              Dashboard
+            </div>
+            <div class="type-specs">32px / 1.2 / -.02em / 700</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- COMPONENTS -->
+      <div class="section" id="components">
+        <div class="section-header">
+          <div class="section-label">Components</div>
+          <h2 class="section-title">UI Elements</h2>
+          <p class="section-desc">
+            Buttons, inputs, badges, and cards designed for developer-focused
+            error monitoring interfaces.
+          </p>
+        </div>
+
+        <!-- Buttons -->
+        <h3
+          style="
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--charcoal);
+            margin-bottom: 16px;
+          "
+        >
+          Buttons
+        </h3>
+        <div class="button-grid" style="margin-bottom: 32px">
+          <button class="btn btn-primary">Create Project</button>
+          <button class="btn btn-secondary">View Issues</button>
+          <button class="btn btn-danger">Delete</button>
+          <button class="btn btn-ghost">Learn More</button>
+        </div>
+
+        <!-- Inputs -->
+        <h3
+          style="
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--charcoal);
+            margin-bottom: 16px;
+          "
+        >
+          Inputs
+        </h3>
+        <div class="input-grid" style="margin-bottom: 32px">
+          <div class="input-group">
+            <label class="input-label">Project Name</label>
+            <input class="input" type="text" value="my-react-app" />
+            <span class="input-helper">Used in URLs and SDK configuration</span>
+          </div>
+          <div class="input-group">
+            <label class="input-label">DSN (Error)</label>
+            <input class="input input--error" type="text" value="invalid-dsn" />
+            <span class="input-helper input-helper--error"
+              >Invalid DSN format</span
+            >
+          </div>
+          <div class="input-group">
+            <label class="input-label">Organization</label>
+            <input
+              class="input input--disabled"
+              type="text"
+              value="acme-corp"
+              disabled
+            />
+            <span class="input-helper">Contact admin to change</span>
+          </div>
+        </div>
+
+        <!-- Badges -->
+        <h3
+          style="
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--charcoal);
+            margin-bottom: 16px;
+          "
+        >
+          Badges
+        </h3>
+        <div class="badge-grid" style="margin-bottom: 32px">
+          <span class="badge badge--default">javascript</span>
+          <span class="badge badge--purple">react</span>
+          <span class="badge badge--error">unresolved</span>
+          <span class="badge badge--warning">regressed</span>
+          <span class="badge badge--success">resolved</span>
+          <span class="badge badge--outline">v2.1.0</span>
+        </div>
+
+        <!-- Issue List -->
+        <h3
+          style="
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--charcoal);
+            margin-bottom: 16px;
+          "
+        >
+          Issue Stream
+        </h3>
+        <div class="issue-list" style="margin-bottom: 32px">
+          <div class="issue-row">
+            <div class="issue-dot issue-dot--error"></div>
+            <div class="issue-info">
+              <div class="issue-title">
+                TypeError: Cannot read properties of undefined (reading 'map')
+              </div>
+              <div class="issue-meta">src/components/Dashboard.tsx:42</div>
+            </div>
+            <div class="issue-count">1,247</div>
+            <div class="issue-time">2h ago</div>
+          </div>
+          <div class="issue-row">
+            <div class="issue-dot issue-dot--error"></div>
+            <div class="issue-info">
+              <div class="issue-title">
+                NetworkError: Failed to fetch /api/events
+              </div>
+              <div class="issue-meta">src/api/client.ts:89</div>
+            </div>
+            <div class="issue-count">843</div>
+            <div class="issue-time">4h ago</div>
+          </div>
+          <div class="issue-row">
+            <div class="issue-dot issue-dot--warning"></div>
+            <div class="issue-info">
+              <div class="issue-title">
+                Slow transaction: GET /api/issues (avg 2.4s)
+              </div>
+              <div class="issue-meta">routes/issues.py:156</div>
+            </div>
+            <div class="issue-count">156</div>
+            <div class="issue-time">6h ago</div>
+          </div>
+          <div class="issue-row">
+            <div class="issue-dot issue-dot--success"></div>
+            <div class="issue-info">
+              <div class="issue-title">
+                RangeError: Maximum call stack size exceeded
+              </div>
+              <div class="issue-meta">src/utils/parser.ts:23</div>
+            </div>
+            <div class="issue-count">0</div>
+            <div class="issue-time">1d ago</div>
+          </div>
+        </div>
+
+        <!-- Metric Cards -->
+        <h3
+          style="
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--charcoal);
+            margin-bottom: 16px;
+          "
+        >
+          Metric Cards
+        </h3>
+        <div class="card-grid" style="margin-bottom: 32px">
+          <div class="card">
+            <div class="card-title">Errors</div>
+            <div class="card-value">2,847</div>
+            <div class="card-change card-change--down">
+              +12.4% from last week
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-title">Crash Free Sessions</div>
+            <div class="card-value">99.2%</div>
+            <div class="card-change card-change--up">+0.3% from last week</div>
+          </div>
+          <div class="card">
+            <div class="card-title">P95 Latency</div>
+            <div class="card-value">1.8s</div>
+            <div class="card-change card-change--down">
+              +240ms from last week
+            </div>
+          </div>
+        </div>
+
+        <!-- Chart -->
+        <h3
+          style="
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--charcoal);
+            margin-bottom: 16px;
+          "
+        >
+          Chart
+        </h3>
+        <div class="chart-placeholder" style="margin-bottom: 32px">
+          <div
+            class="chart-bar"
+            style="height: 60%; background: var(--sentry-purple)"
+          ></div>
+          <div
+            class="chart-bar"
+            style="height: 45%; background: var(--sentry-purple)"
+          ></div>
+          <div
+            class="chart-bar"
+            style="height: 80%; background: var(--error-red)"
+          ></div>
+          <div
+            class="chart-bar"
+            style="height: 55%; background: var(--sentry-purple)"
+          ></div>
+          <div
+            class="chart-bar"
+            style="height: 70%; background: var(--sentry-purple)"
+          ></div>
+          <div
+            class="chart-bar"
+            style="height: 90%; background: var(--error-red)"
+          ></div>
+          <div
+            class="chart-bar"
+            style="height: 65%; background: var(--sentry-purple)"
+          ></div>
+          <div
+            class="chart-bar"
+            style="height: 50%; background: var(--sentry-purple)"
+          ></div>
+          <div
+            class="chart-bar"
+            style="height: 40%; background: var(--sentry-purple)"
+          ></div>
+          <div
+            class="chart-bar"
+            style="height: 75%; background: var(--sentry-purple)"
+          ></div>
+          <div
+            class="chart-bar"
+            style="height: 85%; background: var(--error-red)"
+          ></div>
+          <div
+            class="chart-bar"
+            style="height: 60%; background: var(--sentry-purple)"
+          ></div>
+        </div>
+
+        <!-- Code Block -->
+        <h3
+          style="
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--charcoal);
+            margin-bottom: 16px;
+          "
+        >
+          Stack Trace
+        </h3>
+        <div class="code-block">
+          <span class="error-text">TypeError</span>: Cannot read properties of
+          undefined (reading 'map')<br />
+          &nbsp;&nbsp;at <span class="keyword">render</span> (<span
+            class="string"
+            >src/components/Dashboard.tsx</span
+          >:42:15)<br />
+          &nbsp;&nbsp;at <span class="keyword">processChild</span> (<span
+            class="string"
+            >node_modules/react-dom/cjs/react-dom.development.js</span
+          >:2345:14)<br />
+          &nbsp;&nbsp;at <span class="keyword">reconcileChildren</span> (<span
+            class="string"
+            >node_modules/react-dom/cjs/react-dom.development.js</span
+          >:6789:28)<br />
+          <span class="comment">// 12 more frames...</span>
+        </div>
+      </div>
+
+      <!-- SPACING -->
+      <div class="section" id="spacing">
+        <div class="section-header">
+          <div class="section-label">Foundation</div>
+          <h2 class="section-title">Spacing Scale</h2>
+          <p class="section-desc">
+            4px base unit with compact density for dense data displays typical
+            in monitoring dashboards.
+          </p>
+        </div>
+        <div class="spacing-grid">
+          <div class="spacing-row">
+            <span class="spacing-label">2px</span>
+            <div class="spacing-bar" style="width: 2px"></div>
+          </div>
+          <div class="spacing-row">
+            <span class="spacing-label">4px</span>
+            <div class="spacing-bar" style="width: 4px"></div>
+          </div>
+          <div class="spacing-row">
+            <span class="spacing-label">6px</span>
+            <div class="spacing-bar" style="width: 6px"></div>
+          </div>
+          <div class="spacing-row">
+            <span class="spacing-label">8px</span>
+            <div class="spacing-bar" style="width: 8px"></div>
+          </div>
+          <div class="spacing-row">
+            <span class="spacing-label">12px</span>
+            <div class="spacing-bar" style="width: 12px"></div>
+          </div>
+          <div class="spacing-row">
+            <span class="spacing-label">16px</span>
+            <div class="spacing-bar" style="width: 16px"></div>
+          </div>
+          <div class="spacing-row">
+            <span class="spacing-label">24px</span>
+            <div class="spacing-bar" style="width: 24px"></div>
+          </div>
+          <div class="spacing-row">
+            <span class="spacing-label">32px</span>
+            <div class="spacing-bar" style="width: 32px"></div>
+          </div>
+          <div class="spacing-row">
+            <span class="spacing-label">48px</span>
+            <div class="spacing-bar" style="width: 48px"></div>
+          </div>
+          <div class="spacing-row">
+            <span class="spacing-label">64px</span>
+            <div class="spacing-bar" style="width: 64px"></div>
+          </div>
+          <div class="spacing-row">
+            <span class="spacing-label">80px</span>
+            <div class="spacing-bar" style="width: 80px"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SHADOWS -->
+      <div class="section">
+        <div class="section-header">
+          <div class="section-label">Foundation</div>
+          <h2 class="section-title">Shadows & Elevation</h2>
+          <p class="section-desc">
+            Subtle shadows using dark purple-tinted rgba values for depth
+            without harshness.
+          </p>
+        </div>
+        <div class="shadow-grid">
+          <div
+            class="shadow-token"
+            style="box-shadow: 0 1px 2px rgba(29, 29, 46, 0.06)"
+          >
+            <div class="shadow-name">Low</div>
+            <div class="shadow-value">0 1px 2px rgba(29,29,46,0.06)</div>
+          </div>
+          <div
+            class="shadow-token"
+            style="box-shadow: 0 2px 8px rgba(29, 29, 46, 0.08)"
+          >
+            <div class="shadow-name">Medium</div>
+            <div class="shadow-value">0 2px 8px rgba(29,29,46,0.08)</div>
+          </div>
+          <div
+            class="shadow-token"
+            style="box-shadow: 0 4px 16px rgba(29, 29, 46, 0.12)"
+          >
+            <div class="shadow-name">High</div>
+            <div class="shadow-value">0 4px 16px rgba(29,29,46,0.12)</div>
+          </div>
+          <div
+            class="shadow-token"
+            style="box-shadow: 0 8px 32px rgba(29, 29, 46, 0.16)"
+          >
+            <div class="shadow-name">Modal</div>
+            <div class="shadow-value">0 8px 32px rgba(29,29,46,0.16)</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer">
+        Sentry Design System — Light Theme — #6C5FC7 Purple Accent — Error
+        Monitoring UI
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,34 @@
+{
+	"schemaVersion": 1,
+	"kind": "design-system",
+	"slug": "resend",
+	"name": "Resend",
+	"version": "1.0.0",
+	"order": 590,
+	"category": "dev",
+	"vibe": "dark",
+	"tags": [
+		"dark-ui",
+		"editorial",
+		"gradient",
+		"developer-focused",
+		"design-system"
+	],
+	"blurb": "Resend's marketing surfaces sit on a near-pure black canvas with off-white\ntext and a single signature color — the deep editorial-serif Domaine\nDisplay headline mark — that give…",
+	"tagline": {
+		"en": "Near-pure black with a single signature color",
+		"zh": "近纯黑底 + 单一签名色"
+	},
+	"license": "MIT",
+	"origin": {
+		"type": "curated",
+		"upstream": "https://github.com/ricocc/brands-design-md.git",
+		"note": "from brands-design-md (Resend)."
+	},
+	"assets": {
+		"spec": "DESIGN.md",
+		"theme": "theme.css",
+		"demo": "demo.html"
+	},
+	"collectedAt": "2026-08-22"
+}

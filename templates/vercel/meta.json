@@ -1,0 +1,33 @@
+{
+	"schemaVersion": 1,
+	"kind": "design-system",
+	"slug": "vercel",
+	"name": "Vercel",
+	"version": "1.0.0",
+	"order": 60,
+	"category": "dev",
+	"vibe": "light",
+	"tags": [
+		"light-ui",
+		"gradient",
+		"developer-focused",
+		"design-system"
+	],
+	"blurb": "An inspired interpretation of Vercel's design language — a developer-platform brand whose surface is a stark black-and-ink duet on near-white canvas, broken at hero scale by a m…",
+	"tagline": {
+		"en": "Stark black developer platform",
+		"zh": "冷峻黑的开发者平台"
+	},
+	"license": "MIT",
+	"origin": {
+		"type": "curated",
+		"upstream": "https://github.com/ricocc/brands-design-md.git",
+		"note": "from brands-design-md (Vercel)."
+	},
+	"assets": {
+		"spec": "DESIGN.md",
+		"theme": "theme.css",
+		"demo": "demo.html"
+	},
+	"collectedAt": "2026-08-22"
+}

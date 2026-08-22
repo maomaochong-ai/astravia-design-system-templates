@@ -1,0 +1,430 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Doodle Pop — component reference</title>
+<style>
+	/* Mirrors theme.css. Plain custom properties so this file opens standalone. */
+	:root {
+		--color-primary: #d6f437;
+		--color-primary-foreground: #111111;
+		--color-surface: #c8e93c;
+		--color-surface-foreground: #111111;
+		--color-surface-raised: #ffffff;
+		--color-muted: #55584a;
+		--color-accent: #f4794f;
+		--color-danger: #ef3b5d;
+		--color-border: #111111;
+		--color-cream: #f2f0e6;
+		--color-lavender: #b39df3;
+		--color-sky: #8ed8e8;
+		--color-ink: #111111;
+
+		--radius-sm: 8px;
+		--radius-md: 12px;
+		--radius-lg: 16px;
+		--radius-xl: 20px;
+		--radius-2xl: 28px;
+
+		--shadow-sm: 2px 2px 0 #111111;
+		--shadow-md: 4px 4px 0 #111111;
+		--shadow-lg: 7px 7px 0 #111111;
+
+		--sans: -apple-system, BlinkMacSystemFont, "Segoe UI Variable", "Segoe UI", Nunito, Roboto, "Helvetica Neue", Arial, sans-serif;
+		--mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+	}
+
+	*, *::before, *::after { box-sizing: border-box; }
+	body {
+		margin: 0;
+		background: var(--color-surface);
+		color: var(--color-surface-foreground);
+		font-family: var(--sans);
+		font-size: 15px;
+		font-weight: 500;
+		line-height: 1.55;
+		-webkit-font-smoothing: antialiased;
+	}
+	h1, h2, h3 { margin: 0; font-weight: 800; line-height: 1.12; letter-spacing: -0.01em; }
+	p { margin: 0; }
+	::selection { background: var(--color-lavender); }
+	.spacer { flex: 1; }
+	.muted { color: var(--color-muted); }
+	.mono { font-family: var(--mono); }
+	/* The coral full stop that ends most headings. */
+	.dot { color: var(--color-accent); }
+
+	.wrap { max-width: 1060px; margin: 0 auto; padding: 0 18px; }
+	@media (min-width: 768px) { .wrap { padding: 0 28px; } }
+
+	/* ── Ink doodles scattered on the lime stage, never inside cards ── */
+	.doodle { position: absolute; color: var(--color-ink); opacity: 0.85; pointer-events: none; font-size: 20px; }
+
+	/* ── Top bar ──────────────────────────────────────────────────── */
+	.top { display: flex; align-items: center; gap: 12px; padding: 20px 0; flex-wrap: wrap; }
+	.brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 20px; }
+	.brand .mk { width: 30px; height: 30px; border: 2px solid var(--color-ink); border-radius: var(--radius-sm); background: var(--color-surface-raised); box-shadow: var(--shadow-sm); }
+	.navchip { border: 2px solid var(--color-ink); border-radius: 9999px; padding: 5px 14px; font-size: 13px; font-weight: 700; background: var(--color-surface-raised); box-shadow: var(--shadow-sm); }
+	.navchip.is-active { background: var(--color-ink); color: var(--color-primary); }
+
+	/* ── Hero: a black card and a coral card, slightly rotated ────── */
+	.hero { display: grid; grid-template-columns: 1fr; gap: 20px; padding: 10px 0 34px; }
+	@media (min-width: 820px) { .hero { grid-template-columns: 1.5fr 1fr; gap: 24px; } }
+	.herocard {
+		position: relative; overflow: hidden;
+		border: 2px solid var(--color-ink); border-radius: var(--radius-2xl);
+		box-shadow: var(--shadow-lg);
+		background: var(--color-ink); color: var(--color-cream);
+		padding: 28px 26px;
+	}
+	@media (min-width: 768px) { .herocard { padding: 38px 34px; } }
+	.herocard h1 { font-size: 34px; }
+	@media (min-width: 768px) { .herocard h1 { font-size: 46px; } }
+	.herocard p { margin-top: 14px; max-width: 40ch; color: #d9d7cb; }
+	.herocard .eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--color-primary); }
+	/* Dotted circle peeking from the corner — clipped by overflow hidden. */
+	.dotcircle {
+		position: absolute; border-radius: 50%;
+		background-image: radial-gradient(rgb(214 244 55 / 0.75) 1.5px, transparent 1.5px);
+		background-size: 10px 10px;
+	}
+	.dotcircle.ink { background-image: radial-gradient(rgb(17 17 17 / 0.35) 1.5px, transparent 1.5px); }
+	.herocard .dotcircle { width: 220px; height: 220px; right: -70px; bottom: -90px; }
+	.herocard .actions { display: flex; gap: 12px; margin-top: 26px; flex-wrap: wrap; }
+
+	.sidestack { display: grid; gap: 16px; }
+	.statcard {
+		position: relative; overflow: hidden;
+		border: 2px solid var(--color-ink); border-radius: var(--radius-2xl);
+		box-shadow: var(--shadow-md); padding: 20px 22px;
+		background: var(--color-accent); color: var(--color-ink);
+	}
+	.statcard .k { font-size: 11px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; }
+	.statcard .v { font-size: 34px; font-weight: 800; font-variant-numeric: tabular-nums; margin-top: 4px; }
+	.statcard .dotcircle { width: 140px; height: 140px; right: -46px; top: -56px; }
+	.statcard.white { background: var(--color-surface-raised); }
+	.rot-1 { transform: rotate(1.2deg); }
+	.rot-2 { transform: rotate(-1.6deg); }
+
+	/* ── Drop list: white cards with rotating icon tiles ──────────── */
+	.section { padding: 30px 0; }
+	.section-head { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; flex-wrap: wrap; }
+	.section-head h2 { font-size: 24px; }
+	@media (min-width: 768px) { .section-head h2 { font-size: 30px; } }
+	.eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--color-muted); }
+
+	.list {
+		border: 2px solid var(--color-ink); border-radius: var(--radius-2xl);
+		background: var(--color-surface-raised); box-shadow: var(--shadow-md); overflow: hidden;
+	}
+	.item { display: flex; align-items: center; gap: 14px; padding: 14px 16px; border-bottom: 2px solid var(--color-ink); }
+	.item:last-child { border-bottom: 0; }
+	.tile {
+		width: 44px; height: 44px; flex: none;
+		border: 2px solid var(--color-ink); border-radius: var(--radius-md);
+		display: grid; place-items: center; font-size: 19px;
+	}
+	.item .name { min-width: 0; }
+	.item .name b { display: block; font-weight: 800; font-size: 15px; }
+	.item .name span { font-size: 12px; color: var(--color-muted); }
+	.tag {
+		border: 2px solid var(--color-ink); border-radius: 9999px;
+		padding: 2px 10px; font-size: 12px; font-weight: 800;
+		background: var(--color-primary); white-space: nowrap;
+	}
+	.tag.white { background: var(--color-surface-raised); }
+	.tag.coral { background: var(--color-accent); }
+	.tag.red { background: var(--color-danger); color: #fff; }
+	.price { margin-left: auto; font-weight: 800; font-variant-numeric: tabular-nums; flex: none; }
+	@media (max-width: 560px) { .item .hide-sm { display: none; } }
+
+	/* ── Buttons: black outline + hard shadow + press ─────────────── */
+	.btn {
+		font: inherit; font-size: 14px; font-weight: 800;
+		height: 46px; padding: 0 22px;
+		border: 2px solid var(--color-ink); border-radius: var(--radius-md);
+		background: var(--color-primary); color: var(--color-primary-foreground);
+		box-shadow: var(--shadow-sm); cursor: pointer;
+		transition: transform 90ms ease, box-shadow 90ms ease;
+	}
+	/* Press moves the card toward its own shadow. */
+	.btn:hover { transform: translate(1px, 1px); box-shadow: 1px 1px 0 var(--color-ink); }
+	.btn:active { transform: translate(2px, 2px); box-shadow: none; }
+	.btn:focus-visible { outline: none; box-shadow: var(--shadow-sm), 0 0 0 4px var(--color-lavender); }
+	.btn-white { background: var(--color-surface-raised); }
+	.btn-coral { background: var(--color-accent); }
+	.btn-lav { background: var(--color-lavender); }
+	.btn-ink { background: var(--color-ink); color: var(--color-primary); }
+	.btn[disabled] { cursor: not-allowed; background: #dcdcd2; color: #8a8c80; box-shadow: var(--shadow-sm); transform: none; }
+	.row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+
+	.input {
+		font: inherit; font-size: 15px; font-weight: 600; width: 100%; max-width: 320px; height: 46px; padding: 0 16px;
+		border: 2px solid var(--color-ink); border-radius: var(--radius-md);
+		background: var(--color-surface-raised); color: var(--color-ink);
+		box-shadow: var(--shadow-sm);
+	}
+	.input::placeholder { color: #8a8c80; }
+	.input:focus { outline: none; box-shadow: var(--shadow-sm), 0 0 0 4px var(--color-lavender); }
+
+	/* Toggle: black-outlined pill, ON = lime with a black knob. */
+	.toggle { display: inline-flex; align-items: center; gap: 10px; font-weight: 700; font-size: 14px; }
+	.track { width: 58px; height: 32px; border: 2px solid var(--color-ink); border-radius: 9999px; background: var(--color-primary); padding: 3px; display: flex; justify-content: flex-end; box-shadow: var(--shadow-sm); }
+	.track.off { background: var(--color-surface-raised); justify-content: flex-start; }
+	.knob { width: 22px; height: 22px; border-radius: 50%; background: var(--color-ink); }
+
+	/* ── Panels for the reference sections ───────────────────────── */
+	.panel {
+		border: 2px solid var(--color-ink); border-radius: var(--radius-2xl);
+		background: var(--color-cream); box-shadow: var(--shadow-md);
+		padding: 24px; position: relative; overflow: hidden;
+	}
+	@media (min-width: 768px) { .panel { padding: 30px 32px; } }
+	.lede { color: var(--color-muted); margin-top: 12px; max-width: 62ch; }
+	.note { margin-top: 18px; font-size: 13px; color: var(--color-muted); }
+
+	.swatches { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-top: 22px; }
+	@media (min-width: 700px) { .swatches { grid-template-columns: repeat(4, 1fr); } }
+	.sw .fill { height: 64px; border: 2px solid var(--color-ink); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); }
+	.sw b { display: block; font-size: 13px; font-weight: 800; margin-top: 10px; }
+	.sw span { font-size: 12px; color: var(--color-muted); }
+
+	/* ── Mobile ───────────────────────────────────────────────────── */
+	.mobile { display: grid; grid-template-columns: minmax(0, 1fr); gap: 30px; margin-top: 24px; align-items: start; }
+	@media (min-width: 860px) { .mobile { grid-template-columns: 282px 1fr; gap: 42px; } }
+	.phone {
+		width: 282px; max-width: 100%; margin: 0 auto;
+		border: 2px solid var(--color-ink); border-radius: 30px;
+		overflow: hidden; background: var(--color-cream); box-shadow: var(--shadow-lg);
+	}
+	.phone-status { display: flex; justify-content: space-between; padding: 12px 18px 6px; font-size: 10px; font-weight: 700; }
+	.phone-top { display: flex; align-items: center; gap: 8px; padding: 0 14px 12px; }
+	.phone-top .mk { width: 22px; height: 22px; border: 2px solid var(--color-ink); border-radius: 6px; background: #fff; }
+	.phone-body { padding: 0 14px 12px; }
+	.m-hero { position: relative; overflow: hidden; border: 2px solid var(--color-ink); border-radius: var(--radius-xl); background: var(--color-ink); color: var(--color-cream); padding: 14px; box-shadow: var(--shadow-md); }
+	.m-hero .eyebrow { font-size: 8px; color: var(--color-primary); }
+	.m-hero b { display: block; font-size: 19px; font-weight: 800; line-height: 1.1; margin-top: 4px; }
+	.m-hero .dotcircle { width: 110px; height: 110px; right: -36px; bottom: -46px; }
+	.m-stats { display: flex; gap: 10px; margin-top: 12px; }
+	.m-stat { flex: 1; position: relative; overflow: hidden; border: 2px solid var(--color-ink); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); padding: 10px 12px; }
+	.m-stat .k { font-size: 8px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; }
+	.m-stat .v { font-size: 20px; font-weight: 800; }
+	.m-list { border: 2px solid var(--color-ink); border-radius: var(--radius-xl); background: #fff; box-shadow: var(--shadow-md); overflow: hidden; margin-top: 12px; }
+	.m-item { display: flex; align-items: center; gap: 10px; padding: 9px 11px; border-bottom: 2px solid var(--color-ink); }
+	.m-item:last-child { border-bottom: 0; }
+	.m-item .tile { width: 32px; height: 32px; font-size: 14px; border-radius: 9px; }
+	.m-item b { font-size: 12px; font-weight: 800; display: block; }
+	.m-item .mono { font-size: 9px; color: var(--color-muted); }
+	.m-tabs { display: flex; border-top: 2px solid var(--color-ink); background: #fff; }
+	.m-tabs div { flex: 1; text-align: center; font-size: 9px; font-weight: 800; padding: 8px 0 13px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-muted); }
+	.m-tabs .is-active { color: var(--color-ink); }
+	.m-tabs .g { display: block; width: 18px; height: 18px; border: 2px solid currentColor; border-radius: 6px; margin: 0 auto 4px; }
+
+	.rules { margin: 0; padding: 0; list-style: none; }
+	.rules li { padding: 13px 0; border-bottom: 2px solid var(--color-ink); font-size: 14px; color: var(--color-muted); }
+	.rules li:last-child { border-bottom: 0; }
+	.rules b { display: block; color: var(--color-ink); font-size: 15px; font-weight: 800; margin-bottom: 2px; }
+
+	/* ── Off-style ────────────────────────────────────────────────── */
+	.compare { display: grid; grid-template-columns: 1fr; gap: 14px; margin-top: 22px; }
+	@media (min-width: 700px) { .compare { grid-template-columns: repeat(2, 1fr); } }
+	.cmp-off { padding: 22px; border-radius: var(--radius-lg); background: #fff; border: 1px solid #e2e2e2; box-shadow: 0 4px 18px rgb(0 0 0 / 0.08); font-size: 15px; font-weight: 600; color: #6b6b6b; }
+	.cmp-off small { display: block; font-weight: 400; font-size: 13px; margin-top: 8px; line-height: 1.6; }
+	.cmp-on { padding: 22px; border-radius: var(--radius-lg); background: #fff; border: 2px solid var(--color-ink); box-shadow: var(--shadow-md); font-size: 15px; font-weight: 800; }
+	.cmp-on small { display: block; font-weight: 500; font-size: 13px; color: var(--color-muted); margin-top: 8px; line-height: 1.6; }
+
+	footer { padding: 26px 0 52px; font-size: 12px; font-weight: 700; }
+</style>
+</head>
+<body>
+
+<!-- COVER — the drop shop. Lime stage, ink borders, hard paper-cut shadows,
+     one coral moment and a couple of dotted areas. -->
+<div class="wrap" style="position: relative;">
+	<span class="doodle" style="left: -2px; top: 88px;">✦</span>
+	<span class="doodle" style="right: 8px; top: 150px; font-size: 16px;">♥</span>
+	<span class="doodle" style="left: 46%; top: 6px; font-size: 15px;">〰</span>
+
+	<div class="top">
+		<span class="brand"><span class="mk"></span>doodle pop</span>
+		<span class="spacer"></span>
+		<span class="navchip is-active">Drops</span>
+		<span class="navchip">Vault</span>
+		<span class="navchip">Trade</span>
+	</div>
+
+	<div class="hero">
+		<div class="herocard rot-1">
+			<span class="dotcircle"></span>
+			<p class="eyebrow">Today's drop</p>
+			<h1>Sticker season is open<span class="dot">.</span></h1>
+			<p>Thick ink lines, zero-blur shadows, and one loud coral moment per screen.
+				Everything you can press moves toward its own shadow.</p>
+			<div class="actions">
+				<button class="btn">Open pack</button>
+				<button class="btn btn-white">See the odds</button>
+			</div>
+		</div>
+
+		<div class="sidestack">
+			<div class="statcard rot-2">
+				<span class="dotcircle ink"></span>
+				<div class="k">Packs opened</div>
+				<div class="v">12,480</div>
+			</div>
+			<div class="statcard white">
+				<div class="k">Your streak</div>
+				<div class="v">7 days</div>
+				<div class="row" style="margin-top:10px"><span class="tag">+3 today</span><span class="tag coral">rare×2</span></div>
+			</div>
+		</div>
+	</div>
+
+	<section class="section">
+		<div class="section-head">
+			<h2>Latest pulls<span class="dot">.</span></h2>
+			<span class="eyebrow">Updated 2 min ago</span>
+			<span class="spacer"></span>
+			<button class="btn btn-coral" style="height:38px;font-size:12px">Filter</button>
+		</div>
+		<div class="list">
+			<div class="item">
+				<span class="tile" style="background: var(--color-primary)">★</span>
+				<span class="name"><b>Holo Squiggle</b><span class="mono">:latest · edition 04</span></span>
+				<span class="tag hide-sm">legendary</span>
+				<span class="price">1,240 ⛁</span>
+			</div>
+			<div class="item">
+				<span class="tile" style="background: var(--color-lavender)">◆</span>
+				<span class="name"><b>Lavender Blob</b><span class="mono">:latest · edition 11</span></span>
+				<span class="tag white hide-sm">rare</span>
+				<span class="price">480 ⛁</span>
+			</div>
+			<div class="item">
+				<span class="tile" style="background: var(--color-sky)">◉</span>
+				<span class="name"><b>Sky Sticker</b><span class="mono">:v2 · edition 27</span></span>
+				<span class="tag white hide-sm">common</span>
+				<span class="price">96 ⛁</span>
+			</div>
+			<div class="item">
+				<span class="tile" style="background: var(--color-accent)">✦</span>
+				<span class="name"><b>Coral Star</b><span class="mono">:latest · edition 02</span></span>
+				<span class="tag red hide-sm">2 left</span>
+				<span class="price">2,100 ⛁</span>
+			</div>
+		</div>
+	</section>
+
+	<!-- 01 -->
+	<section class="section">
+		<div class="panel">
+			<p class="eyebrow">01 — The signature</p>
+			<h2>Ink border plus a hard offset<span class="dot">.</span></h2>
+			<p class="lede">Every card, button, chip, tile and toggle carries a 2px black border and a
+				zero-blur drop in the same black. There is no soft shadow anywhere in this system, and no
+				gray border — an ink line or nothing.</p>
+			<div class="row" style="margin-top: 22px;">
+				<button class="btn">Lime primary</button>
+				<button class="btn btn-white">White</button>
+				<button class="btn btn-coral">Coral filter</button>
+				<button class="btn btn-lav">Lavender</button>
+				<button class="btn btn-ink">Ink</button>
+				<button class="btn" disabled>Sold out</button>
+			</div>
+			<div class="row" style="margin-top: 18px; gap: 20px;">
+				<input class="input" placeholder="Search the vault">
+				<span class="toggle"><span class="track"><span class="knob"></span></span>Notify me</span>
+				<span class="toggle"><span class="track off"><span class="knob"></span></span>Auto-open</span>
+			</div>
+			<div class="swatches">
+				<div class="sw"><div class="fill" style="background: var(--color-primary)"></div><b>primary</b><span>lime · always black text</span></div>
+				<div class="sw"><div class="fill" style="background: var(--color-accent)"></div><b>accent</b><span>coral · one per screen</span></div>
+				<div class="sw"><div class="fill" style="background: var(--color-lavender)"></div><b>lavender</b><span>quiet pastel</span></div>
+				<div class="sw"><div class="fill" style="background: var(--color-sky)"></div><b>sky</b><span>quiet pastel</span></div>
+			</div>
+			<p class="note">Icon tiles rotate through lime, coral, lavender and sky, and two neighbours never take the same color.</p>
+		</div>
+	</section>
+
+	<!-- 02 -->
+	<section class="section">
+		<div class="panel">
+			<span class="dotcircle ink" style="width:200px;height:200px;right:-70px;bottom:-80px"></span>
+			<p class="eyebrow">02 — Dots</p>
+			<h2>Seasoning, not wallpaper<span class="dot">.</span></h2>
+			<p class="lede">The polka pattern is a 1.5px radial gradient on a 10px grid. It belongs in a
+				corner circle clipped by a card, a wash inside a colored banner, or one big pastel circle
+				bleeding off the edge of a sparse screen. Two dotted areas per screen is the ceiling, and
+				dots never sit behind body text.</p>
+		</div>
+	</section>
+
+	<!-- 03 MOBILE -->
+	<section class="section">
+		<div class="panel">
+			<p class="eyebrow">03 — Mobile</p>
+			<h2>Stickers were made for thumbs<span class="dot">.</span></h2>
+			<p class="lede">The lime stage stays loud, the screen interior drops to cream, and the cards
+				keep every bit of their ink and shadow. Nothing here thins out for a small screen — that
+				would be the one change the style cannot survive.</p>
+			<div class="mobile">
+				<div class="phone">
+					<div class="phone-status"><span>9:41</span><span>LTE ▮</span></div>
+					<div class="phone-top"><span class="mk"></span><b style="font-size:13px">doodle pop</b><span class="spacer"></span><span class="tag" style="font-size:10px">7 🔥</span></div>
+					<div class="phone-body">
+						<div class="m-hero">
+							<span class="dotcircle"></span>
+							<p class="eyebrow">Today's drop</p>
+							<b>Sticker season<span class="dot">.</span></b>
+							<button class="btn" style="height:34px;font-size:11px;margin-top:10px">Open pack</button>
+						</div>
+						<div class="m-stats">
+							<div class="m-stat" style="background: var(--color-accent)"><span class="dotcircle ink" style="width:70px;height:70px;right:-24px;top:-28px"></span><div class="k">Opened</div><div class="v">12.4k</div></div>
+							<div class="m-stat" style="background:#fff"><div class="k">Streak</div><div class="v">7</div></div>
+						</div>
+						<div class="m-list">
+							<div class="m-item"><span class="tile" style="background:var(--color-primary)">★</span><span><b>Holo Squiggle</b><span class="mono">edition 04</span></span><span class="spacer"></span><b style="font-size:11px">1,240</b></div>
+							<div class="m-item"><span class="tile" style="background:var(--color-lavender)">◆</span><span><b>Lavender Blob</b><span class="mono">edition 11</span></span><span class="spacer"></span><b style="font-size:11px">480</b></div>
+							<div class="m-item"><span class="tile" style="background:var(--color-sky)">◉</span><span><b>Sky Sticker</b><span class="mono">edition 27</span></span><span class="spacer"></span><b style="font-size:11px">96</b></div>
+						</div>
+					</div>
+					<div class="m-tabs">
+						<div class="is-active"><span class="g"></span>Drops</div>
+						<div><span class="g"></span>Vault</div>
+						<div><span class="g"></span>Trade</div>
+						<div><span class="g"></span>You</div>
+					</div>
+				</div>
+				<ul class="rules">
+					<li><b>Borders never thin</b>2px ink lines and the hard offset shadow stay at every width. Softening either one is the fastest way to lose the sticker-sheet feel.</li>
+					<li><b>Shadow steps down</b><code class="mono">shadow-lg</code> (7px) → <code class="mono">shadow-md</code> (4px) → <code class="mono">shadow-sm</code> (2px) as cards get smaller, so the offset stays proportional to the card rather than swallowing it.</li>
+					<li><b>Cream interior</b>The lime stage frames the phone; screen content sits on cream. Long copy never runs directly on raw lime at any size.</li>
+					<li><b>Rotations</b>The ±1–2° tilt on stacked promo cards is dropped on mobile. A rotated card next to a screen edge reads as broken rather than playful.</li>
+					<li><b>Dots</b>One dotted area per phone screen instead of two, usually the hero's corner circle. The dot grid stays 10px — scaling it down turns it into noise.</li>
+					<li><b>List rows</b>Keep the black divider between rows, drop the rarity tag, and pull the price in tight. Rows stay 44px+ so the icon tile is comfortably tappable.</li>
+					<li><b>Press</b>Hover has no touch equivalent, so the 1–2px translate lands entirely on <code class="mono">:active</code>. The press is the interaction; it must survive.</li>
+				</ul>
+			</div>
+		</div>
+	</section>
+
+	<!-- 04 DON'T -->
+	<section class="section">
+		<div class="panel">
+			<p class="eyebrow">04 — Off-style, for contrast</p>
+			<h2>What breaks the sticker sheet<span class="dot">.</span></h2>
+			<div class="compare">
+				<div class="cmp-off">Soft and gray
+					<small>1px #e2e2e2 border · blurred drop shadow · gray text at weight 600. Corporate minimalism — no ink, no dots, no doodles, nothing to grin at.</small></div>
+				<div class="cmp-on">Same content, on-style
+					<small>2px black border, 4px hard offset shadow, weight 800. If a screen has no dots, no doodle and no highlight anywhere on it, it is off-brand.</small></div>
+			</div>
+			<p class="note">Also out: lime text on lime, long copy on the raw stage, dots behind body text, and more than two dotted areas per screen.</p>
+		</div>
+	</section>
+</div>
+
+<footer><div class="wrap">Vetta design reference — doodle pop · ink lines, hard shadows, one coral moment.</div></footer>
+</body>
+</html>

@@ -1,0 +1,33 @@
+{
+	"schemaVersion": 1,
+	"kind": "design-system",
+	"slug": "linear",
+	"name": "Linear",
+	"version": "1.0.0",
+	"order": 10,
+	"category": "productivity",
+	"vibe": "dark",
+	"tags": [
+		"dark-ui",
+		"gradient",
+		"developer-focused",
+		"design-system"
+	],
+	"blurb": "A near-black product-focused marketing canvas built around #010102 (the deepest dark surface of any tool in this collection), light gray text (#f7f8f8), and the signature Linear…",
+	"tagline": {
+		"en": "Near-black product canvas with iris violet accents",
+		"zh": "近黑产品画布 + 鸢尾紫强调"
+	},
+	"license": "MIT",
+	"origin": {
+		"type": "curated",
+		"upstream": "https://github.com/ricocc/brands-design-md.git",
+		"note": "from brands-design-md (Linear)."
+	},
+	"assets": {
+		"spec": "DESIGN.md",
+		"theme": "theme.css",
+		"demo": "demo.html"
+	},
+	"collectedAt": "2026-08-22"
+}

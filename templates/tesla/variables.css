@@ -1,0 +1,35 @@
+/* Tesla design tokens */
+:root {
+  --color-color-1: #3E6AE1;
+  --color-pure-white: #FFFFFF;
+  --color-light-ash: #F4F4F4;
+  --color-carbon-dark: #171A20;
+  --color-frosted-glass: rgba(255, 255, 255, 0.75);
+  --color-graphite: #393C41;
+  --color-pewter: #5C5E62;
+  --color-silver-fog: #8E8E8E;
+  --color-cloud-gray: #EEEEEE;
+  --color-pale-silver: #D0D1D2;
+  --color-color-11: rgba(255,255,255,0.75);
+  --color-color-12: rgba(128,128,128,0.65);
+  --color-color-13: rgba(0,0,0,0.05);
+  --font-primary: 'Most elements — sharp edges are the default', system-ui, sans-serif;
+  --font-family-2: Buttons (primary, secondary, nav items) — barely perceptible rounding;
+  --text-0px: 0px;
+  --leading-0px: 1.5;
+  --tracking-0px: 0;
+  --text-4px: 4px;
+  --leading-4px: 1.5;
+  --tracking-4px: 0;
+  --spacing-4: 4px;
+  --spacing-8: 8px;
+  --spacing-12: 12px;
+  --spacing-16: 16px;
+  --spacing-20: 20px;
+  --spacing-32: 32px;
+  --spacing-40: 40px;
+  --spacing-48: 48px;
+  --radius-sm: 4px;
+  --radius-md: 0px;
+  --radius-lg: 2px;
+}

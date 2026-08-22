@@ -1,0 +1,32 @@
+{
+	"schemaVersion": 1,
+	"kind": "design-system",
+	"slug": "webflow",
+	"name": "Webflow",
+	"version": "1.0.0",
+	"order": 760,
+	"category": "creative",
+	"vibe": "light",
+	"tags": [
+		"light-ui",
+		"minimal",
+		"design-system"
+	],
+	"blurb": "An inspired interpretation of Webflow's design language — a visual web development platform whose surface contrasts a deep near-black `#080808` primary against a generous white…",
+	"tagline": {
+		"en": "Black visual-development canvas",
+		"zh": "黑色可视化建站画布"
+	},
+	"license": "MIT",
+	"origin": {
+		"type": "curated",
+		"upstream": "https://github.com/ricocc/brands-design-md.git",
+		"note": "from brands-design-md (Webflow-Inspired); unofficial inspired variant."
+	},
+	"assets": {
+		"spec": "DESIGN.md",
+		"theme": "theme.css",
+		"demo": "demo.html"
+	},
+	"collectedAt": "2026-08-22"
+}

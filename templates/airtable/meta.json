@@ -1,0 +1,32 @@
+{
+	"schemaVersion": 1,
+	"kind": "design-system",
+	"slug": "airtable",
+	"name": "Airtable",
+	"version": "1.0.0",
+	"order": 230,
+	"category": "productivity",
+	"vibe": "light",
+	"tags": [
+		"light-ui",
+		"editorial",
+		"design-system"
+	],
+	"blurb": "A sober, editorial workflow-software interface anchored on white canvas and dark-ink type, where brand voltage comes from full-bleed signature cards in coral, dark green, peach,…",
+	"tagline": {
+		"en": "Sober editorial workflow, white canvas with dark ink type",
+		"zh": "克制的编辑风工作台，白底深墨"
+	},
+	"license": "MIT",
+	"origin": {
+		"type": "curated",
+		"upstream": "https://github.com/ricocc/brands-design-md.git",
+		"note": "from brands-design-md (Airtable)."
+	},
+	"assets": {
+		"spec": "DESIGN.md",
+		"theme": "theme.css",
+		"demo": "demo.html"
+	},
+	"collectedAt": "2026-08-22"
+}

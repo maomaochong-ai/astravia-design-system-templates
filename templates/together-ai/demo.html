@@ -1,0 +1,612 @@
+﻿<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Together AI &mdash; Design System</title>
+    <style>
+      :root {
+        --black: #000;
+        --dark: #010120;
+        --soft: #313641;
+        --body: #959494;
+        --white: #fff;
+        --orange: #fc4c02;
+        --magenta: #ef2cc1;
+        --peri: #bdbbff;
+        --mint: #c8f6f9;
+        --rail: linear-gradient(
+          90deg,
+          var(--orange),
+          var(--magenta),
+          var(--peri)
+        );
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        margin: 0;
+        background: #fff;
+        color: #000;
+        font:
+          16px/1.3 "The Future",
+          Inter,
+          "Helvetica Neue",
+          Arial,
+          sans-serif;
+        letter-spacing: -0.01em;
+      }
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+      button {
+        font: inherit;
+      }
+      :focus-visible {
+        outline: 2px solid var(--magenta);
+        outline-offset: 3px;
+      }
+      .wrap {
+        width: min(100% - 40px, 1120px);
+        margin: auto;
+      }
+      .nav {
+        position: sticky;
+        top: 0;
+        z-index: 5;
+        height: 64px;
+        display: flex;
+        align-items: center;
+        background: var(--dark);
+        color: #fff;
+      }
+      .nav .wrap,
+      .nav-left,
+      .links {
+        display: flex;
+        align-items: center;
+      }
+      .nav .wrap {
+        justify-content: space-between;
+      }
+      .nav-left,
+      .links {
+        gap: 14px;
+      }
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-weight: 500;
+      }
+      .logo-favicon {
+        width: 30px;
+        height: 30px;
+        object-fit: contain;
+      }
+      .links,
+      .url,
+      .tag {
+        font-size: 14px;
+        color: #fff;
+      }
+      .links {
+        gap: 18px;
+      }
+      .links a:hover,
+      .url:hover {
+        color: var(--mint);
+      }
+      .hero {
+        padding: 88px 0;
+        background: var(--dark);
+        color: #fff;
+      }
+      .hero h1,
+      h2,
+      h3 {
+        font-weight: 500;
+      }
+      .hero h1 {
+        max-width: 780px;
+        font-size: clamp(44px, 7vw, 64px);
+        line-height: 1.1;
+        letter-spacing: -0.03em;
+      }
+      .hero p {
+        max-width: 590px;
+        margin-top: 20px;
+        color: #fff;
+        font-size: 18px;
+        line-height: 1.3;
+      }
+      .rail {
+        height: 8px;
+        margin-top: 44px;
+        background: var(--rail);
+      }
+      .buttons {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 32px;
+      }
+      .btn {
+        padding: 10px 24px;
+        border: 0;
+        border-radius: 4px;
+        background: #000;
+        color: #fff;
+        font:
+          500 16px/1 "PP Neue Montreal Mono",
+          ui-monospace,
+          monospace;
+        cursor: pointer;
+      }
+      .btn.mint {
+        background: var(--mint);
+        color: #000;
+      }
+      .site {
+        padding-top: 80px;
+      }
+      section {
+        padding: 80px 0;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+        scroll-margin-top: 64px;
+      }
+      .head {
+        max-width: 670px;
+        margin-bottom: 32px;
+      }
+      h2 {
+        font-size: 40px;
+        line-height: 1.2;
+        letter-spacing: -0.02em;
+      }
+      .head p {
+        margin-top: 12px;
+        color: var(--body);
+      }
+      .swatches {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 8px;
+      }
+      .swatch {
+        min-height: 128px;
+        padding: 16px;
+        display: flex;
+        flex-direction: column;
+        justify-content: end;
+        border: 1px solid rgba(0, 0, 0, 0.08);
+        border-radius: 4px;
+      }
+      .swatch code,
+      .spec {
+        margin-top: 4px;
+        font:
+          10px/1.4 ui-monospace,
+          monospace;
+        letter-spacing: 0.05px;
+        opacity: 0.75;
+      }
+      .type {
+        border-top: 1px solid rgba(0, 0, 0, 0.08);
+      }
+      .row {
+        display: grid;
+        grid-template-columns: 110px 1fr 150px;
+        gap: 16px;
+        align-items: baseline;
+        padding: 18px 0;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+      }
+      .role,
+      .spec {
+        color: var(--body);
+      }
+      .sample {
+        font-weight: 500;
+        line-height: 1.15;
+      }
+      .metrics {
+        display: grid;
+        grid-template-columns: 1.4fr 1fr;
+        gap: 48px;
+        align-items: end;
+      }
+      .spacing {
+        height: 160px;
+        display: flex;
+        align-items: end;
+        gap: 8px;
+      }
+      .space {
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        justify-content: end;
+        gap: 6px;
+        text-align: center;
+        font-size: 11px;
+        color: var(--body);
+      }
+      .bar {
+        width: 100%;
+        background: #000;
+      }
+      .radii {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+      }
+      .radius {
+        min-height: 78px;
+        padding: 12px;
+        display: flex;
+        align-items: end;
+        border: 1px solid rgba(0, 0, 0, 0.08);
+        font-size: 14px;
+        color: var(--body);
+      }
+      .dark-card {
+        padding: 24px;
+        border-radius: 4px;
+        background: var(--dark);
+        color: #fff;
+      }
+      .code {
+        margin-top: 16px;
+        padding: 16px;
+        border-radius: 4px;
+        background: var(--soft);
+        font:
+          10px/1.6 ui-monospace,
+          monospace;
+      }
+      .components,
+      .guides {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+      }
+      .title {
+        font-size: 22px;
+      }
+      .note {
+        margin-top: 12px;
+        color: var(--body);
+        font-size: 14px;
+      }
+      .feature {
+        padding: 24px;
+        border: 1px solid rgba(0, 0, 0, 0.08);
+        border-radius: 4px;
+      }
+      .feature p,
+      .guides ul {
+        color: var(--body);
+      }
+      .guides ul {
+        margin: 12px 0 0;
+        padding-left: 20px;
+      }
+      .guides li + li {
+        margin-top: 8px;
+      }
+      footer {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+        padding: 32px 0 64px;
+        color: var(--body);
+        font-size: 14px;
+      }
+      .downloads {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+      .downloads a:hover {
+        color: var(--magenta);
+      }
+      @media (max-width: 760px) {
+        .wrap {
+          width: min(100% - 28px, 1120px);
+        }
+        .links,
+        .tag {
+          display: none;
+        }
+        .hero,
+        section,
+        .site {
+          padding-top: 56px;
+          padding-bottom: 56px;
+        }
+        .swatches {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .row {
+          grid-template-columns: 82px 1fr;
+        }
+        .row .spec {
+          grid-column: 2;
+          margin-top: -12px;
+        }
+        .metrics,
+        .components,
+        .guides {
+          grid-template-columns: 1fr;
+          gap: 32px;
+        }
+        footer {
+          flex-direction: column;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="nav">
+      <div class="wrap">
+        <div class="nav-left">
+          <a class="brand" href="#top"
+            >Together AI</a
+          ><span class="tag">Design system</span>
+        </div>
+        <div class="links">
+          <a href="#colors">Colors</a><a href="#type">Type</a
+          ><a href="#shape">Spacing</a><a href="#components">Components</a>
+        </div>
+        <a
+          class="url"
+          href="#"
+          target="_blank"
+          rel="noopener noreferrer"
+          >Site &nearr;</a
+        >
+      </div>
+    </nav>
+    <main id="top">
+      <header class="hero">
+        <div class="wrap">
+          <h1>Infrastructure for the era of open models.</h1>
+          <p>
+            Near-black technical surfaces meet a single
+            orange&ndash;magenta&ndash;periwinkle brand gesture.
+          </p>
+          <div class="buttons">
+            <button class="btn">START BUILDING</button
+            ><button class="btn mint">VIEW MODELS</button>
+          </div>
+          <div class="rail"></div>
+        </div>
+      </header>
+      <div class="wrap site">
+        <section id="colors">
+          <div class="head">
+            <h2>Colors</h2>
+            <p>
+              The spectrum remains one continuous gesture; the working interface
+              is otherwise black, white and restrained gray.
+            </p>
+          </div>
+          <div class="swatches">
+            <div class="swatch" style="background: #010120; color: #fff">
+              <b>Canvas dark</b><code>#010120</code>
+            </div>
+            <div class="swatch" style="background: #313641; color: #fff">
+              <b>Dark soft</b><code>#313641</code>
+            </div>
+            <div class="swatch" style="background: #fc4c02">
+              <b>Orange</b><code>#fc4c02</code>
+            </div>
+            <div class="swatch" style="background: #ef2cc1">
+              <b>Magenta</b><code>#ef2cc1</code>
+            </div>
+            <div class="swatch" style="background: #bdbbff">
+              <b>Periwinkle</b><code>#bdbbff</code>
+            </div>
+            <div class="swatch" style="background: #c8f6f9">
+              <b>Mint</b><code>#c8f6f9</code>
+            </div>
+            <div class="swatch" style="background: #fff">
+              <b>Canvas</b><code>#ffffff</code>
+            </div>
+            <div class="swatch" style="background: #000; color: #fff">
+              <b>Ink</b><code>#000000</code>
+            </div>
+          </div>
+        </section>
+        <section id="type">
+          <div class="head">
+            <h2>Two precise voices.</h2>
+            <p>
+              The Future sets display scale; PP Neue Montreal Mono labels
+              controls and technical metadata.
+            </p>
+          </div>
+          <div class="type">
+            <div class="row">
+              <span class="role">Display XXL</span
+              ><span class="sample" style="font-size: clamp(34px, 5vw, 64px)"
+                >A model-first future.</span
+              ><span class="spec">64 / 70.4 / 500</span>
+            </div>
+            <div class="row">
+              <span class="role">Display XL</span
+              ><span class="sample" style="font-size: 40px"
+                >Research at speed.</span
+              ><span class="spec">40 / 48 / 500</span>
+            </div>
+            <div class="row">
+              <span class="role">Body</span
+              ><span style="font-size: 16px"
+                >Clear infrastructure copy remains quietly functional.</span
+              ><span class="spec">16 / 20.8 / 400</span>
+            </div>
+            <div class="row">
+              <span class="role">Mono eyebrow</span
+              ><span
+                style="
+                  font:
+                    11px/1 ui-monospace,
+                    monospace;
+                  letter-spacing: 0.55px;
+                "
+                >SYSTEM / MODEL / ENDPOINT</span
+              ><span class="spec">11 / 11 / 500</span>
+            </div>
+          </div>
+        </section>
+        <section id="shape">
+          <div class="head">
+            <h2>Spacing &amp; shape</h2>
+            <p>
+              A comfortable 80px section rhythm with crisp 4px control geometry.
+            </p>
+          </div>
+          <div class="metrics">
+            <div class="spacing">
+              <div class="space">
+                <div class="bar" style="height: 2px"></div>
+                <span>2</span>
+              </div>
+              <div class="space">
+                <div class="bar" style="height: 8px"></div>
+                <span>8</span>
+              </div>
+              <div class="space">
+                <div class="bar" style="height: 16px"></div>
+                <span>16</span>
+              </div>
+              <div class="space">
+                <div class="bar" style="height: 32px"></div>
+                <span>32</span>
+              </div>
+              <div class="space">
+                <div class="bar" style="height: 48px"></div>
+                <span>48</span>
+              </div>
+              <div class="space">
+                <div class="bar" style="height: 80px"></div>
+                <span>80</span>
+              </div>
+            </div>
+            <div class="radii">
+              <div class="radius" style="border-radius: 0">None<br />0px</div>
+              <div class="radius" style="border-radius: 4px">
+                Control<br />4px
+              </div>
+              <div class="radius" style="border-radius: 8px">
+                Panel<br />8px
+              </div>
+              <div class="radius" style="border-radius: 9999px">
+                Icon<br />full
+              </div>
+            </div>
+          </div>
+        </section>
+        <section>
+          <div class="head">
+            <h2>Dark infrastructure surface.</h2>
+            <p>
+              Dark bands contain model, endpoint and research material; the
+              white canvas preserves the reading layer.
+            </p>
+          </div>
+          <div class="dark-card">
+            <div
+              style="
+                font:
+                  11px ui-monospace,
+                  monospace;
+                letter-spacing: 0.55px;
+                color: #c8f6f9;
+              "
+            >
+              INFERENCE / CONFIG
+            </div>
+            <div class="code">
+              model: deepseek-r1<br />endpoint: /v1/chat/completions<br />throughput:
+              optimized
+            </div>
+          </div>
+        </section>
+        <section id="components">
+          <div class="head">
+            <h2>Components</h2>
+            <p>
+              Compact, square-edged controls keep technical hierarchy legible.
+            </p>
+          </div>
+          <div class="components">
+            <div>
+              <h3 class="title">Actions</h3>
+              <div class="buttons" style="margin-top: 16px">
+                <button class="btn">RUN INFERENCE</button
+                ><button class="btn mint">EXPLORE</button>
+              </div>
+              <p class="note">
+                Mono-cap button labels, black primary action, mint secondary
+                action, 4px radius.
+              </p>
+            </div>
+            <div class="feature">
+              <h3 class="title">Research card</h3>
+              <p>
+                White canvas, 4px radius and hairline border; use dark cards
+                only where the content itself becomes the technical surface.
+              </p>
+            </div>
+          </div>
+        </section>
+        <section id="guidelines">
+          <div class="head"><h2>Hold the spectrum together.</h2></div>
+          <div class="guides">
+            <div>
+              <h3>Do</h3>
+              <ul>
+                <li>Use the three-color rail as one brand gesture.</li>
+                <li>
+                  Alternate dark infrastructure bands with white content bands.
+                </li>
+                <li>Pair display sans with mono metadata.</li>
+                <li>Keep controls compact and square-edged.</li>
+              </ul>
+            </div>
+            <div>
+              <h3>Avoid</h3>
+              <ul>
+                <li>Splitting spectrum colors into unrelated accents.</li>
+                <li>Heavy rounded consumer-app cards.</li>
+                <li>Gray text on dark hero copy.</li>
+                <li>Decoration that hides technical hierarchy.</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+        <footer>
+          <span>Together AI design system</span>
+          <div class="downloads">
+            <a href="#" download>DESIGN.md</a
+            ><a href="#" download>tokens.json</a
+            ><a href="#" download>variables.css</a
+            ><a href="#" download>theme.css</a>
+          </div>
+        </footer>
+      </div>
+    </main>
+  </body>
+</html>

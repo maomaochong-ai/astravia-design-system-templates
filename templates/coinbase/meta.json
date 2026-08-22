@@ -1,0 +1,31 @@
+{
+	"schemaVersion": 1,
+	"kind": "design-system",
+	"slug": "coinbase",
+	"name": "Coinbase",
+	"version": "1.1.0",
+	"order": 180,
+	"category": "fintech",
+	"vibe": "light",
+	"tags": [
+		"fintech",
+		"light"
+	],
+	"blurb": "Bank-grade crypto light; one decisive blue, pill CTAs, tabular numbers front and center.",
+	"tagline": {
+		"en": "One decisive blue, numbers first",
+		"zh": "一蓝到底，数字优先"
+	},
+	"license": "MIT",
+	"origin": {
+		"type": "curated",
+		"upstream": "https://github.com/VoltAgent/awesome-design-md",
+		"note": "Vetta-adapted from awesome-design-md (MIT)."
+	},
+	"assets": {
+		"spec": "DESIGN.md",
+		"theme": "theme.css",
+		"demo": "demo.html"
+	},
+	"collectedAt": "2026-08-11"
+}

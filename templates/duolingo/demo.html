@@ -1,0 +1,866 @@
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Duolingo — Design System</title>
+
+
+
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+
+:root{
+  --white:#FFFFFF;
+  --snow:#F7F7F7;
+  --eel:#3C3C3C;
+  --eel-light:#4B4B4B;
+  --slug:#777777;
+  --swan:#E5E5E5;
+  --green:#58CC02;
+  --green-hover:#4CAF00;
+  --green-dark:#46A302;
+  --bee:#FFC800;
+  --fox:#FF9600;
+  --cardinal:#FF4B4B;
+  --macaw:#1CB0F6;
+  --regalia:#CE82FF;
+  --basil:#1899D6;
+
+  --r-sm:8px;--r-md:12px;--r-lg:16px;--r-xl:20px;--r-2xl:24px;--r-pill:9999px;
+
+  --shadow-sm:0 1px 2px rgba(0,0,0,.05);
+  --shadow-md:0 4px 12px rgba(0,0,0,.08);
+  --shadow-lg:0 8px 24px rgba(0,0,0,.1);
+  --shadow-button:0 4px 0 var(--green-dark);
+}
+
+::selection{background:rgba(88,204,2,.2);color:var(--eel)}
+html{scroll-behavior:smooth}
+
+body{
+  font-family:'Nunito',system-ui,-apple-system,sans-serif;
+  background:var(--white);color:var(--eel);
+  font-size:16px;line-height:1.5;letter-spacing:-.01em;
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
+}
+
+.page{max-width:960px;margin:0 auto;padding:0 32px 120px}
+
+/* ── NAV ── */
+.nav{
+  display:flex;justify-content:space-between;align-items:center;
+  height:64px;padding:0 16px;position:sticky;top:0;z-index:100;
+  background:rgba(255,255,255,.95);backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);
+  box-shadow:0 1px 0 rgba(0,0,0,.08);
+  margin:0 -32px;
+}
+.nav-left{display:flex;align-items:center;gap:12px}
+.nav-wordmark{
+  font-size:18px;font-weight:800;letter-spacing:-.35px;
+  color:var(--green);text-decoration:none;
+}
+.nav-tag{
+  font-size:11px;font-weight:700;color:var(--macaw);
+  background:rgba(28,176,246,.08);padding:3px 10px;border-radius:var(--r-pill);
+  border:1px solid rgba(28,176,246,.15);letter-spacing:.02px;
+}
+.nav-right{display:flex;align-items:center;gap:8px}
+.nav-link{
+  font-size:14px;font-weight:600;color:var(--slug);text-decoration:none;
+  padding:6px 12px;border-radius:var(--r-sm);transition:all .2s;
+}
+.nav-link:hover{color:var(--eel);background:var(--snow)}
+.nav-link--active{color:var(--green)}
+
+/* ── SECTIONS ── */
+.section{
+  padding:80px 0 0;
+  margin-top:64px;
+}
+.section:first-of-type{margin-top:48px}
+.section-header{margin-bottom:40px}
+.section-label{
+  font-size:11px;font-weight:700;letter-spacing:.08px;
+  text-transform:uppercase;color:var(--green);margin-bottom:8px;
+}
+.section-title{
+  font-size:32px;font-weight:800;letter-spacing:-.02em;line-height:1.17;
+  color:var(--eel);
+}
+.section-desc{
+  font-size:15px;line-height:1.6;color:var(--slug);
+  margin-top:12px;max-width:560px;
+}
+
+/* ── HERO ── */
+.hero{
+  padding:80px 0 48px;
+  margin:0 -32px;padding-left:32px;padding-right:32px;
+  position:relative;overflow:hidden;
+  background:linear-gradient(180deg,rgba(88,204,2,.04) 0%,transparent 100%);
+}
+.hero::before{
+  content:'';position:absolute;
+  width:400px;height:400px;
+  background:radial-gradient(circle,rgba(88,204,2,.1),transparent 70%);
+  border-radius:50%;filter:blur(80px);
+  right:-80px;top:-120px;pointer-events:none;
+}
+.hero-label{
+  font-size:11px;font-weight:700;letter-spacing:.1px;
+  text-transform:uppercase;color:var(--green);margin-bottom:16px;
+}
+.hero-title{
+  font-size:clamp(36px,6vw,48px);font-weight:800;line-height:1.1;
+  letter-spacing:-.02em;color:var(--eel);
+}
+.hero-title em{
+  font-style:normal;
+  background:linear-gradient(135deg,var(--green),var(--macaw));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.hero-subtitle{
+  font-size:17px;line-height:1.6;color:var(--slug);
+  margin-top:20px;max-width:480px;
+}
+.hero-tags{display:flex;gap:8px;margin-top:28px;flex-wrap:wrap}
+.hero-tag{
+  font-size:12px;font-weight:700;color:var(--slug);
+  background:var(--snow);padding:5px 12px;border-radius:var(--r-pill);
+  border:1px solid var(--swan);
+}
+.hero-actions{display:flex;gap:12px;margin-top:28px;flex-wrap:wrap}
+
+/* ── BUTTONS ── */
+.btn{
+  display:inline-flex;align-items:center;gap:6px;
+  font-family:inherit;font-size:16px;font-weight:700;line-height:1.5;
+  letter-spacing:-.01em;padding:13px 24px;border-radius:var(--r-pill);
+  cursor:pointer;text-decoration:none;white-space:nowrap;
+  transition:all .15s;border:none;
+}
+.btn:active{transform:translateY(2px)}
+.btn-primary{background:var(--green);color:var(--white);box-shadow:var(--shadow-button)}
+.btn-primary:hover{background:var(--green-hover)}
+.btn-primary:active{box-shadow:0 2px 0 var(--green-dark)}
+.btn-secondary{background:transparent;color:var(--green);border:2px solid var(--green);padding:11px 24px}
+.btn-secondary:hover{background:rgba(88,204,2,.08)}
+.btn-ghost{background:transparent;color:var(--macaw);padding:8px 12px;border:none}
+.btn-ghost:hover{text-decoration:underline}
+
+/* ── COLOR TOKENS ── */
+.color-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;
+}
+.color-token{
+  background:var(--white);border:1px solid var(--swan);
+  border-radius:var(--r-lg);overflow:hidden;transition:border-color .2s;
+  box-shadow:var(--shadow-sm);
+}
+.color-token:hover{border-color:var(--slug);box-shadow:var(--shadow-md)}
+.color-swatch{width:100%;height:80px}
+.color-info{padding:14px 16px}
+.color-name{font-size:13px;font-weight:700;color:var(--eel)}
+.color-hex{
+  font-size:12px;font-weight:600;color:var(--slug);margin-top:2px;
+  font-variant-numeric:tabular-nums;
+}
+.color-role{font-size:11px;color:var(--slug);margin-top:6px;line-height:1.4}
+
+/* ── GRADIENT TOKENS ── */
+.gradient-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
+.gradient-token{
+  border-radius:var(--r-lg);padding:24px;
+  min-height:120px;display:flex;flex-direction:column;justify-content:flex-end;
+  box-shadow:var(--shadow-sm);border:1px solid var(--swan);
+}
+.gradient-name{font-size:12px;font-weight:700;color:var(--eel);margin-bottom:4px}
+.gradient-desc{font-size:12px;color:var(--slug);line-height:1.4}
+
+/* ── TYPE SCALE ── */
+.type-table{
+  display:flex;flex-direction:column;border:1px solid var(--swan);
+  border-radius:var(--r-lg);overflow:hidden;
+  box-shadow:var(--shadow-sm);
+}
+.type-row{
+  display:grid;grid-template-columns:100px 1fr 240px;align-items:baseline;
+  padding:16px 24px;border-bottom:1px solid var(--swan);
+  background:var(--white);
+}
+.type-row:last-child{border-bottom:none}
+.type-row:hover{background:var(--snow)}
+.type-meta{
+  font-size:10px;font-weight:700;color:var(--green);
+  letter-spacing:.06px;text-transform:uppercase;
+}
+.type-sample{color:var(--eel);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.type-specs{
+  font-size:11px;color:var(--slug);text-align:right;
+  font-variant-numeric:tabular-nums;
+}
+
+/* ── SPACING ── */
+.spacing-bars{display:flex;align-items:flex-end;gap:20px;height:120px;flex-wrap:wrap}
+.spacing-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;min-width:40px}
+.spacing-bar{
+  width:100%;border-radius:4px;
+  background:var(--green);
+  opacity:.25;transition:opacity .3s;
+}
+.spacing-col:hover .spacing-bar{opacity:.6}
+.spacing-val{font-size:11px;font-weight:700;color:var(--eel)}
+.spacing-name{font-size:10px;font-weight:600;color:var(--slug)}
+
+/* ── SHAPES ── */
+.shapes-row{display:flex;flex-wrap:wrap;gap:24px;align-items:flex-end}
+.shape-item{display:flex;flex-direction:column;align-items:center;gap:8px}
+.shape-box{
+  width:72px;height:72px;background:var(--snow);
+  border:1.5px solid var(--swan);transition:all .3s cubic-bezier(.22,1,.36,1);
+}
+.shape-box:hover{border-color:var(--green);transform:scale(1.06)}
+.shape-label{font-size:11px;font-weight:600;color:var(--slug);white-space:nowrap}
+.shape-value{
+  font-size:10px;font-weight:600;color:var(--slug);
+  font-variant-numeric:tabular-nums;
+}
+
+/* ── SHADOWS ── */
+.shadow-row{display:flex;flex-wrap:wrap;gap:16px}
+.shadow-item{
+  width:140px;height:90px;display:flex;flex-direction:column;align-items:center;
+  justify-content:center;border-radius:var(--r-md);background:var(--white);
+  border:1px solid var(--swan);
+}
+.shadow-name{font-size:11px;font-weight:600;color:var(--slug);margin-bottom:4px}
+.shadow-val{font-size:10px;color:var(--slug);font-variant-numeric:tabular-nums;text-align:center;padding:0 8px}
+
+/* ── DEPTH ── */
+.depth-row{
+  display:flex;align-items:center;gap:20px;padding:20px 0;
+  border-bottom:1px solid var(--swan);
+}
+.depth-row:last-child{border-bottom:none}
+.depth-swatch{
+  width:56px;height:56px;border-radius:var(--r-md);flex-shrink:0;
+}
+.depth-info{flex:1}
+.depth-name{font-size:14px;font-weight:700;color:var(--eel)}
+.depth-desc{font-size:12px;color:var(--slug);margin-top:2px}
+.depth-value{
+  font-size:12px;font-weight:600;color:var(--slug);
+  font-variant-numeric:tabular-nums;
+}
+
+/* ── SURFACES ── */
+.surface-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px}
+.surface-item{
+  border-radius:var(--r-lg);padding:28px 20px;
+  text-align:center;border:1px solid var(--swan);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:6px;min-height:110px;transition:transform .3s;
+  box-shadow:var(--shadow-sm);
+}
+.surface-item:hover{transform:scale(1.02)}
+.surface-name{font-size:14px;font-weight:700}
+.surface-val{
+  font-size:11px;font-weight:600;color:var(--slug);
+  font-variant-numeric:tabular-nums;
+}
+
+/* ── COMPONENTS ── */
+.component-card{
+  background:var(--white);border:1px solid var(--swan);
+  border-radius:var(--r-lg);padding:32px;margin-bottom:20px;
+  transition:border-color .2s;box-shadow:var(--shadow-sm);
+}
+.component-card:hover{border-color:var(--slug);box-shadow:var(--shadow-md)}
+.component-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px}
+.component-name{font-size:15px;font-weight:700;color:var(--eel)}
+.component-role{font-size:12px;color:var(--slug);margin-top:4px}
+.component-class{
+  font-size:11px;font-weight:700;color:var(--green);
+  background:rgba(88,204,2,.08);padding:3px 10px;border-radius:var(--r-pill);
+  border:1px solid rgba(88,204,2,.15);
+  font-family:'Source Code Pro',monospace;
+}
+.component-preview{
+  display:flex;gap:16px;align-items:center;flex-wrap:wrap;
+  padding:24px;background:var(--snow);border-radius:var(--r-md);
+  border:1px solid var(--swan);
+}
+.component-desc{
+  font-size:12px;color:var(--slug);line-height:1.5;
+  margin-top:12px;max-width:480px;
+}
+
+/* ── FORM INPUT ── */
+.form-input{
+  background:var(--white);border:2px solid var(--swan);border-radius:var(--r-md);
+  padding:14px 16px;color:var(--eel);font-size:16px;font-family:inherit;
+  outline:none;width:100%;max-width:360px;transition:all .2s;
+}
+.form-input::placeholder{color:var(--slug)}
+.form-input:focus{border-color:var(--green);box-shadow:0 0 0 2px rgba(88,204,2,.2)}
+
+/* ── PROGRESS BAR ── */
+.progress-track{
+  width:100%;max-width:300px;height:8px;background:var(--swan);
+  border-radius:var(--r-pill);overflow:hidden;
+}
+.progress-fill{height:100%;background:var(--green);border-radius:var(--r-pill);transition:width .6s ease}
+
+/* ── DO/DON'T ── */
+.guide-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.guide-card{
+  border-radius:var(--r-lg);padding:28px;
+  border:1px solid var(--swan);box-shadow:var(--shadow-sm);
+}
+.guide-card--do{background:rgba(88,204,2,.04);border-color:rgba(88,204,2,.2)}
+.guide-card--dont{background:rgba(255,75,75,.04);border-color:rgba(255,75,75,.15)}
+.guide-label{font-size:11px;font-weight:700;letter-spacing:.06px;text-transform:uppercase;margin-bottom:16px}
+.guide-card--do .guide-label{color:var(--green)}
+.guide-card--dont .guide-label{color:var(--cardinal)}
+.guide-list{
+  list-style:none;display:flex;flex-direction:column;gap:10px;
+}
+.guide-list li{
+  font-size:13px;line-height:1.5;padding-left:20px;position:relative;
+  color:var(--eel);
+}
+.guide-card--do .guide-list li::before{
+  content:'✓';position:absolute;left:0;color:var(--green);font-weight:700;font-size:12px;
+}
+.guide-card--dont .guide-list li::before{
+  content:'✕';position:absolute;left:0;color:var(--cardinal);font-weight:700;font-size:12px;
+}
+
+/* ── FONT LIST ── */
+.font-table{
+  display:flex;flex-direction:column;border:1px solid var(--swan);
+  border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--shadow-sm);
+}
+.font-row{
+  padding:20px 24px;border-bottom:1px solid var(--swan);
+  display:flex;align-items:baseline;gap:16px;background:var(--white);
+}
+.font-row:last-child{border-bottom:none}
+.font-role-tag{
+  font-size:10px;font-weight:700;color:var(--green);letter-spacing:.06px;
+  text-transform:uppercase;flex:0 0 70px;
+}
+.font-name{font-size:16px;font-weight:700;color:var(--eel);letter-spacing:-.2px}
+.font-meta{font-size:11px;color:var(--slug)}
+
+/* ── FOOTER ── */
+.footer{
+  margin-top:96px;padding:32px 0;
+  border-top:1px solid var(--swan);
+  display:flex;justify-content:space-between;align-items:center;
+}
+.footer-left{font-size:14px;font-weight:600;color:var(--slug);opacity:.6}
+.footer-right{display:flex;gap:20px}
+.footer-link{
+  font-size:12px;font-weight:600;color:var(--slug);text-decoration:none;
+  transition:color .2s;
+}
+.footer-link:hover{color:var(--green)}
+
+/* ── RESPONSIVE ── */
+@media(max-width:768px){
+  .page{padding:0 20px 80px}
+  .hero{margin:0 -20px;padding-left:20px;padding-right:20px;padding-top:56px}
+  .nav{margin:0 -20px}
+  .section-title{font-size:24px}
+  .type-row{grid-template-columns:70px 1fr;gap:8px}
+  .type-specs{display:none}
+  .guide-grid{grid-template-columns:1fr}
+  .color-grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr))}
+  .hero-title{font-size:32px}
+}
+
+/* ── ENTRANCE ANIMATION ── */
+.section,.hero{opacity:1;transition:opacity .6s cubic-bezier(.22,1,.36,1),transform .6s cubic-bezier(.22,1,.36,1)}
+.section.visible,.hero.visible{opacity:1;transform:translateY(0)}
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="nav-left">
+      <a href="#" class="nav-wordmark">duolingo</a>
+      <span class="nav-tag">Design System</span>
+    </div>
+    <div class="nav-right">
+      <a href="#colors" class="nav-link ">Colors</a>
+      <a href="#typography" class="nav-link">Type</a>
+      <a href="#spacing" class="nav-link">Spacing</a>
+      <a href="#components" class="nav-link">Components</a>
+      <a class="nav-link nav-link--active"  href="#" target="_blank" rel="noopener noreferrer"> Site ↗</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-label">Design System</div>
+    <h1 class="hero-title">A cheerful classroom<br>wrapped in<br><em>playful geometry.</em></h1>
+    <p class="hero-subtitle">Clean white canvas punctuated by unmistakable lime green. Rounded typefaces, pill-shaped buttons, and gamification-driven accent spectrum make education feel like play.</p>
+    <div class="hero-tags">
+      <span class="hero-tag">15 color tokens</span>
+      <span class="hero-tag">8 type steps</span>
+      <span class="hero-tag">4px grid</span>
+      <span class="hero-tag">3 gradients</span>
+      <span class="hero-tag">5 shadows</span>
+    </div>
+    <div class="hero-actions">
+      <a href="#" class="btn btn-primary" download>Download Spec</a>
+      <a href="#" class="btn btn-secondary" download>theme.css</a>
+      <a href="#" class="btn btn-secondary" download>tokens.json</a>
+      <a href="#" class="btn btn-secondary" download>variables.css</a>
+    </div>
+  </div>
+
+  <!-- COLORS -->
+  <section class="section" id="colors">
+    <div class="section-header">
+      <div class="section-label">Foundation</div>
+      <h2 class="section-title">Color Tokens</h2>
+      <p class="section-desc">Warm neutrals with a vivid gamification accent spectrum. Green (#58CC02) is the brand's most recognizable signal — reserved for primary actions and progress.</p>
+    </div>
+    <div class="color-grid">
+      <div class="color-token">
+        <div class="color-swatch" style="background:#FFFFFF"></div>
+        <div class="color-info"><div class="color-name">White</div><div class="color-hex">#FFFFFF</div><div class="color-role">Primary background, card surfaces</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#F7F7F7"></div>
+        <div class="color-info"><div class="color-name">Snow</div><div class="color-hex">#F7F7F7</div><div class="color-role">Secondary background, section fills</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#3C3C3C"></div>
+        <div class="color-info"><div class="color-name">Eel</div><div class="color-hex">#3C3C3C</div><div class="color-role">Primary text, headings</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#777777"></div>
+        <div class="color-info"><div class="color-name">Slug</div><div class="color-hex">#777777</div><div class="color-role">Secondary text, placeholders</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#E5E5E5"></div>
+        <div class="color-info"><div class="color-name">Swan</div><div class="color-hex">#E5E5E5</div><div class="color-role">Borders, dividers, disabled</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#58CC02"></div>
+        <div class="color-info"><div class="color-name">Green</div><div class="color-hex">#58CC02</div><div class="color-role">Primary CTA, progress, success</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#4CAF00"></div>
+        <div class="color-info"><div class="color-name">Green Hover</div><div class="color-hex">#4CAF00</div><div class="color-role">Hover state for green elements</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#46A302"></div>
+        <div class="color-info"><div class="color-name">Green Dark</div><div class="color-hex">#46A302</div><div class="color-role">Pressed state, 3D shadow</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#FFC800"></div>
+        <div class="color-info"><div class="color-name">Bee</div><div class="color-hex">#FFC800</div><div class="color-role">Streaks, XP badges, warning</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#FF9600"></div>
+        <div class="color-info"><div class="color-name">Fox</div><div class="color-hex">#FF9600</div><div class="color-role">Streak fire, orange accent</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#FF4B4B"></div>
+        <div class="color-info"><div class="color-name">Cardinal</div><div class="color-hex">#FF4B4B</div><div class="color-role">Errors, hearts, destructive</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#1CB0F6"></div>
+        <div class="color-info"><div class="color-name">Macaw</div><div class="color-hex">#1CB0F6</div><div class="color-role">Info, links, blue accent</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#CE82FF"></div>
+        <div class="color-info"><div class="color-name">Regalia</div><div class="color-hex">#CE82FF</div><div class="color-role">Super badge, premium</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#1899D6"></div>
+        <div class="color-info"><div class="color-name">Basil</div><div class="color-hex">#1899D6</div><div class="color-role">Info background, blue dark</div></div>
+      </div>
+    </div>
+
+    <h3 style="font-size:16px;font-weight:700;color:var(--eel);margin:40px 0 20px">Gradients</h3>
+    <div class="gradient-grid">
+      <div class="gradient-token" style="background:linear-gradient(180deg,#58CC02 0%,#46A302 100%)">
+        <div class="gradient-name" style="color:#fff">green</div>
+        <div class="gradient-desc" style="color:rgba(255,255,255,.8)">Primary button gradient, progress fills</div>
+      </div>
+      <div class="gradient-token" style="background:linear-gradient(135deg,#CE82FF 0%,#1CB0F6 100%)">
+        <div class="gradient-name" style="color:#fff">super</div>
+        <div class="gradient-desc" style="color:rgba(255,255,255,.8)">Super/Premium badges and accents</div>
+      </div>
+      <div class="gradient-token" style="background:linear-gradient(135deg,#FF9600 0%,#FFC800 100%)">
+        <div class="gradient-name" style="color:#fff">warm</div>
+        <div class="gradient-desc" style="color:rgba(255,255,255,.8)">Streak fire, warm decorative backgrounds</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TYPOGRAPHY -->
+  <section class="section" id="typography">
+    <div class="section-header">
+      <div class="section-label">Typography</div>
+      <h2 class="section-title">Type Scale</h2>
+      <p class="section-desc">Nunito (Feather substitute) as primary typeface. Rounded letterforms with generous weights project friendly authority.</p>
+    </div>
+    <div class="type-table">
+      <div class="type-row">
+        <span class="type-meta">Display</span>
+        <span class="type-sample" style="font-size:28px;font-weight:800;line-height:1.17;letter-spacing:-.02em">Learn a language</span>
+        <span class="type-specs">32px / 1.17 / −0.02em</span>
+      </div>
+      <div class="type-row">
+        <span class="type-meta">Heading-lg</span>
+        <span class="type-sample" style="font-size:22px;font-weight:800;line-height:1.2;letter-spacing:-.02em">Start your journey</span>
+        <span class="type-specs">28px / 1.2 / −0.02em</span>
+      </div>
+      <div class="type-row">
+        <span class="type-meta">Heading</span>
+        <span class="type-sample" style="font-size:18px;font-weight:800;line-height:1.2;letter-spacing:-.02em">Section heading</span>
+        <span class="type-specs">24px / 1.2 / −0.02em</span>
+      </div>
+      <div class="type-row">
+        <span class="type-meta">Body-lg</span>
+        <span class="type-sample" style="font-size:18px;font-weight:400;line-height:1.4">Larger body text for descriptions</span>
+        <span class="type-specs">20px / 1.4 / —</span>
+      </div>
+      <div class="type-row">
+        <span class="type-meta">Body</span>
+        <span class="type-sample" style="font-size:16px;font-weight:400;line-height:1.5;letter-spacing:-.01em">Default body text for readable content</span>
+        <span class="type-specs">16px / 1.5 / −0.01em</span>
+      </div>
+      <div class="type-row">
+        <span class="type-meta">Body-sm</span>
+        <span class="type-sample" style="font-size:14px;font-weight:400;line-height:1.5;letter-spacing:-.01em">Dense data, comparison rows</span>
+        <span class="type-specs">15px / 1.5 / −0.01em</span>
+      </div>
+      <div class="type-row">
+        <span class="type-meta">Body-xs</span>
+        <span class="type-sample" style="font-size:13px;font-weight:400;line-height:1.5;letter-spacing:-.01em">Compact body, lesson text</span>
+        <span class="type-specs">14px / 1.5 / −0.01em</span>
+      </div>
+      <div class="type-row">
+        <span class="type-meta">Caption</span>
+        <span class="type-sample" style="font-size:12px;font-weight:400;line-height:1.5">Meta info · Labels · Badges</span>
+        <span class="type-specs">12px / 1.5 / —</span>
+      </div>
+    </div>
+
+    <h3 style="font-size:14px;font-weight:700;color:var(--eel);margin:40px 0 20px">Fonts</h3>
+    <div class="font-table">
+      <div class="font-row">
+        <span class="font-role-tag">Display</span>
+        <span class="font-name">Feather Bold</span>
+        <span class="font-meta">700–800 · 24–32px · Nunito substitute</span>
+      </div>
+      <div class="font-row">
+        <span class="font-role-tag">Body</span>
+        <span class="font-name">Feather</span>
+        <span class="font-meta">400–700 · 14–20px · Nunito substitute</span>
+      </div>
+      <div class="font-row">
+        <span class="font-role-tag">Mono</span>
+        <span class="font-name">Source Code Pro</span>
+        <span class="font-meta">400–500 · 14–16px · Code snippets</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- SPACING & SHAPES -->
+  <section class="section" id="spacing">
+    <div class="section-header">
+      <div class="section-label">Layout</div>
+      <h2 class="section-title">Spacing & Shapes</h2>
+      <p class="section-desc">4px base unit. Comfortable density with 11-step spacing scale. Full pill buttons and soft 16px cards.</p>
+    </div>
+
+    <h3 style="font-size:14px;font-weight:700;color:var(--eel);margin-bottom:20px">Spacing Scale (4px base)</h3>
+    <div class="spacing-bars">
+      <div class="spacing-col"><div class="spacing-bar" style="height:8px"></div><span class="spacing-val">4</span><span class="spacing-name">4px</span></div>
+      <div class="spacing-col"><div class="spacing-bar" style="height:14px"></div><span class="spacing-val">8</span><span class="spacing-name">8px</span></div>
+      <div class="spacing-col"><div class="spacing-bar" style="height:20px"></div><span class="spacing-val">12</span><span class="spacing-name">12px</span></div>
+      <div class="spacing-col"><div class="spacing-bar" style="height:28px"></div><span class="spacing-val">16</span><span class="spacing-name">16px</span></div>
+      <div class="spacing-col"><div class="spacing-bar" style="height:40px"></div><span class="spacing-val">24</span><span class="spacing-name">24px</span></div>
+      <div class="spacing-col"><div class="spacing-bar" style="height:56px"></div><span class="spacing-val">32</span><span class="spacing-name">32px</span></div>
+      <div class="spacing-col"><div class="spacing-bar" style="height:80px"></div><span class="spacing-val">48</span><span class="spacing-name">48px</span></div>
+      <div class="spacing-col"><div class="spacing-bar" style="height:100px"></div><span class="spacing-val">80</span><span class="spacing-name">80px</span></div>
+    </div>
+
+    <h3 style="font-size:14px;font-weight:700;color:var(--eel);margin:40px 0 20px">Border Radius</h3>
+    <div class="shapes-row">
+      <div class="shape-item">
+        <div class="shape-box" style="border-radius:8px"></div>
+        <span class="shape-label">sm</span>
+        <span class="shape-value">8px</span>
+      </div>
+      <div class="shape-item">
+        <div class="shape-box" style="border-radius:12px"></div>
+        <span class="shape-label">md / inputs</span>
+        <span class="shape-value">12px</span>
+      </div>
+      <div class="shape-item">
+        <div class="shape-box" style="border-radius:16px"></div>
+        <span class="shape-label">lg / cards</span>
+        <span class="shape-value">16px</span>
+      </div>
+      <div class="shape-item">
+        <div class="shape-box" style="border-radius:24px"></div>
+        <span class="shape-label">2xl</span>
+        <span class="shape-value">24px</span>
+      </div>
+      <div class="shape-item">
+        <div class="shape-box" style="border-radius:9999px"></div>
+        <span class="shape-label">pill</span>
+        <span class="shape-value">9999px</span>
+      </div>
+    </div>
+
+    <h3 style="font-size:14px;font-weight:700;color:var(--eel);margin:40px 0 20px">Shadows</h3>
+    <div class="shadow-row">
+      <div class="shadow-item" style="box-shadow:0 1px 2px rgba(0,0,0,.05)">
+        <span class="shadow-name">shadow-sm</span>
+        <span class="shadow-val">subtle card lift</span>
+      </div>
+      <div class="shadow-item" style="box-shadow:0 4px 12px rgba(0,0,0,.08)">
+        <span class="shadow-name">shadow-md</span>
+        <span class="shadow-val">card elevation</span>
+      </div>
+      <div class="shadow-item" style="box-shadow:0 8px 24px rgba(0,0,0,.1)">
+        <span class="shadow-name">shadow-lg</span>
+        <span class="shadow-val">modal overlay</span>
+      </div>
+      <div class="shadow-item" style="box-shadow:0 4px 0 #46A302">
+        <span class="shadow-name">shadow-button</span>
+        <span class="shadow-val">3D button depth</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- DEPTH & SURFACES -->
+  <section class="section" id="depth">
+    <div class="section-header">
+      <div class="section-label">Elevation</div>
+      <h2 class="section-title">Depth & Surfaces</h2>
+      <p class="section-desc">Light, clean surfaces with minimal elevation. Cards float on subtle shadows; sections alternate between White and Snow.</p>
+    </div>
+
+    <h3 style="font-size:14px;font-weight:700;color:var(--eel);margin-bottom:16px">Depth Levels</h3>
+    <div style="margin-bottom:40px">
+      <div class="depth-row">
+        <div class="depth-swatch" style="background:#FFFFFF;border:1px solid var(--swan)"></div>
+        <div class="depth-info"><div class="depth-name">White</div><div class="depth-desc">Primary page background — the clean canvas</div></div>
+        <div class="depth-value">Level 0</div>
+      </div>
+      <div class="depth-row">
+        <div class="depth-swatch" style="background:#F7F7F7;border:1px solid var(--swan)"></div>
+        <div class="depth-info"><div class="depth-name">Snow</div><div class="depth-desc">Secondary sections, alternating fills</div></div>
+        <div class="depth-value">Level 1</div>
+      </div>
+      <div class="depth-row">
+        <div class="depth-swatch" style="background:#FFFFFF;border:1px solid var(--swan);box-shadow:0 4px 12px rgba(0,0,0,.08)"></div>
+        <div class="depth-info"><div class="depth-name">Elevated Card</div><div class="depth-desc">Cards with shadow-md for floating effect</div></div>
+        <div class="depth-value">Level 2</div>
+      </div>
+      <div class="depth-row">
+        <div class="depth-swatch" style="background:#FFFFFF;border:1px solid var(--swan);box-shadow:0 8px 24px rgba(0,0,0,.1)"></div>
+        <div class="depth-info"><div class="depth-name">Modal/Overlay</div><div class="depth-desc">Modals, dialogs, popovers</div></div>
+        <div class="depth-value">Level 3</div>
+      </div>
+    </div>
+
+    <h3 style="font-size:14px;font-weight:700;color:var(--eel);margin-bottom:16px">Surface System</h3>
+    <div class="surface-grid">
+      <div class="surface-item" style="background:#FFFFFF">
+        <span class="surface-name" style="color:var(--eel)">White</span>
+        <span class="surface-val">#FFFFFF</span>
+      </div>
+      <div class="surface-item" style="background:#F7F7F7">
+        <span class="surface-name" style="color:var(--eel)">Snow</span>
+        <span class="surface-val">#F7F7F7</span>
+      </div>
+      <div class="surface-item" style="background:#E5E5E5">
+        <span class="surface-name" style="color:var(--eel)">Swan</span>
+        <span class="surface-val">#E5E5E5</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPONENTS -->
+  <section class="section" id="components">
+    <div class="section-header">
+      <div class="section-label">Components</div>
+      <h2 class="section-title">Component Library</h2>
+      <p class="section-desc">All buttons use pill radius. The signature 3D shadow (`0 4px 0 #46A302`) simulates physical depth on primary green buttons.</p>
+    </div>
+
+    <div class="component-card">
+      <div class="component-header">
+        <div><div class="component-name">Primary Action Button</div><div class="component-role">Main CTA — 3D depth effect</div></div>
+        <span class="component-class">.btn-primary</span>
+      </div>
+      <div class="component-preview">
+        <button class="btn btn-primary">Start learning</button>
+        <button class="btn btn-primary" style="background:var(--green-hover);box-shadow:0 2px 0 var(--green-dark)">Hover state</button>
+      </div>
+      <div class="component-desc">Green (#58CC02) gradient, White text, 9999px pill, 13px/24px padding, 3D shadow effect.</div>
+    </div>
+
+    <div class="component-card">
+      <div class="component-header">
+        <div><div class="component-name">Secondary Action Button</div><div class="component-role">Outlined — lower emphasis</div></div>
+        <span class="component-class">.btn-secondary</span>
+      </div>
+      <div class="component-preview">
+        <button class="btn btn-secondary">I already have an account</button>
+        <button class="btn btn-secondary" style="background:rgba(88,204,2,.08)">Hover state</button>
+      </div>
+      <div class="component-desc">Transparent background, Green text, 2px Green border, 9999px pill.</div>
+    </div>
+
+    <div class="component-card">
+      <div class="component-header">
+        <div><div class="component-name">Ghost / Text Button</div><div class="component-role">Text-only — minimal presence</div></div>
+        <span class="component-class">.btn-ghost</span>
+      </div>
+      <div class="component-preview">
+        <button class="btn btn-ghost">Forgot password?</button>
+        <button class="btn btn-ghost" style="text-decoration:underline">Hover state</button>
+      </div>
+      <div class="component-desc">Macaw (#1CB0F6) text, transparent, hover adds underline. For links and tertiary actions.</div>
+    </div>
+
+    <div class="component-card">
+      <div class="component-header">
+        <div><div class="component-name">Badge</div><div class="component-role">Gamification indicator</div></div>
+        <span class="component-class">.badge</span>
+      </div>
+      <div class="component-preview">
+        <span style="background:var(--green);color:#fff;padding:4px 12px;border-radius:var(--r-pill);font-size:12px;font-weight:700">+15 XP</span>
+        <span style="background:var(--bee);color:#fff;padding:4px 12px;border-radius:var(--r-pill);font-size:12px;font-weight:700">🔥 7 days</span>
+        <span style="background:var(--cardinal);color:#fff;padding:4px 12px;border-radius:var(--r-pill);font-size:12px;font-weight:700">❤️ 5</span>
+        <span style="background:linear-gradient(135deg,#CE82FF,#1CB0F6);color:#fff;padding:4px 12px;border-radius:var(--r-pill);font-size:12px;font-weight:700">Super</span>
+      </div>
+      <div class="component-desc">Color-coded pill badges. Green=XP, Bee=streak, Cardinal=hearts, Super gradient=premium.</div>
+    </div>
+
+    <div class="component-card">
+      <div class="component-header">
+        <div><div class="component-name">Form Input Field</div><div class="component-role">User text input</div></div>
+        <span class="component-class">input</span>
+      </div>
+      <div class="component-preview">
+        <div style="display:flex;flex-direction:column;gap:12px;flex:1;max-width:360px">
+          <input type="text" class="form-input" placeholder="Email or username">
+          <input type="text" class="form-input" value="Focused state" style="border-color:var(--green);box-shadow:0 0 0 2px rgba(88,204,2,.2)">
+        </div>
+      </div>
+      <div class="component-desc">White background, 2px Swan border, 12px radius, 14px/16px padding. Focus uses Green border + green glow ring.</div>
+    </div>
+
+    <div class="component-card">
+      <div class="component-header">
+        <div><div class="component-name">Progress Bar</div><div class="component-role">Learning progress indicator</div></div>
+        <span class="component-class">.progress</span>
+      </div>
+      <div class="component-preview" style="flex-direction:column;align-items:flex-start;gap:16px">
+        <div style="display:flex;align-items:center;gap:12px;width:100%">
+          <span style="font-size:12px;font-weight:700;color:var(--slug);min-width:32px">25%</span>
+          <div class="progress-track"><div class="progress-fill" style="width:25%"></div></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;width:100%">
+          <span style="font-size:12px;font-weight:700;color:var(--slug);min-width:32px">60%</span>
+          <div class="progress-track"><div class="progress-fill" style="width:60%"></div></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;width:100%">
+          <span style="font-size:12px;font-weight:700;color:var(--slug);min-width:32px">90%</span>
+          <div class="progress-track"><div class="progress-fill" style="width:90%"></div></div>
+        </div>
+      </div>
+      <div class="component-desc">Swan track, Green fill, 8px height, pill radius. Animated fill transition.</div>
+    </div>
+
+    <div class="component-card">
+      <div class="component-header">
+        <div><div class="component-name">Card (Lesson)</div><div class="component-role">Interactive lesson tile</div></div>
+        <span class="component-class">.card</span>
+      </div>
+      <div class="component-preview">
+        <div style="background:#fff;border-radius:var(--r-lg);padding:24px;box-shadow:var(--shadow-md);max-width:280px;border:2px solid transparent;transition:border-color .2s">
+          <div style="width:48px;height:48px;border-radius:var(--r-2xl);background:var(--green);display:flex;align-items:center;justify-content:center;margin-bottom:12px">
+            <span style="font-size:24px">🦉</span>
+          </div>
+          <div style="font-size:16px;font-weight:700;color:var(--eel);margin-bottom:4px">Basics 1</div>
+          <div style="font-size:13px;color:var(--slug);margin-bottom:12px">Learn basic greetings</div>
+          <div class="progress-track" style="width:100%"><div class="progress-fill" style="width:75%"></div></div>
+        </div>
+      </div>
+      <div class="component-desc">White background, 16px radius, shadow-md, 24px padding. Contains skill icon, title, description, progress bar.</div>
+    </div>
+  </section>
+
+  <!-- DO'S & DON'TS -->
+  <section class="section" id="guidelines">
+    <div class="section-header">
+      <div class="section-label">Guidelines</div>
+      <h2 class="section-title">Do's & Don'ts</h2>
+    </div>
+    <div class="guide-grid">
+      <div class="guide-card guide-card--do">
+        <div class="guide-label">Do — Embrace</div>
+        <ul class="guide-list">
+          <li>Green (#58CC02) exclusively for primary CTAs and progress</li>
+          <li>9999px pill radius on all buttons and badges</li>
+          <li>3D button shadow (`0 4px 0 #46A302`) on green buttons</li>
+          <li>Warm accents (Bee, Fox, Cardinal) for gamification only</li>
+          <li>Snow (#F7F7F7) for section alternation on White canvas</li>
+          <li>Feather Bold at 24–32px with tight line-height (1.17–1.2)</li>
+          <li>16px element gaps and 48px section gaps for friendly density</li>
+        </ul>
+      </div>
+      <div class="guide-card guide-card--dont">
+        <div class="guide-label">Don't — Avoid</div>
+        <ul class="guide-list">
+          <li>Green (#58CC02) for text — reserved for interactive elements</li>
+          <li>Flattening the 3D button shadow — it's a core brand interaction</li>
+          <li>Sharp corners (0px radius) — even cards use 16px minimum</li>
+          <li>Green + Cardinal in the same context — success vs. error conflict</li>
+          <li>Thin font weights (200, 300) — brand voice requires 400+</li>
+          <li>Dark surfaces (#1a1a1a) — the brand is fundamentally light</li>
+          <li>Macaw (#1CB0F6) for primary actions — info/link only</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-left">Duolingo Design System</div>
+    <div class="footer-right">
+      <a href="#colors" class="footer-link">Colors</a>
+      <a href="#typography" class="footer-link">Typography</a>
+      <a href="#spacing" class="footer-link">Spacing</a>
+      <a href="#components" class="footer-link">Components</a>
+      <a href="#" class="footer-link" download>Download Spec</a>
+      <a class="footer-link"  href="#" target="_blank" rel="noopener noreferrer"> Site ↗</a>
+
+    </div>
+  </footer>
+
+</div>
+
+
+
+</body>
+</html>

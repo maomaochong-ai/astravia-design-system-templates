@@ -1,0 +1,39 @@
+/* Spotify design tokens */
+:root {
+  --color-color-1: #121212;
+  --color-color-2: #181818;
+  --color-color-3: #1f1f1f;
+  --color-color-4: #1ed760;
+  --color-white: #ffffff;
+  --color-silver: #b3b3b3;
+  --color-near-white: #cbcbcb;
+  --color-light: #fdfdfd;
+  --color-negative-red: #f3727f;
+  --color-warning-orange: #ffa42b;
+  --color-announcement-blue: #539df5;
+  --color-dark-card: #252525;
+  --color-mid-card: #272727;
+  --color-border-gray: #4d4d4d;
+  --color-light-border: #7c7c7c;
+  --color-light-surface: #eeeeee;
+  --color-spotify-green-border: #1db954;
+  --color-color-18: #000000;
+  --font-primary: 'SpotifyMixUI', system-ui, sans-serif;
+  --text-button: 0.14px;
+  --leading-button: 1.5;
+  --tracking-button: 0;
+  --spacing-4: 4px;
+  --spacing-8: 8px;
+  --spacing-12: 12px;
+  --spacing-16: 16px;
+  --spacing-20: 20px;
+  --spacing-24: 24px;
+  --spacing-48: 48px;
+  --spacing-96: 96px;
+  --radius-sm: 0px;
+  --radius-md: 9px;
+  --radius-lg: 8px;
+  --radius-xl: 4px;
+  --radius-pill: 2px;
+  --radius-r6: 1px;
+}

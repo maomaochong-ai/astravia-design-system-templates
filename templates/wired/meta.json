@@ -1,0 +1,33 @@
+{
+	"schemaVersion": 1,
+	"kind": "design-system",
+	"slug": "wired",
+	"name": "Wired",
+	"version": "1.0.0",
+	"order": 770,
+	"category": "media",
+	"vibe": "light",
+	"tags": [
+		"light-ui",
+		"editorial",
+		"minimal",
+		"design-system"
+	],
+	"blurb": "An inspired interpretation of Wired's design language — a flagship technology-magazine brand whose surface is a strict editorial duet of stark black wordmark on white canvas, an…",
+	"tagline": {
+		"en": "Flagship tech magazine, pure black surface",
+		"zh": "旗舰科技杂志，纯黑表面"
+	},
+	"license": "MIT",
+	"origin": {
+		"type": "curated",
+		"upstream": "https://github.com/ricocc/brands-design-md.git",
+		"note": "from brands-design-md (Wired-Inspired); unofficial inspired variant."
+	},
+	"assets": {
+		"spec": "DESIGN.md",
+		"theme": "theme.css",
+		"demo": "demo.html"
+	},
+	"collectedAt": "2026-08-22"
+}

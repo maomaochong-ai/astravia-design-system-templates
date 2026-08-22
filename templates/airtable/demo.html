@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Airtable — Design System</title>
+
+
+
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+
+:root{
+  --pure-white:#ffffff;
+  --cloud-gray:#f9fafb;
+  --whisper-gray:#f3f4f6;
+  --border-light:#e5e7eb;
+  --border-medium:#d1d5db;
+  --ink-black:#1d1f25;
+  --slate-gray:#4b5563;
+  --stone-gray:#6b7280;
+  --ash-gray:#9ca3af;
+  --sky-blue:#18bfff;
+  --deep-blue:#0ea5e9;
+  --ocean-blue:#0284c7;
+  --emerald:#10b981;
+  --amber:#f59e0b;
+  --coral:#ef4444;
+  --violet:#8b5cf6;
+  --rose:#ec4899;
+
+  --r-sm:4px;--r-md:6px;--r-lg:8px;--r-xl:12px;
+  --r-full:9999px;
+}
+
+::selection{background:rgba(24,191,255,.2);color:var(--ink-black)}
+html{scroll-behavior:smooth}
+
+body{
+  font-family:'Inter',system-ui,-apple-system,sans-serif;
+  background:var(--pure-white);color:var(--ink-black);
+  font-size:14px;line-height:1.5;letter-spacing:.01px;
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
+}
+
+.page{max-width:960px;margin:0 auto;padding:0 32px 120px}
+
+/* ── NAV ── */
+.nav{
+  display:flex;justify-content:space-between;align-items:center;
+  height:56px;padding:0 16px;position:sticky;top:0;z-index:100;
+  background:rgba(255,255,255,.95);backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border-light);
+  margin:0 -32px;
+}
+.nav-left{display:flex;align-items:center;gap:12px}
+.nav-wordmark{
+  font-size:18px;font-weight:700;letter-spacing:-.35px;
+  color:var(--ink-black);text-decoration:none;
+}
+.nav-tag{
+  font-size:11px;font-weight:500;color:var(--ocean-blue);
+  background:rgba(2,132,199,.06);padding:3px 10px;border-radius:var(--r-full);
+  border:1px solid rgba(2,132,199,.12);letter-spacing:.02px;
+}
+.nav-right{display:flex;align-items:center;gap:8px}
+.nav-link{
+  font-size:13px;font-weight:500;color:var(--stone-gray);text-decoration:none;
+  padding:6px 12px;border-radius:var(--r-md);transition:all .2s;letter-spacing:.015px;
+}
+.nav-link:hover{color:var(--ink-black);background:var(--whisper-gray)}
+.nav-link--active{color:var(--ink-black);font-weight:600}
+.nav-url{
+  font-size:11px;font-weight:400;color:var(--stone-gray);text-decoration:none;
+  padding:4px 10px;border-radius:var(--r-full);transition:all .2s;
+  background:rgba(0,0,0,.03);border:1px solid rgba(0,0,0,.08);
+  letter-spacing:.02px;white-space:nowrap;
+}
+.nav-url:hover{color:var(--ink-black);background:rgba(0,0,0,.06);border-color:rgba(0,0,0,.12)}
+
+/* ── SECTIONS ── */
+.section{
+  padding:64px 0 0;
+  border-top:1px solid var(--border-light);
+  margin-top:48px;
+}
+.section:first-of-type{border-top:none;margin-top:40px}
+.section-header{margin-bottom:32px}
+.section-label{
+  font-size:11px;font-weight:600;letter-spacing:.06px;
+  text-transform:uppercase;color:var(--sky-blue);margin-bottom:8px;
+}
+.section-title{
+  font-size:28px;font-weight:700;letter-spacing:-.3px;line-height:1.2;
+  color:var(--ink-black);
+}
+.section-desc{
+  font-size:14px;line-height:1.6;color:var(--stone-gray);
+  margin-top:8px;max-width:560px;
+}
+
+/* ── HERO ── */
+.hero{
+  padding:64px 0 40px;
+  border-bottom:1px solid var(--border-light);
+  margin:0 -32px;padding-left:32px;padding-right:32px;
+  position:relative;overflow:hidden;
+}
+.hero::before{
+  content:'';position:absolute;
+  width:400px;height:400px;
+  background:radial-gradient(circle,rgba(24,191,255,.08),transparent 70%);
+  border-radius:50%;filter:blur(60px);
+  right:-80px;top:-120px;pointer-events:none;
+}
+.hero::after{
+  content:'';position:absolute;
+  width:300px;height:300px;
+  background:radial-gradient(circle,rgba(139,92,246,.05),transparent 70%);
+  border-radius:50%;filter:blur(50px);
+  left:20%;bottom:-80px;pointer-events:none;
+}
+.hero-label{
+  font-size:11px;font-weight:600;letter-spacing:.08px;
+  text-transform:uppercase;color:var(--sky-blue);margin-bottom:12px;
+}
+.hero-title{
+  font-size:clamp(32px,5vw,48px);font-weight:700;line-height:1.1;
+  letter-spacing:-.03em;color:var(--ink-black);
+}
+.hero-title em{
+  font-style:normal;
+  background:linear-gradient(135deg,var(--sky-blue),var(--ocean-blue));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.hero-subtitle{
+  font-size:16px;line-height:1.6;color:var(--stone-gray);
+  margin-top:16px;max-width:480px;
+}
+.hero-tags{display:flex;gap:8px;margin-top:24px;flex-wrap:wrap}
+.hero-tag{
+  font-size:11px;font-weight:500;color:var(--stone-gray);
+  background:var(--whisper-gray);padding:5px 12px;border-radius:var(--r-full);
+  border:1px solid var(--border-light);letter-spacing:.015px;
+}
+.hero-actions{display:flex;gap:12px;margin-top:24px}
+
+/* ── BUTTONS ── */
+.btn{
+  display:inline-flex;align-items:center;gap:6px;
+  font-family:inherit;font-size:13px;font-weight:600;line-height:1;
+  letter-spacing:.01px;padding:8px 20px;border-radius:var(--r-md);
+  cursor:pointer;text-decoration:none;white-space:nowrap;
+  transition:all .15s ease;
+}
+.btn:active{transform:scale(.97)}
+.btn-primary{background:var(--sky-blue);color:var(--pure-white);border:1px solid transparent}
+.btn-primary:hover{background:var(--deep-blue)}
+.btn-secondary{background:var(--pure-white);color:var(--ink-black);border:1px solid var(--border-light)}
+.btn-secondary:hover{background:var(--whisper-gray);border-color:var(--border-medium)}
+.btn-ghost{background:transparent;color:var(--slate-gray);border:1px solid transparent}
+.btn-ghost:hover{background:var(--whisper-gray);color:var(--ink-black)}
+
+/* ── COLOR TOKENS ── */
+.color-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;
+}
+.color-token{
+  background:var(--pure-white);border:1px solid var(--border-light);
+  border-radius:var(--r-xl);overflow:hidden;transition:border-color .2s;
+}
+.color-token:hover{border-color:var(--border-medium)}
+.color-swatch{width:100%;height:64px}
+.color-info{padding:12px 14px}
+.color-name{font-size:13px;font-weight:600;letter-spacing:.01px;color:var(--ink-black)}
+.color-hex{
+  font-size:12px;font-weight:500;color:var(--stone-gray);margin-top:2px;
+  font-variant-numeric:tabular-nums;letter-spacing:.015px;
+}
+.color-role{font-size:11px;color:var(--ash-gray);margin-top:4px;line-height:1.4}
+
+/* ── TYPE SCALE ── */
+.type-table{
+  display:flex;flex-direction:column;border:1px solid var(--border-light);
+  border-radius:var(--r-xl);overflow:hidden;
+}
+.type-row{
+  display:grid;grid-template-columns:100px 1fr 200px;align-items:baseline;
+  padding:14px 20px;border-bottom:1px solid var(--border-light);
+}
+.type-row:last-child{border-bottom:none}
+.type-row:hover{background:var(--cloud-gray)}
+.type-meta{
+  font-size:10px;font-weight:600;color:var(--sky-blue);
+  letter-spacing:.06px;text-transform:uppercase;
+}
+.type-sample{color:var(--ink-black);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.type-specs{
+  font-size:11px;color:var(--stone-gray);text-align:right;
+  font-variant-numeric:tabular-nums;letter-spacing:.015px;
+}
+
+/* ── SPACING ── */
+.spacing-bars{display:flex;align-items:flex-end;gap:20px;height:120px}
+.spacing-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px}
+.spacing-bar{
+  width:100%;border-radius:var(--r-md);
+  background:linear-gradient(180deg,var(--sky-blue),var(--ocean-blue));
+  opacity:.3;transition:opacity .3s;
+}
+.spacing-col:hover .spacing-bar{opacity:.6}
+.spacing-val{font-size:11px;font-weight:600;color:var(--ink-black);letter-spacing:.015px}
+.spacing-name{font-size:10px;font-weight:500;color:var(--stone-gray);letter-spacing:.015px}
+
+/* ── SHAPES ── */
+.shapes-row{display:flex;flex-wrap:wrap;gap:24px;align-items:flex-end}
+.shape-item{display:flex;flex-direction:column;align-items:center;gap:8px}
+.shape-box{
+  width:72px;height:72px;background:var(--cloud-gray);
+  border:1.5px solid var(--border-light);transition:all .3s cubic-bezier(.22,1,.36,1);
+}
+.shape-box:hover{border-color:var(--sky-blue);transform:scale(1.06)}
+.shape-label{font-size:11px;font-weight:500;color:var(--stone-gray);letter-spacing:.015px;white-space:nowrap}
+.shape-value{
+  font-size:10px;font-weight:400;color:var(--ash-gray);letter-spacing:.015px;
+  font-variant-numeric:tabular-nums;
+}
+
+/* ── SURFACES ── */
+.surface-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
+.surface-item{
+  border-radius:var(--r-xl);padding:24px 16px;
+  text-align:center;border:1px solid var(--border-light);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:4px;min-height:100px;transition:transform .3s;
+}
+.surface-item:hover{transform:scale(1.02)}
+.surface-name{font-size:14px;font-weight:600;letter-spacing:.01px}
+.surface-val{
+  font-size:11px;font-weight:500;color:var(--stone-gray);
+  font-variant-numeric:tabular-nums;letter-spacing:.015px;
+}
+
+/* ── COMPONENTS ── */
+.component-card{
+  background:var(--pure-white);border:1px solid var(--border-light);
+  border-radius:var(--r-xl);padding:28px;margin-bottom:16px;
+  transition:border-color .2s;
+}
+.component-card:hover{border-color:var(--border-medium)}
+.component-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px}
+.component-name{font-size:15px;font-weight:600;letter-spacing:.01px;color:var(--ink-black)}
+.component-role{font-size:12px;color:var(--stone-gray);margin-top:4px;letter-spacing:.015px}
+.component-class{
+  font-size:11px;font-weight:500;color:var(--ocean-blue);
+  background:rgba(2,132,199,.06);padding:3px 10px;border-radius:var(--r-full);
+  border:1px solid rgba(2,132,199,.12);letter-spacing:.015px;
+  font-family:'SFMono-Regular',Consolas,monospace;
+}
+.component-preview{
+  display:flex;gap:12px;align-items:center;flex-wrap:wrap;
+  padding:20px;background:var(--cloud-gray);border-radius:var(--r-lg);
+  border:1px solid var(--border-light);
+}
+.component-desc{
+  font-size:12px;color:var(--ash-gray);line-height:1.5;
+  margin-top:12px;max-width:480px;
+}
+
+/* ── TABLE PREVIEW ── */
+.table-preview{
+  border:1px solid var(--border-light);border-radius:var(--r-xl);overflow:hidden;
+}
+.table-header{
+  display:grid;grid-template-columns:40px 2fr 1.5fr 1fr 1fr;
+  padding:10px 12px;background:var(--cloud-gray);border-bottom:1px solid var(--border-light);
+}
+.table-header-cell{
+  font-size:11px;font-weight:600;color:var(--stone-gray);
+  letter-spacing:.04px;text-transform:uppercase;
+}
+.table-row{
+  display:grid;grid-template-columns:40px 2fr 1.5fr 1fr 1fr;
+  padding:10px 12px;border-bottom:1px solid var(--border-light);
+  transition:background .15s;
+}
+.table-row:last-child{border-bottom:none}
+.table-row:hover{background:rgba(24,191,255,.04)}
+.table-row:nth-child(even){background:var(--cloud-gray)}
+.table-row:nth-child(even):hover{background:rgba(24,191,255,.06)}
+.table-cell{font-size:13px;color:var(--ink-black);display:flex;align-items:center}
+.table-check{
+  width:16px;height:16px;border-radius:var(--r-sm);
+  border:1.5px solid var(--border-medium);background:var(--pure-white);
+}
+
+/* ── STATUS TAGS ── */
+.status-tag{
+  display:inline-flex;align-items:center;font-size:12px;font-weight:500;
+  padding:3px 10px;border-radius:var(--r-full);white-space:nowrap;
+}
+.status-tag--active{color:var(--ocean-blue);background:rgba(2,132,199,.08)}
+.status-tag--done{color:var(--emerald);background:rgba(16,185,129,.08)}
+.status-tag--pending{color:var(--amber);background:rgba(245,158,11,.08)}
+.status-tag--error{color:var(--coral);background:rgba(239,68,68,.08)}
+.status-tag--idea{color:var(--violet);background:rgba(139,92,246,.08)}
+
+/* ── DO/DON'T ── */
+.guide-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.guide-card{
+  border-radius:var(--r-xl);padding:24px;
+  border:1px solid var(--border-light);
+}
+.guide-card--do{background:rgba(16,185,129,.03);border-color:rgba(16,185,129,.15)}
+.guide-card--dont{background:rgba(239,68,68,.03);border-color:rgba(239,68,68,.1)}
+.guide-label{font-size:11px;font-weight:600;letter-spacing:.06px;text-transform:uppercase;margin-bottom:14px}
+.guide-card--do .guide-label{color:var(--emerald)}
+.guide-card--dont .guide-label{color:var(--coral)}
+.guide-list{
+  list-style:none;display:flex;flex-direction:column;gap:8px;
+}
+.guide-list li{
+  font-size:13px;line-height:1.5;padding-left:20px;position:relative;
+  color:var(--slate-gray);
+}
+.guide-card--do .guide-list li::before{
+  content:'✓';position:absolute;left:0;color:var(--emerald);font-weight:700;font-size:12px;
+}
+.guide-card--dont .guide-list li::before{
+  content:'✕';position:absolute;left:0;color:var(--coral);font-weight:700;font-size:12px;
+}
+
+/* ── FOOTER ── */
+.footer{
+  margin-top:80px;padding:24px 0;
+  border-top:1px solid var(--border-light);
+  display:flex;justify-content:space-between;align-items:center;
+}
+.footer-left{font-size:14px;font-weight:500;color:var(--stone-gray);opacity:.6}
+.footer-right{display:flex;gap:20px}
+.footer-link{
+  font-size:12px;font-weight:500;color:var(--stone-gray);text-decoration:none;
+  transition:color .2s;letter-spacing:.015px;
+}
+.footer-link:hover{color:var(--sky-blue)}
+
+/* ── RESPONSIVE ── */
+@media(max-width:768px){
+  .page{padding:0 20px 80px}
+  .hero{margin:0 -20px;padding-left:20px;padding-right:20px;padding-top:48px}
+  .nav{margin:0 -20px}
+  .section-title{font-size:22px}
+  .type-row{grid-template-columns:70px 1fr;gap:8px}
+  .type-specs{display:none}
+  .guide-grid{grid-template-columns:1fr}
+  .color-grid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}
+  .table-header,.table-row{grid-template-columns:40px 2fr 1.5fr 1fr}
+  .table-header-cell:last-child,.table-cell:last-child{display:none}
+}
+
+/* ── ENTRANCE ANIMATION ── */
+.section,.hero{opacity:1;transition:opacity .5s cubic-bezier(.22,1,.36,1),transform .5s cubic-bezier(.22,1,.36,1)}
+.section.visible,.hero.visible{opacity:1;transform:translateY(0)}
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="nav-left">
+      <a href="#" class="nav-wordmark">Airtable</a>
+      <span class="nav-tag">Design System</span>
+      <a href="#" class="nav-url">https://www.airtable.com</a>
+    </div>
+    <div class="nav-right">
+      <a href="#colors" class="nav-link nav-link--active">Colors</a>
+      <a href="#typography" class="nav-link">Type</a>
+      <a href="#spacing" class="nav-link">Spacing</a>
+      <a href="#components" class="nav-link">Components</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-label">Design System</div>
+    <h1 class="hero-title">Create your<br>perfect <em>workflow.</em></h1>
+    <p class="hero-subtitle">A friendly data canvas — bright surfaces, vivid sky blue accents, and approachable typography that makes organizing data feel delightful.</p>
+    <div class="hero-tags">
+      <span class="hero-tag">17 color tokens</span>
+      <span class="hero-tag">16 type steps</span>
+      <span class="hero-tag">4px grid</span>
+      <span class="hero-tag">4 surface levels</span>
+    </div>
+    <div class="hero-actions">
+      <a href="#" class="btn btn-primary" download>Download Spec</a>
+      <a href="#" class="btn btn-secondary" download>theme.css</a>
+      <a href="#" class="btn btn-secondary" download>tokens.json</a>
+      <a href="#" class="btn btn-secondary" download>variables.css</a>
+    </div>
+  </div>
+
+  <!-- COLORS -->
+  <section class="section" id="colors">
+    <div class="section-header">
+      <div class="section-label">Foundation</div>
+      <h2 class="section-title">Color Tokens</h2>
+      <p class="section-desc">Light neutrals with a vivid sky blue accent for interactivity, plus a full status palette for data visualization. 17 tokens across surfaces, text, interaction, and status.</p>
+    </div>
+    <div class="color-grid">
+      <div class="color-token">
+        <div class="color-swatch" style="background:#ffffff;border-bottom:1px solid var(--border-light)"></div>
+        <div class="color-info"><div class="color-name">Pure White</div><div class="color-hex">#ffffff</div><div class="color-role">Page background, cards</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#f9fafb"></div>
+        <div class="color-info"><div class="color-name">Cloud Gray</div><div class="color-hex">#f9fafb</div><div class="color-role">Secondary sections</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#f3f4f6"></div>
+        <div class="color-info"><div class="color-name">Whisper Gray</div><div class="color-hex">#f3f4f6</div><div class="color-role">Table alternation, inactive</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#e5e7eb"></div>
+        <div class="color-info"><div class="color-name">Border Light</div><div class="color-hex">#e5e7eb</div><div class="color-role">Borders, dividers</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#d1d5db"></div>
+        <div class="color-info"><div class="color-name">Border Medium</div><div class="color-hex">#d1d5db</div><div class="color-role">Strong borders, outlines</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#1d1f25"></div>
+        <div class="color-info"><div class="color-name">Ink Black</div><div class="color-hex">#1d1f25</div><div class="color-role">Primary text, headings</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#4b5563"></div>
+        <div class="color-info"><div class="color-name">Slate Gray</div><div class="color-hex">#4b5563</div><div class="color-role">Secondary text</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#6b7280"></div>
+        <div class="color-info"><div class="color-name">Stone Gray</div><div class="color-hex">#6b7280</div><div class="color-role">Placeholders, helpers</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#9ca3af"></div>
+        <div class="color-info"><div class="color-name">Ash Gray</div><div class="color-hex">#9ca3af</div><div class="color-role">Disabled, inactive</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#18bfff"></div>
+        <div class="color-info"><div class="color-name">Sky Blue</div><div class="color-hex">#18bfff</div><div class="color-role">Primary accent, buttons</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#0ea5e9"></div>
+        <div class="color-info"><div class="color-name">Deep Blue</div><div class="color-hex">#0ea5e9</div><div class="color-role">Hover state</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#0284c7"></div>
+        <div class="color-info"><div class="color-name">Ocean Blue</div><div class="color-hex">#0284c7</div><div class="color-role">Active, focused</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#10b981"></div>
+        <div class="color-info"><div class="color-name">Emerald</div><div class="color-hex">#10b981</div><div class="color-role">Success, completed</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#f59e0b"></div>
+        <div class="color-info"><div class="color-name">Amber</div><div class="color-hex">#f59e0b</div><div class="color-role">Warning, in-progress</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#ef4444"></div>
+        <div class="color-info"><div class="color-name">Coral</div><div class="color-hex">#ef4444</div><div class="color-role">Error, destructive</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#8b5cf6"></div>
+        <div class="color-info"><div class="color-name">Violet</div><div class="color-hex">#8b5cf6</div><div class="color-role">Decorative, special tags</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#ec4899"></div>
+        <div class="color-info"><div class="color-name">Rose</div><div class="color-hex">#ec4899</div><div class="color-role">Secondary decorative</div></div>
+      </div>
+    </div>
+
+    <h3 style="font-size:14px;font-weight:600;color:var(--ink-black);margin:32px 0 16px;letter-spacing:.01px">Status Tags</h3>
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <span class="status-tag status-tag--active">Active</span>
+      <span class="status-tag status-tag--done">Complete</span>
+      <span class="status-tag status-tag--pending">In Progress</span>
+      <span class="status-tag status-tag--error">Overdue</span>
+      <span class="status-tag status-tag--idea">Idea</span>
+    </div>
+  </section>
+
+  <!-- TYPOGRAPHY -->
+  <section class="section" id="typography">
+    <div class="section-header">
+      <div class="section-label">Typography</div>
+      <h2 class="section-title">Type Scale</h2>
+      <p class="section-desc">System font stack as primary typeface (Inter substitute). Native rendering across platforms with excellent legibility for dense data.</p>
+    </div>
+    <div class="type-table">
+      <div class="type-row">
+        <span class="type-meta">Display</span>
+        <span class="type-sample" style="font-size:28px;font-weight:700;line-height:1.2;letter-spacing:-.02em">Create your base</span>
+        <span class="type-specs">36px / 1.2 / −0.02em</span>
+      </div>
+      <div class="type-row">
+        <span class="type-meta">Heading-lg</span>
+        <span class="type-sample" style="font-size:22px;font-weight:700;line-height:1.2;letter-spacing:-.2px">Project tracker</span>
+        <span class="type-specs">30px / 1.2 / −0.02px</span>
+      </div>
+      <div class="type-row">
+        <span class="type-meta">Heading</span>
+        <span class="type-sample" style="font-size:18px;font-weight:700;line-height:1.25;letter-spacing:-.2px">Section heading</span>
+        <span class="type-specs">24px / 1.25 / −0.02px</span>
+      </div>
+      <div class="type-row">
+        <span class="type-meta">Heading-sm</span>
+        <span class="type-sample" style="font-size:16px;font-weight:600;line-height:1.4;letter-spacing:-.2px">Subsection heading</span>
+        <span class="type-specs">20px / 1.4 / −0.02px</span>
+      </div>
+      <div class="type-row">
+        <span class="type-meta">Body</span>
+        <span class="type-sample" style="font-size:14px;font-weight:400;line-height:1.5;letter-spacing:.01px">Default body text for readable content</span>
+        <span class="type-specs">14px / 1.5 / 0.01px</span>
+      </div>
+      <div class="type-row">
+        <span class="type-meta">Body-sm</span>
+        <span class="type-sample" style="font-size:13px;font-weight:400;line-height:1.5;letter-spacing:.01px">Dense data, table cells, comparison rows</span>
+        <span class="type-specs">13px / 1.5 / 0.01px</span>
+      </div>
+      <div class="type-row">
+        <span class="type-meta">Caption</span>
+        <span class="type-sample" style="font-size:11px;font-weight:400;line-height:1.5;letter-spacing:.04px">Meta info · Footer · Labels</span>
+        <span class="type-specs">11px / 1.5 / 0.04px</span>
+      </div>
+    </div>
+
+    <h3 style="font-size:14px;font-weight:600;color:var(--ink-black);margin:32px 0 16px;letter-spacing:.01px">Fonts</h3>
+    <div style="display:flex;flex-direction:column;border:1px solid var(--border-light);border-radius:var(--r-xl);overflow:hidden">
+      <div style="padding:16px 20px;border-bottom:1px solid var(--border-light);display:flex;align-items:baseline;gap:16px">
+        <span style="font-size:10px;font-weight:600;color:var(--sky-blue);letter-spacing:.06px;text-transform:uppercase;flex:0 0 60px">Primary</span>
+        <span style="font-size:16px;font-weight:600;color:var(--ink-black);letter-spacing:-.2px">system-ui</span>
+        <span style="font-size:11px;color:var(--stone-gray);letter-spacing:.015px">400–700 · 11–36px</span>
+      </div>
+      <div style="padding:16px 20px;border-bottom:1px solid var(--border-light);display:flex;align-items:baseline;gap:16px">
+        <span style="font-size:10px;font-weight:600;color:var(--sky-blue);letter-spacing:.06px;text-transform:uppercase;flex:0 0 60px">Mono</span>
+        <span style="font-size:16px;font-weight:500;color:var(--ink-black);letter-spacing:-.2px">ui-monospace</span>
+        <span style="font-size:11px;color:var(--stone-gray);letter-spacing:.015px">400–500 · 12–14px · Record IDs & formulas</span>
+      </div>
+      <div style="padding:16px 20px;display:flex;align-items:baseline;gap:16px">
+        <span style="font-size:10px;font-weight:600;color:var(--sky-blue);letter-spacing:.06px;text-transform:uppercase;flex:0 0 60px">Fallback</span>
+        <span style="font-size:16px;font-weight:500;color:var(--ink-black);letter-spacing:-.2px">Inter</span>
+        <span style="font-size:11px;color:var(--stone-gray);letter-spacing:.015px">Substitute for all above</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- SPACING & SHAPES -->
+  <section class="section" id="spacing">
+    <div class="section-header">
+      <div class="section-label">Layout</div>
+      <h2 class="section-title">Spacing & Shapes</h2>
+      <p class="section-desc">Base unit 4px. Comfortable density with ample breathing room for data grids. 12-step spacing scale, 7 border radius values.</p>
+    </div>
+
+    <h3 style="font-size:14px;font-weight:600;color:var(--ink-black);margin-bottom:16px;letter-spacing:.01px">Spacing Scale (4px base)</h3>
+    <div class="spacing-bars">
+      <div class="spacing-col"><div class="spacing-bar" style="height:8px"></div><span class="spacing-val">1</span><span class="spacing-name">4px</span></div>
+      <div class="spacing-col"><div class="spacing-bar" style="height:14px"></div><span class="spacing-val">2</span><span class="spacing-name">8px</span></div>
+      <div class="spacing-col"><div class="spacing-bar" style="height:20px"></div><span class="spacing-val">3</span><span class="spacing-name">12px</span></div>
+      <div class="spacing-col"><div class="spacing-bar" style="height:28px"></div><span class="spacing-val">4</span><span class="spacing-name">16px</span></div>
+      <div class="spacing-col"><div class="spacing-bar" style="height:36px"></div><span class="spacing-val">6</span><span class="spacing-name">24px</span></div>
+      <div class="spacing-col"><div class="spacing-bar" style="height:48px"></div><span class="spacing-val">8</span><span class="spacing-name">32px</span></div>
+      <div class="spacing-col"><div class="spacing-bar" style="height:64px"></div><span class="spacing-val">12</span><span class="spacing-name">48px</span></div>
+      <div class="spacing-col"><div class="spacing-bar" style="height:90px"></div><span class="spacing-val">24</span><span class="spacing-name">96px</span></div>
+    </div>
+
+    <h3 style="font-size:14px;font-weight:600;color:var(--ink-black);margin:32px 0 16px;letter-spacing:.01px">Border Radius</h3>
+    <div class="shapes-row">
+      <div class="shape-item">
+        <div class="shape-box" style="border-radius:4px"></div>
+        <span class="shape-label">default</span>
+        <span class="shape-value">4px</span>
+      </div>
+      <div class="shape-item">
+        <div class="shape-box" style="border-radius:6px"></div>
+        <span class="shape-label">buttons</span>
+        <span class="shape-value">6px</span>
+      </div>
+      <div class="shape-item">
+        <div class="shape-box" style="border-radius:8px"></div>
+        <span class="shape-label">lg</span>
+        <span class="shape-value">8px</span>
+      </div>
+      <div class="shape-item">
+        <div class="shape-box" style="border-radius:12px"></div>
+        <span class="shape-label">cards</span>
+        <span class="shape-value">12px</span>
+      </div>
+      <div class="shape-item">
+        <div class="shape-box" style="border-radius:16px"></div>
+        <span class="shape-label">2xl</span>
+        <span class="shape-value">16px</span>
+      </div>
+      <div class="shape-item">
+        <div class="shape-box" style="border-radius:20px"></div>
+        <span class="shape-label">3xl</span>
+        <span class="shape-value">20px</span>
+      </div>
+      <div class="shape-item">
+        <div class="shape-box" style="border-radius:9999px"></div>
+        <span class="shape-label">pill</span>
+        <span class="shape-value">9999px</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- DATA TABLE -->
+  <section class="section" id="data">
+    <div class="section-header">
+      <div class="section-label">Data Display</div>
+      <h2 class="section-title">Table & Status</h2>
+      <p class="section-desc">The heart of Airtable — data grids with clear hierarchy, alternating rows, and status indicators for at-a-glance understanding.</p>
+    </div>
+
+    <div class="table-preview">
+      <div class="table-header">
+        <span class="table-header-cell"></span>
+        <span class="table-header-cell">Project</span>
+        <span class="table-header-cell">Owner</span>
+        <span class="table-header-cell">Status</span>
+        <span class="table-header-cell">Due</span>
+      </div>
+      <div class="table-row">
+        <div class="table-cell"><div class="table-check" style="background:var(--sky-blue);border-color:var(--sky-blue)"></div></div>
+        <div class="table-cell" style="font-weight:500">Homepage Redesign</div>
+        <div class="table-cell" style="color:var(--slate-gray)">Sarah Chen</div>
+        <div class="table-cell"><span class="status-tag status-tag--done">Complete</span></div>
+        <div class="table-cell" style="color:var(--stone-gray);font-size:12px">Jun 15</div>
+      </div>
+      <div class="table-row">
+        <div class="table-cell"><div class="table-check"></div></div>
+        <div class="table-cell" style="font-weight:500">API Integration</div>
+        <div class="table-cell" style="color:var(--slate-gray)">Marcus Lee</div>
+        <div class="table-cell"><span class="status-tag status-tag--active">Active</span></div>
+        <div class="table-cell" style="color:var(--stone-gray);font-size:12px">Jun 28</div>
+      </div>
+      <div class="table-row">
+        <div class="table-cell"><div class="table-check"></div></div>
+        <div class="table-cell" style="font-weight:500">User Research</div>
+        <div class="table-cell" style="color:var(--slate-gray)">Priya Patel</div>
+        <div class="table-cell"><span class="status-tag status-tag--pending">In Progress</span></div>
+        <div class="table-cell" style="color:var(--stone-gray);font-size:12px">Jul 02</div>
+      </div>
+      <div class="table-row">
+        <div class="table-cell"><div class="table-check"></div></div>
+        <div class="table-cell" style="font-weight:500">Mobile App Launch</div>
+        <div class="table-cell" style="color:var(--slate-gray)">Alex Kim</div>
+        <div class="table-cell"><span class="status-tag status-tag--error">Overdue</span></div>
+        <div class="table-cell" style="color:var(--coral);font-size:12px;font-weight:500">Jun 10</div>
+      </div>
+      <div class="table-row">
+        <div class="table-cell"><div class="table-check"></div></div>
+        <div class="table-cell" style="font-weight:500">AI Features Brainstorm</div>
+        <div class="table-cell" style="color:var(--slate-gray)">Jordan Wu</div>
+        <div class="table-cell"><span class="status-tag status-tag--idea">Idea</span></div>
+        <div class="table-cell" style="color:var(--stone-gray);font-size:12px">—</div>
+      </div>
+    </div>
+
+    <h3 style="font-size:14px;font-weight:600;color:var(--ink-black);margin:32px 0 16px;letter-spacing:.01px">Surfaces</h3>
+    <div class="surface-grid">
+      <div class="surface-item" style="background:#ffffff;border-color:var(--border-light)">
+        <span class="surface-name" style="color:var(--ink-black)">Pure White</span>
+        <span class="surface-val">#ffffff</span>
+      </div>
+      <div class="surface-item" style="background:#f9fafb">
+        <span class="surface-name" style="color:var(--ink-black)">Cloud Gray</span>
+        <span class="surface-val">#f9fafb</span>
+      </div>
+      <div class="surface-item" style="background:#f3f4f6">
+        <span class="surface-name" style="color:var(--ink-black)">Whisper Gray</span>
+        <span class="surface-val">#f3f4f6</span>
+      </div>
+      <div class="surface-item" style="background:#ffffff;box-shadow:0 1px 3px rgba(0,0,0,.08)">
+        <span class="surface-name" style="color:var(--ink-black)">Card Elevated</span>
+        <span class="surface-val">#ffffff + shadow</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPONENTS -->
+  <section class="section" id="components">
+    <div class="section-header">
+      <div class="section-label">Components</div>
+      <h2 class="section-title">Button Variants</h2>
+      <p class="section-desc">Primary action (Sky Blue), secondary (outlined), and ghost variants for clear interaction hierarchy in data-dense interfaces.</p>
+    </div>
+
+    <div class="component-card">
+      <div class="component-header">
+        <div><div class="component-name">Primary Button</div><div class="component-role">Main call to action — highest visual weight</div></div>
+        <span class="component-class">.btn-primary</span>
+      </div>
+      <div class="component-preview">
+        <button class="btn btn-primary">Add record</button>
+        <button class="btn btn-primary" style="background:var(--deep-blue)">Hover state</button>
+      </div>
+      <div class="component-desc">Sky Blue (#18bfff) background, white text, 6px radius. Use for the single most important action per view.</div>
+    </div>
+
+    <div class="component-card">
+      <div class="component-header">
+        <div><div class="component-name">Secondary Button</div><div class="component-role">Secondary actions, navigation</div></div>
+        <span class="component-class">.btn-secondary</span>
+      </div>
+      <div class="component-preview">
+        <button class="btn btn-secondary">Filter</button>
+        <button class="btn btn-secondary" style="background:var(--whisper-gray);border-color:var(--border-medium)">Hover state</button>
+      </div>
+      <div class="component-desc">White background, Ink Black text, Border Light outline. For actions that support but don't compete with primary.</div>
+    </div>
+
+    <div class="component-card">
+      <div class="component-header">
+        <div><div class="component-name">Ghost Button</div><div class="component-role">Tertiary actions, less prominent controls</div></div>
+        <span class="component-class">.btn-ghost</span>
+      </div>
+      <div class="component-preview">
+        <button class="btn btn-ghost">Hide fields</button>
+        <button class="btn btn-ghost" style="background:var(--whisper-gray);color:var(--ink-black)">Hover state</button>
+      </div>
+      <div class="component-desc">Transparent background, Slate Gray text. For toolbar actions and less prominent controls.</div>
+    </div>
+
+    <div class="component-card">
+      <div class="component-header">
+        <div><div class="component-name">Input Field</div><div class="component-role">User text input</div></div>
+        <span class="component-class">input</span>
+      </div>
+      <div class="component-preview">
+        <div style="display:flex;flex-direction:column;gap:12px;flex:1;max-width:320px">
+          <input type="text" placeholder="Search records..." style="background:var(--pure-white);border:1px solid var(--border-light);border-radius:6px;padding:10px 12px;color:var(--ink-black);font-size:14px;font-family:inherit;outline:none">
+          <input type="text" value="Focused state" style="background:var(--pure-white);border:1px solid var(--sky-blue);border-radius:6px;padding:10px 12px;color:var(--ink-black);font-size:14px;font-family:inherit;outline:none;box-shadow:0 0 0 3px rgba(24,191,255,.12)">
+        </div>
+      </div>
+      <div class="component-desc">White background, Border Light outline, 6px radius. Focus adds Sky Blue border with subtle glow shadow.</div>
+    </div>
+  </section>
+
+  <!-- DO'S & DON'TS -->
+  <section class="section" id="guidelines">
+    <div class="section-header">
+      <div class="section-label">Guidelines</div>
+      <h2 class="section-title">Do's & Don'ts</h2>
+    </div>
+    <div class="guide-grid">
+      <div class="guide-card guide-card--do">
+        <div class="guide-label">Do — Embrace</div>
+        <ul class="guide-list">
+          <li>Pure White (#ffffff) as primary background</li>
+          <li>Ink Black (#1d1f25) for all primary text</li>
+          <li>Sky Blue (#18bfff) for interactive elements only</li>
+          <li>Status colors consistently for data visualization</li>
+          <li>6px radius for buttons, 12px for cards</li>
+          <li>4px-based spacing with ample breathing room</li>
+          <li>Whisper Gray for table row alternation</li>
+        </ul>
+      </div>
+      <div class="guide-card guide-card--dont">
+        <div class="guide-label">Don't — Avoid</div>
+        <ul class="guide-list">
+          <li>Dark backgrounds for primary content areas</li>
+          <li>Sky Blue for non-interactive decorative elements</li>
+          <li>Coral for non-error contexts</li>
+          <li>Hard sharp corners on cards or buttons</li>
+          <li>Dense data without whitespace breathing room</li>
+          <li>More than two accent colors per view</li>
+          <li>Mono fonts for non-technical content</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-left">Airtable Design System</div>
+    <div class="footer-right">
+      <a href="#colors" class="footer-link">Colors</a>
+      <a href="#typography" class="footer-link">Typography</a>
+      <a href="#spacing" class="footer-link">Spacing</a>
+      <a href="#components" class="footer-link">Components</a>
+      <a href="#" class="footer-link" download>Download Spec</a>
+    </div>
+  </footer>
+
+</div>
+
+
+
+</body>
+</html>

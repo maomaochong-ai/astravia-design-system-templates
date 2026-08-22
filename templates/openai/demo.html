@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OpenAI — component reference</title>
+<style>
+	/* Mirrors theme.css. Plain custom properties so this file opens standalone. */
+	:root {
+		--color-primary: #10a37f;
+		--color-primary-foreground: #ffffff;
+		--color-surface: #ffffff;
+		--color-surface-foreground: #202123;
+		--color-surface-raised: #f7f7f8;
+		--color-muted: #6e6e80;
+		--color-accent: #ab68ff;
+		--color-danger: #ef4146;
+		--color-border: #ececf1;
+
+		--radius-sm: 6px;
+		--radius-md: 8px;
+		--radius-lg: 12px;
+		--radius-xl: 16px;
+		--radius-2xl: 24px;
+
+		--shadow-sm: 0 1px 2px rgb(0 0 0 / 0.05);
+		--shadow-md: 0 4px 12px rgb(0 0 0 / 0.08);
+		--shadow-lg: 0 12px 40px rgb(0 0 0 / 0.12);
+
+		--sans: -apple-system, BlinkMacSystemFont, "Söhne", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+		--mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+	}
+
+	*, *::before, *::after { box-sizing: border-box; }
+	body {
+		margin: 0;
+		background: var(--color-surface);
+		color: var(--color-surface-foreground);
+		font-family: var(--sans);
+		font-size: 16px;
+		line-height: 1.75;
+		-webkit-font-smoothing: antialiased;
+	}
+	h1, h2, h3 { margin: 0; font-weight: 600; letter-spacing: -0.02em; line-height: 1.25; }
+	p { margin: 0; }
+	::selection { background: rgb(16 163 127 / 0.18); }
+	code { font-family: var(--mono); font-size: 0.86em; background: var(--color-surface-raised); border: 1px solid var(--color-border); border-radius: var(--radius-sm); padding: 1px 6px; }
+
+	/* Everything lives in one centered 768px reading column. */
+	.col { max-width: 768px; margin: 0 auto; padding: 0 20px; }
+	@media (min-width: 768px) { .col { padding: 0 32px; } }
+
+	/* ── App chrome: quiet rail, no shadow, no color ───────────────── */
+	.top {
+		display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+		height: 56px; padding: 0 20px;
+		border-bottom: 1px solid var(--color-border);
+	}
+	@media (min-width: 768px) { .top { padding: 0 32px; } }
+	.mark { width: 24px; height: 24px; border-radius: 50%; border: 2.5px solid var(--color-surface-foreground); }
+	.top b { font-size: 15px; font-weight: 600; }
+	.spacer { flex: 1; }
+	.chip {
+		display: inline-flex; align-items: center; gap: 6px;
+		font-family: var(--mono); font-size: 12px;
+		background: var(--color-surface-raised); border: 1px solid var(--color-border);
+		border-radius: 9999px; padding: 3px 12px; color: var(--color-muted);
+	}
+	.chip .d { width: 6px; height: 6px; border-radius: 50%; background: var(--color-primary); }
+
+	/* ── Conversation: alternating full-width bands ────────────────── */
+	.band { border-bottom: 1px solid var(--color-border); }
+	.band.raised { background: var(--color-surface-raised); }
+	.turn { display: flex; gap: 20px; padding: 28px 0; }
+	@media (max-width: 600px) { .turn { gap: 14px; padding: 22px 0; } }
+	.who {
+		flex: none; width: 30px; height: 30px; border-radius: var(--radius-sm);
+		display: grid; place-items: center; font-size: 12px; font-weight: 600;
+		background: var(--color-surface); border: 1px solid var(--color-border); color: var(--color-muted);
+	}
+	.who.ai { background: var(--color-primary); border-color: var(--color-primary); color: #fff; }
+	.msg { min-width: 0; font-size: 16px; }
+	.msg p + p { margin-top: 16px; }
+	.msg ul { margin: 16px 0 0; padding-left: 20px; color: var(--color-surface-foreground); }
+	.msg li { margin-top: 6px; }
+	.msg .meta { margin-top: 14px; font-size: 13px; color: var(--color-muted); display: flex; gap: 14px; flex-wrap: wrap; }
+	.codeblock {
+		margin-top: 16px; border: 1px solid var(--color-border); border-radius: var(--radius-lg);
+		overflow: hidden; background: var(--color-surface);
+	}
+	.codeblock .h { display: flex; align-items: center; padding: 8px 14px; background: var(--color-surface-raised); border-bottom: 1px solid var(--color-border); font-family: var(--mono); font-size: 12px; color: var(--color-muted); }
+	.codeblock pre { margin: 0; padding: 14px; font-family: var(--mono); font-size: 13px; line-height: 1.7; overflow-x: auto; }
+	.codeblock .c { color: var(--color-muted); }
+	.codeblock .s { color: var(--color-primary); }
+
+	/* ── Composer: the hero control of the whole system ───────────── */
+	.composer-band { padding: 28px 0 40px; }
+	.composer {
+		display: flex; align-items: flex-end; gap: 10px;
+		border: 1px solid var(--color-border); border-radius: var(--radius-xl);
+		box-shadow: var(--shadow-sm);
+		padding: 12px 12px 12px 18px; background: var(--color-surface);
+	}
+	.composer .ph { flex: 1; color: var(--color-muted); font-size: 16px; padding: 4px 0 10px; }
+	.send {
+		flex: none; width: 34px; height: 34px; border: 0; border-radius: var(--radius-md);
+		background: var(--color-primary); color: #fff; cursor: pointer;
+		font-size: 15px; line-height: 1;
+	}
+	.send:hover { background: #0e8f6f; }
+	.composer-note { margin-top: 12px; text-align: center; font-size: 12px; color: var(--color-muted); }
+
+	/* ── Reference sections ───────────────────────────────────────── */
+	.section { padding: 56px 0; border-bottom: 1px solid var(--color-border); }
+	@media (min-width: 768px) { .section { padding: 72px 0; } }
+	.section-label { font-family: var(--mono); font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-muted); margin-bottom: 12px; }
+	.section h2 { font-size: 26px; }
+	@media (min-width: 768px) { .section h2 { font-size: 32px; } }
+	.lede { color: var(--color-muted); margin-top: 14px; }
+	.note { margin-top: 20px; font-size: 14px; color: var(--color-muted); }
+	.row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+
+	/* ── Buttons ──────────────────────────────────────────────────── */
+	.btn {
+		font: inherit; font-size: 15px; font-weight: 500;
+		height: 40px; padding: 0 18px;
+		border: 1px solid transparent; border-radius: var(--radius-lg);
+		background: var(--color-primary); color: var(--color-primary-foreground);
+		cursor: pointer; transition: background-color 150ms ease, border-color 150ms ease;
+	}
+	.btn:hover { background: #0e8f6f; }
+	.btn:focus-visible { outline: none; box-shadow: 0 0 0 3px rgb(16 163 127 / 0.28); }
+	.btn-secondary { background: var(--color-surface); color: var(--color-surface-foreground); border-color: var(--color-border); }
+	.btn-secondary:hover { background: var(--color-surface-raised); }
+	.btn-ghost { background: transparent; color: var(--color-muted); }
+	.btn-ghost:hover { background: var(--color-surface-raised); color: var(--color-surface-foreground); }
+	.btn[disabled] { cursor: not-allowed; background: var(--color-surface-raised); color: #b4b4bd; border-color: var(--color-border); }
+
+	.input {
+		font: inherit; font-size: 15px; width: 100%; max-width: 380px; height: 44px; padding: 0 14px;
+		border: 1px solid var(--color-border); border-radius: var(--radius-lg);
+		background: var(--color-surface); color: var(--color-surface-foreground);
+	}
+	.input::placeholder { color: #a0a0ab; }
+	.input:focus { outline: none; border-color: var(--color-primary); box-shadow: 0 0 0 3px rgb(16 163 127 / 0.15); }
+
+	/* ── Quiet cards: no imagery, no shadow, one small label ──────── */
+	.cards { display: grid; grid-template-columns: 1fr; gap: 16px; margin-top: 28px; }
+	@media (min-width: 640px) { .cards { grid-template-columns: repeat(2, 1fr); } }
+	.card { border: 1px solid var(--color-border); border-radius: var(--radius-xl); padding: 24px; }
+	.card .k { font-family: var(--mono); font-size: 12px; color: var(--color-muted); text-transform: uppercase; letter-spacing: 0.06em; }
+	.card h3 { font-size: 16px; margin-top: 10px; }
+	.card p { font-size: 14px; color: var(--color-muted); margin-top: 8px; line-height: 1.6; }
+
+	.swatches { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-top: 28px; }
+	@media (min-width: 640px) { .swatches { grid-template-columns: repeat(4, 1fr); } }
+	.sw .fill { height: 60px; border-radius: var(--radius-lg); border: 1px solid var(--color-border); }
+	.sw b { display: block; font-family: var(--mono); font-size: 12px; font-weight: 400; margin-top: 8px; }
+	.sw span { font-size: 12px; color: var(--color-muted); }
+
+	/* ── Mobile ───────────────────────────────────────────────────── */
+	.mobile { display: grid; grid-template-columns: minmax(0, 1fr); gap: 32px; margin-top: 32px; align-items: start; }
+	@media (min-width: 820px) { .mobile { grid-template-columns: 280px 1fr; gap: 40px; } }
+	.phone {
+		width: 280px; max-width: 100%; margin: 0 auto;
+		border: 1px solid var(--color-border); border-radius: 26px;
+		background: var(--color-surface); box-shadow: var(--shadow-lg); overflow: hidden;
+	}
+	.phone-status { display: flex; justify-content: space-between; padding: 10px 18px 4px; font-size: 10px; color: var(--color-muted); }
+	.phone-top { display: flex; align-items: center; gap: 8px; padding: 6px 16px 12px; border-bottom: 1px solid var(--color-border); font-size: 13px; }
+	.phone-top .mark { width: 18px; height: 18px; border-width: 2px; }
+	/* Bands run edge to edge on the phone: the alternating fill is what
+	   separates turns, so it must not be inset into bubbles. */
+	.m-turn { padding: 14px 16px; font-size: 13px; line-height: 1.6; display: flex; gap: 10px; }
+	.m-turn.raised { background: var(--color-surface-raised); }
+	.m-turn .who { width: 22px; height: 22px; font-size: 10px; }
+	.m-composer { margin: 12px 14px 18px; display: flex; align-items: center; gap: 8px; border: 1px solid var(--color-border); border-radius: var(--radius-xl); box-shadow: var(--shadow-sm); padding: 8px 8px 8px 14px; }
+	.m-composer .ph { flex: 1; font-size: 12px; color: var(--color-muted); }
+	.m-composer .send { width: 28px; height: 28px; font-size: 13px; }
+
+	.rules { margin: 0; padding: 0; list-style: none; }
+	.rules li { padding: 14px 0; border-bottom: 1px solid var(--color-border); font-size: 15px; color: var(--color-muted); }
+	.rules b { display: block; color: var(--color-surface-foreground); font-size: 14px; font-weight: 600; margin-bottom: 2px; }
+
+	/* ── Off-style ────────────────────────────────────────────────── */
+	.compare { display: grid; grid-template-columns: 1fr; gap: 16px; margin-top: 28px; }
+	@media (min-width: 640px) { .compare { grid-template-columns: repeat(2, 1fr); } }
+	.cmp-off {
+		padding: 24px; border-radius: 24px; color: #fff;
+		background: linear-gradient(135deg, #10a37f, #ab68ff);
+		box-shadow: 0 16px 40px rgb(171 104 255 / 0.35);
+		font-size: 17px; font-weight: 700;
+	}
+	.cmp-off small { display: block; font-size: 13px; font-weight: 400; opacity: 0.92; margin-top: 8px; line-height: 1.6; }
+	.cmp-on { padding: 24px; border: 1px solid var(--color-border); border-radius: var(--radius-xl); font-size: 17px; font-weight: 600; }
+	.cmp-on small { display: block; font-size: 13px; font-weight: 400; color: var(--color-muted); margin-top: 8px; line-height: 1.6; }
+
+	footer { padding: 40px 0 64px; font-size: 13px; color: var(--color-muted); text-align: center; }
+</style>
+</head>
+<body>
+
+<!-- COVER — a conversation. Alternating full-width bands, a centered text
+     column, and one teal control. Nothing else is colored. -->
+<div class="top">
+	<span class="mark"></span><b>Vetta</b>
+	<span class="chip"><span class="d"></span>research-preview</span>
+	<span class="spacer"></span>
+	<button class="btn btn-ghost">Share</button>
+	<button class="btn btn-secondary">New chat</button>
+</div>
+
+<div class="band">
+	<div class="col">
+		<div class="turn">
+			<span class="who">You</span>
+			<div class="msg">
+				<p>What actually distinguishes this design system from a generic white-and-gray one?</p>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="band raised">
+	<div class="col">
+		<div class="turn">
+			<span class="who ai">◎</span>
+			<div class="msg">
+				<p>Three things, in order of how much they matter:</p>
+				<ul>
+					<li><b>Bands, not bubbles.</b> A turn is a full-width strip of <code>surface</code> or <code>surface-raised</code>
+						with the text held to a 768px column. No chat bubble ever appears.</li>
+					<li><b>One signal color.</b> Teal marks the primary action, the active state and links — nothing else.
+						Purple exists but is reserved for a badge or a single data series.</li>
+					<li><b>Whitespace is the depth.</b> Borders are hairlines, fills are one step off white, and the only
+						shadow in the system belongs to a menu or the composer.</li>
+				</ul>
+				<div class="codeblock">
+					<div class="h">tokens.css</div>
+					<pre><span class="c">/* the signal, and everything else */</span>
+--color-primary: <span class="s">#10a37f</span>;   <span class="c">/* teal: action, active, link */</span>
+--color-accent:  #ab68ff;   <span class="c">/* badge or one series — never layout */</span>
+--color-border:  #ececf1;   <span class="c">/* hairline, softened one step */</span></pre>
+				</div>
+				<div class="meta"><span>gpt-style · 812 tokens</span><span>Copy</span><span>Regenerate</span></div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="band">
+	<div class="col composer-band">
+		<div class="composer">
+			<span class="ph">Ask a follow-up…</span>
+			<button class="send">↑</button>
+		</div>
+		<p class="composer-note">The composer is the hero control: 16px radius, hairline border, the only <code>shadow-sm</code> on the page.</p>
+	</div>
+</div>
+
+<div class="col">
+
+	<!-- 01 -->
+	<section class="section">
+		<p class="section-label">01 — Controls</p>
+		<h2>Forty pixels tall, softened one step</h2>
+		<p class="lede">Buttons are 12px-radius rectangles: filled teal for the one real action, bordered
+			white for secondary, ghost inside toolbars. Focus is a soft teal ring, never a hard outline.</p>
+		<div class="row" style="margin-top: 28px;">
+			<button class="btn">Primary</button>
+			<button class="btn btn-secondary">Secondary</button>
+			<button class="btn btn-ghost">Ghost</button>
+			<button class="btn" disabled>Generating…</button>
+		</div>
+		<div class="row" style="margin-top: 20px;">
+			<input class="input" placeholder="you@company.com">
+			<button class="btn">Join the waitlist</button>
+		</div>
+		<div class="row" style="margin-top: 20px;">
+			<span class="chip">gpt-4-turbo</span><span class="chip">128k context</span><span class="chip"><span class="d"></span>online</span>
+		</div>
+		<p class="note">Model names, token counts and every other machine value live in bordered mono chips on <code>surface-raised</code>.</p>
+	</section>
+
+	<!-- 02 -->
+	<section class="section">
+		<p class="section-label">02 — Cards</p>
+		<h2>Quiet cards, no imagery</h2>
+		<div class="cards">
+			<div class="card"><div class="k">Research</div><h3>Break data into calm blocks</h3><p>There are no dense dashboards here. A metric gets a card, a sentence and a lot of air around it.</p></div>
+			<div class="card"><div class="k">Safety</div><h3>Hairlines instead of shadows</h3><p>Structure is a 1px #ececf1 border. Depth is the 48–64px gap between sections.</p></div>
+		</div>
+		<div class="swatches">
+			<div class="sw"><div class="fill" style="background: var(--color-primary)"></div><b>primary</b><span>teal signal</span></div>
+			<div class="sw"><div class="fill" style="background: var(--color-surface-raised)"></div><b>raised</b><span>bands, wells, code</span></div>
+			<div class="sw"><div class="fill" style="background: var(--color-accent)"></div><b>accent</b><span>rare · badge only</span></div>
+			<div class="sw"><div class="fill" style="background: var(--color-surface-foreground)"></div><b>ink</b><span>#202123 · softened black</span></div>
+		</div>
+	</section>
+
+	<!-- 03 MOBILE -->
+	<section class="section">
+		<p class="section-label">03 — Mobile</p>
+		<h2>The column was always the point</h2>
+		<p class="lede">On a phone the 768px column simply becomes the screen. Bands still run edge to edge,
+			the composer docks to the bottom, and the sidebar becomes a drawer — the reading rhythm is untouched.</p>
+		<div class="mobile">
+			<div class="phone">
+				<div class="phone-status"><span>9:41</span><span>5G ▮</span></div>
+				<div class="phone-top"><span class="mark"></span><b>Vetta</b><span class="spacer"></span><span class="chip" style="font-size:10px;padding:2px 8px">preview</span></div>
+				<div class="m-turn"><span class="who">You</span><span>What makes this system different?</span></div>
+				<div class="m-turn raised"><span class="who ai">◎</span><span>Bands instead of bubbles, one teal signal, and whitespace doing the work a shadow usually does.</span></div>
+				<div class="m-turn"><span class="who">You</span><span>And on a small screen?</span></div>
+				<div class="m-turn raised"><span class="who ai">◎</span><span>Identical. The column becomes the viewport and nothing else moves.</span></div>
+				<div class="m-composer"><span class="ph">Ask a follow-up…</span><button class="send">↑</button></div>
+			</div>
+			<ul class="rules">
+				<li><b>Bands stay full-bleed</b>The alternating <code>surface</code> / <code>surface-raised</code> strip is what separates turns. It must reach both edges — turning it into an inset bubble is the one change that breaks the system.</li>
+				<li><b>Composer docks</b>It pins to the bottom above the keyboard, keeps its 16px radius and hairline border, and the send button stays 34px so it clears the touch minimum.</li>
+				<li><b>Sidebar</b>The optional 260px conversation rail becomes a drawer over a light scrim, still on <code>surface-raised</code> with no shadow of its own.</li>
+				<li><b>Type</b>Body 16px → 15px; headings 32px → 26px. Line height stays at 1.75 — the generous leading is what makes long answers readable on a phone.</li>
+				<li><b>Gutters</b>32px → 20px. The turn's avatar gap tightens from 20px to 14px, and that is the only density change.</li>
+				<li><b>Code</b>Code blocks keep their border and 13px mono, and scroll horizontally inside the block. Wrapping code is never allowed.</li>
+				<li><b>Targets</b>Every control clears 44px on touch, which is why inputs are already 44px on desktop rather than shrinking to fit a toolbar.</li>
+			</ul>
+		</div>
+	</section>
+
+	<!-- 04 DON'T -->
+	<section class="section">
+		<p class="section-label">04 — Off-style, for contrast</p>
+		<h2>What breaks the lab</h2>
+		<div class="compare">
+			<div class="cmp-off">Teal-to-purple gradient
+				<small>24px radius · two-hue gradient · colored glow · bold white type. Putting the accent and the signal in one gradient is the loudest possible mistake here.</small></div>
+			<div class="cmp-on">Same content, on-style
+				<small>16px radius, white fill, hairline border, no shadow, ink text. Teal appears once — on the button you actually want pressed.</small></div>
+		</div>
+		<p class="note">Also out: pure black text or borders, dense tables, glows, and any surface that needs two colors to explain itself.</p>
+	</section>
+</div>
+
+<footer>Vetta design reference — openai · one teal signal, one reading column.</footer>
+</body>
+</html>

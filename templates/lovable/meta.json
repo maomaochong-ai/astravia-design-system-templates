@@ -1,0 +1,33 @@
+{
+	"schemaVersion": 1,
+	"kind": "design-system",
+	"slug": "lovable",
+	"name": "Lovable",
+	"version": "1.0.0",
+	"order": 440,
+	"category": "creative",
+	"vibe": "light",
+	"tags": [
+		"light-ui",
+		"minimal",
+		"developer-focused",
+		"design-system"
+	],
+	"blurb": "Lovable's website radiates warmth through restraint.",
+	"tagline": {
+		"en": "Warm parchment restraint, creamy and human",
+		"zh": "羊皮纸般的温暖克制"
+	},
+	"license": "MIT",
+	"origin": {
+		"type": "curated",
+		"upstream": "https://github.com/ricocc/brands-design-md.git",
+		"note": "from brands-design-md (Lovable)."
+	},
+	"assets": {
+		"spec": "DESIGN.md",
+		"theme": "theme.css",
+		"demo": "demo.html"
+	},
+	"collectedAt": "2026-08-22"
+}

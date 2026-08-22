@@ -1,0 +1,32 @@
+{
+	"schemaVersion": 1,
+	"kind": "design-system",
+	"slug": "notion",
+	"name": "Notion",
+	"version": "1.0.0",
+	"order": 50,
+	"category": "productivity",
+	"vibe": "light",
+	"tags": [
+		"light-ui",
+		"enterprise",
+		"design-system"
+	],
+	"blurb": "Notion presents itself as the all-in-one workspace through a confident, illustration-rich brand voice — anchored by a deep navy hero band ({colors.brand-navy}) decorated with br…",
+	"tagline": {
+		"en": "Confident all-in-one workspace, illustration-rich",
+		"zh": "自信的 All-in-one 工作台，插画丰富"
+	},
+	"license": "MIT",
+	"origin": {
+		"type": "curated",
+		"upstream": "https://github.com/ricocc/brands-design-md.git",
+		"note": "from brands-design-md (Notion)."
+	},
+	"assets": {
+		"spec": "DESIGN.md",
+		"theme": "theme.css",
+		"demo": "demo.html"
+	},
+	"collectedAt": "2026-08-22"
+}

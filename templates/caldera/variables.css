@@ -1,0 +1,80 @@
+:root {
+  /* Colors */
+  --color-basalt-canvas: #e2e2df;
+  --color-ash-white: #f7f6f2;
+  --color-abyssal-ink: #070607;
+  --color-pure-white: #ffffff;
+  --color-digital-orange: #fc5000;
+  --color-cyber-violet: #524ae9;
+  --color-pixel-glare: #f5f28e;
+
+  /* Typography — Font Families */
+  --font-sans-serif: 'sans-serif', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-pp-neue-corp-compact-ultrabold: 'PP Neue Corp Compact Ultrabold', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-dm-sans: 'DM Sans', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+  /* Typography — Scale */
+  --text-body-sm: 14px;
+  --leading-body-sm: 1.25;
+  --text-body: 16px;
+  --leading-body: 1.55;
+  --text-subheading: 30px;
+  --leading-subheading: 1.11;
+  --text-heading-sm: 32px;
+  --leading-heading-sm: 0.95;
+  --tracking-heading-sm: 0.02px;
+  --text-heading: 56px;
+  --leading-heading: 0.94;
+  --tracking-heading: 0.02px;
+  --text-display: 96px;
+  --leading-display: 0.94;
+  --tracking-display: 0.02px;
+
+  /* Typography — Weights */
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+
+  /* Spacing */
+  --spacing-4: 4px;
+  --spacing-8: 8px;
+  --spacing-9: 9px;
+  --spacing-10: 10px;
+  --spacing-12: 12px;
+  --spacing-16: 16px;
+  --spacing-18: 18px;
+  --spacing-20: 20px;
+  --spacing-24: 24px;
+  --spacing-32: 32px;
+  --spacing-40: 40px;
+  --spacing-48: 48px;
+  --spacing-56: 56px;
+  --spacing-64: 64px;
+  --spacing-80: 80px;
+  --spacing-92: 92px;
+
+  /* Layout */
+  --page-max-width: 1200px;
+  --section-gap: 40px;
+  --card-padding: 40px;
+  --element-gap: 10px;
+
+  /* Border Radius */
+  --radius-2xl: 16px;
+  --radius-2xl-2: 20px;
+  --radius-3xl: 24px;
+  --radius-3xl-2: 32px;
+  --radius-3xl-3: 40px;
+  --radius-full: 100px;
+  --radius-full-2: 800px;
+
+  /* Named Radii */
+  --radius-cards: 40px;
+  --radius-inputs: 100px;
+  --radius-buttons: 800px;
+  --radius-default: 40px;
+
+  /* Surfaces */
+  --surface-basalt-canvas: #e2e2df;
+  --surface-ash-white: #f7f6f2;
+  --surface-digital-orange-accent: #fc5000;
+}

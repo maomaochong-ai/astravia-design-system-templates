@@ -1,0 +1,815 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#fcfbf8" />
+    <title>Lovable — Design System</title>
+    
+    
+    
+    <style>
+      :root {
+        --canvas: #fcfbf8;
+        --sand: #f7f4ed;
+        --linen: #eceae4;
+        --stone: #d4d3d0;
+        --dim: #5f5f5d;
+        --charcoal: #1c1c1c;
+        --ink: #030303;
+        --indigo: #3451b2;
+        --hero: linear-gradient(
+          90deg,
+          rgb(28, 28, 28) 0%,
+          rgb(28, 28, 28) 33.33%,
+          rgb(130, 188, 255) 40%,
+          rgb(36, 131, 255) 45%,
+          rgb(255, 102, 244) 50%,
+          rgb(255, 48, 41) 55%,
+          rgb(254, 123, 2) 60%,
+          rgba(0, 0, 0, 0) 66.67%,
+          rgba(0, 0, 0, 0) 100%
+        );
+        --edge: oklch(0 0 0/0.25) 0 0 0 0.5px inset;
+        --prompt:
+          oklab(0 0 0/0.08) 0 0 0 1px, rgba(0, 0, 0, 0.1) 0 20px 25px -5px,
+          rgba(0, 0, 0, 0.1) 0 8px 10px -6px;
+        --edge-soft: oklch(0 0 0/0.16) 0 0 0 0.5px inset;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        margin: 0;
+        background: var(--canvas);
+        color: var(--charcoal);
+        font-family: "Camera Plain Variable", "DM Sans", sans-serif;
+        font-feature-settings: "liga" 0;
+        font-size: 16px;
+        line-height: 1.5;
+        letter-spacing: -0.025em;
+        -webkit-font-smoothing: antialiased;
+      }
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+      button {
+        font: inherit;
+      }
+      :focus-visible {
+        outline: 2px solid var(--indigo);
+        outline-offset: 3px;
+      }
+      .wrap {
+        width: min(100% - 40px, 1120px);
+        margin: auto;
+      }
+      .nav {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        height: 56px;
+        display: flex;
+        align-items: center;
+        background: rgba(252, 251, 248, 0.88);
+        border-bottom: 1px solid var(--linen);
+        backdrop-filter: blur(4px);
+      }
+      .nav .wrap,
+      .nav-left,
+      .nav-right,
+      .nav-links {
+        display: flex;
+        align-items: center;
+      }
+      .nav .wrap {
+        justify-content: space-between;
+      }
+      .nav-left,
+      .nav-right,
+      .nav-links {
+        gap: 12px;
+      }
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 16px;
+        font-weight: 480;
+      }
+      .logo-favicon {
+        width: 30px;
+        height: 30px;
+        object-fit: contain;
+      }
+      .tag,
+      .nav-links,
+      .nav-url {
+        color: var(--dim);
+        font-size: 14px;
+      }
+      .nav-links {
+        gap: 14px;
+      }
+      .nav-links a:hover,
+      .nav-url:hover {
+        color: var(--ink);
+      }
+      .hero {
+        min-height: 420px;
+        display: grid;
+        place-items: center;
+        padding: 72px 0 112px;
+        background: var(--canvas);
+        border-bottom: 1px solid var(--linen);
+        position: relative;
+        overflow: hidden;
+      }
+      .hero-inner {
+        width: min(100% - 40px, 780px);
+        text-align: center;
+        position: relative;
+        z-index: 1;
+      }
+      .hero::after {
+        content: "";
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        height: 78px;
+        background: var(--hero);
+      }
+      h1,
+      h2,
+      h3,
+      p {
+        margin: 0;
+      }
+      h1 {
+        color: var(--ink);
+        font-size: clamp(42px, 7vw, 60px);
+        font-weight: 480;
+        line-height: 1;
+        letter-spacing: -0.025em;
+        text-wrap: balance;
+      }
+      .hero p {
+        max-width: 550px;
+        margin: 16px auto 28px;
+        color: var(--charcoal);
+        font-size: 18px;
+        line-height: 1.38;
+      }
+      .prompt {
+        width: min(100%, 650px);
+        margin: auto;
+        padding: 20px;
+        border-radius: 24px;
+        background: rgba(247, 244, 237, 0.96);
+        box-shadow: var(--edge), var(--prompt);
+        text-align: left;
+      }
+      .placeholder {
+        min-height: 30px;
+        color: var(--dim);
+      }
+      .prompt-actions {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 14px;
+      }
+      .prompt-left {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .circle,
+      .build {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        place-items: center;
+        border: 0;
+        cursor: pointer;
+      }
+      .circle {
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        background: var(--canvas);
+        color: var(--charcoal);
+        box-shadow: var(--edge-soft);
+      }
+      .build {
+        align-items: center;
+        gap: 4px;
+        padding: 5px 9px;
+        border-radius: 9999px;
+        background: transparent;
+        color: var(--charcoal);
+      }
+      .build:hover {
+        background: rgba(28, 28, 28, 0.06);
+      }
+      .send {
+        background: linear-gradient(
+          135deg,
+          rgb(36, 131, 255),
+          rgb(255, 102, 244),
+          rgb(255, 48, 41),
+          rgb(254, 123, 2)
+        );
+        color: var(--ink);
+      }
+      .site {
+        padding: 80px 0 0;
+      }
+      section {
+        padding: 80px 0;
+        border-bottom: 1px solid var(--linen);
+        scroll-margin-top: 56px;
+      }
+      .section-head {
+        max-width: 670px;
+        margin-bottom: 32px;
+      }
+      h2 {
+        font-size: clamp(32px, 5vw, 48px);
+        font-weight: 480;
+        line-height: 1.1;
+        letter-spacing: -0.025em;
+        text-wrap: balance;
+      }
+      .section-head p {
+        max-width: 610px;
+        margin-top: 8px;
+        color: var(--dim);
+      }
+      .swatches {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 8px;
+      }
+      .swatch {
+        min-height: 148px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        padding: 16px;
+        border-radius: 16px;
+        box-shadow: var(--edge);
+      }
+      .swatch strong {
+        font-size: 16px;
+        font-weight: 480;
+      }
+      .swatch code,
+      .spec {
+        margin-top: 4px;
+        font:
+          400 13px/1.4 ui-monospace,
+          monospace;
+        letter-spacing: 0;
+        opacity: 0.72;
+      }
+      .gradient-swatch {
+        grid-column: span 2;
+        background: var(--hero);
+        color: var(--ink);
+      }
+      .type-list {
+        border-top: 1px solid var(--linen);
+      }
+      .type-row {
+        display: grid;
+        grid-template-columns: 110px 1fr 160px;
+        align-items: baseline;
+        gap: 16px;
+        padding: 20px 0;
+        border-bottom: 1px solid var(--linen);
+      }
+      .type-role,
+      .spec {
+        color: var(--dim);
+      }
+      .type-sample {
+        font-weight: 480;
+        line-height: 1.1;
+        text-wrap: balance;
+      }
+      .font-note {
+        margin-top: 20px;
+        color: var(--dim);
+        font-size: 14px;
+      }
+      .metrics {
+        display: grid;
+        grid-template-columns: 1.4fr 1fr;
+        gap: 48px;
+        align-items: end;
+      }
+      .spacing {
+        display: flex;
+        align-items: end;
+        gap: 8px;
+        min-height: 172px;
+      }
+      .space {
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        justify-content: end;
+        gap: 6px;
+        color: var(--dim);
+        font-size: 12px;
+        text-align: center;
+      }
+      .bar {
+        width: 100%;
+        border-radius: 9999px;
+        background: var(--charcoal);
+      }
+      .radii {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+      }
+      .radius {
+        min-height: 84px;
+        padding: 12px;
+        display: flex;
+        align-items: end;
+        background: var(--sand);
+        box-shadow: var(--edge-soft);
+        color: var(--dim);
+        font-size: 14px;
+      }
+      .shadow-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+      }
+      .shadow {
+        min-height: 130px;
+        padding: 16px;
+        display: flex;
+        align-items: end;
+        border-radius: 16px;
+        background: var(--sand);
+        color: var(--dim);
+        font-size: 14px;
+      }
+      .prompt-shadow {
+        border-radius: 24px;
+        box-shadow: var(--prompt);
+      }
+      .edge-shadow {
+        box-shadow: var(--edge);
+      }
+      .edge-soft {
+        box-shadow: var(--edge-soft);
+      }
+      .component-layout {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+      }
+      .component-title {
+        margin-bottom: 16px;
+        font-size: 20px;
+        font-weight: 480;
+      }
+      .component-note {
+        margin-top: 12px;
+        color: var(--dim);
+        font-size: 14px;
+      }
+      .button-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 32px;
+        padding: 6px 10px;
+        border: 1px solid var(--linen);
+        border-radius: 9999px;
+        background: transparent;
+        color: var(--charcoal);
+        cursor: pointer;
+        transition:
+          color 0.15s ease,
+          background-color 0.15s ease,
+          border-color 0.15s ease;
+      }
+      .pill:hover {
+        border-color: var(--stone);
+        background: var(--sand);
+      }
+      .pill.primary {
+        border-color: rgba(0, 0, 0, 0.88);
+        background: rgba(0, 0, 0, 0.88);
+        color: var(--canvas);
+      }
+      .pill.primary:hover {
+        background: var(--charcoal);
+      }
+      .pill.frost {
+        border-color: transparent;
+        background: rgba(255, 255, 255, 0.8);
+      }
+      .feature-card {
+        padding: 20px;
+        border-radius: 24px;
+        background: var(--sand);
+      }
+      .feature-card h3,
+      .guides h3 {
+        font-size: 20px;
+        font-weight: 480;
+      }
+      .feature-card p {
+        margin-top: 6px;
+        color: var(--dim);
+      }
+      .guides {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+      }
+      .guides ul {
+        margin: 12px 0 0;
+        padding-left: 20px;
+        color: var(--dim);
+      }
+      .guides li + li {
+        margin-top: 8px;
+      }
+      footer {
+        display: flex;
+        justify-content: space-between;
+        gap: 24px;
+        padding: 32px 0 64px;
+        color: var(--dim);
+        font-size: 14px;
+      }
+      .downloads {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+      .downloads a:hover {
+        color: var(--indigo);
+      }
+      @media (max-width: 760px) {
+        .wrap {
+          width: min(100% - 28px, 1120px);
+        }
+        .nav-links,
+        .tag {
+          display: none;
+        }
+        .hero {
+          min-height: 430px;
+          padding: 64px 0 92px;
+        }
+        .site,
+        section {
+          padding: 56px 0;
+        }
+        .swatches {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .gradient-swatch {
+          grid-column: span 2;
+        }
+        .type-row {
+          grid-template-columns: 82px 1fr;
+        }
+        .type-row .spec {
+          grid-column: 2;
+          margin-top: -12px;
+        }
+        .metrics,
+        .component-layout,
+        .guides {
+          grid-template-columns: 1fr;
+          gap: 32px;
+        }
+        .shadow-grid {
+          grid-template-columns: 1fr;
+        }
+        footer {
+          flex-direction: column;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+        .pill {
+          transition: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="nav">
+      <div class="wrap">
+        <div class="nav-left">
+          <a class="brand" href="#top"
+            >Lovable</a
+          ><span class="tag">Design system</span>
+        </div>
+        <div class="nav-links">
+          <a href="#colors">Colors</a><a href="#type">Type</a
+          ><a href="#shape">Spacing</a><a href="#components">Components</a>
+        </div>
+        <div class="nav-right">
+          <a
+            href="#"
+            class="nav-url"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Site ↗</a
+          >
+        </div>
+      </div>
+    </nav>
+    <main id="top">
+      <header class="hero">
+        <div class="hero-inner">
+          <h1>Warm parchment. One prismatic horizon.</h1>
+          <p>
+            A restrained light system where the interface recedes and the hero
+            carries the entire chromatic moment.
+          </p>
+          <div class="prompt">
+            <div class="placeholder">Describe the app you want to build</div>
+            <div class="prompt-actions">
+              <div class="prompt-left">
+                <button class="circle" aria-label="Add context">+</button
+                ><button class="build">
+                  Build <span aria-hidden="true">⌄</span>
+                </button>
+              </div>
+              <button class="circle send" aria-label="Send prompt">↑</button>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="wrap site">
+        <section id="colors">
+          <div class="section-head">
+            <h2>Colors</h2>
+            <p>
+              Warm neutrals do the work; Indigo appears only for inline links
+              and keyboard focus.
+            </p>
+          </div>
+          <div class="swatches">
+            <div class="swatch" style="background: #fcfbf8">
+              <strong>Parchment</strong><code>#fcfbf8</code>
+            </div>
+            <div class="swatch" style="background: #f7f4ed">
+              <strong>Warm Sand</strong><code>#f7f4ed</code>
+            </div>
+            <div class="swatch" style="background: #eceae4">
+              <strong>Linen Border</strong><code>#eceae4</code>
+            </div>
+            <div class="swatch" style="background: #d4d3d0">
+              <strong>Stone</strong><code>#d4d3d0</code>
+            </div>
+            <div class="swatch" style="background: #5f5f5d; color: #fcfbf8">
+              <strong>Dim Gray</strong><code>#5f5f5d</code>
+            </div>
+            <div class="swatch" style="background: #1c1c1c; color: #fcfbf8">
+              <strong>Charcoal</strong><code>#1c1c1c</code>
+            </div>
+            <div class="swatch" style="background: #030303; color: #fcfbf8">
+              <strong>Ink</strong><code>#030303</code>
+            </div>
+            <div class="swatch" style="background: #3451b2; color: #fcfbf8">
+              <strong>Indigo Accent</strong><code>#3451b2</code>
+            </div>
+            <div class="swatch gradient-swatch">
+              <strong>Hero Gradient</strong><code>Full-width hero only</code>
+            </div>
+          </div>
+        </section>
+        <section id="type">
+          <div class="section-head">
+            <h2>Type</h2>
+            <p>
+              Camera Plain Variable handles every scale at a compact −0.025em
+              tracking, with ligatures disabled.
+            </p>
+          </div>
+          <div class="type-list">
+            <div class="type-row">
+              <span class="type-role">Display</span
+              ><span
+                class="type-sample"
+                style="font-size: clamp(34px, 5vw, 60px)"
+                >Build with clarity.</span
+              ><span class="spec">60 / 1 / 480</span>
+            </div>
+            <div class="type-row">
+              <span class="type-role">Heading lg</span
+              ><span class="type-sample" style="font-size: 48px"
+                >Quiet confidence.</span
+              ><span class="spec">48 / 1.1 / 480</span>
+            </div>
+            <div class="type-row">
+              <span class="type-role">Heading</span
+              ><span class="type-sample" style="font-size: 36px"
+                >One strong idea.</span
+              ><span class="spec">36 / 1.1 / 480</span>
+            </div>
+            <div class="type-row">
+              <span class="type-role">Subheading</span
+              ><span
+                class="type-sample"
+                style="font-size: 18px; font-weight: 400; line-height: 1.38"
+                >Supporting copy remains direct and calm.</span
+              ><span class="spec">18 / 1.38 / 400</span>
+            </div>
+            <div class="type-row">
+              <span class="type-role">Body</span
+              ><span
+                class="type-sample"
+                style="font-size: 16px; font-weight: 400; line-height: 1.5"
+                >The default reading voice for product and documentation.</span
+              ><span class="spec">16 / 1.5 / 400</span>
+            </div>
+            <div class="type-row">
+              <span class="type-role">Caption</span
+              ><span
+                class="type-sample"
+                style="font-size: 14px; font-weight: 400; line-height: 1.5"
+                >Labels, descriptions and compact metadata.</span
+              ><span class="spec">14 / 1.5 / 400</span>
+            </div>
+          </div>
+          <p class="font-note">
+            Camera Plain Variable · fallback: Inter Variable, DM Sans · weights:
+            400, 480, 600
+          </p>
+        </section>
+        <section id="shape">
+          <div class="section-head">
+            <h2>Spacing &amp; shape</h2>
+            <p>
+              A compact 4px-derived scale leaves generous space only between the
+              major ideas.
+            </p>
+          </div>
+          <div class="metrics">
+            <div class="spacing">
+              <div class="space">
+                <div class="bar" style="height: 4px"></div>
+                <span>4</span>
+              </div>
+              <div class="space">
+                <div class="bar" style="height: 8px"></div>
+                <span>8</span>
+              </div>
+              <div class="space">
+                <div class="bar" style="height: 16px"></div>
+                <span>16</span>
+              </div>
+              <div class="space">
+                <div class="bar" style="height: 24px"></div>
+                <span>24</span>
+              </div>
+              <div class="space">
+                <div class="bar" style="height: 40px"></div>
+                <span>40</span>
+              </div>
+              <div class="space">
+                <div class="bar" style="height: 56px"></div>
+                <span>56</span>
+              </div>
+              <div class="space">
+                <div class="bar" style="height: 80px"></div>
+                <span>80</span>
+              </div>
+              <div class="space">
+                <div class="bar" style="height: 110px"></div>
+                <span>160</span>
+              </div>
+            </div>
+            <div class="radii">
+              <div class="radius" style="border-radius: 8px">
+                Input<br />8px
+              </div>
+              <div class="radius" style="border-radius: 12px">
+                Image<br />12px
+              </div>
+              <div class="radius" style="border-radius: 16px">
+                Container<br />16px
+              </div>
+              <div class="radius" style="border-radius: 24px">
+                Card<br />24px
+              </div>
+              <div class="radius" style="border-radius: 9999px">
+                Pill<br />9999px
+              </div>
+            </div>
+          </div>
+        </section>
+        <section>
+          <div class="section-head">
+            <h2>Elevation</h2>
+            <p>
+              Inset edges define ordinary containment. The chat prompt is the
+              single elevated object.
+            </p>
+          </div>
+          <div class="shadow-grid">
+            <div class="edge-shadow shadow">
+              Subtle<br /><span class="spec">0.5px inset</span>
+            </div>
+            <div class="prompt-shadow shadow">
+              Subtle 2<br /><span class="spec">Prompt elevation</span>
+            </div>
+            <div class="edge-soft shadow">
+              Subtle 3<br /><span class="spec">0.5px inset</span>
+            </div>
+          </div>
+        </section>
+        <section id="components">
+          <div class="section-head">
+            <h2>Components</h2>
+            <p>
+              Pills state action; warm cards support content without visual
+              noise.
+            </p>
+          </div>
+          <div class="component-layout">
+            <div>
+              <h3 class="component-title">Pill actions</h3>
+              <div class="button-row">
+                <button class="pill">Log in</button
+                ><button class="pill primary">Get started</button
+                ><button class="pill frost">Hero overlay</button>
+              </div>
+              <p class="component-note">
+                Secondary uses a linen rule; primary is near-black at 88%
+                opacity. No colored CTA backgrounds.
+              </p>
+            </div>
+            <div class="feature-card">
+              <h3>Warm surface card</h3>
+              <p>
+                Warm Sand · 24px radius · 24px / 20px padding · no border or
+                shadow.
+              </p>
+            </div>
+          </div>
+        </section>
+        <section id="guidelines">
+          <div class="section-head"><h2>Use the system quietly.</h2></div>
+          <div class="guides">
+            <div>
+              <h3>Do</h3>
+              <ul>
+                <li>Keep the hero gradient full-width and isolated.</li>
+                <li>Use Linen for every divider and visible border.</li>
+                <li>Keep headings at 480 and body copy at 400.</li>
+                <li>Use soft card and pill radii consistently.</li>
+              </ul>
+            </div>
+            <div>
+              <h3>Avoid</h3>
+              <ul>
+                <li>Cool grays, colored CTAs, and gradient text.</li>
+                <li>Additional type families.</li>
+                <li>Drop shadows outside the chat prompt.</li>
+                <li>Sharp corners on interactive controls.</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+        <footer>
+          <span>Lovable design system</span>
+          <div class="downloads">
+            <a href="#" download>DESIGN.md</a
+            ><a href="#" download>tokens.json</a
+            ><a href="#" download>variables.css</a
+            ><a href="#" download>theme.css</a>
+          </div>
+        </footer>
+      </div>
+    </main>
+  </body>
+</html>

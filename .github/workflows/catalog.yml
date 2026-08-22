@@ -1,0 +1,36 @@
+name: catalog
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      # 条目目录是事实源，清单是生成物：这里只校验同步，不在 CI 里回写。
+      - run: node scripts/build-catalog.mjs --check
+
+  purge:
+    # 客户端已经改成首选 raw（5 分钟新鲜），所以这一步不再是更新能否生效的关键路径。
+    # 保留只是让兜底源尽量别太旧：jsDelivr 对 @main 会缓存「分支→commit」的解析结果，
+    # purge 单个文件常常刷不掉它（实测 finished 之后内容仍是半天前的），别指望它。
+    needs: check
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Purge jsDelivr cache
+        run: |
+          set -euo pipefail
+          URL="https://purge.jsdelivr.net/gh/sikongyue/astravia-design-system-templates@main/.astravia/design-templates.json"
+          echo "purging $URL"
+          curl -sS --fail --max-time 60 "$URL" | tee /tmp/purge.json
+          echo
+          # purge 是尽力而为：raw 兜底仍然是最新的，所以这一步失败不该让整条流水线红。
+          grep -q '"status": *"finished"' /tmp/purge.json || echo "::warning::jsDelivr purge did not report finished"
+        continue-on-error: true

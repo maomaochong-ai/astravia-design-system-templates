@@ -1,0 +1,33 @@
+{
+	"schemaVersion": 1,
+	"kind": "design-system",
+	"slug": "composio",
+	"name": "Composio",
+	"version": "1.0.0",
+	"order": 340,
+	"category": "dev",
+	"vibe": "dark",
+	"tags": [
+		"dark-ui",
+		"gradient",
+		"developer-focused",
+		"design-system"
+	],
+	"blurb": "A developer-tools brand for AI-agent tool integration whose marketing surfaces lean into a dark, technical aesthetic with a single deep-electric-blue voltage (`#0007cd`).",
+	"tagline": {
+		"en": "Dark technical dev-tool aesthetic for agent tools",
+		"zh": "暗色技术风的 Agent 工具品牌"
+	},
+	"license": "MIT",
+	"origin": {
+		"type": "curated",
+		"upstream": "https://github.com/ricocc/brands-design-md.git",
+		"note": "from brands-design-md (Composio)."
+	},
+	"assets": {
+		"spec": "DESIGN.md",
+		"theme": "theme.css",
+		"demo": "demo.html"
+	},
+	"collectedAt": "2026-08-22"
+}

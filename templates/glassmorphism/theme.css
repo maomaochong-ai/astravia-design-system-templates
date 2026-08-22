@@ -1,0 +1,55 @@
+/* Glassmorphism (nocturne) — colorless glass over a deep night scene.
+   The scene owns every colour; the glass only borrows light from it. */
+@theme {
+	--color-primary: #e4b863;
+	--color-primary-foreground: #f3dca8;
+	--color-surface: #0b1322;
+	--color-surface-foreground: #ffffff;
+	--color-surface-raised: #16233a;
+	--color-muted: #9aa4b8;
+	--color-accent: #7c9cc4;
+	--color-danger: #d9606e;
+	--color-border: #303643;
+
+	/* ── The night scene: the only place colour lives ─────────────── */
+	--color-night-deep: #060a13;
+	--color-night: #0b1322;
+	--color-night-steel: #16233a;
+	--color-moon-steel: #33517a;
+	--color-moonlight: #7c9cc4;
+	--color-champagne: #e4b863;
+	--color-champagne-bright: #f3dca8;
+
+	/* ── Glass: always colourless, never above 15% ────────────────── */
+	--glass-fill: rgb(255 255 255 / 0.08);
+	--glass-fill-quiet: rgb(255 255 255 / 0.05);
+	--glass-fill-hover: rgb(255 255 255 / 0.14);
+	--glass-border: rgb(255 255 255 / 0.15);
+	--glass-border-hover: rgb(255 255 255 / 0.32);
+	--glass-luminance: linear-gradient(180deg, rgb(255 255 255 / 0.12), transparent);
+	--glass-blur: 60px;
+	--glass-blur-mobile: 30px;
+	--glass-saturate: 180%;
+
+	/* Light wells — large, soft, low-alpha radials behind the glass. */
+	--well-moonlight: radial-gradient(circle, rgb(124 156 196 / 0.28) 0%, transparent 65%);
+	--well-steel: radial-gradient(circle, rgb(51 81 122 / 0.35) 0%, transparent 65%);
+	--well-champagne: radial-gradient(circle, rgb(228 184 99 / 0.12) 0%, transparent 60%);
+
+	--radius-sm: 16px;
+	--radius-md: 20px;
+	--radius-lg: 24px;
+	--radius-xl: 28px;
+	--radius-2xl: 32px;
+	--radius-full: 9999px;
+
+	/* Directional: outer depth, a lit top edge, a shaded bottom edge. */
+	--shadow-sm: 0 8px 24px rgb(3 7 18 / 0.45), inset 0 1px 0 rgb(255 255 255 / 0.18);
+	--shadow-md: 0 16px 40px rgb(3 7 18 / 0.5), inset 0 1px 0 rgb(255 255 255 / 0.22), inset 0 -1px 0 rgb(2 6 16 / 0.35);
+	--shadow-lg: 0 24px 64px rgb(3 7 18 / 0.6), inset 0 1px 0 rgb(255 255 255 / 0.32), inset 0 -1px 0 rgb(2 6 16 / 0.35);
+	--shadow-champagne: 0 4px 20px rgb(228 184 99 / 0.15), inset 0 1px 0 rgb(243 220 168 / 0.35);
+
+	--ease-glass: cubic-bezier(0.16, 1, 0.3, 1);
+	--duration-base: 500ms;
+	--duration-sweep: 700ms;
+}

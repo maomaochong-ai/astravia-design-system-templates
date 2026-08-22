@@ -1,0 +1,32 @@
+{
+	"schemaVersion": 1,
+	"kind": "design-system",
+	"slug": "kraken",
+	"name": "Kraken",
+	"version": "1.0.0",
+	"order": 420,
+	"category": "fintech",
+	"vibe": "light",
+	"tags": [
+		"light-ui",
+		"minimal",
+		"design-system"
+	],
+	"blurb": "Kraken's website is a clean, trustworthy crypto exchange that uses purple as its commanding brand color.",
+	"tagline": {
+		"en": "Clean trustworthy crypto with commanding purple",
+		"zh": "可信赖的加密交易所，紫色主导"
+	},
+	"license": "MIT",
+	"origin": {
+		"type": "curated",
+		"upstream": "https://github.com/ricocc/brands-design-md.git",
+		"note": "from brands-design-md (Kraken)."
+	},
+	"assets": {
+		"spec": "DESIGN.md",
+		"theme": "theme.css",
+		"demo": "demo.html"
+	},
+	"collectedAt": "2026-08-22"
+}

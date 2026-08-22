@@ -1,0 +1,570 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Linear — Design System</title>
+    
+    
+    <style>
+      :root {
+        --void: #08090a;
+        --carbon: #0f1011;
+        --obsidian: #161718;
+        --graphite: #23252a;
+        --smoke: #383b3f;
+        --ash: #62666d;
+        --fog: #8a8f98;
+        --mist: #d0d6e0;
+        --paper: #fff;
+        --lime: #e4f222;
+        --green: #27a644;
+        --red: #eb5757;
+        --violet: #6366f1;
+        --sans: Inter, sans-serif;
+        --mono: "JetBrains Mono", monospace;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        margin: 0;
+        background: var(--void);
+        color: var(--paper);
+        font: 400 15px/1.6 var(--sans);
+        letter-spacing: -0.011em;
+      }
+      a {
+        color: inherit;
+      }
+      a:focus-visible,
+      button:focus-visible {
+        outline: 2px solid var(--lime);
+        outline-offset: 3px;
+      }
+      .page {
+        max-width: 1200px;
+        margin: auto;
+        padding: 0 32px 96px;
+      }
+      .nav {
+        height: 68px;
+        margin: 0 -32px;
+        padding: 0 16px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        position: sticky;
+        top: 0;
+        z-index: 2;
+        background: rgba(8, 9, 10, 0.96);
+        border-bottom: 0.5px solid var(--graphite);
+      }
+      .left,
+      .right {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .logo-favicon {
+        width: 30px;
+        height: 30px;
+        object-fit: contain;
+      }
+      .wordmark {
+        font: 510 16px/1 var(--sans);
+        text-decoration: none;
+      }
+      .tag,
+      .chip {
+        padding: 4px 8px;
+        border-radius: 4px;
+        background: rgba(255, 255, 255, 0.05);
+        color: var(--fog);
+        font: 12px/1.2 var(--mono);
+      }
+      .link {
+        padding: 8px 10px;
+        color: var(--mist);
+        font-size: 13px;
+        text-decoration: none;
+      }
+      .site {
+        border: 1px solid var(--graphite);
+        border-radius: 9999px;
+      }
+      .hero {
+        padding: 96px 0 64px;
+        border-bottom: 0.5px solid var(--graphite);
+      }
+      .eyebrow {
+        color: var(--lime);
+        font: 12px/1 var(--mono);
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+      .hero h1 {
+        margin: 20px 0 0;
+        max-width: 800px;
+        font: 510 clamp(56px, 8vw, 72px)/1 var(--sans);
+        letter-spacing: -0.022em;
+      }
+      .hero p {
+        max-width: 560px;
+        color: var(--fog);
+        font-size: 17px;
+      }
+      .actions {
+        display: flex;
+        gap: 10px;
+        margin-top: 28px;
+        flex-wrap: wrap;
+      }
+      .btn {
+        padding: 10px 16px;
+        border: 1px solid var(--graphite);
+        border-radius: 6px;
+        background: transparent;
+        color: var(--mist);
+        font: 400 14px/1 var(--sans);
+        text-decoration: none;
+      }
+      .primary {
+        background: var(--lime);
+        border-color: var(--lime);
+        color: var(--void);
+        font-weight: 510;
+      }
+      .section {
+        padding-top: 96px;
+        margin-top: 64px;
+        border-top: 0.5px solid var(--graphite);
+        scroll-margin-top: 68px;
+      }
+      .section h2 {
+        margin: 0 0 32px;
+        font: 510 48px/1 var(--sans);
+        letter-spacing: -0.022em;
+      }
+      .desc {
+        max-width: 620px;
+        color: var(--fog);
+      }
+      .grid {
+        display: grid;
+        gap: 12px;
+      }
+      .colors {
+        grid-template-columns: repeat(4, 1fr);
+      }
+      .swatch {
+        min-height: 120px;
+        padding: 12px;
+        border: 1px solid var(--graphite);
+        border-radius: 6px;
+        display: flex;
+        align-items: end;
+        font: 11px/1.4 var(--mono);
+      }
+      .type {
+        display: grid;
+        grid-template-columns: 360px 1fr 10px;
+        gap: 12px;
+        align-items: baseline;
+        padding: 18px 0;
+        border-bottom: 0.5px solid var(--graphite);
+      }
+      .type small {
+        color: var(--fog);
+        font: 11px/1 var(--mono);
+        text-align: right;
+      }
+      .display {
+        font: 510 72px/1 var(--sans);
+        letter-spacing: -0.022em;
+      }
+      .heading {
+        font: 510 48px/1 var(--sans);
+        letter-spacing: -0.022em;
+      }
+      .metrics {
+        grid-template-columns: 1fr 1fr;
+      }
+      .panel {
+        padding: 24px;
+        border: 1px solid var(--graphite);
+        border-radius: 12px;
+        background: var(--carbon);
+      }
+      .panel h3 {
+        margin: 0 0 20px;
+        font-size: 16px;
+      }
+      .space {
+        display: grid;
+        grid-template-columns: 45px 1fr 44px;
+        gap: 8px;
+        align-items: center;
+        margin: 8px 0;
+        font: 11px/1 var(--mono);
+      }
+      .bar {
+        height: 6px;
+        background: var(--lime);
+        border-radius: 2px;
+      }
+      .radii {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+      }
+      .radius {
+        height: 68px;
+        padding: 8px;
+        display: flex;
+        align-items: end;
+        background: var(--obsidian);
+        font: 11px/1 var(--mono);
+      }
+      .radius:nth-child(1) {
+        border-radius: 2px;
+      }
+      .radius:nth-child(2) {
+        border-radius: 6px;
+      }
+      .radius:nth-child(3) {
+        border-radius: 12px;
+      }
+      .shadows {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+      }
+      .shadow {
+        min-height: 110px;
+        padding: 16px;
+        border-radius: 6px;
+        background: var(--carbon);
+        font: 11px/1.4 var(--mono);
+      }
+      .shadow:nth-child(1) {
+        box-shadow: rgba(0, 0, 0, 0.4) 0 2px 4px;
+      }
+      .shadow:nth-child(2) {
+        box-shadow: rgb(35, 37, 42) 0 0 0 1px inset;
+      }
+      .shadow:nth-child(3) {
+        box-shadow: rgba(8, 9, 10, 0.6) 0 4px 32px;
+      }
+      .components {
+        grid-template-columns: 1fr 1fr;
+      }
+      .component {
+        padding: 24px;
+        border: 1px solid var(--graphite);
+        border-radius: 12px;
+        background: var(--carbon);
+      }
+      .component h3 {
+        margin: 0 0 18px;
+        font-size: 16px;
+      }
+      .stage {
+        padding: 22px;
+        background: var(--void);
+        border-radius: 6px;
+      }
+      .issue {
+        padding: 16px;
+        border: 1px solid var(--graphite);
+        border-radius: 6px;
+        background: rgba(255, 255, 255, 0.02);
+      }
+      .issue b {
+        display: block;
+        margin-top: 8px;
+      }
+      .issue p {
+        margin: 8px 0 0;
+        color: var(--fog);
+        font-size: 13px;
+      }
+      .guides {
+        grid-template-columns: 1fr 1fr;
+      }
+      .guide {
+        padding: 24px;
+        border-radius: 12px;
+        border: 1px solid var(--graphite);
+      }
+      .guide h3 {
+        margin: 0 0 14px;
+      }
+      .guide ul {
+        margin: 0;
+        padding-left: 18px;
+      }
+      .guide li + li {
+        margin-top: 8px;
+      }
+      .footer {
+        margin-top: 96px;
+        padding-top: 24px;
+        border-top: 0.5px solid var(--graphite);
+        color: var(--fog);
+        font: 11px/1.4 var(--mono);
+      }
+      @media (max-width: 720px) {
+        .nav .link {
+          display: none;
+        }
+        .colors {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .type {
+          grid-template-columns: 1fr;
+        }
+        .type small {
+          text-align: left;
+        }
+        .metrics,
+        .components,
+        .guides {
+          grid-template-columns: 1fr;
+        }
+        .shadows {
+          grid-template-columns: 1fr;
+        }
+        .display {
+          font-size: 54px;
+        }
+        .heading {
+          font-size: 40px;
+        }
+      }
+      @media (max-width: 460px) {
+        .page {
+          padding: 0 20px 72px;
+        }
+        .nav {
+          margin: 0 -20px;
+        }
+        .tag {
+          display: none;
+        }
+        .hero {
+          padding-top: 64px;
+        }
+        .section {
+          padding-top: 72px;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <nav class="nav">
+        <div class="left">
+          <a class="wordmark" href="#top">Linear</a
+          ><span class="tag">Design System</span>
+        </div>
+        <div class="right">
+          <a class="link" href="#colors">Colors</a
+          ><a class="link" href="#type">Type</a
+          ><a class="link" href="#spacing">Spacing</a
+          ><a class="link" href="#components">Components</a
+          ><a
+            class="link site"
+            href="#"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Site ↗</a
+          >
+        </div>
+      </nav>
+      <main id="top">
+        <header class="hero">
+          <p class="eyebrow">Design System / Dark</p>
+          <h1>Midnight precision, made actionable.</h1>
+          <p>
+            Near-black surfaces, hairline geometry and one acid-lime signal keep
+            product work clear without visual noise.
+          </p>
+          <div class="actions">
+            <a class="btn primary" href="#components">Explore components</a
+            ><a class="btn" href="#" download>Download spec</a>
+          </div>
+        </header>
+        <section class="section" id="colors">
+          <p class="eyebrow">Foundation</p>
+          <h2>Color tokens</h2>
+          <p class="desc">
+            Void and neutral grays carry the interface. Acid Lime is the sole
+            chromatic action.
+          </p>
+          <div class="colors grid">
+            <div class="swatch" style="background: #08090a">
+              Void<br />#08090a
+            </div>
+            <div class="swatch" style="background: #0f1011">
+              Carbon<br />#0f1011
+            </div>
+            <div class="swatch" style="background: #23252a">
+              Graphite<br />#23252a
+            </div>
+            <div class="swatch" style="background: #d0d6e0; color: #08090a">
+              Mist<br />#d0d6e0
+            </div>
+            <div class="swatch" style="background: #fff; color: #08090a">
+              Paper<br />#ffffff
+            </div>
+            <div class="swatch" style="background: #e4f222; color: #08090a">
+              Acid Lime<br />#e4f222
+            </div>
+            <div class="swatch" style="background: #27a644">
+              Pulse Green<br />#27a644
+            </div>
+            <div class="swatch" style="background: #6366f1">
+              Iris Violet<br />#6366f1
+            </div>
+          </div>
+        </section>
+        <section class="section" id="type">
+          <p class="eyebrow">Typography</p>
+          <h2>Type scale</h2>
+          <div class="type">
+            <span class="display">Linear</span><small>Display / 72 / 510</small>
+          </div>
+          <div class="type">
+            <span class="heading">Built for focus.</span
+            ><small>Heading / 48 / 510</small>
+          </div>
+          <div class="type">
+            <span style="font-size: 24px">The smallest clear next step.</span
+            ><small>Subheading / 24 / 400</small>
+          </div>
+          <div class="type">
+            <span>Product decisions should be easy to scan.</span
+            ><small>Body / 15 / 400</small>
+          </div>
+        </section>
+        <section class="section" id="spacing">
+          <p class="eyebrow">Metrics</p>
+          <h2>Spacing &amp; shape</h2>
+          <div class="metrics grid">
+            <article class="panel">
+              <h3>Spacing</h3>
+              <div class="space">
+                <span>4</span><i class="bar" style="width: 4px"></i
+                ><span>4px</span>
+              </div>
+              <div class="space">
+                <span>8</span><i class="bar" style="width: 8px"></i
+                ><span>8px</span>
+              </div>
+              <div class="space">
+                <span>16</span><i class="bar" style="width: 16px"></i
+                ><span>16px</span>
+              </div>
+              <div class="space">
+                <span>24</span><i class="bar" style="width: 24px"></i
+                ><span>24px</span>
+              </div>
+              <div class="space">
+                <span>48</span><i class="bar" style="width: 48px"></i
+                ><span>48px</span>
+              </div>
+              <div class="space">
+                <span>96</span><i class="bar" style="width: 96px"></i
+                ><span>96px</span>
+              </div>
+            </article>
+            <article class="panel">
+              <h3>Radius</h3>
+              <div class="radii">
+                <div class="radius">2px<br />small</div>
+                <div class="radius">6px<br />controls</div>
+                <div class="radius">12px<br />cards</div>
+              </div>
+            </article>
+          </div>
+        </section>
+        <section class="section">
+          <p class="eyebrow">Elevation</p>
+          <h2>Shadows</h2>
+          <div class="shadows">
+            <div class="shadow">sm<br />0 2px 4px</div>
+            <div class="shadow">subtle<br />1px inset</div>
+            <div class="shadow">xl<br />0 4px 32px</div>
+          </div>
+        </section>
+        <section class="section" id="components">
+          <p class="eyebrow">Components</p>
+          <h2>Component library</h2>
+          <div class="components grid">
+            <article class="component">
+              <h3>Actions</h3>
+              <div class="stage">
+                <button class="btn primary">Create issue</button>
+                <button class="btn">View roadmap</button>
+              </div>
+              <p class="desc">Only the primary action receives Acid Lime.</p>
+            </article>
+            <article class="component">
+              <h3>Product frame</h3>
+              <div class="stage">
+                <article class="issue">
+                  <span class="chip">ENG-2703</span
+                  ><b>Refine onboarding sequence</b>
+                  <p>
+                    Product screenshot frames stay Carbon with a subtle inset
+                    edge.
+                  </p>
+                </article>
+              </div>
+            </article>
+          </div>
+        </section>
+        <section class="section">
+          <p class="eyebrow">Guidelines</p>
+          <h2>Use with restraint</h2>
+          <div class="guides grid">
+            <article class="guide">
+              <h3>Do</h3>
+              <ul>
+                <li>Use Acid Lime once per view.</li>
+                <li>Separate surfaces with Graphite hairlines.</li>
+                <li>Reserve Berkeley Mono for technical metadata.</li>
+              </ul>
+            </article>
+            <article class="guide">
+              <h3>Avoid</h3>
+              <ul>
+                <li>Do not use display weights above 590.</li>
+                <li>Do not add chromatic actions beyond Acid Lime.</li>
+                <li>Do not use outer shadows as general card elevation.</li>
+              </ul>
+            </article>
+          </div>
+          <div class="actions" style="margin-top: 24px">
+            <a class="btn" href="#" download>tokens.json</a
+            ><a class="btn" href="#" download>variables.css</a
+            ><a class="btn" href="#" download>theme.css</a>
+          </div>
+        </section>
+      </main>
+      <footer class="footer">
+        LINEAR DESIGN SYSTEM · MIDNIGHT PRECISION INSTRUMENT
+      </footer>
+    </div>
+  </body>
+</html>

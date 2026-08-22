@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cohere — Design System</title>
+
+
+
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+
+:root{
+  --pure-white:#ffffff;
+  --arctic-frost:#f8f9fb;
+  --cloud-gray:#f1f3f5;
+  --border-light:#e5e7eb;
+  --border-medium:#d1d5db;
+  --slate:#6b7280;
+  --iron:#374151;
+  --navy:#111827;
+  --cohere-blue:#3959ff;
+  --cohere-blue-hover:#2d47d9;
+  --cohere-blue-light:#eef1ff;
+  --emerald:#059669;
+  --amber:#d97706;
+  --crimson:#dc2626;
+
+  --r-sm:6px;--r-md:8px;--r-xl:12px;--r-full:9999px;
+}
+
+::selection{background:rgba(57,89,255,.15);color:var(--navy)}
+html{scroll-behavior:smooth}
+
+body{
+  font-family:'DM Sans',system-ui,-apple-system,sans-serif;
+  background:var(--pure-white);color:var(--navy);
+  font-size:16px;line-height:1.6;letter-spacing:0;
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
+}
+
+.page{max-width:960px;margin:0 auto;padding:0 32px 120px}
+
+/* ── NAV ── */
+.nav{
+  display:flex;justify-content:space-between;align-items:center;
+  height:64px;padding:0 16px;position:sticky;top:0;z-index:100;
+  background:rgba(255,255,255,.92);backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--border-light);
+  margin:0 -32px;
+}
+.nav-left{display:flex;align-items:center;gap:12px}
+.nav-wordmark{
+  font-size:18px;font-weight:700;letter-spacing:-.35px;
+  color:var(--navy);text-decoration:none;
+}
+.nav-tag{
+  font-size:11px;font-weight:500;color:var(--cohere-blue);
+  background:var(--cohere-blue-light);padding:3px 10px;border-radius:var(--r-full);
+  border:1px solid rgba(57,89,255,.12);letter-spacing:.02px;
+}
+.nav-right{display:flex;align-items:center;gap:8px}
+.nav-link{
+  font-size:14px;font-weight:500;color:var(--slate);text-decoration:none;
+  padding:6px 12px;border-radius:var(--r-md);transition:all .2s;
+}
+.nav-link:hover{color:var(--navy);background:var(--cloud-gray)}
+.nav-link--active{color:var(--navy)}
+.nav-url{
+  font-size:11px;font-weight:400;color:var(--slate);text-decoration:none;
+  padding:4px 10px;border-radius:var(--r-full);transition:all .2s;
+  background:rgba(0,0,0,.03);border:1px solid rgba(0,0,0,.06);
+  letter-spacing:.02px;white-space:nowrap;
+}
+.nav-url:hover{color:var(--navy);background:rgba(0,0,0,.06);border-color:rgba(0,0,0,.1)}
+
+/* ── SECTIONS ── */
+.section{
+  padding:80px 0 0;
+  border-top:1px solid var(--border-light);
+  margin-top:64px;
+}
+.section:first-of-type{border-top:none;margin-top:48px}
+.section-header{margin-bottom:40px}
+.section-label{
+  font-size:11px;font-weight:600;letter-spacing:.08px;
+  text-transform:uppercase;color:var(--cohere-blue);margin-bottom:8px;
+}
+.section-title{
+  font-size:32px;font-weight:700;letter-spacing:-.02em;line-height:1.2;
+  color:var(--navy);
+}
+.section-desc{
+  font-size:16px;line-height:1.6;color:var(--slate);
+  margin-top:12px;max-width:560px;
+}
+
+/* ── HERO ── */
+.hero{
+  padding:80px 0 48px;
+  border-bottom:1px solid var(--border-light);
+  margin:0 -32px;padding-left:32px;padding-right:32px;
+  position:relative;overflow:hidden;
+}
+.hero::before{
+  content:'';position:absolute;
+  width:500px;height:500px;
+  background:radial-gradient(circle,rgba(57,89,255,.06),transparent 70%);
+  border-radius:50%;filter:blur(80px);
+  right:-80px;top:-120px;pointer-events:none;
+}
+.hero::after{
+  content:'';position:absolute;
+  width:300px;height:300px;
+  background:radial-gradient(circle,rgba(99,102,241,.04),transparent 70%);
+  border-radius:50%;filter:blur(60px);
+  left:20%;bottom:-80px;pointer-events:none;
+}
+.hero-label{
+  font-size:11px;font-weight:600;letter-spacing:.1px;
+  text-transform:uppercase;color:var(--cohere-blue);margin-bottom:16px;
+}
+.hero-title{
+  font-size:clamp(40px,6vw,56px);font-weight:700;line-height:1.05;
+  letter-spacing:-.025em;color:var(--navy);
+}
+.hero-title em{
+  font-style:normal;
+  background:linear-gradient(135deg,var(--cohere-blue),#6366f1,#8b5cf6);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.hero-subtitle{
+  font-size:18px;line-height:1.6;color:var(--slate);
+  margin-top:20px;max-width:520px;
+}
+.hero-tags{display:flex;gap:8px;margin-top:28px;flex-wrap:wrap}
+.hero-tag{
+  font-size:11px;font-weight:500;color:var(--slate);
+  background:var(--cloud-gray);padding:5px 12px;border-radius:var(--r-full);
+  border:1px solid var(--border-light);letter-spacing:.015px;
+}
+.hero-actions{display:flex;gap:12px;margin-top:28px}
+
+/* ── BUTTONS ── */
+.btn{
+  display:inline-flex;align-items:center;gap:6px;
+  font-family:inherit;font-size:14px;font-weight:600;line-height:1;
+  letter-spacing:0;padding:12px 32px;border-radius:var(--r-md);
+  cursor:pointer;text-decoration:none;white-space:nowrap;
+  transition:all .15s ease;
+}
+.btn:active{transform:scale(.97)}
+.btn-primary{background:var(--cohere-blue);color:var(--pure-white);border:1px solid transparent}
+.btn-primary:hover{background:var(--cohere-blue-hover)}
+.btn-secondary{background:transparent;color:var(--cohere-blue);border:1px solid var(--cohere-blue)}
+.btn-secondary:hover{background:var(--cohere-blue-light)}
+.btn-ghost{background:transparent;color:var(--navy);border:1px solid var(--border-light)}
+.btn-ghost:hover{border-color:var(--border-medium);background:var(--arctic-frost)}
+
+/* ── COLOR TOKENS ── */
+.color-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;
+}
+.color-token{
+  background:var(--pure-white);border:1px solid var(--border-light);
+  border-radius:var(--r-xl);overflow:hidden;transition:border-color .2s;
+}
+.color-token:hover{border-color:var(--border-medium)}
+.color-swatch{width:100%;height:80px;border-bottom:1px solid var(--border-light)}
+.color-info{padding:14px 16px}
+.color-name{font-size:13px;font-weight:600;color:var(--navy)}
+.color-hex{
+  font-size:12px;font-weight:500;color:var(--slate);margin-top:2px;
+  font-variant-numeric:tabular-nums;letter-spacing:.015px;
+}
+.color-role{font-size:11px;color:var(--slate);margin-top:6px;line-height:1.4}
+
+/* ── GRADIENT TOKENS ── */
+.gradient-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
+.gradient-token{
+  border-radius:var(--r-xl);padding:24px;border:1px solid var(--border-light);
+  min-height:120px;display:flex;flex-direction:column;justify-content:flex-end;
+}
+.gradient-name{font-size:12px;font-weight:500;color:var(--slate);letter-spacing:.015px;margin-bottom:4px}
+.gradient-desc{font-size:12px;color:var(--slate);line-height:1.4}
+
+/* ── TYPE SCALE ── */
+.type-table{
+  display:flex;flex-direction:column;border:1px solid var(--border-light);
+  border-radius:var(--r-xl);overflow:hidden;
+}
+.type-row{
+  display:grid;grid-template-columns:100px 1fr 220px;align-items:baseline;
+  padding:16px 24px;border-bottom:1px solid var(--border-light);
+}
+.type-row:last-child{border-bottom:none}
+.type-row:hover{background:var(--arctic-frost)}
+.type-meta{
+  font-size:10px;font-weight:600;color:var(--cohere-blue);
+  letter-spacing:.06px;text-transform:uppercase;
+}
+.type-sample{color:var(--navy);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.type-specs{
+  font-size:11px;color:var(--slate);text-align:right;
+  font-variant-numeric:tabular-nums;letter-spacing:.015px;
+}
+
+/* ── SPACING ── */
+.spacing-bars{display:flex;align-items:flex-end;gap:20px;height:120px}
+.spacing-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px}
+.spacing-bar{
+  width:100%;border-radius:var(--r-sm);
+  background:var(--cohere-blue);opacity:.15;transition:opacity .3s;
+}
+.spacing-col:hover .spacing-bar{opacity:.35}
+.spacing-val{font-size:11px;font-weight:600;color:var(--navy);letter-spacing:.015px}
+.spacing-name{font-size:10px;font-weight:500;color:var(--slate);letter-spacing:.015px}
+
+/* ── SHAPES ── */
+.shapes-row{display:flex;flex-wrap:wrap;gap:24px;align-items:flex-end}
+.shape-item{display:flex;flex-direction:column;align-items:center;gap:8px}
+.shape-box{
+  width:72px;height:72px;background:var(--arctic-frost);
+  border:1.5px solid var(--border-light);transition:all .3s cubic-bezier(.22,1,.36,1);
+}
+.shape-box:hover{border-color:var(--cohere-blue);transform:scale(1.06)}
+.shape-label{font-size:11px;font-weight:500;color:var(--slate);letter-spacing:.015px;white-space:nowrap}
+.shape-value{
+  font-size:10px;font-weight:400;color:var(--slate);letter-spacing:.015px;
+  font-variant-numeric:tabular-nums;
+}
+
+/* ── DEPTH ── */
+.depth-row{
+  display:flex;align-items:center;gap:20px;padding:20px 0;
+  border-bottom:1px solid var(--border-light);
+}
+.depth-row:last-child{border-bottom:none}
+.depth-swatch{
+  width:56px;height:56px;border-radius:var(--r-md);flex-shrink:0;
+  border:1px solid var(--border-light);
+}
+.depth-info{flex:1}
+.depth-name{font-size:14px;font-weight:600;color:var(--navy)}
+.depth-desc{font-size:12px;color:var(--slate);margin-top:2px;letter-spacing:.015px}
+.depth-value{
+  font-size:12px;font-weight:500;color:var(--slate);
+  font-variant-numeric:tabular-nums;letter-spacing:.015px;
+}
+
+/* ── SURFACES ── */
+.surface-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px}
+.surface-item{
+  border-radius:var(--r-xl);padding:28px 20px;
+  text-align:center;border:1px solid var(--border-light);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:6px;min-height:110px;transition:transform .3s;
+}
+.surface-item:hover{transform:scale(1.02)}
+.surface-name{font-size:14px;font-weight:600;color:var(--navy)}
+.surface-val{
+  font-size:11px;font-weight:500;color:var(--slate);
+  font-variant-numeric:tabular-nums;letter-spacing:.015px;
+}
+
+/* ── COMPONENTS ── */
+.component-card{
+  background:var(--pure-white);border:1px solid var(--border-light);
+  border-radius:var(--r-xl);padding:32px;margin-bottom:20px;
+  transition:border-color .2s;
+}
+.component-card:hover{border-color:var(--border-medium)}
+.component-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px}
+.component-name{font-size:15px;font-weight:600;color:var(--navy)}
+.component-role{font-size:12px;color:var(--slate);margin-top:4px;letter-spacing:.015px}
+.component-class{
+  font-size:11px;font-weight:500;color:var(--cohere-blue);
+  background:var(--cohere-blue-light);padding:3px 10px;border-radius:var(--r-full);
+  border:1px solid rgba(57,89,255,.12);letter-spacing:.015px;
+  font-family:'JetBrains Mono',monospace;
+}
+.component-preview{
+  display:flex;gap:16px;align-items:center;flex-wrap:wrap;
+  padding:24px;background:var(--arctic-frost);border-radius:var(--r-md);
+  border:1px solid var(--border-light);
+}
+.component-desc{
+  font-size:12px;color:var(--slate);line-height:1.5;
+  margin-top:12px;max-width:480px;
+}
+
+/* ── DO/DON'T ── */
+.guide-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.guide-card{
+  border-radius:var(--r-xl);padding:28px;
+  border:1px solid var(--border-light);
+}
+.guide-card--do{background:rgba(5,150,105,.03);border-color:rgba(5,150,105,.12)}
+.guide-card--dont{background:rgba(220,38,38,.03);border-color:rgba(220,38,38,.1)}
+.guide-label{font-size:11px;font-weight:600;letter-spacing:.06px;text-transform:uppercase;margin-bottom:16px}
+.guide-card--do .guide-label{color:var(--emerald)}
+.guide-card--dont .guide-label{color:var(--crimson)}
+.guide-list{
+  list-style:none;display:flex;flex-direction:column;gap:10px;
+}
+.guide-list li{
+  font-size:13px;line-height:1.5;padding-left:20px;position:relative;
+  color:var(--iron);
+}
+.guide-card--do .guide-list li::before{
+  content:'✓';position:absolute;left:0;color:var(--emerald);font-weight:700;font-size:12px;
+}
+.guide-card--dont .guide-list li::before{
+  content:'✕';position:absolute;left:0;color:var(--crimson);font-weight:700;font-size:12px;
+}
+
+/* ── FOOTER ── */
+.footer{
+  margin-top:96px;padding:32px 0;
+  border-top:1px solid var(--border-light);
+  display:flex;justify-content:space-between;align-items:center;
+}
+.footer-left{font-size:14px;font-weight:500;color:var(--slate);opacity:.6}
+.footer-right{display:flex;gap:20px}
+.footer-link{
+  font-size:12px;font-weight:500;color:var(--slate);text-decoration:none;
+  transition:color .2s;letter-spacing:.015px;
+}
+.footer-link:hover{color:var(--cohere-blue)}
+
+/* ── RESPONSIVE ── */
+@media(max-width:768px){
+  .page{padding:0 20px 80px}
+  .hero{margin:0 -20px;padding-left:20px;padding-right:20px;padding-top:56px}
+  .nav{margin:0 -20px}
+  .section-title{font-size:24px}
+  .type-row{grid-template-columns:70px 1fr;gap:8px}
+  .type-specs{display:none}
+  .guide-grid{grid-template-columns:1fr}
+  .color-grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr))}
+  .hero-title{font-size:36px}
+}
+
+/* ── ENTRANCE ANIMATION ── */
+.section,.hero{opacity:1;transition:opacity .6s cubic-bezier(.22,1,.36,1),transform .6s cubic-bezier(.22,1,.36,1)}
+.section.visible,.hero.visible{opacity:1;transform:translateY(0)}
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="nav-left">
+      <a href="#" class="nav-wordmark">Cohere</a>
+      <span class="nav-tag">Design System</span>
+      <a href="#" class="nav-url">https://cohere.com</a>
+    </div>
+    <div class="nav-right">
+      <a href="#colors" class="nav-link nav-link--active">Colors</a>
+      <a href="#typography" class="nav-link">Type</a>
+      <a href="#spacing" class="nav-link">Spacing</a>
+      <a href="#components" class="nav-link">Components</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-label">Design System</div>
+    <h1 class="hero-title">Enterprise AI,<br><em>made approachable.</em></h1>
+    <p class="hero-subtitle">Clean intelligence with crisp white surfaces, a bold indigo accent, and generous whitespace that balances technical authority with approachability.</p>
+    <div class="hero-tags">
+      <span class="hero-tag">16 color tokens</span>
+      <span class="hero-tag">20+ type steps</span>
+      <span class="hero-tag">4px grid</span>
+      <span class="hero-tag">4 surface levels</span>
+    </div>
+    <div class="hero-actions">
+      <a href="#" class="btn btn-primary" download>Download Spec</a>
+      <a href="#" class="btn btn-secondary" download>theme.css</a>
+      <a href="#" class="btn btn-ghost" download>tokens.json</a>
+      <a href="#" class="btn btn-ghost" download>variables.css</a>
+    </div>
+  </div>
+
+  <!-- COLORS -->
+  <section class="section" id="colors">
+    <div class="section-header">
+      <div class="section-label">Foundation</div>
+      <h2 class="section-title">Color Tokens</h2>
+      <p class="section-desc">Light neutrals with a singular bold indigo accent. 16 tokens across surfaces, text hierarchy, interaction, and semantic states.</p>
+    </div>
+    <div class="color-grid">
+      <div class="color-token">
+        <div class="color-swatch" style="background:#ffffff;border-bottom-color:var(--border-light)"></div>
+        <div class="color-info"><div class="color-name">Pure White</div><div class="color-hex">#ffffff</div><div class="color-role">Primary background, card surfaces</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#f8f9fb"></div>
+        <div class="color-info"><div class="color-name">Arctic Frost</div><div class="color-hex">#f8f9fb</div><div class="color-role">Secondary sections, alternating areas</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#f1f3f5"></div>
+        <div class="color-info"><div class="color-name">Cloud Gray</div><div class="color-hex">#f1f3f5</div><div class="color-role">Code blocks, inset panels</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#e5e7eb"></div>
+        <div class="color-info"><div class="color-name">Border Light</div><div class="color-hex">#e5e7eb</div><div class="color-role">Borders, dividers, card outlines</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#d1d5db"></div>
+        <div class="color-info"><div class="color-name">Border Medium</div><div class="color-hex">#d1d5db</div><div class="color-role">Input borders, active containers</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#6b7280"></div>
+        <div class="color-info"><div class="color-name">Slate</div><div class="color-hex">#6b7280</div><div class="color-role">Placeholders, secondary icons</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#374151"></div>
+        <div class="color-info"><div class="color-name">Iron</div><div class="color-hex">#374151</div><div class="color-role">Secondary text, body copy</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#111827"></div>
+        <div class="color-info"><div class="color-name">Navy</div><div class="color-hex">#111827</div><div class="color-role">Primary text, headings</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#3959ff"></div>
+        <div class="color-info"><div class="color-name">Cohere Blue</div><div class="color-hex">#3959ff</div><div class="color-role">Primary accent, links, buttons</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#2d47d9"></div>
+        <div class="color-info"><div class="color-name">Cohere Blue Hover</div><div class="color-hex">#2d47d9</div><div class="color-role">Hover/pressed states</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#eef1ff"></div>
+        <div class="color-info"><div class="color-name">Cohere Blue Light</div><div class="color-hex">#eef1ff</div><div class="color-role">Selected backgrounds, emphasis</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#059669"></div>
+        <div class="color-info"><div class="color-name">Emerald</div><div class="color-hex">#059669</div><div class="color-role">Success states, confirmations</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#d97706"></div>
+        <div class="color-info"><div class="color-name">Amber</div><div class="color-hex">#d97706</div><div class="color-role">Warning states, caution</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#dc2626"></div>
+        <div class="color-info"><div class="color-name">Crimson</div><div class="color-hex">#dc2626</div><div class="color-role">Error states, destructive actions</div></div>
+      </div>
+    </div>
+
+    <h3 style="font-size:16px;font-weight:600;color:var(--navy);margin:40px 0 20px;letter-spacing:-.2px">Gradients</h3>
+    <div class="gradient-grid">
+      <div class="gradient-token" style="background:linear-gradient(135deg,rgba(57,89,255,.08) 0%,rgba(99,102,241,.06) 50%,rgba(139,92,246,.04) 100%),var(--arctic-frost)">
+        <div class="gradient-name">gradient-blue-fade</div>
+        <div class="gradient-desc">Hero backgrounds, feature highlights, abstract decorations</div>
+      </div>
+      <div class="gradient-token" style="background:linear-gradient(180deg,#f8f9fb 0%,#ffffff 100%)">
+        <div class="gradient-name">gradient-soft-wash</div>
+        <div class="gradient-desc">Section fade-outs, subtle depth transitions</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TYPOGRAPHY -->
+  <section class="section" id="typography">
+    <div class="section-header">
+      <div class="section-label">Typography</div>
+      <h2 class="section-title">Type Scale</h2>
+      <p class="section-desc">DM Sans as primary typeface (substitute for Cohere Text). Clean geometric sans with excellent readability. JetBrains Mono for code.</p>
+    </div>
+    <div class="type-table">
+      <div class="type-row">
+        <span class="type-meta">Display-lg</span>
+        <span class="type-sample" style="font-size:28px;font-weight:700;line-height:1.1;letter-spacing:-.025em">Enterprise AI</span>
+        <span class="type-specs">56px / 1.1 / −0.025em</span>
+      </div>
+      <div class="type-row">
+        <span class="type-meta">Display</span>
+        <span class="type-sample" style="font-size:24px;font-weight:700;line-height:1.1;letter-spacing:-.025em">Build what matters</span>
+        <span class="type-specs">48px / 1.1 / −0.025em</span>
+      </div>
+      <div class="type-row">
+        <span class="type-meta">Heading-xl</span>
+        <span class="type-sample" style="font-size:20px;font-weight:600;line-height:1.15;letter-spacing:-.025px">Ship faster</span>
+        <span class="type-specs">40px / 1.15 / −0.025px</span>
+      </div>
+      <div class="type-row">
+        <span class="type-meta">Heading-lg</span>
+        <span class="type-sample" style="font-size:18px;font-weight:600;line-height:1.2;letter-spacing:-.02px">Section heading</span>
+        <span class="type-specs">32px / 1.2 / −0.02px</span>
+      </div>
+      <div class="type-row">
+        <span class="type-meta">Heading</span>
+        <span class="type-sample" style="font-size:16px;font-weight:600;line-height:1.3;letter-spacing:-.02px">Subsection heading</span>
+        <span class="type-specs">24px / 1.3 / −0.02px</span>
+      </div>
+      <div class="type-row">
+        <span class="type-meta">Body</span>
+        <span class="type-sample" style="font-size:16px;font-weight:400;line-height:1.6;letter-spacing:0">Default body text for readable content</span>
+        <span class="type-specs">16px / 1.6 / 0</span>
+      </div>
+      <div class="type-row">
+        <span class="type-meta">Body-sm</span>
+        <span class="type-sample" style="font-size:14px;font-weight:400;line-height:1.6;letter-spacing:0">Dense data, comparison rows, tables</span>
+        <span class="type-specs">14px / 1.6 / 0</span>
+      </div>
+      <div class="type-row">
+        <span class="type-meta">Caption</span>
+        <span class="type-sample" style="font-size:13px;font-weight:400;line-height:1.5;letter-spacing:.02px">Meta info · Badges · Labels</span>
+        <span class="type-specs">13px / 1.5 / 0.02px</span>
+      </div>
+    </div>
+
+    <h3 style="font-size:14px;font-weight:600;color:var(--navy);margin:40px 0 20px;letter-spacing:0">Fonts</h3>
+    <div style="display:flex;flex-direction:column;border:1px solid var(--border-light);border-radius:var(--r-xl);overflow:hidden">
+      <div style="padding:20px 24px;border-bottom:1px solid var(--border-light);display:flex;align-items:baseline;gap:16px">
+        <span style="font-size:10px;font-weight:600;color:var(--cohere-blue);letter-spacing:.06px;text-transform:uppercase;flex:0 0 60px">Primary</span>
+        <span style="font-size:16px;font-weight:600;color:var(--navy)">DM Sans</span>
+        <span style="font-size:11px;color:var(--slate);letter-spacing:.015px">400–700 · 13–56px</span>
+      </div>
+      <div style="padding:20px 24px;border-bottom:1px solid var(--border-light);display:flex;align-items:baseline;gap:16px">
+        <span style="font-size:10px;font-weight:600;color:var(--cohere-blue);letter-spacing:.06px;text-transform:uppercase;flex:0 0 60px">Mono</span>
+        <span style="font-size:16px;font-weight:500;color:var(--navy)">JetBrains Mono</span>
+        <span style="font-size:11px;color:var(--slate);letter-spacing:.015px">400–500 · Code only</span>
+      </div>
+      <div style="padding:20px 24px;display:flex;align-items:baseline;gap:16px">
+        <span style="font-size:10px;font-weight:600;color:var(--cohere-blue);letter-spacing:.06px;text-transform:uppercase;flex:0 0 60px">Fallback</span>
+        <span style="font-size:16px;font-weight:500;color:var(--navy)">system-ui</span>
+        <span style="font-size:11px;color:var(--slate);letter-spacing:.015px">System default sans-serif</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- SPACING & SHAPES -->
+  <section class="section" id="spacing">
+    <div class="section-header">
+      <div class="section-label">Layout</div>
+      <h2 class="section-title">Spacing & Shapes</h2>
+      <p class="section-desc">Base unit 4px. Comfortable density with generous breathing room. 15-step spacing scale, 4 border radius values.</p>
+    </div>
+
+    <h3 style="font-size:14px;font-weight:600;color:var(--navy);margin-bottom:20px;letter-spacing:0">Spacing Scale (4px base)</h3>
+    <div class="spacing-bars">
+      <div class="spacing-col"><div class="spacing-bar" style="height:4px"></div><span class="spacing-val">4</span><span class="spacing-name">4px</span></div>
+      <div class="spacing-col"><div class="spacing-bar" style="height:8px"></div><span class="spacing-val">8</span><span class="spacing-name">8px</span></div>
+      <div class="spacing-col"><div class="spacing-bar" style="height:14px"></div><span class="spacing-val">12</span><span class="spacing-name">12px</span></div>
+      <div class="spacing-col"><div class="spacing-bar" style="height:20px"></div><span class="spacing-val">16</span><span class="spacing-name">16px</span></div>
+      <div class="spacing-col"><div class="spacing-bar" style="height:28px"></div><span class="spacing-val">24</span><span class="spacing-name">24px</span></div>
+      <div class="spacing-col"><div class="spacing-bar" style="height:40px"></div><span class="spacing-val">32</span><span class="spacing-name">32px</span></div>
+      <div class="spacing-col"><div class="spacing-bar" style="height:56px"></div><span class="spacing-val">48</span><span class="spacing-name">48px</span></div>
+      <div class="spacing-col"><div class="spacing-bar" style="height:80px"></div><span class="spacing-val">80</span><span class="spacing-name">80px</span></div>
+      <div class="spacing-col"><div class="spacing-bar" style="height:110px"></div><span class="spacing-val">128</span><span class="spacing-name">128px</span></div>
+    </div>
+
+    <h3 style="font-size:14px;font-weight:600;color:var(--navy);margin:40px 0 20px;letter-spacing:0">Border Radius</h3>
+    <div class="shapes-row">
+      <div class="shape-item">
+        <div class="shape-box" style="border-radius:6px"></div>
+        <span class="shape-label">sm</span>
+        <span class="shape-value">6px</span>
+      </div>
+      <div class="shape-item">
+        <div class="shape-box" style="border-radius:8px"></div>
+        <span class="shape-label">default</span>
+        <span class="shape-value">8px</span>
+      </div>
+      <div class="shape-item">
+        <div class="shape-box" style="border-radius:12px"></div>
+        <span class="shape-label">cards</span>
+        <span class="shape-value">12px</span>
+      </div>
+      <div class="shape-item">
+        <div class="shape-box" style="border-radius:9999px"></div>
+        <span class="shape-label">pill</span>
+        <span class="shape-value">9999px</span>
+      </div>
+    </div>
+
+    <h3 style="font-size:14px;font-weight:600;color:var(--navy);margin:40px 0 20px;letter-spacing:0">Shadows</h3>
+    <div style="display:flex;flex-wrap:wrap;gap:16px">
+      <div style="width:140px;height:90px;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:var(--r-xl);background:var(--pure-white);border:1px solid var(--border-light)">
+        <span style="font-size:11px;font-weight:500;color:var(--slate);letter-spacing:.015px;margin-bottom:4px">Subtle</span>
+        <span style="font-size:10px;color:var(--slate);font-variant-numeric:tabular-nums;letter-spacing:.015px">1px border</span>
+      </div>
+      <div style="width:140px;height:90px;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:var(--r-xl);background:var(--pure-white);box-shadow:0 1px 3px rgba(0,0,0,.08),0 1px 2px rgba(0,0,0,.06)">
+        <span style="font-size:11px;font-weight:500;color:var(--slate);letter-spacing:.015px;margin-bottom:4px">Elevated</span>
+        <span style="font-size:10px;color:var(--slate);font-variant-numeric:tabular-nums;letter-spacing:.015px">cards on hover</span>
+      </div>
+      <div style="width:140px;height:90px;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:var(--r-xl);background:var(--pure-white);box-shadow:0 4px 6px -1px rgba(0,0,0,.08),0 2px 4px -2px rgba(0,0,0,.06)">
+        <span style="font-size:11px;font-weight:500;color:var(--slate);letter-spacing:.015px;margin-bottom:4px">Medium</span>
+        <span style="font-size:10px;color:var(--slate);font-variant-numeric:tabular-nums;letter-spacing:.015px">dropdowns</span>
+      </div>
+      <div style="width:140px;height:90px;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:var(--r-xl);background:var(--pure-white);box-shadow:0 10px 15px -3px rgba(0,0,0,.08),0 4px 6px -4px rgba(0,0,0,.06)">
+        <span style="font-size:11px;font-weight:500;color:var(--slate);letter-spacing:.015px;margin-bottom:4px">High</span>
+        <span style="font-size:10px;color:var(--slate);font-variant-numeric:tabular-nums;letter-spacing:.015px">modals</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- DEPTH & SURFACES -->
+  <section class="section" id="depth">
+    <div class="section-header">
+      <div class="section-label">Elevation</div>
+      <h2 class="section-title">Depth & Surfaces</h2>
+      <p class="section-desc">Borders over shadows. Background color differentiation over heavy elevation. 4 distinct surface levels on a white canvas.</p>
+    </div>
+
+    <h3 style="font-size:14px;font-weight:600;color:var(--navy);margin-bottom:16px;letter-spacing:0">Depth Levels</h3>
+    <div style="margin-bottom:40px">
+      <div class="depth-row">
+        <div class="depth-swatch" style="background:#ffffff"></div>
+        <div class="depth-info"><div class="depth-name">Pure White</div><div class="depth-desc">Base page background — the canvas</div></div>
+        <div class="depth-value">Level 0</div>
+      </div>
+      <div class="depth-row">
+        <div class="depth-swatch" style="background:#f8f9fb"></div>
+        <div class="depth-info"><div class="depth-name">Arctic Frost</div><div class="depth-desc">Secondary sections, alternating content areas</div></div>
+        <div class="depth-value">Level 1</div>
+      </div>
+      <div class="depth-row">
+        <div class="depth-swatch" style="background:#f1f3f5"></div>
+        <div class="depth-info"><div class="depth-name">Cloud Gray</div><div class="depth-desc">Code blocks, inset panels, tertiary surfaces</div></div>
+        <div class="depth-value">Level 2</div>
+      </div>
+      <div class="depth-row">
+        <div class="depth-swatch" style="background:#eef1ff"></div>
+        <div class="depth-info"><div class="depth-name">Cohere Blue Light</div><div class="depth-desc">Selected states, active items, emphasis</div></div>
+        <div class="depth-value">Level 3</div>
+      </div>
+    </div>
+
+    <h3 style="font-size:14px;font-weight:600;color:var(--navy);margin-bottom:16px;letter-spacing:0">Surface System</h3>
+    <div class="surface-grid">
+      <div class="surface-item" style="background:#ffffff">
+        <span class="surface-name">Pure White</span>
+        <span class="surface-val">#ffffff</span>
+      </div>
+      <div class="surface-item" style="background:#f8f9fb">
+        <span class="surface-name">Arctic Frost</span>
+        <span class="surface-val">#f8f9fb</span>
+      </div>
+      <div class="surface-item" style="background:#f1f3f5">
+        <span class="surface-name">Cloud Gray</span>
+        <span class="surface-val">#f1f3f5</span>
+      </div>
+      <div class="surface-item" style="background:#eef1ff">
+        <span class="surface-name">Blue Light</span>
+        <span class="surface-val">#eef1ff</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPONENTS -->
+  <section class="section" id="components">
+    <div class="section-header">
+      <div class="section-label">Components</div>
+      <h2 class="section-title">Button Variants</h2>
+      <p class="section-desc">Primary action (Cohere Blue), outlined secondary, and ghost variants for a clear interaction hierarchy.</p>
+    </div>
+
+    <div class="component-card">
+      <div class="component-header">
+        <div><div class="component-name">Primary Action Button</div><div class="component-role">Main call to action — highest visual weight</div></div>
+        <span class="component-class">.btn-primary</span>
+      </div>
+      <div class="component-preview">
+        <button class="btn btn-primary">Get started</button>
+        <button class="btn btn-primary" style="background:var(--cohere-blue-hover)">Hover state</button>
+      </div>
+      <div class="component-desc">Cohere Blue (#3959ff) background, Pure White text, 8px radius. Use exclusively for the single most important action.</div>
+    </div>
+
+    <div class="component-card">
+      <div class="component-header">
+        <div><div class="component-name">Secondary Button</div><div class="component-role">Secondary interactive actions</div></div>
+        <span class="component-class">.btn-secondary</span>
+      </div>
+      <div class="component-preview">
+        <button class="btn btn-secondary">Contact sales</button>
+        <button class="btn btn-secondary" style="background:var(--cohere-blue-light)">Hover state</button>
+      </div>
+      <div class="component-desc">Cohere Blue text, Cohere Blue border. Clear interactive target without competing with primary.</div>
+    </div>
+
+    <div class="component-card">
+      <div class="component-header">
+        <div><div class="component-name">Ghost Button</div><div class="component-role">Tertiary actions, navigation</div></div>
+        <span class="component-class">.btn-ghost</span>
+      </div>
+      <div class="component-preview">
+        <button class="btn btn-ghost">Learn more</button>
+        <button class="btn btn-ghost" style="border-color:var(--border-medium);background:var(--arctic-frost)">Hover state</button>
+      </div>
+      <div class="component-desc">Navy text, Border Light border. For less prominent actions that still need visual presence.</div>
+    </div>
+
+    <div class="component-card">
+      <div class="component-header">
+        <div><div class="component-name">Text Link</div><div class="component-role">Inline text links</div></div>
+        <span class="component-class">.text-link</span>
+      </div>
+      <div class="component-preview">
+        <a href="#" style="color:var(--cohere-blue);text-decoration:none;font-size:14px;font-weight:500;border-bottom:1px solid transparent;transition:border-color .2s">Read the documentation</a>
+        <a href="#" style="color:var(--cohere-blue);text-decoration:none;font-size:14px;font-weight:500;border-bottom:1px solid var(--cohere-blue)">Hover state</a>
+      </div>
+      <div class="component-desc">Cohere Blue text, underline on hover. No background. For inline text references.</div>
+    </div>
+
+    <div class="component-card">
+      <div class="component-header">
+        <div><div class="component-name">Card</div><div class="component-role">Content containers, feature blocks</div></div>
+        <span class="component-class">.card</span>
+      </div>
+      <div class="component-preview">
+        <div style="background:var(--pure-white);border:1px solid var(--border-light);border-radius:var(--r-xl);padding:24px;max-width:300px">
+          <div style="font-size:15px;font-weight:600;color:var(--navy);margin-bottom:8px">Enterprise RAG</div>
+          <div style="font-size:14px;color:var(--slate);line-height:1.6">Build retrieval-augmented generation pipelines with production-ready accuracy.</div>
+        </div>
+      </div>
+      <div class="component-desc">Pure White background, 12px radius, 1px Border Light border, 24px padding. Clean container for content blocks.</div>
+    </div>
+
+    <div class="component-card">
+      <div class="component-header">
+        <div><div class="component-name">Input Field</div><div class="component-role">User text input</div></div>
+        <span class="component-class">input</span>
+      </div>
+      <div class="component-preview">
+        <div style="display:flex;flex-direction:column;gap:12px;flex:1;max-width:360px">
+          <input type="text" placeholder="Enter your email" style="background:var(--pure-white);border:1px solid var(--border-light);border-radius:8px;padding:12px 16px;color:var(--navy);font-size:14px;font-family:inherit;outline:none;transition:border-color .2s">
+          <input type="text" value="Focused state" style="background:var(--pure-white);border:1px solid var(--cohere-blue);border-radius:8px;padding:12px 16px;color:var(--navy);font-size:14px;font-family:inherit;outline:none">
+        </div>
+      </div>
+      <div class="component-desc">Pure White background, Border Light border, 8px radius. Focus state uses Cohere Blue border.</div>
+    </div>
+
+    <div class="component-card">
+      <div class="component-header">
+        <div><div class="component-name">Badge</div><div class="component-role">Labels, categories, status indicators</div></div>
+        <span class="component-class">.badge</span>
+      </div>
+      <div class="component-preview">
+        <span style="background:var(--cohere-blue-light);color:var(--cohere-blue);font-size:13px;font-weight:500;padding:4px 12px;border-radius:var(--r-full)">New</span>
+        <span style="background:rgba(5,150,105,.08);color:var(--emerald);font-size:13px;font-weight:500;padding:4px 12px;border-radius:var(--r-full)">Active</span>
+        <span style="background:rgba(217,119,6,.08);color:var(--amber);font-size:13px;font-weight:500;padding:4px 12px;border-radius:var(--r-full)">Beta</span>
+      </div>
+      <div class="component-desc">Cohere Blue Light background, Cohere Blue text, pill shape. For labels and status indicators.</div>
+    </div>
+
+    <div class="component-card">
+      <div class="component-header">
+        <div><div class="component-name">Code Block</div><div class="component-role">Code snippets, technical content</div></div>
+        <span class="component-class">.code-block</span>
+      </div>
+      <div class="component-preview">
+        <div style="background:var(--cloud-gray);border-radius:8px;padding:16px;font-family:'JetBrains Mono',monospace;font-size:14px;line-height:1.6;color:var(--navy);max-width:400px;width:100%">
+          <span style="color:var(--slate)">import</span> cohere<br>
+          <br>
+          client = cohere.Client(<span style="color:var(--cohere-blue)">"API_KEY"</span>)<br>
+          response = client.<span style="color:var(--emerald)">generate</span>(<br>
+          &nbsp;&nbsp;model=<span style="color:var(--cohere-blue)">"command-r-plus"</span><br>
+          )
+        </div>
+      </div>
+      <div class="component-desc">Cloud Gray background, 8px radius, 16px padding, JetBrains Mono. Clean inset appearance.</div>
+    </div>
+  </section>
+
+  <!-- DO'S & DON'TS -->
+  <section class="section" id="guidelines">
+    <div class="section-header">
+      <div class="section-label">Guidelines</div>
+      <h2 class="section-title">Do's & Don'ts</h2>
+    </div>
+    <div class="guide-grid">
+      <div class="guide-card guide-card--do">
+        <div class="guide-label">Do — Embrace</div>
+        <ul class="guide-list">
+          <li>Pure White (#ffffff) as primary background</li>
+          <li>Navy (#111827) for all primary text</li>
+          <li>Cohere Blue (#3959ff) for primary CTAs and links only</li>
+          <li>Cohere Blue Light (#eef1ff) for selected backgrounds</li>
+          <li>8px radius for buttons, 12px for cards</li>
+          <li>4px-based spacing with generous breathing room</li>
+          <li>Borders over shadows for visual separation</li>
+        </ul>
+      </div>
+      <div class="guide-card guide-card--dont">
+        <div class="guide-label">Don't — Avoid</div>
+        <ul class="guide-list">
+          <li>Dark backgrounds for primary content</li>
+          <li>Multiple accent colors for interactive elements</li>
+          <li>Hard sharp corners on cards or buttons</li>
+          <li>Heavy drop shadows or dark overlays</li>
+          <li>Dense packing without breathing room</li>
+          <li>Mono fonts for non-code content</li>
+          <li>Cohere Blue for non-interactive decoration</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-left">Cohere Design System</div>
+    <div class="footer-right">
+      <a href="#colors" class="footer-link">Colors</a>
+      <a href="#typography" class="footer-link">Typography</a>
+      <a href="#spacing" class="footer-link">Spacing</a>
+      <a href="#components" class="footer-link">Components</a>
+      <a href="#" class="footer-link" download>Download Spec</a>
+    </div>
+  </footer>
+
+</div>
+
+
+
+</body>
+</html>

@@ -1,0 +1,70 @@
+:root {
+  /* Colors */
+  --lovable-parchment: #fcfbf8;
+  --lovable-warm-sand: #f7f4ed;
+  --lovable-linen-border: #eceae4;
+  --lovable-stone: #d4d3d0;
+  --lovable-dim-gray: #5f5f5d;
+  --lovable-charcoal: #1c1c1c;
+  --lovable-ink: #030303;
+  --lovable-indigo-accent: #3451b2;
+  --lovable-hero-gradient: linear-gradient(
+    90deg,
+    rgb(28, 28, 28) 0%,
+    rgb(28, 28, 28) 33.33%,
+    rgb(130, 188, 255) 40%,
+    rgb(36, 131, 255) 45%,
+    rgb(255, 102, 244) 50%,
+    rgb(255, 48, 41) 55%,
+    rgb(254, 123, 2) 60%,
+    rgba(0, 0, 0, 0) 66.67%,
+    rgba(0, 0, 0, 0) 100%
+  );
+
+  /* Typography */
+  --lovable-font-sans:
+    "Camera Plain Variable", "Inter Variable", "DM Sans", sans-serif;
+  --lovable-weight-regular: 400;
+  --lovable-weight-heading: 480;
+  --lovable-weight-strong: 600;
+  --lovable-tracking: -0.025em;
+  --lovable-text-caption: 14px;
+  --lovable-text-body: 16px;
+  --lovable-text-subheading: 18px;
+  --lovable-text-heading-sm: 20px;
+  --lovable-text-heading: 36px;
+  --lovable-text-heading-lg: 48px;
+  --lovable-text-display: 60px;
+
+  /* Spacing and layout */
+  --lovable-space-4: 4px;
+  --lovable-space-6: 6px;
+  --lovable-space-8: 8px;
+  --lovable-space-10: 10px;
+  --lovable-space-12: 12px;
+  --lovable-space-16: 16px;
+  --lovable-space-20: 20px;
+  --lovable-space-24: 24px;
+  --lovable-space-32: 32px;
+  --lovable-space-40: 40px;
+  --lovable-space-48: 48px;
+  --lovable-space-56: 56px;
+  --lovable-space-73: 73px;
+  --lovable-space-80: 80px;
+  --lovable-space-144: 144px;
+  --lovable-space-160: 160px;
+  --lovable-page-max: 1280px;
+  --lovable-section-gap: 80px;
+
+  /* Shape and depth */
+  --lovable-radius-input: 8px;
+  --lovable-radius-image: 12px;
+  --lovable-radius-container: 16px;
+  --lovable-radius-card: 24px;
+  --lovable-radius-pill: 9999px;
+  --lovable-shadow-subtle: oklch(0 0 0 / 0.25) 0px 0px 0px 0.5px inset;
+  --lovable-shadow-subtle-2:
+    oklab(0 0 0 / 0.08) 0px 0px 0px 1px, rgba(0, 0, 0, 0.1) 0px 20px 25px -5px,
+    rgba(0, 0, 0, 0.1) 0px 8px 10px -6px;
+  --lovable-shadow-subtle-3: oklch(0 0 0 / 0.16) 0px 0px 0px 0.5px inset;
+}

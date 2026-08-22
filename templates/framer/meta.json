@@ -1,0 +1,32 @@
+{
+	"schemaVersion": 1,
+	"kind": "design-system",
+	"slug": "framer",
+	"name": "Framer",
+	"version": "1.0.0",
+	"order": 380,
+	"category": "creative",
+	"vibe": "dark",
+	"tags": [
+		"dark-ui",
+		"gradient",
+		"design-system"
+	],
+	"blurb": "A confident dark-canvas builder marketing site that treats the page like a working artboard — pure black surfaces, white display type set in GT Walsheim Medium with aggressive n…",
+	"tagline": {
+		"en": "Dark artboard builder, pure black with electric blue",
+		"zh": "纯黑画布建站，电光蓝点缀"
+	},
+	"license": "MIT",
+	"origin": {
+		"type": "curated",
+		"upstream": "https://github.com/ricocc/brands-design-md.git",
+		"note": "from brands-design-md (Framer)."
+	},
+	"assets": {
+		"spec": "DESIGN.md",
+		"theme": "theme.css",
+		"demo": "demo.html"
+	},
+	"collectedAt": "2026-08-22"
+}

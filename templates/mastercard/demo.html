@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mastercard &mdash; Design System</title>
+
+
+
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+
+:root{
+  --white:#FFFFFF;
+  --snow:#F7F7F7;
+  --mist:#F0F0F0;
+  --silver:#E0E0E0;
+  --ash:#B0B0B0;
+  --slate:#6B6B6B;
+  --charcoal:#2D2D2D;
+  --onyx:#1A1A1A;
+  --cardinal-red:#EB001B;
+  --tangerine:#FF5F00;
+  --midnight-blue:#1A1F71;
+  --ember:#FF8A00;
+  --success-green:#00A651;
+  --warning-amber:#FFB81C;
+  --error-crimson:#D4351C;
+  --info-blue:#0066CC;
+  --gradient-brand:linear-gradient(135deg,#EB001B 0%,#FF5F00 100%);
+  --gradient-hero:linear-gradient(135deg,#1A1F71 0%,#2D3580 50%,#EB001B 100%);
+
+  --r-sm:4px;--r-md:8px;--r-lg:12px;--r-xl:16px;--r-full:9999px;
+  --shadow-sm:0 1px 3px rgba(0,0,0,0.06);
+  --shadow-md:0 2px 8px rgba(0,0,0,0.06);
+  --shadow-lg:0 4px 16px rgba(0,0,0,0.08);
+  --shadow-focus:0 0 0 3px rgba(235,0,27,0.15);
+}
+
+::selection{background:rgba(235,0,27,.12);color:var(--onyx)}
+html{scroll-behavior:smooth}
+
+body{
+  font-family:'Inter',system-ui,-apple-system,sans-serif;
+  background:var(--white);color:var(--charcoal);
+  font-size:16px;line-height:1.5;letter-spacing:0;
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
+}
+
+.page{max-width:960px;margin:0 auto;padding:0 32px 120px}
+
+/* NAV */
+.nav{
+  display:flex;justify-content:space-between;align-items:center;
+  height:64px;padding:0 16px;position:sticky;top:0;z-index:100;
+  background:rgba(255,255,255,.95);backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--silver);
+  margin:0 -32px;
+}
+.nav-left{display:flex;align-items:center;gap:12px}
+.nav-logo{
+  width:32px;height:32px;position:relative;
+  display:flex;align-items:center;justify-content:center;
+}
+.nav-logo .circle-left{
+  width:20px;height:20px;border-radius:50%;
+  background:var(--cardinal-red);position:absolute;left:2px;
+  opacity:.9;
+}
+.nav-logo .circle-right{
+  width:20px;height:20px;border-radius:50%;
+  background:var(--tangerine);position:absolute;right:2px;
+  opacity:.85;
+}
+.nav-wordmark{
+  font-size:16px;font-weight:600;letter-spacing:-.2px;
+  color:var(--midnight-blue);text-decoration:none;
+}
+.nav-tag{
+  font-size:11px;font-weight:500;color:var(--cardinal-red);
+  background:rgba(235,0,27,.06);padding:3px 10px;border-radius:var(--r-full);
+  border:1px solid rgba(235,0,27,.12);letter-spacing:.02px;
+}
+.nav-url{font-size:12px;font-weight:500;color:var(--slate);text-decoration:none;padding:4px 10px;border-radius:var(--r-md);transition:color .2s}.nav-url:hover{color:var(--obsidian)}
+.nav-right{display:flex;align-items:center;gap:8px}
+.nav-link{
+  font-size:13px;font-weight:500;color:var(--slate);text-decoration:none;
+  padding:6px 12px;border-radius:var(--r-md);transition:all .2s;letter-spacing:.015px;
+}
+.nav-link:hover{color:var(--midnight-blue);background:var(--snow)}
+.nav-link--active{color:var(--midnight-blue);font-weight:600}
+
+/* SECTIONS */
+.section{
+  padding:80px 0 0;
+  border-top:1px solid var(--silver);
+  margin-top:64px;
+}
+.section:first-of-type{border-top:none;margin-top:48px}
+.section-header{margin-bottom:40px}
+.section-label{
+  font-size:11px;font-weight:600;letter-spacing:.08px;
+  text-transform:uppercase;color:var(--cardinal-red);margin-bottom:8px;
+}
+.section-title{
+  font-size:32px;font-weight:700;letter-spacing:-.5px;line-height:1.15;
+  color:var(--onyx);
+}
+.section-desc{
+  font-size:15px;line-height:1.6;color:var(--slate);
+  margin-top:12px;max-width:560px;
+}
+
+/* HERO */
+.hero{
+  padding:80px 0 48px;
+  border-bottom:1px solid var(--silver);
+  margin:0 -32px;padding-left:32px;padding-right:32px;
+  position:relative;overflow:hidden;
+  background:var(--gradient-hero);color:var(--white);
+}
+.hero::before{
+  content:'';position:absolute;
+  width:200px;height:200px;border-radius:50%;
+  background:var(--cardinal-red);opacity:.15;
+  right:-40px;top:-60px;pointer-events:none;
+  filter:blur(60px);
+}
+.hero::after{
+  content:'';position:absolute;
+  width:160px;height:160px;border-radius:50%;
+  background:var(--tangerine);opacity:.12;
+  left:25%;bottom:-40px;pointer-events:none;
+  filter:blur(50px);
+}
+.hero-label{
+  font-size:11px;font-weight:600;letter-spacing:.1px;
+  text-transform:uppercase;color:rgba(255,255,255,.7);margin-bottom:16px;
+}
+.hero-title{
+  font-size:clamp(36px,6vw,48px);font-weight:800;line-height:1;
+  letter-spacing:-.02em;color:var(--white);
+}
+.hero-title em{
+  font-style:normal;
+  background:linear-gradient(135deg,var(--cardinal-red),var(--tangerine));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.hero-subtitle{
+  font-size:17px;line-height:1.6;color:rgba(255,255,255,.75);
+  margin-top:20px;max-width:480px;
+}
+.hero-tags{display:flex;gap:8px;margin-top:28px;flex-wrap:wrap}
+.hero-tag{
+  font-size:11px;font-weight:500;color:rgba(255,255,255,.6);
+  background:rgba(255,255,255,.1);padding:5px 12px;border-radius:var(--r-full);
+  border:1px solid rgba(255,255,255,.15);letter-spacing:.015px;
+}
+.hero-actions{display:flex;gap:12px;margin-top:28px}
+
+/* BUTTONS */
+.btn{
+  display:inline-flex;align-items:center;gap:6px;
+  font-family:inherit;font-size:13px;font-weight:600;line-height:1;
+  letter-spacing:.01px;padding:12px 28px;border-radius:var(--r-md);
+  cursor:pointer;text-decoration:none;white-space:nowrap;
+  transition:opacity .15s,transform .15s,background .15s,border-color .15s,box-shadow .15s;
+}
+.btn:active{transform:scale(.97)}
+.btn-primary{background:var(--gradient-brand);color:var(--white);border:1px solid transparent;box-shadow:0 2px 8px rgba(235,0,27,.25)}
+.btn-primary:hover{opacity:.9;box-shadow:0 4px 16px rgba(235,0,27,.35)}
+.btn-secondary{background:transparent;color:var(--cardinal-red);border:2px solid var(--cardinal-red)}
+.btn-secondary:hover{background:rgba(235,0,27,.04)}
+.btn-ghost{background:transparent;color:var(--midnight-blue);border:1px solid transparent}
+.btn-ghost:hover{background:var(--snow)}
+.btn-white{background:var(--white);color:var(--midnight-blue);border:1px solid transparent;box-shadow:var(--shadow-md)}
+.btn-white:hover{box-shadow:var(--shadow-lg)}
+
+/* COLOR TOKENS */
+.color-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;
+}
+.color-token{
+  background:var(--white);border:1px solid var(--silver);
+  border-radius:var(--r-xl);overflow:hidden;transition:border-color .2s,box-shadow .2s;
+  box-shadow:var(--shadow-sm);
+}
+.color-token:hover{border-color:var(--ash);box-shadow:var(--shadow-md)}
+.color-swatch{width:100%;height:80px}
+.color-info{padding:14px 16px}
+.color-name{font-size:13px;font-weight:600;letter-spacing:.01px;color:var(--onyx)}
+.color-hex{
+  font-size:12px;font-weight:500;color:var(--slate);margin-top:2px;
+  font-variant-numeric:tabular-nums;letter-spacing:.015px;
+}
+.color-role{font-size:11px;color:var(--ash);margin-top:6px;line-height:1.4}
+
+/* GRADIENT TOKENS */
+.gradient-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
+.gradient-token{
+  border-radius:var(--r-xl);padding:24px;border:1px solid var(--silver);
+  min-height:120px;display:flex;flex-direction:column;justify-content:flex-end;
+  box-shadow:var(--shadow-sm);
+}
+.gradient-name{font-size:12px;font-weight:500;color:var(--slate);letter-spacing:.015px;margin-bottom:4px}
+.gradient-desc{font-size:12px;color:var(--ash);line-height:1.4}
+
+/* TYPE SCALE */
+.type-table{
+  display:flex;flex-direction:column;border:1px solid var(--silver);
+  border-radius:var(--r-xl);overflow:hidden;box-shadow:var(--shadow-sm);
+}
+.type-row{
+  display:grid;grid-template-columns:100px 1fr 200px;align-items:baseline;
+  padding:16px 24px;border-bottom:1px solid var(--mist);
+  background:var(--white);
+}
+.type-row:last-child{border-bottom:none}
+.type-row:hover{background:var(--snow)}
+.type-meta{
+  font-size:10px;font-weight:600;color:var(--cardinal-red);
+  letter-spacing:.06px;text-transform:uppercase;
+}
+.type-sample{color:var(--onyx);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.type-specs{
+  font-size:11px;color:var(--slate);text-align:right;
+  font-variant-numeric:tabular-nums;letter-spacing:.015px;
+}
+
+/* SPACING */
+.spacing-bars{display:flex;align-items:flex-end;gap:20px;height:120px}
+.spacing-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px}
+.spacing-bar{
+  width:100%;border-radius:var(--r-md);
+  background:var(--gradient-brand);
+  opacity:.25;transition:opacity .3s;
+}
+.spacing-col:hover .spacing-bar{opacity:.6}
+.spacing-val{font-size:11px;font-weight:600;color:var(--onyx);letter-spacing:.015px}
+.spacing-name{font-size:10px;font-weight:500;color:var(--slate);letter-spacing:.015px}
+
+/* SHAPES */
+.shapes-row{display:flex;flex-wrap:wrap;gap:24px;align-items:flex-end}
+.shape-item{display:flex;flex-direction:column;align-items:center;gap:8px}
+.shape-box{
+  width:72px;height:72px;background:var(--white);
+  border:1.5px solid var(--silver);transition:all .3s cubic-bezier(.22,1,.36,1);
+  box-shadow:var(--shadow-sm);
+}
+.shape-box:hover{border-color:var(--cardinal-red);transform:scale(1.06)}
+.shape-label{font-size:11px;font-weight:500;color:var(--slate);letter-spacing:.015px;white-space:nowrap}
+.shape-value{
+  font-size:10px;font-weight:400;color:var(--ash);letter-spacing:.015px;
+  font-variant-numeric:tabular-nums;
+}
+
+/* DEPTH */
+.depth-row{
+  display:flex;align-items:center;gap:20px;padding:20px 0;
+  border-bottom:1px solid var(--mist);
+}
+.depth-row:last-child{border-bottom:none}
+.depth-swatch{
+  width:56px;height:56px;border-radius:var(--r-md);flex-shrink:0;
+  box-shadow:var(--shadow-sm);
+}
+.depth-info{flex:1}
+.depth-name{font-size:14px;font-weight:600;letter-spacing:.01px;color:var(--onyx)}
+.depth-desc{font-size:12px;color:var(--slate);margin-top:2px;letter-spacing:.015px}
+.depth-value{
+  font-size:12px;font-weight:500;color:var(--ash);
+  font-variant-numeric:tabular-nums;letter-spacing:.015px;
+}
+
+/* SURFACES */
+.surface-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px}
+.surface-item{
+  border-radius:var(--r-xl);padding:28px 20px;
+  text-align:center;border:1px solid var(--silver);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:6px;min-height:110px;transition:transform .3s,box-shadow .3s;
+  box-shadow:var(--shadow-sm);
+}
+.surface-item:hover{transform:scale(1.02);box-shadow:var(--shadow-md)}
+.surface-name{font-size:14px;font-weight:600;letter-spacing:.01px}
+.surface-val{
+  font-size:11px;font-weight:500;color:var(--slate);
+  font-variant-numeric:tabular-nums;letter-spacing:.015px;
+}
+
+/* COMPONENTS */
+.component-card{
+  background:var(--white);border:1px solid var(--silver);
+  border-radius:var(--r-xl);padding:32px;margin-bottom:20px;
+  transition:border-color .2s,box-shadow .2s;
+  box-shadow:var(--shadow-sm);
+}
+.component-card:hover{border-color:var(--ash);box-shadow:var(--shadow-md)}
+.component-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px}
+.component-name{font-size:15px;font-weight:600;letter-spacing:.01px;color:var(--onyx)}
+.component-role{font-size:12px;color:var(--slate);margin-top:4px;letter-spacing:.015px}
+.component-class{
+  font-size:11px;font-weight:500;color:var(--cardinal-red);
+  background:rgba(235,0,27,.06);padding:3px 10px;border-radius:var(--r-full);
+  border:1px solid rgba(235,0,27,.12);letter-spacing:.015px;
+  font-family:'SFMono-Regular',Consolas,monospace;
+}
+.component-preview{
+  display:flex;gap:16px;align-items:center;flex-wrap:wrap;
+  padding:24px;background:var(--snow);border-radius:var(--r-lg);
+  border:1px solid var(--mist);
+}
+.component-desc{
+  font-size:12px;color:var(--ash);line-height:1.5;
+  margin-top:12px;max-width:480px;
+}
+
+/* STATUS BADGES */
+.badge{
+  display:inline-flex;align-items:center;font-size:12px;font-weight:600;
+  padding:4px 12px;border-radius:var(--r-full);letter-spacing:.015px;
+}
+.badge-success{background:rgba(0,166,81,.08);color:var(--success-green)}
+.badge-warning{background:rgba(255,184,28,.1);color:#B8860B}
+.badge-error{background:rgba(212,53,28,.08);color:var(--error-crimson)}
+.badge-info{background:rgba(0,102,204,.08);color:var(--info-blue)}
+
+/* INPUT */
+.input-field{
+  background:var(--white);border:1px solid var(--silver);border-radius:var(--r-md);
+  padding:12px 16px;color:var(--charcoal);font-size:14px;font-family:inherit;
+  outline:none;transition:border-color .2s,box-shadow .2s;width:100%;max-width:320px;
+}
+.input-field:focus{border-color:var(--cardinal-red);box-shadow:var(--shadow-focus)}
+.input-field::placeholder{color:var(--ash)}
+
+/* DO/DON'T */
+.guide-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.guide-card{
+  border-radius:var(--r-xl);padding:28px;
+  border:1px solid var(--silver);
+}
+.guide-card--do{background:rgba(0,166,81,.03);border-color:rgba(0,166,81,.15)}
+.guide-card--dont{background:rgba(212,53,28,.03);border-color:rgba(212,53,28,.12)}
+.guide-label{font-size:11px;font-weight:600;letter-spacing:.06px;text-transform:uppercase;margin-bottom:16px}
+.guide-card--do .guide-label{color:var(--success-green)}
+.guide-card--dont .guide-label{color:var(--error-crimson)}
+.guide-list{
+  list-style:none;display:flex;flex-direction:column;gap:10px;
+}
+.guide-list li{
+  font-size:13px;line-height:1.5;padding-left:20px;position:relative;
+  color:var(--charcoal);
+}
+.guide-card--do .guide-list li::before{
+  content: '\2713';position:absolute;left:0;color:var(--success-green);font-weight:700;font-size:12px;
+}
+.guide-card--dont .guide-list li::before{
+  content: '\2715';position:absolute;left:0;color:var(--error-crimson);font-weight:700;font-size:12px;
+}
+
+/* FOOTER */
+.footer{
+  margin-top:96px;padding:32px 0;
+  border-top:1px solid var(--silver);
+  display:flex;justify-content:space-between;align-items:center;
+}
+.footer-left{font-size:14px;font-weight:500;color:var(--slate);opacity:.6}
+.footer-right{display:flex;gap:20px}
+.footer-link{
+  font-size:12px;font-weight:500;color:var(--slate);text-decoration:none;
+  transition:color .2s;letter-spacing:.015px;
+}
+.footer-link:hover{color:var(--cardinal-red)}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  .page{padding:0 20px 80px}
+  .hero{margin:0 -20px;padding-left:20px;padding-right:20px;padding-top:56px}
+  .nav{margin:0 -20px}
+  .section-title{font-size:24px}
+  .type-row{grid-template-columns:70px 1fr;gap:8px}
+  .type-specs{display:none}
+  .guide-grid{grid-template-columns:1fr}
+  .color-grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr))}
+  .hero-title{font-size:32px}
+}
+
+/* ENTRANCE ANIMATION */
+.section,.hero{opacity:1;transition:opacity .6s cubic-bezier(.22,1,.36,1),transform .6s cubic-bezier(.22,1,.36,1)}
+.section.visible,.hero.visible{opacity:1;transform:translateY(0)}
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="nav-left">
+      <div class="nav-logo">
+        <div class="circle-left"></div>
+        <div class="circle-right"></div>
+      </div>
+      <a href="#" class="nav-wordmark">Mastercard</a>
+      <span class="nav-tag">Design System</span>
+      <a href="#" class="nav-url" target="_blank" rel="noopener">https://www.mastercard.com</a>
+    </div>
+    <div class="nav-right">
+      <a href="#colors" class="nav-link nav-link--active">Colors</a>
+      <a href="#typography" class="nav-link">Type</a>
+      <a href="#spacing" class="nav-link">Spacing</a>
+      <a href="#components" class="nav-link">Components</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-label">Design System</div>
+    <h1 class="hero-title">Connecting<br>people to<br><em>priceless</em> possibilities.</h1>
+    <p class="hero-subtitle">Clean payment confidence with bold brand clarity. A light-first system built around the iconic red-orange interlocking circles.</p>
+    <div class="hero-tags">
+      <span class="hero-tag">16 color tokens</span>
+      <span class="hero-tag">3 gradients</span>
+      <span class="hero-tag">4px grid</span>
+      <span class="hero-tag">4 surface levels</span>
+      <span class="hero-tag">5 shadows</span>
+    </div>
+    <div class="hero-actions">
+      <a href="#" class="btn btn-white" download>Download Spec</a>
+      <a href="#" class="btn btn-secondary" style="color:rgba(255,255,255,.9);border-color:rgba(255,255,255,.3)" download>theme.css</a>
+      <a href="#" class="btn btn-secondary" style="color:rgba(255,255,255,.9);border-color:rgba(255,255,255,.3)" download>tokens.json</a>
+      <a href="#" class="btn btn-secondary" style="color:rgba(255,255,255,.9);border-color:rgba(255,255,255,.3)" download>variables.css</a>
+    </div>
+  </div>
+
+  <!-- COLORS -->
+  <section class="section" id="colors">
+    <div class="section-header">
+      <div class="section-label">Foundation</div>
+      <h2 class="section-title">Color Tokens</h2>
+      <p class="section-desc">Light neutrals with bold brand accents. 16 tokens across surfaces, text, interaction, and semantic states. Cardinal Red and Tangerine form the signature gradient.</p>
+    </div>
+    <div class="color-grid">
+      <div class="color-token">
+        <div class="color-swatch" style="background:#FFFFFF;border-bottom:1px solid var(--silver)"></div>
+        <div class="color-info"><div class="color-name">White</div><div class="color-hex">#FFFFFF</div><div class="color-role">Primary background</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#F7F7F7"></div>
+        <div class="color-info"><div class="color-name">Snow</div><div class="color-hex">#F7F7F7</div><div class="color-role">Secondary sections</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#F0F0F0"></div>
+        <div class="color-info"><div class="color-name">Mist</div><div class="color-hex">#F0F0F0</div><div class="color-role">Nested containers</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#E0E0E0"></div>
+        <div class="color-info"><div class="color-name">Silver</div><div class="color-hex">#E0E0E0</div><div class="color-role">Borders, dividers</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#B0B0B0"></div>
+        <div class="color-info"><div class="color-name">Ash</div><div class="color-hex">#B0B0B0</div><div class="color-role">Placeholders, disabled</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#6B6B6B"></div>
+        <div class="color-info"><div class="color-name">Slate</div><div class="color-hex">#6B6B6B</div><div class="color-role">Secondary text</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#2D2D2D"></div>
+        <div class="color-info"><div class="color-name">Charcoal</div><div class="color-hex">#2D2D2D</div><div class="color-role">Primary body text</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#1A1A1A"></div>
+        <div class="color-info"><div class="color-name">Onyx</div><div class="color-hex">#1A1A1A</div><div class="color-role">Headings, emphasis</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#EB001B"></div>
+        <div class="color-info"><div class="color-name">Cardinal Red</div><div class="color-hex">#EB001B</div><div class="color-role">Primary brand, CTAs</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#FF5F00"></div>
+        <div class="color-info"><div class="color-name">Tangerine</div><div class="color-hex">#FF5F00</div><div class="color-role">Secondary brand accent</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#1A1F71"></div>
+        <div class="color-info"><div class="color-name">Midnight Blue</div><div class="color-hex">#1A1F71</div><div class="color-role">Trust, links, navigation</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#FF8A00"></div>
+        <div class="color-info"><div class="color-name">Ember</div><div class="color-hex">#FF8A00</div><div class="color-role">Warm highlights</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#00A651"></div>
+        <div class="color-info"><div class="color-name">Success Green</div><div class="color-hex">#00A651</div><div class="color-role">Success states</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#FFB81C"></div>
+        <div class="color-info"><div class="color-name">Warning Amber</div><div class="color-hex">#FFB81C</div><div class="color-role">Warning states</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#D4351C"></div>
+        <div class="color-info"><div class="color-name">Error Crimson</div><div class="color-hex">#D4351C</div><div class="color-role">Error states</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#0066CC"></div>
+        <div class="color-info"><div class="color-name">Info Blue</div><div class="color-hex">#0066CC</div><div class="color-role">Informational states</div></div>
+      </div>
+    </div>
+
+    <h3 style="font-size:16px;font-weight:600;color:var(--onyx);margin:40px 0 20px;letter-spacing:-.2px">Gradients</h3>
+    <div class="gradient-grid">
+      <div class="gradient-token" style="background:linear-gradient(135deg,#EB001B 0%,#FF5F00 100%)">
+        <div class="gradient-name" style="color:rgba(255,255,255,.7)">brand</div>
+        <div class="gradient-desc" style="color:rgba(255,255,255,.6)">Mastercard circles effect, premium CTAs</div>
+      </div>
+      <div class="gradient-token" style="background:linear-gradient(135deg,#1A1F71 0%,#2D3580 50%,#EB001B 100%)">
+        <div class="gradient-name" style="color:rgba(255,255,255,.7)">hero</div>
+        <div class="gradient-desc" style="color:rgba(255,255,255,.6)">Marketing hero sections, premium promos</div>
+      </div>
+      <div class="gradient-token" style="background:linear-gradient(180deg,#FFFFFF 0%,#F7F7F7 100%)">
+        <div class="gradient-name">subtle</div>
+        <div class="gradient-desc">Section transitions, card backgrounds</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TYPOGRAPHY -->
+  <section class="section" id="typography">
+    <div class="section-header">
+      <div class="section-label">Typography</div>
+      <h2 class="section-title">Type Scale</h2>
+      <p class="section-desc">Mastercard Sans as primary typeface (Inter substitute). Clean geometry optimized for dense financial interfaces and payment flows.</p>
+    </div>
+    <div class="type-table">
+      <div class="type-row">
+        <span class="type-meta">Display</span>
+        <span class="type-sample" style="font-size:28px;font-weight:800;line-height:1;letter-spacing:-.02em">Priceless</span>
+        <span class="type-specs">48px / 1.0 / -0.02em</span>
+      </div>
+      <div class="type-row">
+        <span class="type-meta">Display-sm</span>
+        <span class="type-sample" style="font-size:22px;font-weight:700;line-height:1.1;letter-spacing:-.4px">Pay with confidence</span>
+        <span class="type-specs">40px / 1.1 / -0.02px</span>
+      </div>
+      <div class="type-row">
+        <span class="type-meta">Heading-lg</span>
+        <span class="type-sample" style="font-size:20px;font-weight:700;line-height:1.2;letter-spacing:-.4px">Secure payments</span>
+        <span class="type-specs">32px / 1.2 / -0.02px</span>
+      </div>
+      <div class="type-row">
+        <span class="type-meta">Heading</span>
+        <span class="type-sample" style="font-size:18px;font-weight:600;line-height:1.25;letter-spacing:-.2px">Transaction details</span>
+        <span class="type-specs">24px / 1.25 / -0.01px</span>
+      </div>
+      <div class="type-row">
+        <span class="type-meta">Heading-sm</span>
+        <span class="type-sample" style="font-size:16px;font-weight:600;line-height:1.3;letter-spacing:-.2px">Account summary</span>
+        <span class="type-specs">20px / 1.3 / -0.01px</span>
+      </div>
+      <div class="type-row">
+        <span class="type-meta">Body</span>
+        <span class="type-sample" style="font-size:16px;font-weight:400;line-height:1.5;letter-spacing:0">Default body text for readable content</span>
+        <span class="type-specs">16px / 1.5 / 0</span>
+      </div>
+      <div class="type-row">
+        <span class="type-meta">Body-sm</span>
+        <span class="type-sample" style="font-size:14px;font-weight:400;line-height:1.5;letter-spacing:.01px">Dense data, comparison rows</span>
+        <span class="type-specs">14px / 1.5 / 0.01px</span>
+      </div>
+      <div class="type-row">
+        <span class="type-meta">Caption</span>
+        <span class="type-sample" style="font-size:12px;font-weight:400;line-height:1.5;letter-spacing:.04px">Meta info · Timestamps · Labels</span>
+        <span class="type-specs">12px / 1.5 / 0.04px</span>
+      </div>
+    </div>
+
+    <h3 style="font-size:14px;font-weight:600;color:var(--onyx);margin:40px 0 20px;letter-spacing:.01px">Fonts</h3>
+    <div style="display:flex;flex-direction:column;border:1px solid var(--silver);border-radius:var(--r-xl);overflow:hidden;box-shadow:var(--shadow-sm)">
+      <div style="padding:20px 24px;border-bottom:1px solid var(--mist);display:flex;align-items:baseline;gap:16px">
+        <span style="font-size:10px;font-weight:600;color:var(--cardinal-red);letter-spacing:.06px;text-transform:uppercase;flex:0 0 60px">Primary</span>
+        <span style="font-size:16px;font-weight:600;color:var(--onyx);letter-spacing:-.2px">Mastercard Sans</span>
+        <span style="font-size:11px;color:var(--slate);letter-spacing:.015px">400-700 · 12-18px</span>
+      </div>
+      <div style="padding:20px 24px;border-bottom:1px solid var(--mist);display:flex;align-items:baseline;gap:16px">
+        <span style="font-size:10px;font-weight:600;color:var(--cardinal-red);letter-spacing:.06px;text-transform:uppercase;flex:0 0 60px">Display</span>
+        <span style="font-size:16px;font-weight:600;color:var(--onyx);letter-spacing:-.2px">Mastercard Display</span>
+        <span style="font-size:11px;color:var(--slate);letter-spacing:.015px">700-800 · 40-48px · Heroes only</span>
+      </div>
+      <div style="padding:20px 24px;border-bottom:1px solid var(--mist);display:flex;align-items:baseline;gap:16px">
+        <span style="font-size:10px;font-weight:600;color:var(--cardinal-red);letter-spacing:.06px;text-transform:uppercase;flex:0 0 60px">Mono</span>
+        <span style="font-size:16px;font-weight:500;color:var(--onyx);letter-spacing:-.2px">Mastercard Mono</span>
+        <span style="font-size:11px;color:var(--slate);letter-spacing:.015px">400-700 · 12-16px · Financial data</span>
+      </div>
+      <div style="padding:20px 24px;display:flex;align-items:baseline;gap:16px">
+        <span style="font-size:10px;font-weight:600;color:var(--cardinal-red);letter-spacing:.06px;text-transform:uppercase;flex:0 0 60px">Fallback</span>
+        <span style="font-size:16px;font-weight:500;color:var(--onyx);letter-spacing:-.2px">Inter</span>
+        <span style="font-size:11px;color:var(--slate);letter-spacing:.015px">Substitute for all above</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- SPACING & SHAPES -->
+  <section class="section" id="spacing">
+    <div class="section-header">
+      <div class="section-label">Layout</div>
+      <h2 class="section-title">Spacing & Shapes</h2>
+      <p class="section-desc">Base unit 4px. Compact density for information-dense financial interfaces. 12-step spacing scale, 5 border radius values.</p>
+    </div>
+
+    <h3 style="font-size:14px;font-weight:600;color:var(--onyx);margin-bottom:20px;letter-spacing:.01px">Spacing Scale (4px base)</h3>
+    <div class="spacing-bars">
+      <div class="spacing-col"><div class="spacing-bar" style="height:8px"></div><span class="spacing-val">4</span><span class="spacing-name">4px</span></div>
+      <div class="spacing-col"><div class="spacing-bar" style="height:14px"></div><span class="spacing-val">8</span><span class="spacing-name">8px</span></div>
+      <div class="spacing-col"><div class="spacing-bar" style="height:20px"></div><span class="spacing-val">12</span><span class="spacing-name">12px</span></div>
+      <div class="spacing-col"><div class="spacing-bar" style="height:28px"></div><span class="spacing-val">16</span><span class="spacing-name">16px</span></div>
+      <div class="spacing-col"><div class="spacing-bar" style="height:40px"></div><span class="spacing-val">24</span><span class="spacing-name">24px</span></div>
+      <div class="spacing-col"><div class="spacing-bar" style="height:56px"></div><span class="spacing-val">32</span><span class="spacing-name">32px</span></div>
+      <div class="spacing-col"><div class="spacing-bar" style="height:72px"></div><span class="spacing-val">48</span><span class="spacing-name">48px</span></div>
+      <div class="spacing-col"><div class="spacing-bar" style="height:90px"></div><span class="spacing-val">96</span><span class="spacing-name">96px</span></div>
+    </div>
+
+    <h3 style="font-size:14px;font-weight:600;color:var(--onyx);margin:40px 0 20px;letter-spacing:.01px">Border Radius</h3>
+    <div class="shapes-row">
+      <div class="shape-item">
+        <div class="shape-box" style="border-radius:4px"></div>
+        <span class="shape-label">sm</span>
+        <span class="shape-value">4px</span>
+      </div>
+      <div class="shape-item">
+        <div class="shape-box" style="border-radius:8px"></div>
+        <span class="shape-label">default</span>
+        <span class="shape-value">8px</span>
+      </div>
+      <div class="shape-item">
+        <div class="shape-box" style="border-radius:12px"></div>
+        <span class="shape-label">lg</span>
+        <span class="shape-value">12px</span>
+      </div>
+      <div class="shape-item">
+        <div class="shape-box" style="border-radius:16px"></div>
+        <span class="shape-label">cards</span>
+        <span class="shape-value">16px</span>
+      </div>
+      <div class="shape-item">
+        <div class="shape-box" style="border-radius:9999px"></div>
+        <span class="shape-label">pill</span>
+        <span class="shape-value">9999px</span>
+      </div>
+    </div>
+
+    <h3 style="font-size:14px;font-weight:600;color:var(--onyx);margin:40px 0 20px;letter-spacing:.01px">Shadows</h3>
+    <div style="display:flex;flex-wrap:wrap;gap:16px">
+      <div style="width:140px;height:90px;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:var(--r-lg);background:var(--white);box-shadow:0 1px 3px rgba(0,0,0,0.06)">
+        <span style="font-size:11px;font-weight:500;color:var(--slate);letter-spacing:.015px;margin-bottom:4px">Small</span>
+        <span style="font-size:10px;color:var(--ash);font-variant-numeric:tabular-nums;letter-spacing:.015px">cards</span>
+      </div>
+      <div style="width:140px;height:90px;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:var(--r-lg);background:var(--white);box-shadow:0 2px 8px rgba(0,0,0,0.06)">
+        <span style="font-size:11px;font-weight:500;color:var(--slate);letter-spacing:.015px;margin-bottom:4px">Medium</span>
+        <span style="font-size:10px;color:var(--ash);font-variant-numeric:tabular-nums;letter-spacing:.015px">default</span>
+      </div>
+      <div style="width:140px;height:90px;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:var(--r-lg);background:var(--white);box-shadow:0 4px 16px rgba(0,0,0,0.08)">
+        <span style="font-size:11px;font-weight:500;color:var(--slate);letter-spacing:.015px;margin-bottom:4px">Large</span>
+        <span style="font-size:10px;color:var(--ash);font-variant-numeric:tabular-nums;letter-spacing:.015px">dropdowns</span>
+      </div>
+      <div style="width:140px;height:90px;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:var(--r-lg);background:var(--white);box-shadow:0 8px 32px rgba(0,0,0,0.10)">
+        <span style="font-size:11px;font-weight:500;color:var(--slate);letter-spacing:.015px;margin-bottom:4px">XLarge</span>
+        <span style="font-size:10px;color:var(--ash);font-variant-numeric:tabular-nums;letter-spacing:.015px">modals</span>
+      </div>
+      <div style="width:140px;height:90px;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:var(--r-lg);background:var(--white);box-shadow:0 0 0 3px rgba(235,0,27,0.15)">
+        <span style="font-size:11px;font-weight:500;color:var(--cardinal-red);letter-spacing:.015px;margin-bottom:4px">Focus</span>
+        <span style="font-size:10px;color:var(--ash);font-variant-numeric:tabular-nums;letter-spacing:.015px">interactive</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- DEPTH & SURFACES -->
+  <section class="section" id="depth">
+    <div class="section-header">
+      <div class="section-label">Elevation</div>
+      <h2 class="section-title">Depth & Surfaces</h2>
+      <p class="section-desc">Shadow-based elevation on a light canvas. 4 distinct surface levels with progressive shadow depth.</p>
+    </div>
+
+    <h3 style="font-size:14px;font-weight:600;color:var(--onyx);margin-bottom:16px;letter-spacing:.01px">Depth Levels</h3>
+    <div style="margin-bottom:40px">
+      <div class="depth-row">
+        <div class="depth-swatch" style="background:#FFFFFF;border:1px solid var(--silver)"></div>
+        <div class="depth-info"><div class="depth-name">White</div><div class="depth-desc">Base page background &mdash; the canvas</div></div>
+        <div class="depth-value">Level 0</div>
+      </div>
+      <div class="depth-row">
+        <div class="depth-swatch" style="background:#F7F7F7;border:1px solid var(--silver)"></div>
+        <div class="depth-info"><div class="depth-name">Snow</div><div class="depth-desc">Secondary sections, alternating rows</div></div>
+        <div class="depth-value">Level 1</div>
+      </div>
+      <div class="depth-row">
+        <div class="depth-swatch" style="background:#F0F0F0;border:1px solid var(--silver)"></div>
+        <div class="depth-info"><div class="depth-name">Mist</div><div class="depth-desc">Nested containers, input backgrounds</div></div>
+        <div class="depth-value">Level 2</div>
+      </div>
+      <div class="depth-row">
+        <div class="depth-swatch" style="background:#FFFFFF;border:1px solid var(--silver);box-shadow:0 2px 8px rgba(0,0,0,0.06)"></div>
+        <div class="depth-info"><div class="depth-name">Filled Card</div><div class="depth-desc">Elevated cards with border and shadow</div></div>
+        <div class="depth-value">Level 3</div>
+      </div>
+    </div>
+
+    <h3 style="font-size:14px;font-weight:600;color:var(--onyx);margin-bottom:16px;letter-spacing:.01px">Surface System</h3>
+    <div class="surface-grid">
+      <div class="surface-item" style="background:#FFFFFF">
+        <span class="surface-name" style="color:var(--onyx)">White</span>
+        <span class="surface-val">#FFFFFF</span>
+      </div>
+      <div class="surface-item" style="background:#F7F7F7">
+        <span class="surface-name" style="color:var(--onyx)">Snow</span>
+        <span class="surface-val">#F7F7F7</span>
+      </div>
+      <div class="surface-item" style="background:#F0F0F0">
+        <span class="surface-name" style="color:var(--onyx)">Mist</span>
+        <span class="surface-val">#F0F0F0</span>
+      </div>
+      <div class="surface-item" style="background:#FFFFFF;box-shadow:var(--shadow-md)">
+        <span class="surface-name" style="color:var(--onyx)">Filled Card</span>
+        <span class="surface-val">shadow + border</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPONENTS -->
+  <section class="section" id="components">
+    <div class="section-header">
+      <div class="section-label">Components</div>
+      <h2 class="section-title">Button & Form Variants</h2>
+      <p class="section-desc">Brand gradient primary, outlined secondary, and ghost variants. Input fields with Cardinal Red focus states for clear interaction feedback.</p>
+    </div>
+
+    <div class="component-card">
+      <div class="component-header">
+        <div><div class="component-name">Primary CTA Button</div><div class="component-role">Main call to action &mdash; highest visual weight</div></div>
+        <span class="component-class">.btn-primary</span>
+      </div>
+      <div class="component-preview">
+        <button class="btn btn-primary">Pay now</button>
+        <button class="btn btn-primary" style="opacity:.9">Hover state</button>
+      </div>
+      <div class="component-desc">Brand Gradient (red-to-orange) background, White text, 8px radius, red shadow glow. Use for the single most important action.</div>
+    </div>
+
+    <div class="component-card">
+      <div class="component-header">
+        <div><div class="component-name">Secondary Button</div><div class="component-role">Secondary actions, alternative paths</div></div>
+        <span class="component-class">.btn-secondary</span>
+      </div>
+      <div class="component-preview">
+        <button class="btn btn-secondary">Add card</button>
+        <button class="btn btn-secondary" style="background:rgba(235,0,27,.04)">Hover state</button>
+      </div>
+      <div class="component-desc">Cardinal Red text and border on transparent background. Clear hierarchy below the primary CTA.</div>
+    </div>
+
+    <div class="component-card">
+      <div class="component-header">
+        <div><div class="component-name">Ghost Button</div><div class="component-role">Tertiary actions, navigation</div></div>
+        <span class="component-class">.btn-ghost</span>
+      </div>
+      <div class="component-preview">
+        <button class="btn btn-ghost">View details</button>
+        <button class="btn btn-ghost" style="background:var(--snow)">Hover state</button>
+      </div>
+      <div class="component-desc">Midnight Blue text, transparent background, no border. For navigation and less prominent actions.</div>
+    </div>
+
+    <div class="component-card">
+      <div class="component-header">
+        <div><div class="component-name">Input Field</div><div class="component-role">Form inputs, search bars, data entry</div></div>
+        <span class="component-class">input</span>
+      </div>
+      <div class="component-preview">
+        <div style="display:flex;flex-direction:column;gap:12px;flex:1;max-width:360px">
+          <input type="text" class="input-field" placeholder="Card number">
+          <input type="text" class="input-field" value="Focused state" style="border-color:var(--cardinal-red);box-shadow:var(--shadow-focus)">
+        </div>
+      </div>
+      <div class="component-desc">White background, Silver border, 8px radius. Focus state uses Cardinal Red border with subtle red glow ring.</div>
+    </div>
+
+    <div class="component-card">
+      <div class="component-header">
+        <div><div class="component-name">Status Badges</div><div class="component-role">Transaction states, account statuses</div></div>
+        <span class="component-class">.badge</span>
+      </div>
+      <div class="component-preview">
+        <span class="badge badge-success">Completed</span>
+        <span class="badge badge-warning">Pending</span>
+        <span class="badge badge-error">Failed</span>
+        <span class="badge badge-info">Processing</span>
+      </div>
+      <div class="component-desc">Pill-shaped badges with semantic colors. Use for transaction states, account statuses, and notification indicators.</div>
+    </div>
+
+    <div class="component-card">
+      <div class="component-header">
+        <div><div class="component-name">Filled Card</div><div class="component-role">Content blocks, feature highlights</div></div>
+        <span class="component-class">.card</span>
+      </div>
+      <div class="component-preview">
+        <div style="background:var(--white);border:1px solid var(--silver);border-radius:var(--r-xl);padding:24px;box-shadow:var(--shadow-md);max-width:300px">
+          <div style="font-size:14px;font-weight:600;color:var(--onyx);margin-bottom:8px">World Elite</div>
+          <div style="font-size:13px;color:var(--slate);line-height:1.5">Earn 2% on every purchase. No annual fee for the first year.</div>
+        </div>
+      </div>
+      <div class="component-desc">White background, 16px radius, 24px padding, Silver border, medium shadow. Clean elevation for content blocks.</div>
+    </div>
+  </section>
+
+  <!-- DO'S & DON'TS -->
+  <section class="section" id="guidelines">
+    <div class="section-header">
+      <div class="section-label">Guidelines</div>
+      <h2 class="section-title">Do's & Don'ts</h2>
+    </div>
+    <div class="guide-grid">
+      <div class="guide-card guide-card--do">
+        <div class="guide-label">Do &mdash; Embrace</div>
+        <ul class="guide-list">
+          <li>White (#FFFFFF) as primary background</li>
+          <li>Brand Gradient for premium CTAs</li>
+          <li>Cardinal Red (#EB001B) for key brand moments</li>
+          <li>Midnight Blue (#1A1F71) for trust and links</li>
+          <li>8px radius for buttons, 16px for cards</li>
+          <li>Compact spacing for financial data density</li>
+          <li>WCAG AA contrast on all text</li>
+        </ul>
+      </div>
+      <div class="guide-card guide-card--dont">
+        <div class="guide-label">Don't &mdash; Avoid</div>
+        <ul class="guide-list">
+          <li>Cardinal Red for large background areas</li>
+          <li>Red and orange adjacent without gradient</li>
+          <li>Brand gradient for body text</li>
+          <li>Dark backgrounds for primary content</li>
+          <li>Dense text without 1.5 line-height</li>
+          <li>Mono fonts for non-financial content</li>
+          <li>Altering Mastercard circle proportions</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-left">Mastercard Design System</div>
+    <div class="footer-right">
+      <a href="#colors" class="footer-link">Colors</a>
+      <a href="#typography" class="footer-link">Typography</a>
+      <a href="#spacing" class="footer-link">Spacing</a>
+      <a href="#components" class="footer-link">Components</a>
+      <a href="#" class="footer-link" download>Download Spec</a>
+    </div>
+  </footer>
+
+</div>
+
+
+
+</body>
+</html>

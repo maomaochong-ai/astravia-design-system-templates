@@ -1,0 +1,419 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GitHub — component reference</title>
+<style>
+	/* Mirrors theme.css. Plain custom properties so this file opens standalone. */
+	:root {
+		--color-primary: #238636;
+		--color-primary-foreground: #ffffff;
+		--color-surface: #0d1117;
+		--color-surface-foreground: #e6edf3;
+		--color-surface-raised: #161b22;
+		--color-muted: #8b949e;
+		--color-accent: #58a6ff;
+		--color-danger: #f85149;
+		--color-border: #30363d;
+
+		--radius-sm: 4px;
+		--radius-md: 6px;
+		--radius-lg: 6px;
+		--radius-xl: 8px;
+		--radius-2xl: 12px;
+
+		--shadow-sm: 0 1px 0 rgb(1 4 9 / 0.6);
+		--shadow-md: 0 3px 6px rgb(1 4 9 / 0.7);
+		--shadow-lg: 0 8px 24px rgb(1 4 9 / 0.8);
+
+		--sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+		--mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+	}
+
+	*, *::before, *::after { box-sizing: border-box; }
+	body {
+		margin: 0;
+		background: var(--color-surface);
+		color: var(--color-surface-foreground);
+		font-family: var(--sans);
+		font-size: 14px;
+		line-height: 1.5;
+		-webkit-font-smoothing: antialiased;
+	}
+	h1, h2, h3 { margin: 0; font-weight: 600; line-height: 1.25; }
+	p { margin: 0; }
+	a { color: var(--color-accent); text-decoration: none; }
+	::selection { background: rgb(88 166 255 / 0.4); }
+
+	.wrap { max-width: 1216px; margin: 0 auto; padding: 0 16px 80px; }
+	@media (min-width: 768px) { .wrap { padding: 0 24px 96px; } }
+
+	.section { padding-top: 40px; }
+	@media (min-width: 768px) { .section { padding-top: 56px; } }
+	.section-label { font-family: var(--mono); font-size: 12px; color: var(--color-muted); margin-bottom: 8px; }
+	.section h2 { font-size: 20px; }
+	@media (min-width: 768px) { .section h2 { font-size: 24px; } }
+	.lede { color: var(--color-muted); max-width: 68ch; margin-top: 8px; }
+	.note { margin-top: 16px; font-size: 12px; color: var(--color-muted); }
+	.row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+	.spacer { flex: 1; }
+	.mono { font-family: var(--mono); }
+
+	/* ── Global chrome ─────────────────────────────────────────────── */
+	.appbar {
+		background: var(--color-surface-raised);
+		border-bottom: 1px solid var(--color-border);
+		padding: 12px 16px;
+		display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+	}
+	@media (min-width: 768px) { .appbar { padding: 12px 24px; } }
+	.octo { width: 28px; height: 28px; border-radius: 50%; background: var(--color-surface-foreground); flex: none; }
+	.repo { font-size: 14px; }
+	.repo b { font-weight: 600; }
+	.repo .sep { color: var(--color-muted); }
+	.searchbox {
+		display: none; height: 30px; min-width: 260px; align-items: center;
+		padding: 0 10px; border: 1px solid var(--color-border); border-radius: var(--radius-md);
+		background: var(--color-surface); color: var(--color-muted); font-size: 13px;
+	}
+	@media (min-width: 900px) { .searchbox { display: flex; } }
+	.slashkey { margin-left: auto; border: 1px solid var(--color-border); border-radius: var(--radius-sm); padding: 0 5px; font-family: var(--mono); font-size: 11px; }
+
+	.tabs { display: flex; gap: 4px; overflow-x: auto; padding: 0 16px; border-bottom: 1px solid var(--color-border); background: var(--color-surface-raised); }
+	@media (min-width: 768px) { .tabs { padding: 0 24px; } }
+	.tabs span { padding: 10px 12px 12px; font-size: 14px; color: var(--color-surface-foreground); white-space: nowrap; display: flex; align-items: center; gap: 6px; }
+	.tabs .is-active { box-shadow: inset 0 -2px 0 #f78166; font-weight: 600; }
+	.counter { background: rgb(110 118 129 / 0.4); border-radius: 9999px; padding: 0 6px; font-size: 12px; }
+
+	/* ── PR header ─────────────────────────────────────────────────── */
+	.prhead { padding: 20px 0 16px; border-bottom: 1px solid var(--color-border); }
+	.prhead h1 { font-size: 24px; font-weight: 400; }
+	@media (min-width: 768px) { .prhead h1 { font-size: 32px; } }
+	.prhead h1 .num { color: var(--color-muted); }
+	.prmeta { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 12px; font-size: 14px; color: var(--color-muted); }
+
+	.state-pill {
+		display: inline-flex; align-items: center; gap: 6px;
+		border-radius: 9999px; padding: 5px 12px; font-size: 14px; font-weight: 500;
+		background: var(--color-primary); color: var(--color-primary-foreground);
+	}
+	.state-pill.merged { background: #8957e5; }
+	.state-pill.closed { background: var(--color-danger); }
+	.state-pill .g { width: 10px; height: 10px; border-radius: 50%; border: 2px solid currentColor; }
+
+	/* ── Boxes: raised header + surface body, always closed by a border ─ */
+	.layout { display: grid; grid-template-columns: 1fr; gap: 24px; margin-top: 24px; }
+	@media (min-width: 1000px) { .layout { grid-template-columns: 1fr 296px; gap: 32px; } }
+	.box { border: 1px solid var(--color-border); border-radius: var(--radius-md); overflow: hidden; background: var(--color-surface); }
+	.box + .box { margin-top: 16px; }
+	.box-head {
+		background: var(--color-surface-raised); border-bottom: 1px solid var(--color-border);
+		padding: 10px 16px; font-size: 13px; color: var(--color-muted);
+		display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+	}
+	.box-head b { color: var(--color-surface-foreground); font-weight: 600; }
+	.box-body { padding: 16px; font-size: 14px; }
+	.box-body p + p { margin-top: 12px; }
+	.avatar { width: 24px; height: 24px; border-radius: 50%; background: #30363d; flex: none; display: grid; place-items: center; font-size: 10px; color: var(--color-muted); }
+
+	/* ── Diff: mono 12px, tinted add/remove rows ──────────────────── */
+	.diff { font-family: var(--mono); font-size: 12px; line-height: 20px; overflow-x: auto; }
+	.layout > div { min-width: 0; }
+	.diff div { display: flex; white-space: pre; }
+	.diff .ln { flex: none; width: 44px; text-align: right; padding-right: 10px; color: #6e7681; user-select: none; }
+	.diff .code { flex: 1; padding-right: 16px; }
+	.diff .hunk { background: rgb(88 166 255 / 0.12); color: var(--color-accent); }
+	.diff .add { background: rgb(35 134 54 / 0.15); }
+	.diff .add .code::before { content: "+ "; color: #3fb950; }
+	.diff .del { background: rgb(248 81 73 / 0.15); }
+	.diff .del .code::before { content: "- "; color: var(--color-danger); }
+	.diff .ctx .code::before { content: "  "; }
+
+	/* ── Labels: 15%-opacity fill, matching text, 1px border ───────── */
+	.label { display: inline-block; border-radius: 9999px; padding: 1px 10px; font-size: 12px; font-weight: 500; border: 1px solid transparent; }
+	.label.blue { background: rgb(88 166 255 / 0.15); color: var(--color-accent); border-color: rgb(88 166 255 / 0.35); }
+	.label.green { background: rgb(35 134 54 / 0.18); color: #3fb950; border-color: rgb(63 185 80 / 0.35); }
+	.label.red { background: rgb(248 81 73 / 0.15); color: var(--color-danger); border-color: rgb(248 81 73 / 0.35); }
+	.label.gray { background: rgb(110 118 129 / 0.2); color: var(--color-muted); border-color: var(--color-border); }
+
+	/* ── Buttons: 32px, bordered, green only for the action ────────── */
+	.btn {
+		font: inherit; font-size: 13px; font-weight: 500;
+		height: 32px; padding: 0 12px;
+		border: 1px solid var(--color-border); border-radius: var(--radius-md);
+		background: var(--color-surface-raised); color: var(--color-surface-foreground);
+		cursor: pointer;
+		transition: background-color 120ms ease, border-color 120ms ease;
+	}
+	.btn:hover { background: #21262d; border-color: #8b949e; }
+	.btn:focus-visible { outline: none; border-color: var(--color-accent); box-shadow: 0 0 0 3px rgb(88 166 255 / 0.3); }
+	.btn-primary { background: var(--color-primary); border-color: rgb(240 246 252 / 0.1); color: var(--color-primary-foreground); }
+	.btn-primary:hover { background: #2ea043; border-color: rgb(240 246 252 / 0.1); }
+	.btn-danger { color: var(--color-danger); }
+	.btn-danger:hover { background: var(--color-danger); color: #fff; border-color: var(--color-danger); }
+	.btn[disabled] { cursor: not-allowed; color: #484f58; background: var(--color-surface-raised); border-color: #21262d; }
+
+	.input {
+		font: inherit; font-size: 14px; width: 100%;
+		padding: 8px 12px; min-height: 34px;
+		border: 1px solid var(--color-border); border-radius: var(--radius-md);
+		background: var(--color-surface); color: var(--color-surface-foreground);
+	}
+	.input::placeholder { color: #6e7681; }
+	.input:focus { outline: none; border-color: var(--color-accent); box-shadow: 0 0 0 3px rgb(88 166 255 / 0.3); }
+
+	/* ── Sidebar ───────────────────────────────────────────────────── */
+	.side-block { padding: 16px 0; border-bottom: 1px solid var(--color-border); }
+	.side-block:first-child { padding-top: 0; }
+	.side-title { font-size: 12px; font-weight: 600; color: var(--color-muted); margin-bottom: 10px; display: flex; }
+	.side-item { display: flex; align-items: center; gap: 8px; font-size: 13px; padding: 3px 0; }
+
+	/* ── Checks list ──────────────────────────────────────────────── */
+	.check { display: flex; align-items: center; gap: 10px; padding: 10px 16px; border-bottom: 1px solid var(--color-border); font-size: 13px; }
+	.check:last-child { border-bottom: 0; }
+	.check .g { width: 14px; height: 14px; border-radius: 50%; flex: none; }
+	.check .g.ok { background: var(--color-primary); }
+	.check .g.bad { background: var(--color-danger); }
+	.check .g.run { background: #d29922; }
+	.check .name { font-weight: 500; }
+	.check .desc { color: var(--color-muted); }
+
+	/* ── Swatches ─────────────────────────────────────────────────── */
+	.swatches { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 20px; }
+	@media (min-width: 720px) { .swatches { grid-template-columns: repeat(4, 1fr); } }
+	.sw { border: 1px solid var(--color-border); border-radius: var(--radius-md); overflow: hidden; }
+	.sw .fill { height: 56px; }
+	.sw .meta { padding: 8px 10px; background: var(--color-surface-raised); font-size: 12px; }
+	.sw b { display: block; font-family: var(--mono); font-weight: 400; }
+	.sw span { color: var(--color-muted); }
+
+	/* ── Mobile ────────────────────────────────────────────────────── */
+	.mobile { display: grid; grid-template-columns: minmax(0, 1fr); gap: 28px; margin-top: 24px; align-items: start; }
+	@media (min-width: 900px) { .mobile { grid-template-columns: 300px 1fr; gap: 40px; } }
+	.phone {
+		width: 300px; max-width: 100%; margin: 0 auto;
+		border: 1px solid var(--color-border); border-radius: 16px;
+		overflow: hidden; background: var(--color-surface); box-shadow: var(--shadow-lg);
+	}
+	.phone-status { display: flex; justify-content: space-between; padding: 8px 14px 4px; font-family: var(--mono); font-size: 10px; color: var(--color-muted); }
+	.phone-head { display: flex; align-items: center; gap: 8px; padding: 8px 12px; background: var(--color-surface-raised); border-bottom: 1px solid var(--color-border); font-size: 12px; }
+	.phone-body { padding: 12px; }
+	.phone-body .box-head { padding: 8px 10px; font-size: 12px; }
+	.phone-body .box-body { padding: 10px; font-size: 13px; }
+	.m-diff { font-family: var(--mono); font-size: 10px; line-height: 17px; }
+	.m-diff div { display: flex; white-space: pre; }
+	.m-diff .ln { width: 26px; text-align: right; padding-right: 6px; color: #6e7681; }
+	.m-tabbar { display: flex; border-top: 1px solid var(--color-border); background: var(--color-surface-raised); }
+	.m-tabbar div { flex: 1; text-align: center; font-size: 10px; color: var(--color-muted); padding: 8px 0 12px; }
+	.m-tabbar .is-active { color: var(--color-surface-foreground); box-shadow: inset 0 2px 0 #f78166; }
+
+	.rules { margin: 0; padding: 0; list-style: none; }
+	.rules li { display: flex; gap: 16px; padding: 12px 0; border-bottom: 1px solid var(--color-border); font-size: 13px; color: var(--color-muted); }
+	.rules b { flex: none; width: 100px; font-family: var(--mono); font-size: 12px; font-weight: 400; color: var(--color-surface-foreground); }
+	@media (max-width: 520px) { .rules li { display: block; } .rules b { width: auto; margin-bottom: 2px; } }
+
+	/* ── Off-style ─────────────────────────────────────────────────── */
+	.compare { display: grid; grid-template-columns: 1fr; gap: 12px; margin-top: 20px; }
+	@media (min-width: 720px) { .compare { grid-template-columns: repeat(2, 1fr); } }
+	.cmp-off {
+		padding: 24px; border-radius: 18px; border: 0;
+		background: linear-gradient(160deg, #1b2a4a, #0a0a0a);
+		box-shadow: 0 16px 40px rgb(0 0 0 / 0.6);
+		color: #fff; font-size: 16px; font-weight: 600;
+	}
+	.cmp-off small { display: block; font-weight: 400; font-size: 13px; color: #9fb3d1; margin-top: 8px; }
+	.cmp-on { padding: 16px; border: 1px solid var(--color-border); border-radius: var(--radius-md); background: var(--color-surface-raised); font-size: 16px; font-weight: 600; }
+	.cmp-on small { display: block; font-weight: 400; font-size: 13px; color: var(--color-muted); margin-top: 8px; }
+</style>
+</head>
+<body>
+
+<!-- COVER — a pull request. Dimmed panels, mono everywhere, green only on the merge. -->
+<div class="appbar">
+	<span class="octo"></span>
+	<span class="repo"><a href="#">openvetta</a> <span class="sep">/</span> <b><a href="#">design-templates</a></b></span>
+	<span class="label gray">Public</span>
+	<span class="spacer"></span>
+	<span class="searchbox">Type <span class="mono" style="margin:0 4px">/</span> to search<span class="slashkey">/</span></span>
+	<button class="btn">Watch</button>
+	<button class="btn">Fork</button>
+</div>
+<div class="tabs">
+	<span>Code</span>
+	<span class="is-active">Pull requests <span class="counter">4</span></span>
+	<span>Actions</span>
+	<span>Projects</span>
+	<span>Insights</span>
+	<span>Settings</span>
+</div>
+
+<div class="wrap">
+	<div class="prhead">
+		<h1>Tighten hairline borders on diff rows <span class="num">#482</span></h1>
+		<div class="prmeta">
+			<span class="state-pill"><span class="g"></span>Open</span>
+			<span><b style="color:var(--color-surface-foreground)">kmori</b> wants to merge <b style="color:var(--color-surface-foreground)">3 commits</b> into
+				<span class="label gray mono">main</span> from <span class="label gray mono">fix/diff-borders</span></span>
+		</div>
+	</div>
+
+	<div class="layout">
+		<div>
+			<div class="box">
+				<div class="box-head"><span class="avatar">KM</span><b>kmori</b> commented 4 hours ago<span class="spacer"></span><span class="label gray">Owner</span></div>
+				<div class="box-body">
+					<p>Diff rows were rendering a 2px separator on retina because the border collapsed onto a
+						half-pixel boundary. This pins them to the token value.</p>
+					<p><span class="label blue">design-system</span> <span class="label green">ready for review</span> <span class="label red">needs backport</span></p>
+				</div>
+			</div>
+
+			<div class="box">
+				<div class="box-head"><span class="mono">templates/github/theme.css</span><span class="spacer"></span><span class="mono" style="color:#3fb950">+4</span><span class="mono" style="color:var(--color-danger)">−2</span></div>
+				<div class="diff">
+					<div class="hunk"><span class="ln"></span><span class="code">@@ -12,6 +12,8 @@ @theme {</span></div>
+					<div class="ctx"><span class="ln">12</span><span class="code">  --color-border: #30363d;</span></div>
+					<div class="del"><span class="ln">13</span><span class="code">--border-width: 2px;</span></div>
+					<div class="del"><span class="ln">14</span><span class="code">--divider: rgba(255,255,255,.08);</span></div>
+					<div class="add"><span class="ln">13</span><span class="code">--border-width: 1px;</span></div>
+					<div class="add"><span class="ln">14</span><span class="code">--divider: var(--color-border);</span></div>
+					<div class="ctx"><span class="ln">15</span><span class="code">  --radius-md: 6px;</span></div>
+					<div class="ctx"><span class="ln">16</span><span class="code">}</span></div>
+				</div>
+			</div>
+
+			<div class="box">
+				<div class="box-head"><b>All checks have passed</b><span class="spacer"></span><span class="mono">3 successful, 1 running</span></div>
+				<div class="check"><span class="g ok"></span><span class="name">build</span><span class="desc">— Successful in 31s</span><span class="spacer"></span><a href="#">Details</a></div>
+				<div class="check"><span class="g ok"></span><span class="name">catalog / check</span><span class="desc">— Successful in 12s</span><span class="spacer"></span><a href="#">Details</a></div>
+				<div class="check"><span class="g run"></span><span class="name">visual-diff</span><span class="desc">— In progress</span><span class="spacer"></span><a href="#">Details</a></div>
+				<div class="check"><span class="g bad"></span><span class="name">lint / css</span><span class="desc">— Failing after 8s</span><span class="spacer"></span><a href="#">Details</a></div>
+			</div>
+
+			<div class="box">
+				<div class="box-head"><b>Merge pull request</b></div>
+				<div class="box-body">
+					<div class="row">
+						<button class="btn btn-primary">Merge pull request</button>
+						<button class="btn">Squash and merge</button>
+						<button class="btn btn-danger">Close</button>
+					</div>
+					<div style="margin-top: 12px;"><input class="input" placeholder="Leave a comment"></div>
+				</div>
+			</div>
+		</div>
+
+		<aside>
+			<div class="side-block">
+				<div class="side-title">Reviewers</div>
+				<div class="side-item"><span class="avatar">AR</span>arivera <span class="spacer"></span><span style="color:#3fb950">approved</span></div>
+				<div class="side-item"><span class="avatar">JS</span>jsun <span class="spacer"></span><span class="mono" style="color:var(--color-muted)">pending</span></div>
+			</div>
+			<div class="side-block">
+				<div class="side-title">Labels</div>
+				<div class="row" style="gap:6px"><span class="label blue">design-system</span><span class="label green">ready for review</span><span class="label red">needs backport</span></div>
+			</div>
+			<div class="side-block">
+				<div class="side-title">Milestone</div>
+				<div class="side-item">v1.4 — token pass <span class="spacer"></span><span class="mono" style="color:var(--color-muted)">62%</span></div>
+			</div>
+			<div class="side-block" style="border-bottom:0">
+				<div class="side-title">Participants</div>
+				<div class="row" style="gap:4px"><span class="avatar">KM</span><span class="avatar">AR</span><span class="avatar">JS</span><span class="avatar">MO</span></div>
+			</div>
+		</aside>
+	</div>
+
+	<!-- 01 -->
+	<section class="section">
+		<p class="section-label">01 — Boxes</p>
+		<h2>If it groups content, it has a border</h2>
+		<p class="lede">Every unit is the same construction: a <code class="mono">surface-raised</code> header strip,
+			a 1px border all the way around, a <code class="mono">surface</code> body, and a 6px radius. There are no
+			borderless floating cards anywhere in this system, and nothing casts a shadow inside the page.</p>
+		<div class="swatches">
+			<div class="sw"><div class="fill" style="background: var(--color-surface)"></div><div class="meta"><b>surface</b><span>#0d1117 · page, box body</span></div></div>
+			<div class="sw"><div class="fill" style="background: var(--color-surface-raised)"></div><div class="meta"><b>surface-raised</b><span>#161b22 · headers, code</span></div></div>
+			<div class="sw"><div class="fill" style="background: var(--color-primary)"></div><div class="meta"><b>primary</b><span>#238636 · action only</span></div></div>
+			<div class="sw"><div class="fill" style="background: var(--color-accent)"></div><div class="meta"><b>accent</b><span>#58a6ff · links</span></div></div>
+		</div>
+		<p class="note">Neither pure black nor pure white appears. The page floor is #0d1117 and the brightest text is #e6edf3 — the whole system lives inside the dimmed range.</p>
+	</section>
+
+	<!-- 02 -->
+	<section class="section">
+		<p class="section-label">02 — Controls</p>
+		<h2>Green never decorates</h2>
+		<div class="row" style="margin-top: 20px;">
+			<button class="btn btn-primary">Merge pull request</button>
+			<button class="btn">Secondary</button>
+			<button class="btn btn-danger">Delete branch</button>
+			<button class="btn" disabled>Merging…</button>
+		</div>
+		<p class="note">One filled green button per view, and only on the action that actually commits something. Everything else is a raised bordered button. Labels get a 15%-opacity fill with matching text — the only place color is allowed to be decorative.</p>
+		<div class="row" style="margin-top: 16px; gap: 6px;">
+			<span class="label blue">enhancement</span><span class="label green">good first issue</span>
+			<span class="label red">bug</span><span class="label gray">wontfix</span>
+		</div>
+	</section>
+
+	<!-- 03 MOBILE -->
+	<section class="section">
+		<p class="section-label">03 — Mobile</p>
+		<h2>Boxes stay boxed, the diff keeps its gutter</h2>
+		<p class="lede">The main column and the 296px sidebar stack, but nothing loses its border.
+			Mono holds its size while sans shrinks, because a diff that reflows stops being a diff.</p>
+		<div class="mobile">
+			<div class="phone">
+				<div class="phone-status"><span>9:41</span><span>LTE ▮</span></div>
+				<div class="phone-head"><span class="octo" style="width:16px;height:16px"></span><span class="mono">openvetta/design-templates</span></div>
+				<div class="phone-body">
+					<div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
+						<span class="state-pill" style="font-size:12px;padding:3px 10px"><span class="g"></span>Open</span>
+						<span style="font-size:12px;color:var(--color-muted)">#482 · 3 commits</span>
+					</div>
+					<div style="font-size:15px;font-weight:600;margin-bottom:12px;">Tighten hairline borders on diff rows</div>
+					<div class="box">
+						<div class="box-head"><span class="mono">theme.css</span><span class="spacer"></span><span class="mono" style="color:#3fb950">+4</span><span class="mono" style="color:var(--color-danger)">−2</span></div>
+						<div class="m-diff">
+							<div class="hunk" style="background:rgb(88 166 255 / 0.12);color:var(--color-accent)"><span class="ln"></span><span>@@ -12,6 +12,8 @@</span></div>
+							<div class="del" style="background:rgb(248 81 73 / 0.15)"><span class="ln">13</span><span>- --border-width: 2px;</span></div>
+							<div class="add" style="background:rgb(35 134 54 / 0.15)"><span class="ln">13</span><span>+ --border-width: 1px;</span></div>
+							<div class="ctx"><span class="ln">15</span><span>  --radius-md: 6px;</span></div>
+						</div>
+					</div>
+					<div style="margin-top:10px" class="row">
+						<span class="label blue">design-system</span><span class="label green">ready</span>
+					</div>
+					<button class="btn btn-primary" style="width:100%;margin-top:12px;height:36px">Merge pull request</button>
+				</div>
+				<div class="m-tabbar"><div class="is-active">Code</div><div>Pulls</div><div>Issues</div><div>Actions</div></div>
+			</div>
+			<ul class="rules">
+				<li><b>&lt; 1000px</b><span>The 296px sidebar moves above the conversation as a horizontal strip of labels, reviewers and checks — it never becomes a hamburger.</span></li>
+				<li><b>Diff</b><span>Stays monospace at 10–12px and scrolls horizontally inside its own box. Wrapping a diff line is never acceptable; the line-number gutter stays pinned.</span></li>
+				<li><b>Boxes</b><span>Full width with 12px page gutters, border and 6px radius intact. Box headers compress to 8px padding, body text to 13px.</span></li>
+				<li><b>Repo tabs</b><span>Scroll horizontally with the orange active underline preserved; the four highest-traffic destinations also appear as a bottom bar.</span></li>
+				<li><b>Targets</b><span>Buttons grow 32px → 36px and the committing action spans full width. Hover styles map to :active, since there is no hover.</span></li>
+				<li><b>Search</b><span>The <code class="mono">/</code> field drops out of the app bar and becomes an icon; the keyboard hint is hidden rather than shown untappable.</span></li>
+			</ul>
+		</div>
+	</section>
+
+	<!-- 04 DON'T -->
+	<section class="section">
+		<p class="section-label">04 — Off-style, for contrast</p>
+		<h2>What breaks the night desk</h2>
+		<div class="compare">
+			<div class="cmp-off">Floating gradient panel
+				<small>18px radius · navy gradient · no border · deep drop shadow. A borderless card that groups content is the single most off-style thing you can build here.</small></div>
+			<div class="cmp-on">Same content, on-style
+				<small>6px radius, flat #161b22 fill, 1px #30363d border, no shadow. Depth is a border and a one-step-lighter fill — nothing else.</small></div>
+		</div>
+		<p class="note">Also out: pure black or pure white surfaces, green used as decoration, sans-serif where a hash or branch name belongs, and any radius above 12px.</p>
+	</section>
+
+</div>
+</body>
+</html>

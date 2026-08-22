@@ -1,0 +1,32 @@
+{
+	"schemaVersion": 1,
+	"kind": "design-system",
+	"slug": "together-ai",
+	"name": "Together AI",
+	"version": "1.0.0",
+	"order": 700,
+	"category": "ai",
+	"vibe": "light",
+	"tags": [
+		"light-ui",
+		"gradient",
+		"design-system"
+	],
+	"blurb": "An inspired interpretation of Together AI's design language — an AI infrastructure platform whose surface alternates between near-black hero bands (with a three-color orange-mag…",
+	"tagline": {
+		"en": "AI infrastructure alternating black and white",
+		"zh": "黑白交替的 AI 基础设施"
+	},
+	"license": "MIT",
+	"origin": {
+		"type": "curated",
+		"upstream": "https://github.com/ricocc/brands-design-md.git",
+		"note": "from brands-design-md (Together-AI-Inspired); unofficial inspired variant."
+	},
+	"assets": {
+		"spec": "DESIGN.md",
+		"theme": "theme.css",
+		"demo": "demo.html"
+	},
+	"collectedAt": "2026-08-22"
+}

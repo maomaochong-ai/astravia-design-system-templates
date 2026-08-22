@@ -1,0 +1,31 @@
+{
+	"schemaVersion": 1,
+	"kind": "design-system",
+	"slug": "mongodb",
+	"name": "MongoDB",
+	"version": "1.0.0",
+	"order": 480,
+	"category": "dev",
+	"vibe": "light",
+	"tags": [
+		"light-ui",
+		"design-system"
+	],
+	"blurb": "MongoDB carries a strong dual-mode visual identity — dark deep-teal hero bands with bright MongoDB green ({colors.brand-green}) CTAs paired with stark white documentation surfaces.",
+	"tagline": {
+		"en": "Deep teal heroes with bright MongoDB green",
+		"zh": "深青英雄区 + 明亮 Mongo 绿"
+	},
+	"license": "MIT",
+	"origin": {
+		"type": "curated",
+		"upstream": "https://github.com/ricocc/brands-design-md.git",
+		"note": "from brands-design-md (MongoDB)."
+	},
+	"assets": {
+		"spec": "DESIGN.md",
+		"theme": "theme.css",
+		"demo": "demo.html"
+	},
+	"collectedAt": "2026-08-22"
+}

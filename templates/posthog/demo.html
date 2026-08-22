@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PostHog &mdash; Design System</title>
+
+
+
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+
+:root{
+  --charcoal:#1D1D1D;
+  --deep-night:#111111;
+  --slate:#232429;
+  --graphite:#2C2C2C;
+  --iron:#3A3A3A;
+  --snow:#FFFFFF;
+  --mist:#E5E5E5;
+  --ash:#919191;
+  --smoke:#6B6B6B;
+  --hedgehog-green:#1DB954;
+  --bright-green:#27DE6A;
+  --blaze-orange:#F54E00;
+  --ember:#FF7A3D;
+  --link-blue:#1D9BF0;
+  --lavender:#B295F0;
+  --honey:#FFC940;
+  --mint-wash:rgba(29,185,84,.08);
+  --orange-wash:rgba(245,78,0,.08);
+
+  --r-sm:4px;--r-md:6px;--r-lg:8px;--r-xl:12px;
+  --r-cards:12px;--r-pill:100px;
+}
+
+::selection{background:rgba(29,185,84,.3);color:var(--snow)}
+html{scroll-behavior:smooth}
+
+body{
+  font-family:'Inter',system-ui,-apple-system,sans-serif;
+  background:var(--charcoal);color:var(--snow);
+  font-size:15px;line-height:1.6;letter-spacing:0;
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
+}
+
+.page{max-width:960px;margin:0 auto;padding:0 32px 120px}
+
+/* ── NAV ── */
+.nav{
+  display:flex;justify-content:space-between;align-items:center;
+  height:64px;padding:0 16px;position:sticky;top:0;z-index:100;
+  background:rgba(29,29,29,.92);backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--graphite);
+  margin:0 -32px;
+}
+.nav-left{display:flex;align-items:center;gap:12px}
+.nav-wordmark{
+  font-size:18px;font-weight:700;letter-spacing:-.02em;
+  color:var(--snow);text-decoration:none;
+}
+.nav-wordmark span{color:var(--hedgehog-green)}
+.nav-tag{
+  font-size:11px;font-weight:500;color:var(--hedgehog-green);
+  background:var(--mint-wash);padding:3px 10px;border-radius:var(--r-pill);
+  border:1px solid rgba(29,185,84,.2);letter-spacing:.02px;
+}
+.nav-url{font-size:12px;font-weight:500;color:var(--slate);text-decoration:none;padding:4px 10px;border-radius:var(--r-md);transition:color .2s}.nav-url:hover{color:var(--obsidian)}
+.nav-right{display:flex;align-items:center;gap:8px}
+.nav-link{
+  font-size:14px;font-weight:500;color:var(--ash);text-decoration:none;
+  padding:6px 12px;border-radius:var(--r-md);transition:all .2s;
+}
+.nav-link:hover{color:var(--snow);background:var(--graphite)}
+.nav-link--active{color:var(--snow)}
+
+/* ── SECTIONS ── */
+.section{
+  padding:80px 0 0;
+  border-top:1px solid var(--graphite);
+  margin-top:64px;
+}
+.section:first-of-type{border-top:none;margin-top:48px}
+.section-header{margin-bottom:40px}
+.section-label{
+  font-size:12px;font-weight:600;letter-spacing:.06px;
+  text-transform:uppercase;color:var(--hedgehog-green);margin-bottom:8px;
+}
+.section-title{
+  font-size:32px;font-weight:700;letter-spacing:-.02em;line-height:1.15;
+  color:var(--snow);
+}
+.section-desc{
+  font-size:15px;line-height:1.6;color:var(--ash);
+  margin-top:12px;max-width:560px;
+}
+
+/* ── HERO ── */
+.hero{
+  padding:80px 0 48px;
+  border-bottom:1px solid var(--graphite);
+  margin:0 -32px;padding-left:32px;padding-right:32px;
+  position:relative;overflow:hidden;
+}
+.hero::before{
+  content:'';position:absolute;
+  width:500px;height:500px;
+  background:radial-gradient(circle,rgba(29,185,84,.12),transparent 70%);
+  border-radius:50%;filter:blur(80px);
+  right:-100px;top:-160px;pointer-events:none;
+}
+.hero::after{
+  content:'';position:absolute;
+  width:300px;height:300px;
+  background:radial-gradient(circle,rgba(245,78,0,.08),transparent 70%);
+  border-radius:50%;filter:blur(60px);
+  left:20%;bottom:-80px;pointer-events:none;
+}
+.hero-label{
+  font-size:12px;font-weight:600;letter-spacing:.08px;
+  text-transform:uppercase;color:var(--hedgehog-green);margin-bottom:16px;
+}
+.hero-title{
+  font-size:clamp(40px,6vw,56px);font-weight:700;line-height:1;
+  letter-spacing:-.03em;color:var(--snow);
+}
+.hero-title em{
+  font-style:normal;
+  background:linear-gradient(135deg,var(--hedgehog-green),var(--bright-green));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.hero-title .orange{
+  font-style:normal;
+  background:linear-gradient(135deg,var(--blaze-orange),var(--ember));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.hero-subtitle{
+  font-size:17px;line-height:1.6;color:var(--ash);
+  margin-top:20px;max-width:480px;
+}
+.hero-tags{display:flex;gap:8px;margin-top:28px;flex-wrap:wrap}
+.hero-tag{
+  font-size:12px;font-weight:500;color:var(--smoke);
+  background:var(--slate);padding:5px 12px;border-radius:var(--r-pill);
+  border:1px solid var(--graphite);
+}
+.hero-actions{display:flex;gap:12px;margin-top:28px}
+
+/* ── BUTTONS ── */
+.btn{
+  display:inline-flex;align-items:center;gap:6px;
+  font-family:inherit;font-size:14px;font-weight:600;line-height:1;
+  padding:10px 20px;border-radius:var(--r-md);
+  cursor:pointer;text-decoration:none;white-space:nowrap;
+  transition:all .15s;border:1px solid transparent;
+}
+.btn:active{transform:scale(.97)}
+.btn-primary{background:var(--hedgehog-green);color:var(--snow);border-color:transparent}
+.btn-primary:hover{background:var(--bright-green)}
+.btn-orange{background:var(--blaze-orange);color:var(--snow);border-color:transparent}
+.btn-orange:hover{background:var(--ember)}
+.btn-ghost{background:transparent;color:var(--snow);border-color:var(--graphite)}
+.btn-ghost:hover{border-color:var(--iron);background:var(--graphite)}
+
+/* ── COLOR TOKENS ── */
+.color-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;
+}
+.color-token{
+  background:var(--slate);border:1px solid var(--graphite);
+  border-radius:var(--r-xl);overflow:hidden;transition:border-color .2s;
+}
+.color-token:hover{border-color:var(--iron)}
+.color-swatch{width:100%;height:72px}
+.color-info{padding:12px 14px}
+.color-name{font-size:13px;font-weight:600;color:var(--snow)}
+.color-hex{
+  font-size:12px;font-weight:500;color:var(--ash);margin-top:2px;
+  font-family:'JetBrains Mono',monospace;letter-spacing:0;
+}
+.color-role{font-size:11px;color:var(--smoke);margin-top:6px;line-height:1.4}
+
+/* ── TYPE SCALE ── */
+.type-table{
+  display:flex;flex-direction:column;border:1px solid var(--graphite);
+  border-radius:var(--r-xl);overflow:hidden;
+}
+.type-row{
+  display:grid;grid-template-columns:100px 1fr 200px;align-items:baseline;
+  padding:16px 24px;border-bottom:1px solid var(--graphite);
+}
+.type-row:last-child{border-bottom:none}
+.type-row:hover{background:rgba(255,255,255,.02)}
+.type-meta{
+  font-size:11px;font-weight:600;color:var(--hedgehog-green);
+  letter-spacing:.04px;text-transform:uppercase;
+}
+.type-sample{color:var(--snow);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.type-specs{
+  font-size:12px;color:var(--ash);text-align:right;
+  font-family:'JetBrains Mono',monospace;
+}
+
+/* ── SPACING ── */
+.spacing-bars{display:flex;align-items:flex-end;gap:20px;height:120px}
+.spacing-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px}
+.spacing-bar{
+  width:100%;border-radius:var(--r-sm);
+  background:linear-gradient(180deg,var(--hedgehog-green),var(--bright-green));
+  opacity:.3;transition:opacity .3s;
+}
+.spacing-col:hover .spacing-bar{opacity:.6}
+.spacing-val{font-size:12px;font-weight:600;color:var(--snow);font-family:'JetBrains Mono',monospace}
+.spacing-name{font-size:10px;font-weight:500;color:var(--ash)}
+
+/* ── SHAPES ── */
+.shapes-row{display:flex;flex-wrap:wrap;gap:24px;align-items:flex-end}
+.shape-item{display:flex;flex-direction:column;align-items:center;gap:8px}
+.shape-box{
+  width:72px;height:72px;background:var(--slate);
+  border:1.5px solid var(--graphite);transition:all .3s cubic-bezier(.22,1,.36,1);
+}
+.shape-box:hover{border-color:var(--hedgehog-green);transform:scale(1.06)}
+.shape-label{font-size:12px;font-weight:500;color:var(--ash)}
+.shape-value{
+  font-size:11px;color:var(--smoke);
+  font-family:'JetBrains Mono',monospace;
+}
+
+/* ── SURFACES ── */
+.surface-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
+.surface-item{
+  border-radius:var(--r-xl);padding:28px 20px;
+  text-align:center;border:1px solid var(--graphite);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:6px;min-height:110px;transition:transform .3s;
+}
+.surface-item:hover{transform:scale(1.02)}
+.surface-name{font-size:14px;font-weight:600;color:var(--snow)}
+.surface-val{
+  font-size:12px;font-weight:500;color:var(--ash);
+  font-family:'JetBrains Mono',monospace;
+}
+
+/* ── COMPONENTS ── */
+.component-card{
+  background:var(--slate);border:1px solid var(--graphite);
+  border-radius:var(--r-xl);padding:32px;margin-bottom:16px;
+  transition:border-color .2s;
+}
+.component-card:hover{border-color:var(--iron)}
+.component-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px}
+.component-name{font-size:16px;font-weight:600;color:var(--snow)}
+.component-role{font-size:13px;color:var(--ash);margin-top:4px}
+.component-class{
+  font-size:11px;font-weight:500;color:var(--hedgehog-green);
+  background:var(--mint-wash);padding:3px 10px;border-radius:var(--r-pill);
+  border:1px solid rgba(29,185,84,.15);
+  font-family:'JetBrains Mono',monospace;
+}
+.component-preview{
+  display:flex;gap:16px;align-items:center;flex-wrap:wrap;
+  padding:24px;background:var(--charcoal);border-radius:var(--r-lg);
+  border:1px solid var(--graphite);
+}
+.component-desc{
+  font-size:13px;color:var(--smoke);line-height:1.5;
+  margin-top:12px;max-width:480px;
+}
+
+/* ── METRIC CARD ── */
+.metric-card{
+  background:var(--slate);border:1px solid var(--graphite);
+  border-radius:var(--r-xl);padding:24px;
+  transition:border-color .2s;
+}
+.metric-card:hover{border-color:var(--iron)}
+.metric-label{font-size:13px;font-weight:500;color:var(--ash);margin-bottom:8px}
+.metric-value{
+  font-size:32px;font-weight:700;color:var(--snow);
+  font-family:'JetBrains Mono',monospace;line-height:1.2;
+}
+.metric-trend{display:flex;align-items:center;gap:4px;margin-top:8px}
+.metric-trend-up{font-size:13px;font-weight:600;color:var(--hedgehog-green)}
+.metric-trend-down{font-size:13px;font-weight:600;color:var(--blaze-orange)}
+.metric-trend-label{font-size:12px;color:var(--smoke)}
+
+/* ── CODE BLOCK ── */
+.code-block{
+  background:var(--deep-night);border:1px solid var(--graphite);
+  border-radius:var(--r-xl);padding:20px;overflow-x:auto;
+}
+.code-block code{
+  font-family:'JetBrains Mono',monospace;font-size:14px;line-height:1.6;
+  color:var(--mist);
+}
+.code-keyword{color:var(--blaze-orange)}
+.code-string{color:var(--hedgehog-green)}
+.code-func{color:var(--link-blue)}
+.code-comment{color:var(--smoke)}
+
+/* ── DO/DON'T ── */
+.guide-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.guide-card{
+  border-radius:var(--r-xl);padding:28px;
+  border:1px solid var(--graphite);
+}
+.guide-card--do{background:var(--mint-wash);border-color:rgba(29,185,84,.15)}
+.guide-card--dont{background:var(--orange-wash);border-color:rgba(245,78,0,.12)}
+.guide-label{font-size:12px;font-weight:600;letter-spacing:.04px;text-transform:uppercase;margin-bottom:16px}
+.guide-card--do .guide-label{color:var(--hedgehog-green)}
+.guide-card--dont .guide-label{color:var(--blaze-orange)}
+.guide-list{
+  list-style:none;display:flex;flex-direction:column;gap:10px;
+}
+.guide-list li{
+  font-size:13px;line-height:1.5;padding-left:20px;position:relative;
+  color:var(--mist);
+}
+.guide-card--do .guide-list li::before{
+  content:'\2713';position:absolute;left:0;color:var(--hedgehog-green);font-weight:700;font-size:12px;
+}
+.guide-card--dont .guide-list li::before{
+  content:'\2717';position:absolute;left:0;color:var(--blaze-orange);font-weight:700;font-size:12px;
+}
+
+/* ── FOOTER ── */
+.footer{
+  margin-top:96px;padding:32px 0;
+  border-top:1px solid var(--graphite);
+  display:flex;justify-content:space-between;align-items:center;
+}
+.footer-left{font-size:14px;font-weight:500;color:var(--ash);opacity:.6}
+.footer-right{display:flex;gap:20px}
+.footer-link{
+  font-size:13px;font-weight:500;color:var(--ash);text-decoration:none;
+  transition:color .2s;
+}
+.footer-link:hover{color:var(--hedgehog-green)}
+
+/* ── RESPONSIVE ── */
+@media(max-width:768px){
+  .page{padding:0 20px 80px}
+  .hero{margin:0 -20px;padding-left:20px;padding-right:20px;padding-top:56px}
+  .nav{margin:0 -20px}
+  .section-title{font-size:24px}
+  .type-row{grid-template-columns:70px 1fr;gap:8px}
+  .type-specs{display:none}
+  .guide-grid{grid-template-columns:1fr}
+  .color-grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr))}
+  .hero-title{font-size:36px}
+}
+
+/* ── ENTRANCE ANIMATION ── */
+.section,.hero{opacity:1;transition:opacity .6s cubic-bezier(.22,1,.36,1),transform .6s cubic-bezier(.22,1,.36,1)}
+.section.visible,.hero.visible{opacity:1;transform:translateY(0)}
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="nav-left">
+      <a href="#" class="nav-wordmark">Post<span>Hog</span></a>
+      <span class="nav-tag">Design System</span>
+      <a href="#" class="nav-url" target="_blank" rel="noopener">https://posthog.com</a>
+    </div>
+    <div class="nav-right">
+      <a href="#colors" class="nav-link nav-link--active">Colors</a>
+      <a href="#typography" class="nav-link">Type</a>
+      <a href="#spacing" class="nav-link">Spacing</a>
+      <a href="#components" class="nav-link">Components</a>
+      <a href="#" target="_blank" rel="noopener noreferrer" style="display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:var(--r-pill);color:var(--ash);transition:color .2s,background .2s;text-decoration:none" title="posthog.com">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+      </a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-label">Design System</div>
+    <h1 class="hero-title">Build what<br>matters,<br><em>faster.</em></h1>
+    <p class="hero-subtitle">Playful developer analytics. Dark surfaces, bold green actions, punchy orange accents. Serious data, friendly interface.</p>
+    <div class="hero-tags">
+      <span class="hero-tag">18 color tokens</span>
+      <span class="hero-tag">9 type steps</span>
+      <span class="hero-tag">4px grid</span>
+      <span class="hero-tag">4 surface levels</span>
+    </div>
+    <div class="hero-actions">
+      <a href="#" class="btn btn-primary" download>Download Spec</a>
+      <a href="#" class="btn btn-ghost" download>theme.css</a>
+      <a href="#" class="btn btn-ghost" download>tokens.json</a>
+      <a href="#" class="btn btn-ghost" download>variables.css</a>
+    </div>
+  </div>
+
+  <!-- COLORS -->
+  <section class="section" id="colors">
+    <div class="section-header">
+      <div class="section-label">Foundation</div>
+      <h2 class="section-title">Color Tokens</h2>
+      <p class="section-desc">Dark neutrals with a green/orange accent duo. 18 tokens across surfaces, text, interaction, and decorative washes.</p>
+    </div>
+    <div class="color-grid">
+      <div class="color-token">
+        <div class="color-swatch" style="background:#1D1D1D"></div>
+        <div class="color-info"><div class="color-name">Charcoal</div><div class="color-hex">#1D1D1D</div><div class="color-role">Primary page background</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#111111"></div>
+        <div class="color-info"><div class="color-name">Deep Night</div><div class="color-hex">#111111</div><div class="color-role">Elevated surfaces, code blocks</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#232429"></div>
+        <div class="color-info"><div class="color-name">Slate</div><div class="color-hex">#232429</div><div class="color-role">Cards, panels, content areas</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#2C2C2C"></div>
+        <div class="color-info"><div class="color-name">Graphite</div><div class="color-hex">#2C2C2C</div><div class="color-role">Borders, dividers</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#3A3A3A"></div>
+        <div class="color-info"><div class="color-name">Iron</div><div class="color-hex">#3A3A3A</div><div class="color-role">Inactive states, hints</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#FFFFFF"></div>
+        <div class="color-info"><div class="color-name">Snow</div><div class="color-hex">#FFFFFF</div><div class="color-role">Primary text, icons</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#E5E5E5"></div>
+        <div class="color-info"><div class="color-name">Mist</div><div class="color-hex">#E5E5E5</div><div class="color-role">Secondary text</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#919191"></div>
+        <div class="color-info"><div class="color-name">Ash</div><div class="color-hex">#919191</div><div class="color-role">Placeholders, labels</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#6B6B6B"></div>
+        <div class="color-info"><div class="color-name">Smoke</div><div class="color-hex">#6B6B6B</div><div class="color-role">Helper text, captions</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#1DB954"></div>
+        <div class="color-info"><div class="color-name">Hedgehog Green</div><div class="color-hex">#1DB954</div><div class="color-role">Primary CTA, success states</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#27DE6A"></div>
+        <div class="color-info"><div class="color-name">Bright Green</div><div class="color-hex">#27DE6A</div><div class="color-role">Hover state, highlights</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#F54E00"></div>
+        <div class="color-info"><div class="color-name">Blaze Orange</div><div class="color-hex">#F54E00</div><div class="color-role">Accent, warnings, secondary CTA</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#FF7A3D"></div>
+        <div class="color-info"><div class="color-name">Ember</div><div class="color-hex">#FF7A3D</div><div class="color-role">Orange hover, soft accent</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#1D9BF0"></div>
+        <div class="color-info"><div class="color-name">Link Blue</div><div class="color-hex">#1D9BF0</div><div class="color-role">Links, info indicators</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#B295F0"></div>
+        <div class="color-info"><div class="color-name">Lavender</div><div class="color-hex">#B295F0</div><div class="color-role">Decorative accents</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#FFC940"></div>
+        <div class="color-info"><div class="color-name">Honey</div><div class="color-hex">#FFC940</div><div class="color-role">Badges, playful callouts</div></div>
+      </div>
+    </div>
+
+    <h3 style="font-size:16px;font-weight:600;color:var(--snow);margin:40px 0 20px;letter-spacing:-.01em">Washes &amp; Gradients</h3>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px">
+      <div style="background:rgba(29,185,84,.08);border:1px solid rgba(29,185,84,.15);border-radius:var(--r-xl);padding:24px;min-height:100px;display:flex;flex-direction:column;justify-content:flex-end">
+        <div style="font-size:12px;font-weight:500;color:var(--ash);margin-bottom:4px">mint-wash</div>
+        <div style="font-size:12px;color:var(--smoke);line-height:1.4">Success card fills, green tinted backgrounds</div>
+      </div>
+      <div style="background:rgba(245,78,0,.08);border:1px solid rgba(245,78,0,.12);border-radius:var(--r-xl);padding:24px;min-height:100px;display:flex;flex-direction:column;justify-content:flex-end">
+        <div style="font-size:12px;font-weight:500;color:var(--ash);margin-bottom:4px">orange-wash</div>
+        <div style="font-size:12px;color:var(--smoke);line-height:1.4">Warning card fills, orange tinted backgrounds</div>
+      </div>
+      <div style="background:radial-gradient(circle at 50% 0%,rgba(29,185,84,.15),transparent 60%),var(--slate);border:1px solid var(--graphite);border-radius:var(--r-xl);padding:24px;min-height:100px;display:flex;flex-direction:column;justify-content:flex-end">
+        <div style="font-size:12px;font-weight:500;color:var(--ash);margin-bottom:4px">green-glow</div>
+        <div style="font-size:12px;color:var(--smoke);line-height:1.4">Hero background glow</div>
+      </div>
+      <div style="background:radial-gradient(circle at 80% 20%,rgba(245,78,0,.12),transparent 50%),var(--slate);border:1px solid var(--graphite);border-radius:var(--r-xl);padding:24px;min-height:100px;display:flex;flex-direction:column;justify-content:flex-end">
+        <div style="font-size:12px;font-weight:500;color:var(--ash);margin-bottom:4px">orange-pulse</div>
+        <div style="font-size:12px;color:var(--smoke);line-height:1.4">Accent highlight orb</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TYPOGRAPHY -->
+  <section class="section" id="typography">
+    <div class="section-header">
+      <div class="section-label">Typography</div>
+      <h2 class="section-title">Type Scale</h2>
+      <p class="section-desc">Inter as primary typeface. JetBrains Mono for code and metrics. Clean, technical, highly legible.</p>
+    </div>
+    <div class="type-table">
+      <div class="type-row">
+        <span class="type-meta">Display-xl</span>
+        <span class="type-sample" style="font-size:28px;font-weight:700;line-height:1;letter-spacing:-.03em">Analytics for engineers</span>
+        <span class="type-specs">48px / 1.0 / -0.03em</span>
+      </div>
+      <div class="type-row">
+        <span class="type-meta">Display</span>
+        <span class="type-sample" style="font-size:24px;font-weight:700;line-height:1.1;letter-spacing:-.03em">Ship faster</span>
+        <span class="type-specs">40px / 1.1 / -0.03em</span>
+      </div>
+      <div class="type-row">
+        <span class="type-meta">Heading-lg</span>
+        <span class="type-sample" style="font-size:20px;font-weight:700;line-height:1.2;letter-spacing:-.02em">Product analytics</span>
+        <span class="type-specs">32px / 1.2 / -0.02em</span>
+      </div>
+      <div class="type-row">
+        <span class="type-meta">Heading</span>
+        <span class="type-sample" style="font-size:18px;font-weight:600;line-height:1.3;letter-spacing:-.02em">Section heading</span>
+        <span class="type-specs">24px / 1.3 / -0.02em</span>
+      </div>
+      <div class="type-row">
+        <span class="type-meta">Heading-sm</span>
+        <span class="type-sample" style="font-size:16px;font-weight:600;line-height:1.4;letter-spacing:-.01em">Subsection heading</span>
+        <span class="type-specs">20px / 1.4 / -0.01em</span>
+      </div>
+      <div class="type-row">
+        <span class="type-meta">Body</span>
+        <span class="type-sample" style="font-size:15px;font-weight:400;line-height:1.6">Default body text for readable content</span>
+        <span class="type-specs">15px / 1.6 / 0</span>
+      </div>
+      <div class="type-row">
+        <span class="type-meta">Body-sm</span>
+        <span class="type-sample" style="font-size:14px;font-weight:400;line-height:1.6">Dense data, comparison rows</span>
+        <span class="type-specs">14px / 1.6 / 0</span>
+      </div>
+      <div class="type-row">
+        <span class="type-meta">Caption</span>
+        <span class="type-sample" style="font-size:13px;font-weight:400;line-height:1.5;letter-spacing:.02px">Meta info &middot; Labels &middot; Timestamps</span>
+        <span class="type-specs">13px / 1.5 / 0.02em</span>
+      </div>
+    </div>
+
+    <h3 style="font-size:16px;font-weight:600;color:var(--snow);margin:40px 0 20px;letter-spacing:-.01em">Fonts</h3>
+    <div style="display:flex;flex-direction:column;border:1px solid var(--graphite);border-radius:var(--r-xl);overflow:hidden">
+      <div style="padding:20px 24px;border-bottom:1px solid var(--graphite);display:flex;align-items:baseline;gap:16px">
+        <span style="font-size:11px;font-weight:600;color:var(--hedgehog-green);letter-spacing:.04px;text-transform:uppercase;flex:0 0 80px">Primary</span>
+        <span style="font-size:16px;font-weight:600;color:var(--snow)">Inter</span>
+        <span style="font-size:12px;color:var(--ash);font-family:'JetBrains Mono',monospace">400-700 &middot; 13-48px</span>
+      </div>
+      <div style="padding:20px 24px;border-bottom:1px solid var(--graphite);display:flex;align-items:baseline;gap:16px">
+        <span style="font-size:11px;font-weight:600;color:var(--hedgehog-green);letter-spacing:.04px;text-transform:uppercase;flex:0 0 80px">Mono</span>
+        <span style="font-size:16px;font-weight:500;color:var(--snow)">JetBrains Mono</span>
+        <span style="font-size:12px;color:var(--ash);font-family:'JetBrains Mono',monospace">400-700 &middot; Code &amp; metrics</span>
+      </div>
+      <div style="padding:20px 24px;display:flex;align-items:baseline;gap:16px">
+        <span style="font-size:11px;font-weight:600;color:var(--hedgehog-green);letter-spacing:.04px;text-transform:uppercase;flex:0 0 80px">Fallback</span>
+        <span style="font-size:16px;font-weight:500;color:var(--snow)">system-ui</span>
+        <span style="font-size:12px;color:var(--ash);font-family:'JetBrains Mono',monospace">System stack fallback</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- SPACING & SHAPES -->
+  <section class="section" id="spacing">
+    <div class="section-header">
+      <div class="section-label">Layout</div>
+      <h2 class="section-title">Spacing &amp; Shapes</h2>
+      <p class="section-desc">Base unit 4px. Comfortable density. 12-step spacing scale, 6 border radius values.</p>
+    </div>
+
+    <h3 style="font-size:16px;font-weight:600;color:var(--snow);margin-bottom:20px;letter-spacing:-.01em">Spacing Scale (4px base)</h3>
+    <div class="spacing-bars">
+      <div class="spacing-col"><div class="spacing-bar" style="height:6px"></div><span class="spacing-val">4</span><span class="spacing-name">4px</span></div>
+      <div class="spacing-col"><div class="spacing-bar" style="height:12px"></div><span class="spacing-val">8</span><span class="spacing-name">8px</span></div>
+      <div class="spacing-col"><div class="spacing-bar" style="height:18px"></div><span class="spacing-val">12</span><span class="spacing-name">12px</span></div>
+      <div class="spacing-col"><div class="spacing-bar" style="height:26px"></div><span class="spacing-val">16</span><span class="spacing-name">16px</span></div>
+      <div class="spacing-col"><div class="spacing-bar" style="height:36px"></div><span class="spacing-val">24</span><span class="spacing-name">24px</span></div>
+      <div class="spacing-col"><div class="spacing-bar" style="height:48px"></div><span class="spacing-val">32</span><span class="spacing-name">32px</span></div>
+      <div class="spacing-col"><div class="spacing-bar" style="height:64px"></div><span class="spacing-val">48</span><span class="spacing-name">48px</span></div>
+      <div class="spacing-col"><div class="spacing-bar" style="height:90px"></div><span class="spacing-val">96</span><span class="spacing-name">96px</span></div>
+    </div>
+
+    <h3 style="font-size:16px;font-weight:600;color:var(--snow);margin:40px 0 20px;letter-spacing:-.01em">Border Radius</h3>
+    <div class="shapes-row">
+      <div class="shape-item">
+        <div class="shape-box" style="border-radius:4px"></div>
+        <span class="shape-label">sm</span>
+        <span class="shape-value">4px</span>
+      </div>
+      <div class="shape-item">
+        <div class="shape-box" style="border-radius:6px"></div>
+        <span class="shape-label">md</span>
+        <span class="shape-value">6px</span>
+      </div>
+      <div class="shape-item">
+        <div class="shape-box" style="border-radius:8px"></div>
+        <span class="shape-label">lg</span>
+        <span class="shape-value">8px</span>
+      </div>
+      <div class="shape-item">
+        <div class="shape-box" style="border-radius:12px"></div>
+        <span class="shape-label">xl / cards</span>
+        <span class="shape-value">12px</span>
+      </div>
+      <div class="shape-item">
+        <div class="shape-box" style="border-radius:100px"></div>
+        <span class="shape-label">pill</span>
+        <span class="shape-value">100px</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- SURFACES -->
+  <section class="section" id="depth">
+    <div class="section-header">
+      <div class="section-label">Elevation</div>
+      <h2 class="section-title">Surfaces</h2>
+      <p class="section-desc">4 surface levels from deep black to card-ready slate. Borders use Graphite consistently.</p>
+    </div>
+    <div class="surface-grid">
+      <div class="surface-item" style="background:#111111">
+        <span class="surface-name">Deep Night</span>
+        <span class="surface-val">#111111</span>
+      </div>
+      <div class="surface-item" style="background:#1D1D1D">
+        <span class="surface-name">Charcoal</span>
+        <span class="surface-val">#1D1D1D</span>
+      </div>
+      <div class="surface-item" style="background:#232429">
+        <span class="surface-name">Slate</span>
+        <span class="surface-val">#232429</span>
+      </div>
+      <div class="surface-item" style="background:#2C2C2C">
+        <span class="surface-name">Graphite</span>
+        <span class="surface-val">#2C2C2C</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPONENTS -->
+  <section class="section" id="components">
+    <div class="section-header">
+      <div class="section-label">Components</div>
+      <h2 class="section-title">Buttons &amp; Elements</h2>
+      <p class="section-desc">Green primary, orange accent, and ghost variants. Each serves a distinct interaction hierarchy.</p>
+    </div>
+
+    <div class="component-card">
+      <div class="component-header">
+        <div><div class="component-name">Primary Action Button</div><div class="component-role">Main call to action &mdash; highest visual weight</div></div>
+        <span class="component-class">.btn-primary</span>
+      </div>
+      <div class="component-preview">
+        <button class="btn btn-primary">Get started &mdash; free</button>
+        <button class="btn btn-primary" style="background:var(--bright-green)">Hover state</button>
+      </div>
+      <div class="component-desc">Hedgehog Green (#1DB954) background, Snow text, 6px radius. Use for the single most important action.</div>
+    </div>
+
+    <div class="component-card">
+      <div class="component-header">
+        <div><div class="component-name">Orange Accent Button</div><div class="component-role">Secondary CTA, attention-grabbing</div></div>
+        <span class="component-class">.btn-orange</span>
+      </div>
+      <div class="component-preview">
+        <button class="btn btn-orange">Start free trial</button>
+        <button class="btn btn-orange" style="background:var(--ember)">Hover state</button>
+      </div>
+      <div class="component-desc">Blaze Orange (#F54E00) background, Snow text. Use for secondary CTAs that need to pop.</div>
+    </div>
+
+    <div class="component-card">
+      <div class="component-header">
+        <div><div class="component-name">Ghost Button</div><div class="component-role">Tertiary actions, navigation</div></div>
+        <span class="component-class">.btn-ghost</span>
+      </div>
+      <div class="component-preview">
+        <button class="btn btn-ghost">View docs</button>
+        <button class="btn btn-ghost" style="border-color:var(--iron);background:var(--graphite)">Hover state</button>
+      </div>
+      <div class="component-desc">Snow text, Graphite border. For less prominent actions that still need visual presence.</div>
+    </div>
+
+    <div class="component-card">
+      <div class="component-header">
+        <div><div class="component-name">Pill Tag</div><div class="component-role">Filters, badges, metadata</div></div>
+        <span class="component-class">.pill-tag</span>
+      </div>
+      <div class="component-preview">
+        <span style="font-size:13px;padding:4px 12px;border-radius:var(--r-pill);background:var(--mint-wash);color:var(--hedgehog-green);border:1px solid rgba(29,185,84,.2)">Active</span>
+        <span style="font-size:13px;padding:4px 12px;border-radius:var(--r-pill);background:var(--orange-wash);color:var(--blaze-orange);border:1px solid rgba(245,78,0,.15)">Warning</span>
+        <span style="font-size:13px;padding:4px 12px;border-radius:var(--r-pill);background:var(--slate);color:var(--mist);border:1px solid var(--graphite)">Beta</span>
+        <span style="font-size:13px;padding:4px 12px;border-radius:var(--r-pill);background:var(--graphite);color:var(--honey);border:1px solid var(--iron)">Pro</span>
+      </div>
+      <div class="component-desc">Pill-shaped (100px radius), 4px/12px padding. Semantic coloring for status and metadata.</div>
+    </div>
+
+    <!-- Metric Cards -->
+    <h3 style="font-size:16px;font-weight:600;color:var(--snow);margin:40px 0 20px;letter-spacing:-.01em">Metric Cards</h3>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-bottom:20px">
+      <div class="metric-card">
+        <div class="metric-label">Monthly Active Users</div>
+        <div class="metric-value">24,891</div>
+        <div class="metric-trend">
+          <span class="metric-trend-up">+12.4%</span>
+          <span class="metric-trend-label">vs last month</span>
+        </div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Events Tracked</div>
+        <div class="metric-value">1.2M</div>
+        <div class="metric-trend">
+          <span class="metric-trend-up">+8.1%</span>
+          <span class="metric-trend-label">vs last month</span>
+        </div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Churn Rate</div>
+        <div class="metric-value">3.2%</div>
+        <div class="metric-trend">
+          <span class="metric-trend-down">+0.4%</span>
+          <span class="metric-trend-label">vs last month</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Code Block -->
+    <h3 style="font-size:16px;font-weight:600;color:var(--snow);margin:40px 0 20px;letter-spacing:-.01em">Code Block</h3>
+    <div class="code-block">
+      <code><span class="code-comment">// Track an event with PostHog</span>
+<span class="code-keyword">import</span> posthog <span class="code-keyword">from</span> <span class="code-string">'posthog-js'</span>
+
+posthog.<span class="code-func">init</span>(<span class="code-string">'phc_abc123'</span>, {
+  api_host: <span class="code-string">'https://app.posthog.com'</span>,
+  autocapture: <span class="code-keyword">true</span>,
+})
+
+posthog.<span class="code-func">capture</span>(<span class="code-string">'user_signed_up'</span>, {
+  plan: <span class="code-string">'free'</span>,
+  referral: <span class="code-string">'hackernews'</span>,
+})</code>
+    </div>
+
+    <!-- Input Field -->
+    <h3 style="font-size:16px;font-weight:600;color:var(--snow);margin:40px 0 20px;letter-spacing:-.01em">Input Field</h3>
+    <div class="component-card" style="margin-bottom:0">
+      <div class="component-preview">
+        <div style="display:flex;flex-direction:column;gap:12px;flex:1;max-width:360px">
+          <input type="text" placeholder="Enter your email" style="background:transparent;border:1px solid var(--graphite);border-radius:8px;padding:12px 16px;color:var(--snow);font-size:14px;font-family:inherit;outline:none">
+          <input type="text" value="Focused state" style="background:transparent;border:1px solid var(--hedgehog-green);border-radius:8px;padding:12px 16px;color:var(--snow);font-size:14px;font-family:inherit;outline:none">
+        </div>
+      </div>
+      <div class="component-desc">Transparent background, 8px radius. Focus shifts border to Hedgehog Green (#1DB954).</div>
+    </div>
+  </section>
+
+  <!-- DO'S & DON'TS -->
+  <section class="section" id="guidelines">
+    <div class="section-header">
+      <div class="section-label">Guidelines</div>
+      <h2 class="section-title">Do's &amp; Don'ts</h2>
+    </div>
+    <div class="guide-grid">
+      <div class="guide-card guide-card--do">
+        <div class="guide-label">Do &mdash; Embrace</div>
+        <ul class="guide-list">
+          <li>Charcoal (#1D1D1D) as default page background</li>
+          <li>Hedgehog Green (#1DB954) for primary CTAs and success</li>
+          <li>Blaze Orange (#F54E00) sparingly for accent punch</li>
+          <li>JetBrains Mono for all metrics, code, and data</li>
+          <li>4px-based spacing with 12px element gaps</li>
+          <li>12px radius for cards, 6px for buttons</li>
+          <li>Let green/orange duo create visual rhythm</li>
+        </ul>
+      </div>
+      <div class="guide-card guide-card--dont">
+        <div class="guide-label">Don't &mdash; Avoid</div>
+        <ul class="guide-list">
+          <li>Orange for surfaces larger than buttons/tags</li>
+          <li>Bright saturated backgrounds</li>
+          <li>Serif or decorative fonts</li>
+          <li>Hard 0px corners on interactive elements</li>
+          <li>Generic blue (#0000FF) for links</li>
+          <li>Green and orange in the same element</li>
+          <li>Dense packing without breathing room</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-left">PostHog Design System</div>
+    <div class="footer-right">
+      <a href="#colors" class="footer-link">Colors</a>
+      <a href="#typography" class="footer-link">Typography</a>
+      <a href="#spacing" class="footer-link">Spacing</a>
+      <a href="#components" class="footer-link">Components</a>
+      <a href="#" class="footer-link" download>Download Spec</a>
+    </div>
+  </footer>
+
+</div>
+
+
+
+</body>
+</html>

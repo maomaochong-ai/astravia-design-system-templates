@@ -1,0 +1,33 @@
+{
+	"schemaVersion": 1,
+	"kind": "design-system",
+	"slug": "bugatti",
+	"name": "Bugatti",
+	"version": "1.0.0",
+	"order": 270,
+	"category": "premium",
+	"vibe": "dark",
+	"tags": [
+		"dark-ui",
+		"minimal",
+		"luxury",
+		"design-system"
+	],
+	"blurb": "An austere luxury-automotive interface that uses near-pure black canvas, white uppercase letterspaced display, and full-bleed automotive photography as the only voltage.",
+	"tagline": {
+		"en": "Austere luxury: pure black, white uppercase display",
+		"zh": "克制的奢华：纯黑 + 白色大写标题"
+	},
+	"license": "MIT",
+	"origin": {
+		"type": "curated",
+		"upstream": "https://github.com/ricocc/brands-design-md.git",
+		"note": "from brands-design-md (Bugatti)."
+	},
+	"assets": {
+		"spec": "DESIGN.md",
+		"theme": "theme.css",
+		"demo": "demo.html"
+	},
+	"collectedAt": "2026-08-22"
+}

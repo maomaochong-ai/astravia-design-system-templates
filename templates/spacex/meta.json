@@ -1,0 +1,32 @@
+{
+	"schemaVersion": 1,
+	"kind": "design-system",
+	"slug": "spacex",
+	"name": "SpaceX",
+	"version": "1.0.0",
+	"order": 640,
+	"category": "premium",
+	"vibe": "light",
+	"tags": [
+		"light-ui",
+		"minimal",
+		"design-system"
+	],
+	"blurb": "An inspired interpretation of Spasex's design language — a mission-oriented aerospace brand built on pure black canvas, full-bleed photographic and video heroes of rockets and M…",
+	"tagline": {
+		"en": "Mission-oriented pure black aerospace",
+		"zh": "任务导向的纯黑航天"
+	},
+	"license": "MIT",
+	"origin": {
+		"type": "curated",
+		"upstream": "https://github.com/ricocc/brands-design-md.git",
+		"note": "from brands-design-md (Spacex-Inspired); unofficial inspired variant."
+	},
+	"assets": {
+		"spec": "DESIGN.md",
+		"theme": "theme.css",
+		"demo": "demo.html"
+	},
+	"collectedAt": "2026-08-22"
+}

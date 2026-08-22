@@ -1,0 +1,79 @@
+:root {
+  --cal-color-ink: #101010;
+  --cal-color-action-blue: #0099ff;
+  --cal-color-white: #ffffff;
+  --cal-color-paper: #f4f4f4;
+  --cal-color-graphite: #242424;
+  --cal-color-slate: #6b7280;
+  --cal-color-stone: #898989;
+  --cal-color-silver: #e5e7eb;
+  --cal-color-info-banner-bg: #eff6fe;
+  --cal-color-google-blue: #4285f4;
+  --cal-color-google-yellow: #fbbc04;
+  --cal-color-google-green: #34a853;
+  --cal-color-google-red: #ea4335;
+
+  --cal-font-display: "Cal Sans", "Poppins", sans-serif;
+  --cal-font-ui: "Cal Sans UI Variable Light", "Inter", sans-serif;
+  --cal-font-product: "Inter", sans-serif;
+  --cal-font-utility: "Matter", "Inter", sans-serif;
+  --cal-type-caption: 300 12px/1.4 var(--cal-font-ui);
+  --cal-type-body-sm: 300 14px/1.5 var(--cal-font-ui);
+  --cal-type-body: 300 16px/1.5 var(--cal-font-ui);
+  --cal-type-subheading: 300 18px/1.4 var(--cal-font-ui);
+  --cal-type-heading-sm: 600 20px/1.3 var(--cal-font-display);
+  --cal-type-heading: 600 24px/1.3 var(--cal-font-display);
+  --cal-type-heading-lg: 600 48px/1.1 var(--cal-font-display);
+  --cal-type-display: 600 64px/1.1 var(--cal-font-display);
+  --cal-tracking-caption: -0.24px;
+  --cal-tracking-body-sm: -0.2px;
+  --cal-tracking-body: -0.19px;
+  --cal-tracking-subheading: -0.2px;
+  --cal-tracking-heading-sm: 0.2px;
+  --cal-tracking-heading: 0.24px;
+  --cal-tracking-heading-lg: 0.48px;
+  --cal-tracking-display: 0.64px;
+
+  --cal-space-1: 4px;
+  --cal-space-1-25: 5px;
+  --cal-space-1-5: 6px;
+  --cal-space-2: 8px;
+  --cal-space-2-5: 10px;
+  --cal-space-3: 12px;
+  --cal-space-4: 16px;
+  --cal-space-5: 20px;
+  --cal-space-6: 24px;
+  --cal-space-7: 28px;
+  --cal-space-8: 32px;
+  --cal-space-10: 40px;
+  --cal-space-12: 48px;
+  --cal-space-20: 80px;
+
+  --cal-radius-md: 4px;
+  --cal-radius-lg: 8px;
+  --cal-radius-xl: 12px;
+  --cal-radius-2xl: 16px;
+  --cal-radius-3xl: 29px;
+  --cal-radius-full: 100px;
+  --cal-radius-full-2: 120px;
+  --cal-radius-full-3: 1000px;
+  --cal-radius-full-4: 9999px;
+
+  --cal-shadow-sm:
+    rgba(36, 36, 36, 0.7) 0 1px 5px -4px, rgba(36, 36, 36, 0.05) 0 4px 8px 0;
+  --cal-shadow-subtle: rgba(255, 255, 255, 0.15) 0 2px 0 0 inset;
+  --cal-shadow-sm-2:
+    rgba(19, 19, 22, 0.7) 0 1px 5px -4px, rgba(34, 42, 53, 0.1) 0 0 0 1px,
+    rgba(34, 42, 53, 0.05) 0 4px 8px 0;
+  --cal-shadow-sm-3:
+    rgba(19, 19, 22, 0.7) 0 1px 5px -4px, rgba(34, 42, 53, 0.08) 0 0 0 1px,
+    rgba(34, 42, 53, 0.05) 0 4px 8px 0;
+  --cal-shadow-sm-4: rgba(34, 42, 53, 0.05) 0 4px 8px 0;
+  --cal-shadow-subtle-2: rgb(255, 255, 255) 0 2px 0 0 inset;
+  --cal-shadow-subtle-3:
+    rgba(0, 0, 0, 0.1) 0 1px 3px 0, rgba(0, 0, 0, 0.06) 0 0 2px 0;
+
+  --cal-page-max-width: 1200px;
+  --cal-section-gap: 96px;
+  --cal-card-padding: 24px;
+}

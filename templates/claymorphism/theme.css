@@ -1,0 +1,71 @@
+/* Claymorphism — UI moulded out of soft modelling clay. Candy pastels on warm
+   cream, oversized radii, and a zero-blur offset drop paired with an inset white
+   top highlight: that pair is the whole material.
+   Palette and shadow recipe adapted from the StyleKit「粘土拟态」guide and its
+   showcase page (see meta.json origin). */
+@theme {
+	--color-primary: #f8b4d9;
+	/* Ink on clay is a dark neutral, never white — every pastel here is light
+	   enough that white text lands under 2:1. */
+	--color-primary-foreground: #1f2937;
+	--color-surface: #fffbeb;
+	--color-surface-foreground: #1f2937;
+	--color-surface-raised: #ffffff;
+	/* Warm gray. Cool, desaturated neutrals read as dirt against these pastels. */
+	--color-muted: #78716c;
+	--color-accent: #c4b5fd;
+	--color-danger: #f9a8c0;
+	/* Barely-there warm line. Structure comes from the shadow pair, not borders. */
+	--color-border: #f5e6d8;
+
+	/* The candy palette: five tints, each with the ink that stays legible on it.
+	   Use them as whole surfaces — a card, a pill, a blob — never as text color. */
+	--color-clay-pink: #f8b4d9;
+	--color-clay-mint: #a7f3d0;
+	--color-clay-lavender: #c4b5fd;
+	--color-clay-yellow: #fcd34d;
+	--color-clay-cream: #fef3c7;
+
+	--color-clay-pink-foreground: #7c2d62;
+	--color-clay-mint-foreground: #115e52;
+	--color-clay-lavender-foreground: #4c3a8c;
+	--color-clay-yellow-foreground: #92400e;
+	--color-clay-cream-foreground: #92400e;
+
+	/* Nothing under 16px. The scale starts where other systems stop. */
+	--radius-sm: 16px;
+	--radius-md: 20px;
+	--radius-lg: 24px;
+	--radius-xl: 28px;
+	--radius-2xl: 32px;
+	--radius-full: 9999px;
+
+	/* Every shadow is a pair: a hard offset drop with ZERO blur for the extruded
+	   clay edge, plus an inset white highlight along the top for the moulded
+	   sheen. Drop either half and the material collapses into a flat rectangle. */
+	--shadow-sm: 4px 4px 0 rgb(0 0 0 / 0.08), inset 0 1px 3px rgb(255 255 255 / 0.6);
+	--shadow-md: 8px 8px 0 rgb(0 0 0 / 0.13), inset 0 2px 4px rgb(255 255 255 / 0.6);
+	--shadow-lg: 12px 12px 0 rgb(0 0 0 / 0.18), inset 0 3px 6px rgb(255 255 255 / 0.7);
+	/* Hover pushes the drop further out — the piece lifts off the page. */
+	--shadow-hover: 12px 12px 0 rgb(0 0 0 / 0.15), inset 0 2px 4px rgb(255 255 255 / 0.6);
+	/* Active pulls it back in, so the press reads as the piece being squashed. */
+	--shadow-active: 4px 4px 0 rgb(0 0 0 / 0.1), inset 0 2px 4px rgb(255 255 255 / 0.5);
+	/* The one blurred shadow: a colored bloom for hero pieces that should float. */
+	--shadow-bloom: 0 16px 40px rgb(248 180 217 / 0.55), inset 0 2px 5px rgb(255 255 255 / 0.65);
+	--shadow-focus-ring: 0 0 0 4px rgb(196 181 253 / 0.55);
+
+	/* Gradients are part of the material: clay is never one flat fill. */
+	--gradient-page: linear-gradient(135deg, #fef3c7 0%, #fce7f3 50%, #ede9fe 100%);
+	--gradient-primary: linear-gradient(135deg, #fce7f3 0%, #f8b4d9 100%);
+	--gradient-mint: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+	/* All five tints at once — hero surfaces only, once per screen. */
+	--gradient-rainbow: linear-gradient(135deg, #f8b4d9 0%, #c4b5fd 40%, #a7f3d0 70%, #fcd34d 100%);
+
+	/* Background blobs are lumps of clay, not circles: asymmetric radii. */
+	--blob-radius: 60% 40% 55% 45% / 40% 60% 40% 60%;
+	--blob-radius-alt: 45% 55% 40% 60% / 55% 45% 55% 45%;
+
+	/* Squash and release. The overshoot past 1 is what reads as springy. */
+	--ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+	--duration-base: 200ms;
+}

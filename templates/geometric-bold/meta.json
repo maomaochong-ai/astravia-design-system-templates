@@ -1,0 +1,35 @@
+{
+	"schemaVersion": 1,
+	"kind": "design-system",
+	"slug": "geometric-bold",
+	"name": "Geometric Bold",
+	"version": "1.1.0",
+	"order": 85,
+	"category": "creative",
+	"vibe": "light",
+	"tags": [
+		"creative",
+		"light",
+		"bauhaus",
+		"editorial",
+		"high-contrast"
+	],
+	"blurb": "Bauhaus and constructivist poster energy: pure black on white, primary-color blocks, 4px hard borders, zero shadows or gradients, oversized black uppercase type, asymmetric layouts.",
+	"tagline": {
+		"en": "Bauhaus blocks, hard edges, no shadows",
+		"zh": "包豪斯色块，硬边框，零阴影"
+	},
+	"license": "CC-BY-4.0",
+	"origin": {
+		"type": "collected",
+		"upstream": "https://www.stylekit.top",
+		"sourceUrl": "https://www.stylekit.top/zh/styles/geometric-bold",
+		"note": "Vetta-adapted from the StyleKit「几何大胆风」guide: rewritten as Vetta spec prose and re-expressed in Vetta base tokens. No upstream assets included."
+	},
+	"assets": {
+		"spec": "DESIGN.md",
+		"theme": "theme.css",
+		"demo": "demo.html"
+	},
+	"collectedAt": "2026-08-11"
+}

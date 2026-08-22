@@ -1,0 +1,32 @@
+{
+	"schemaVersion": 1,
+	"kind": "design-system",
+	"slug": "uber",
+	"name": "Uber",
+	"version": "1.0.0",
+	"order": 710,
+	"category": "consumer",
+	"vibe": "light",
+	"tags": [
+		"light-ui",
+		"editorial",
+		"design-system"
+	],
+	"blurb": "An inspired interpretation of Uber's design language — a transportation-and-delivery super-app brand whose web surface is a black-and-white duet, framed by a custom geometric di…",
+	"tagline": {
+		"en": "Black surface super-app with white type",
+		"zh": "黑面超级应用 + 白字"
+	},
+	"license": "MIT",
+	"origin": {
+		"type": "curated",
+		"upstream": "https://github.com/ricocc/brands-design-md.git",
+		"note": "from brands-design-md (Uber-Inspired); unofficial inspired variant."
+	},
+	"assets": {
+		"spec": "DESIGN.md",
+		"theme": "theme.css",
+		"demo": "demo.html"
+	},
+	"collectedAt": "2026-08-22"
+}

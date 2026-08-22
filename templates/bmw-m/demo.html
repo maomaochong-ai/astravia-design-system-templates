@@ -1,0 +1,1799 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="design-source" content="https://www.bmw-m.com/" />
+    <meta name="theme-color" content="#000000" />
+    <title>BMW M — Design System</title>
+    
+    
+    
+    <style>
+      :root {
+        color-scheme: dark;
+        --color-primary: #ffffff;
+        --color-ink: #ffffff;
+        --color-body: #bbbbbb;
+        --color-body-strong: #e6e6e6;
+        --color-muted: #7e7e7e;
+        --color-hairline: #3c3c3c;
+        --color-hairline-strong: #262626;
+        --color-canvas: #000000;
+        --color-surface-card: #1a1a1a;
+        --color-surface-elevated: #262626;
+        --color-surface-soft: #0d0d0d;
+        --color-on-primary: #000000;
+        --color-on-dark: #ffffff;
+        --color-m-blue-light: #0066b1;
+        --color-m-blue-dark: #1c69d4;
+        --color-m-red: #e22718;
+        --color-bmw-blue: #1c69d4;
+        --color-electric-blue: #0653b6;
+        --color-carbon-gray: #2b2b2b;
+        --color-warning: #f4b400;
+        --color-success: #0fa336;
+        --font-display: "Barlow Condensed", "Arial Narrow", sans-serif;
+        --font-body: "Barlow", Arial, sans-serif;
+        --page-width: 1180px;
+        --page-pad: clamp(20px, 4vw, 56px);
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+        scroll-padding-top: 88px;
+      }
+
+      body {
+        margin: 0;
+        background: var(--color-canvas);
+        color: var(--color-body);
+        font-family: var(--font-body);
+        font-size: 16px;
+        font-weight: 300;
+        line-height: 1.5;
+      }
+
+      a {
+        color: inherit;
+      }
+
+      button,
+      input {
+        font: inherit;
+      }
+
+      ::selection {
+        background: var(--color-m-blue-dark);
+        color: var(--color-on-dark);
+      }
+
+      :focus-visible {
+        outline: 2px solid var(--color-m-blue-dark);
+        outline-offset: 4px;
+      }
+
+      .container {
+        width: min(100%, calc(var(--page-width) + (var(--page-pad) * 2)));
+        margin-inline: auto;
+        padding-inline: var(--page-pad);
+      }
+
+      .site-nav {
+        position: sticky;
+        top: 0;
+        z-index: 20;
+        min-height: 64px;
+        background: rgba(0, 0, 0, 0.92);
+        border-bottom: 1px solid var(--color-hairline-strong);
+        backdrop-filter: blur(14px);
+      }
+
+      .nav-inner {
+        display: flex;
+        min-height: 64px;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+      }
+
+      .brand-lockup,
+      .nav-links {
+        display: flex;
+        align-items: center;
+      }
+
+      .brand-lockup {
+        flex: 0 0 auto;
+        gap: 12px;
+        color: var(--color-on-dark);
+        text-decoration: none;
+      }
+
+      .logo-favicon {
+        width: 30px;
+        height: 30px;
+        object-fit: contain;
+      }
+
+      .brand-name {
+        font-family: var(--font-display);
+        font-size: 19px;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        line-height: 1;
+        text-transform: uppercase;
+      }
+
+      .brand-tag {
+        padding: 4px 7px;
+        border: 1px solid var(--color-hairline);
+        color: var(--color-muted);
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        line-height: 1;
+        text-transform: uppercase;
+      }
+
+      .nav-links {
+        gap: 22px;
+      }
+
+      .nav-links a {
+        color: var(--color-body);
+        font-size: 13px;
+        font-weight: 400;
+        letter-spacing: 0.04em;
+        text-decoration: none;
+        transition: color 160ms ease;
+      }
+
+      .nav-links a:hover,
+      .nav-links a[aria-current="page"] {
+        color: var(--color-on-dark);
+      }
+
+      .nav-site {
+        display: inline-flex;
+        min-height: 34px;
+        align-items: center;
+        padding-inline: 13px;
+        border: 1px solid var(--color-hairline);
+        color: var(--color-on-dark) !important;
+        font-weight: 600 !important;
+        letter-spacing: 0.08em !important;
+        text-transform: uppercase;
+      }
+
+      .hero {
+        min-height: min(760px, calc(100vh - 64px));
+        display: grid;
+        align-items: center;
+        overflow: hidden;
+        border-bottom: 1px solid var(--color-hairline-strong);
+      }
+
+      .hero-inner {
+        position: relative;
+        padding-block: clamp(88px, 13vw, 156px);
+      }
+
+      .eyebrow,
+      .section-kicker,
+      .token-count,
+      .meta-label {
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 0.16em;
+        line-height: 1.4;
+        text-transform: uppercase;
+      }
+
+      .eyebrow,
+      .section-kicker {
+        color: var(--color-body-strong);
+      }
+
+      .eyebrow {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin: 0 0 24px;
+      }
+
+      .eyebrow::before {
+        width: 38px;
+        height: 4px;
+        background: var(--color-m-blue-light);
+        content: "";
+      }
+
+      .hero h1 {
+        max-width: 900px;
+        margin: 0;
+        color: var(--color-on-dark);
+        font-family: var(--font-display);
+        font-size: clamp(72px, 13vw, 168px);
+        font-weight: 700;
+        letter-spacing: -0.025em;
+        line-height: 0.78;
+        text-transform: uppercase;
+      }
+
+      .hero h1 span {
+        display: block;
+      }
+
+      .hero-copy {
+        max-width: 650px;
+        margin: 36px 0 0;
+        color: var(--color-body);
+        font-size: clamp(17px, 2vw, 20px);
+        line-height: 1.55;
+      }
+
+      .hero-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 40px;
+      }
+
+      .hero-meta span {
+        padding: 8px 11px;
+        border: 1px solid var(--color-hairline);
+        color: var(--color-body-strong);
+        font-size: 11px;
+        font-weight: 500;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+
+      .hero-bars {
+        position: absolute;
+        top: 12%;
+        right: -8%;
+        z-index: -1;
+        display: flex;
+        height: 74%;
+        gap: 12px;
+        opacity: 0.22;
+        transform: skewX(-18deg);
+      }
+
+      .hero-bars span {
+        width: clamp(34px, 5vw, 70px);
+      }
+
+      .hero-bars span:nth-child(1) {
+        background: var(--color-m-blue-light);
+      }
+
+      .hero-bars span:nth-child(2) {
+        background: var(--color-m-blue-dark);
+      }
+
+      .hero-bars span:nth-child(3) {
+        background: var(--color-m-red);
+      }
+
+      .section {
+        padding-block: clamp(80px, 10vw, 128px);
+        border-bottom: 1px solid var(--color-hairline-strong);
+      }
+
+      .section-heading {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(280px, 0.7fr);
+        gap: 48px;
+        align-items: end;
+        margin-bottom: 48px;
+      }
+
+      .section-heading h2 {
+        margin: 8px 0 0;
+        color: var(--color-on-dark);
+        font-family: var(--font-display);
+        font-size: clamp(42px, 6vw, 72px);
+        font-weight: 700;
+        letter-spacing: -0.015em;
+        line-height: 0.95;
+        text-transform: uppercase;
+      }
+
+      .section-intro {
+        max-width: 570px;
+        margin: 0;
+        color: var(--color-body);
+      }
+
+      .token-count {
+        color: var(--color-muted);
+      }
+
+      .color-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        border-top: 1px solid var(--color-hairline-strong);
+        border-left: 1px solid var(--color-hairline-strong);
+      }
+
+      .color-token {
+        min-width: 0;
+        border-right: 1px solid var(--color-hairline-strong);
+        border-bottom: 1px solid var(--color-hairline-strong);
+        background: var(--color-surface-soft);
+      }
+
+      .swatch {
+        height: 130px;
+        border-bottom: 1px solid var(--color-hairline-strong);
+      }
+
+      .color-data {
+        display: grid;
+        gap: 5px;
+        padding: 16px;
+      }
+
+      .token-name {
+        overflow: hidden;
+        color: var(--color-body-strong);
+        font-size: 13px;
+        font-weight: 500;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .token-value {
+        color: var(--color-muted);
+        font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+        font-size: 11px;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
+
+      .signature {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(260px, 0.55fr);
+        gap: 40px;
+        align-items: center;
+        margin-top: 48px;
+        padding: clamp(24px, 4vw, 48px);
+        background: var(--color-surface-card);
+      }
+
+      .m-stripe {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        height: 8px;
+      }
+
+      .m-stripe span:nth-child(1) {
+        background: var(--color-m-blue-light);
+      }
+
+      .m-stripe span:nth-child(2) {
+        background: var(--color-m-blue-dark);
+      }
+
+      .m-stripe span:nth-child(3) {
+        background: var(--color-m-red);
+      }
+
+      .signature h3 {
+        margin: 22px 0 8px;
+        color: var(--color-on-dark);
+        font-family: var(--font-display);
+        font-size: 28px;
+        line-height: 1;
+        text-transform: uppercase;
+      }
+
+      .signature p {
+        margin: 0;
+        color: var(--color-muted);
+        font-size: 14px;
+      }
+
+      .signature-codes {
+        display: grid;
+        gap: 10px;
+      }
+
+      .signature-codes div {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid var(--color-hairline);
+        color: var(--color-body-strong);
+        font-size: 12px;
+      }
+
+      .signature-codes code {
+        color: var(--color-muted);
+      }
+
+      .font-summary {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        margin-bottom: 48px;
+        border-top: 1px solid var(--color-hairline-strong);
+        border-left: 1px solid var(--color-hairline-strong);
+      }
+
+      .font-card {
+        min-height: 220px;
+        padding: 28px;
+        border-right: 1px solid var(--color-hairline-strong);
+        border-bottom: 1px solid var(--color-hairline-strong);
+        background: var(--color-surface-soft);
+      }
+
+      .font-card .glyphs {
+        margin: 36px 0 18px;
+        color: var(--color-on-dark);
+        font-family: var(--font-display);
+        font-size: clamp(42px, 7vw, 76px);
+        font-weight: 700;
+        line-height: 0.8;
+      }
+
+      .font-card.body-face .glyphs {
+        font-family: var(--font-body);
+        font-size: clamp(30px, 5vw, 48px);
+        font-weight: 300;
+        line-height: 1;
+      }
+
+      .font-card p {
+        margin: 0;
+        color: var(--color-muted);
+        font-size: 13px;
+      }
+
+      .type-list {
+        border-top: 1px solid var(--color-hairline-strong);
+      }
+
+      .type-row {
+        display: grid;
+        grid-template-columns: 180px minmax(0, 1fr) 190px;
+        gap: 28px;
+        align-items: baseline;
+        padding-block: 24px;
+        border-bottom: 1px solid var(--color-hairline-strong);
+      }
+
+      .type-sample {
+        overflow: hidden;
+        color: var(--color-on-dark);
+        font-family: var(--font-display);
+        line-height: 1.1;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .type-row[data-face="body"] .type-sample {
+        font-family: var(--font-body);
+      }
+
+      .type-spec {
+        color: var(--color-muted);
+        font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+        font-size: 11px;
+        text-align: right;
+      }
+
+      .metrics-grid {
+        display: grid;
+        grid-template-columns: 1.25fr 0.75fr;
+        gap: 48px;
+      }
+
+      .metric-title {
+        margin: 0 0 24px;
+        color: var(--color-body-strong);
+        font-family: var(--font-display);
+        font-size: 24px;
+        text-transform: uppercase;
+      }
+
+      .spacing-list {
+        display: grid;
+        gap: 17px;
+      }
+
+      .spacing-row {
+        display: grid;
+        grid-template-columns: 86px minmax(0, 1fr) 46px;
+        gap: 16px;
+        align-items: center;
+      }
+
+      .spacing-bar-wrap {
+        height: 16px;
+        display: flex;
+        align-items: center;
+      }
+
+      .spacing-bar {
+        height: 4px;
+        background: var(--color-m-blue-dark);
+      }
+
+      .spacing-row code,
+      .radius-card code {
+        color: var(--color-muted);
+        font-size: 11px;
+      }
+
+      .spacing-row strong {
+        color: var(--color-body-strong);
+        font-size: 12px;
+        font-weight: 500;
+      }
+
+      .radius-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        border-top: 1px solid var(--color-hairline-strong);
+        border-left: 1px solid var(--color-hairline-strong);
+      }
+
+      .radius-card {
+        min-height: 122px;
+        display: grid;
+        place-items: center;
+        gap: 8px;
+        padding: 18px;
+        border-right: 1px solid var(--color-hairline-strong);
+        border-bottom: 1px solid var(--color-hairline-strong);
+        text-align: center;
+      }
+
+      .radius-demo {
+        width: 56px;
+        height: 56px;
+        border: 1px solid var(--color-body);
+        background: var(--color-surface-card);
+      }
+
+      .surface-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        min-height: 300px;
+        border: 1px solid var(--color-hairline-strong);
+      }
+
+      .surface-card {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        padding: 24px;
+        border-right: 1px solid var(--color-hairline-strong);
+      }
+
+      .surface-card:last-child {
+        border-right: 0;
+      }
+
+      .surface-card strong {
+        color: var(--color-on-dark);
+        font-size: 13px;
+        font-weight: 500;
+      }
+
+      .surface-card code {
+        margin-top: 4px;
+        color: var(--color-muted);
+        font-size: 11px;
+      }
+
+      .component-stack {
+        display: grid;
+        gap: 32px;
+      }
+
+      .component-panel {
+        display: grid;
+        grid-template-columns: 210px minmax(0, 1fr);
+        border: 1px solid var(--color-hairline-strong);
+      }
+
+      .component-meta {
+        padding: 24px;
+        border-right: 1px solid var(--color-hairline-strong);
+        background: var(--color-surface-soft);
+      }
+
+      .component-meta h3 {
+        margin: 8px 0;
+        color: var(--color-on-dark);
+        font-family: var(--font-display);
+        font-size: 22px;
+        line-height: 1;
+        text-transform: uppercase;
+      }
+
+      .component-meta p {
+        margin: 0;
+        color: var(--color-muted);
+        font-size: 12px;
+      }
+
+      .component-preview {
+        min-height: 190px;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 16px;
+        padding: clamp(24px, 5vw, 52px);
+        background: var(--color-surface-card);
+      }
+
+      .btn {
+        min-height: 48px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 16px 32px;
+        border: 1px solid var(--color-primary);
+        border-radius: 0;
+        font-family: var(--font-body);
+        font-size: 14px;
+        font-weight: 700;
+        letter-spacing: 1.5px;
+        line-height: 1;
+        text-decoration: none;
+        text-transform: uppercase;
+        transition:
+          background 160ms ease,
+          color 160ms ease;
+      }
+
+      .btn-primary {
+        background: var(--color-primary);
+        color: var(--color-on-primary);
+      }
+
+      .btn-primary:hover {
+        background: var(--color-body-strong);
+      }
+
+      .btn-outline {
+        background: transparent;
+        color: var(--color-on-dark);
+      }
+
+      .btn-outline:hover {
+        background: var(--color-primary);
+        color: var(--color-on-primary);
+      }
+
+      .icon-button {
+        width: 48px;
+        height: 48px;
+        display: grid;
+        place-items: center;
+        border: 0;
+        border-radius: 9999px;
+        background: var(--color-surface-elevated);
+        color: var(--color-on-dark);
+        cursor: pointer;
+      }
+
+      .tabs {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 4px;
+      }
+
+      .tab {
+        min-height: 44px;
+        padding: 12px 18px;
+        border: 0;
+        border-bottom: 2px solid transparent;
+        background: transparent;
+        color: var(--color-muted);
+        font-size: 13px;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .tab[aria-selected="true"] {
+        border-bottom-color: var(--color-m-blue-dark);
+        color: var(--color-on-dark);
+      }
+
+      .model-card {
+        width: min(100%, 660px);
+        display: grid;
+        grid-template-columns: 1.2fr 0.8fr;
+        background: var(--color-canvas);
+        border: 1px solid var(--color-hairline);
+      }
+
+      .model-copy {
+        padding: 32px;
+      }
+
+      .model-copy h4 {
+        margin: 8px 0 10px;
+        color: var(--color-on-dark);
+        font-family: var(--font-display);
+        font-size: 32px;
+        line-height: 1.15;
+        text-transform: uppercase;
+      }
+
+      .model-copy p {
+        margin: 0;
+        color: var(--color-muted);
+        font-size: 14px;
+      }
+
+      .specs {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        border-left: 1px solid var(--color-hairline);
+      }
+
+      .spec {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        padding: 22px;
+        background: var(--color-surface-soft);
+        border-right: 1px solid var(--color-hairline-strong);
+        border-bottom: 1px solid var(--color-hairline-strong);
+      }
+
+      .spec:nth-child(even) {
+        border-right: 0;
+      }
+
+      .spec strong {
+        color: var(--color-on-dark);
+        font-family: var(--font-display);
+        font-size: 24px;
+      }
+
+      .spec span {
+        color: var(--color-muted);
+        font-size: 11px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .field {
+        width: min(100%, 520px);
+        display: grid;
+        gap: 9px;
+      }
+
+      .field label {
+        color: var(--color-body-strong);
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+
+      .field input {
+        width: 100%;
+        height: 52px;
+        padding-inline: 16px;
+        border: 1px solid var(--color-hairline);
+        border-radius: 0;
+        background: var(--color-surface-soft);
+        color: var(--color-on-dark);
+      }
+
+      .field input:focus {
+        border-color: var(--color-m-blue-dark);
+        outline: 1px solid var(--color-m-blue-dark);
+      }
+
+      .guideline-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        border-top: 1px solid var(--color-hairline-strong);
+        border-left: 1px solid var(--color-hairline-strong);
+      }
+
+      .guideline-card {
+        padding: clamp(26px, 5vw, 48px);
+        border-right: 1px solid var(--color-hairline-strong);
+        border-bottom: 1px solid var(--color-hairline-strong);
+        background: var(--color-surface-soft);
+      }
+
+      .guideline-card h3 {
+        margin: 0 0 24px;
+        color: var(--color-on-dark);
+        font-family: var(--font-display);
+        font-size: 30px;
+        text-transform: uppercase;
+      }
+
+      .guideline-card ul {
+        display: grid;
+        gap: 16px;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .guideline-card li {
+        position: relative;
+        padding-left: 24px;
+        color: var(--color-body);
+      }
+
+      .guideline-card li::before {
+        position: absolute;
+        top: 0.68em;
+        left: 0;
+        width: 8px;
+        height: 2px;
+        background: var(--color-m-blue-dark);
+        content: "";
+      }
+
+      .guideline-card.caution li::before {
+        background: var(--color-m-red);
+      }
+
+      .downloads {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 48px;
+      }
+
+      .download-link {
+        display: inline-flex;
+        min-height: 42px;
+        align-items: center;
+        padding-inline: 16px;
+        border: 1px solid var(--color-hairline);
+        color: var(--color-body-strong);
+        font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+        font-size: 12px;
+        text-decoration: none;
+        transition:
+          border-color 160ms ease,
+          color 160ms ease;
+      }
+
+      .download-link:hover {
+        border-color: var(--color-body);
+        color: var(--color-on-dark);
+      }
+
+      .footer {
+        padding-block: 42px;
+      }
+
+      .footer-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+      }
+
+      .footer p {
+        margin: 0;
+        color: var(--color-muted);
+        font-size: 12px;
+      }
+
+      .footer-mark {
+        display: grid;
+        grid-template-columns: repeat(3, 18px);
+        height: 4px;
+      }
+
+      .footer-mark span:nth-child(1) {
+        background: var(--color-m-blue-light);
+      }
+
+      .footer-mark span:nth-child(2) {
+        background: var(--color-m-blue-dark);
+      }
+
+      .footer-mark span:nth-child(3) {
+        background: var(--color-m-red);
+      }
+
+      .reveal {
+        opacity:1;
+        
+        transition:
+          opacity 500ms ease,
+          transform 500ms ease;
+      }
+
+      .reveal.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      @media (max-width: 900px) {
+        .nav-links a:not(.nav-site) {
+          display: none;
+        }
+
+        .section-heading,
+        .signature,
+        .metrics-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .section-heading {
+          gap: 20px;
+        }
+
+        .color-grid,
+        .surface-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+
+        .surface-card:nth-child(2) {
+          border-right: 0;
+        }
+
+        .surface-card:nth-child(-n + 2) {
+          border-bottom: 1px solid var(--color-hairline-strong);
+        }
+
+        .type-row {
+          grid-template-columns: 140px minmax(0, 1fr);
+        }
+
+        .type-spec {
+          grid-column: 2;
+          text-align: left;
+        }
+
+        .component-panel {
+          grid-template-columns: 1fr;
+        }
+
+        .component-meta {
+          border-right: 0;
+          border-bottom: 1px solid var(--color-hairline-strong);
+        }
+      }
+
+      @media (max-width: 620px) {
+        .brand-tag {
+          display: none;
+        }
+
+        .hero {
+          min-height: auto;
+        }
+
+        .hero h1 {
+          font-size: clamp(62px, 22vw, 98px);
+        }
+
+        .hero-bars {
+          right: -18%;
+          opacity: 0.14;
+        }
+
+        .color-grid,
+        .font-summary,
+        .surface-grid,
+        .guideline-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .surface-card,
+        .surface-card:nth-child(2),
+        .surface-card:last-child {
+          min-height: 150px;
+          border-right: 0;
+          border-bottom: 1px solid var(--color-hairline-strong);
+        }
+
+        .surface-card:last-child {
+          border-bottom: 0;
+        }
+
+        .type-row {
+          grid-template-columns: 1fr;
+          gap: 10px;
+        }
+
+        .type-spec {
+          grid-column: auto;
+        }
+
+        .model-card {
+          grid-template-columns: 1fr;
+        }
+
+        .specs {
+          min-height: 190px;
+          border-top: 1px solid var(--color-hairline);
+          border-left: 0;
+        }
+
+        .footer-inner {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+
+        *,
+        *::before,
+        *::after {
+          transition-duration: 0.01ms !important;
+        }
+
+        .reveal {
+          opacity: 1;
+          transform: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="site-nav" aria-label="Design system navigation">
+      <div class="nav-inner container">
+        <a
+          class="brand-lockup"
+          href="#top"
+          aria-label="BMW M design system home"
+        >
+          
+          <span class="brand-name">BMW M</span>
+          <span class="brand-tag">Design System</span>
+        </a>
+        <div class="nav-links">
+          <a href="#colors">Colors</a>
+          <a href="#typography">Type</a>
+          <a href="#spacing">Spacing</a>
+          <a href="#components">Components</a>
+          <a
+            class="nav-site"
+            href="#"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Site ↗</a
+          >
+        </div>
+      </div>
+    </nav>
+
+    <main id="top">
+      <header class="hero">
+        <div class="hero-inner container">
+          <p class="eyebrow">BMW M Design Language</p>
+          <h1><span>Born on</span><span>the track.</span></h1>
+          <p class="hero-copy">
+            A precision-led visual system built on a black canvas, high-contrast
+            type, engineered spacing, and the unmistakable M tricolor signature.
+          </p>
+          <div class="hero-meta" aria-label="Design system contents">
+            <span>21 color tokens</span>
+            <span>13 type styles</span>
+            <span>8 spacing steps</span>
+            <span>5 radii</span>
+          </div>
+          <div class="hero-bars" aria-hidden="true">
+            <span></span><span></span><span></span>
+          </div>
+        </div>
+      </header>
+
+      <section class="section" id="colors">
+        <div class="reveal container">
+          <div class="section-heading">
+            <div>
+              <span class="section-kicker">01 / Foundation</span>
+              <h2>Color system</h2>
+            </div>
+            <p class="section-intro">
+              Near-black surfaces and crisp white typography carry the
+              interface. M colors stay concentrated in brand signatures,
+              navigation states, and purposeful accents.
+            </p>
+          </div>
+
+          <div class="color-grid" aria-label="BMW M color tokens">
+            <article class="color-token">
+              <div class="swatch" style="background: #fff"></div>
+              <div class="color-data">
+                <span class="token-name">Primary</span
+                ><code class="token-value">#ffffff</code>
+              </div>
+            </article>
+            <article class="color-token">
+              <div class="swatch" style="background: #fff"></div>
+              <div class="color-data">
+                <span class="token-name">Ink</span
+                ><code class="token-value">#ffffff</code>
+              </div>
+            </article>
+            <article class="color-token">
+              <div class="swatch" style="background: #bbb"></div>
+              <div class="color-data">
+                <span class="token-name">Body</span
+                ><code class="token-value">#bbbbbb</code>
+              </div>
+            </article>
+            <article class="color-token">
+              <div class="swatch" style="background: #e6e6e6"></div>
+              <div class="color-data">
+                <span class="token-name">Body strong</span
+                ><code class="token-value">#e6e6e6</code>
+              </div>
+            </article>
+            <article class="color-token">
+              <div class="swatch" style="background: #7e7e7e"></div>
+              <div class="color-data">
+                <span class="token-name">Muted</span
+                ><code class="token-value">#7e7e7e</code>
+              </div>
+            </article>
+            <article class="color-token">
+              <div class="swatch" style="background: #3c3c3c"></div>
+              <div class="color-data">
+                <span class="token-name">Hairline</span
+                ><code class="token-value">#3c3c3c</code>
+              </div>
+            </article>
+            <article class="color-token">
+              <div class="swatch" style="background: #262626"></div>
+              <div class="color-data">
+                <span class="token-name">Hairline strong</span
+                ><code class="token-value">#262626</code>
+              </div>
+            </article>
+            <article class="color-token">
+              <div class="swatch" style="background: #000"></div>
+              <div class="color-data">
+                <span class="token-name">Canvas</span
+                ><code class="token-value">#000000</code>
+              </div>
+            </article>
+            <article class="color-token">
+              <div class="swatch" style="background: #1a1a1a"></div>
+              <div class="color-data">
+                <span class="token-name">Surface card</span
+                ><code class="token-value">#1a1a1a</code>
+              </div>
+            </article>
+            <article class="color-token">
+              <div class="swatch" style="background: #262626"></div>
+              <div class="color-data">
+                <span class="token-name">Surface elevated</span
+                ><code class="token-value">#262626</code>
+              </div>
+            </article>
+            <article class="color-token">
+              <div class="swatch" style="background: #0d0d0d"></div>
+              <div class="color-data">
+                <span class="token-name">Surface soft</span
+                ><code class="token-value">#0d0d0d</code>
+              </div>
+            </article>
+            <article class="color-token">
+              <div class="swatch" style="background: #000"></div>
+              <div class="color-data">
+                <span class="token-name">On primary</span
+                ><code class="token-value">#000000</code>
+              </div>
+            </article>
+            <article class="color-token">
+              <div class="swatch" style="background: #fff"></div>
+              <div class="color-data">
+                <span class="token-name">On dark</span
+                ><code class="token-value">#ffffff</code>
+              </div>
+            </article>
+            <article class="color-token">
+              <div class="swatch" style="background: #0066b1"></div>
+              <div class="color-data">
+                <span class="token-name">M blue light</span
+                ><code class="token-value">#0066b1</code>
+              </div>
+            </article>
+            <article class="color-token">
+              <div class="swatch" style="background: #1c69d4"></div>
+              <div class="color-data">
+                <span class="token-name">M blue dark</span
+                ><code class="token-value">#1c69d4</code>
+              </div>
+            </article>
+            <article class="color-token">
+              <div class="swatch" style="background: #e22718"></div>
+              <div class="color-data">
+                <span class="token-name">M red</span
+                ><code class="token-value">#e22718</code>
+              </div>
+            </article>
+            <article class="color-token">
+              <div class="swatch" style="background: #1c69d4"></div>
+              <div class="color-data">
+                <span class="token-name">BMW blue</span
+                ><code class="token-value">#1c69d4</code>
+              </div>
+            </article>
+            <article class="color-token">
+              <div class="swatch" style="background: #0653b6"></div>
+              <div class="color-data">
+                <span class="token-name">Electric blue</span
+                ><code class="token-value">#0653b6</code>
+              </div>
+            </article>
+            <article class="color-token">
+              <div class="swatch" style="background: #2b2b2b"></div>
+              <div class="color-data">
+                <span class="token-name">Carbon gray</span
+                ><code class="token-value">#2b2b2b</code>
+              </div>
+            </article>
+            <article class="color-token">
+              <div class="swatch" style="background: #f4b400"></div>
+              <div class="color-data">
+                <span class="token-name">Warning</span
+                ><code class="token-value">#f4b400</code>
+              </div>
+            </article>
+            <article class="color-token">
+              <div class="swatch" style="background: #0fa336"></div>
+              <div class="color-data">
+                <span class="token-name">Success</span
+                ><code class="token-value">#0fa336</code>
+              </div>
+            </article>
+          </div>
+
+          <div class="signature">
+            <div>
+              <div class="m-stripe" aria-label="BMW M tricolor stripe">
+                <span></span><span></span><span></span>
+              </div>
+              <h3>M tricolor signature</h3>
+              <p>
+                Use the three colors in sequence and reserve the treatment for
+                concise brand moments.
+              </p>
+            </div>
+            <div class="signature-codes">
+              <div><span>Light blue</span><code>#0066b1</code></div>
+              <div><span>Dark blue</span><code>#1c69d4</code></div>
+              <div><span>Red</span><code>#e22718</code></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="typography">
+        <div class="reveal container">
+          <div class="section-heading">
+            <div>
+              <span class="section-kicker">02 / Voice</span>
+              <h2>Typography</h2>
+            </div>
+            <p class="section-intro">
+              BMW Type Next Latin defines the source system. This preview uses
+              Barlow Condensed and Barlow as accessible visual substitutes.
+            </p>
+          </div>
+
+          <div class="font-summary">
+            <article class="font-card">
+              <span class="meta-label">Display substitute</span>
+              <div class="glyphs">Aa M4</div>
+              <p>Barlow Condensed · 400–700</p>
+            </article>
+            <article class="font-card body-face">
+              <span class="meta-label">Body substitute</span>
+              <div class="glyphs">Ag 0123</div>
+              <p>Barlow · 300–700</p>
+            </article>
+          </div>
+
+          <div class="type-list" aria-label="Typography tokens">
+            <div class="type-row">
+              <code class="token-value">display-xl</code>
+              <div
+                class="type-sample"
+                style="
+                  font-size: clamp(48px, 8vw, 80px);
+                  font-weight: 700;
+                  line-height: 1;
+                "
+              >
+                M PERFORMANCE
+              </div>
+              <code class="type-spec">80 / 80 · 700 · 0</code>
+            </div>
+            <div class="type-row">
+              <code class="token-value">display-lg</code>
+              <div
+                class="type-sample"
+                style="
+                  font-size: clamp(42px, 7vw, 56px);
+                  font-weight: 700;
+                  line-height: 1.05;
+                "
+              >
+                Born on the track
+              </div>
+              <code class="type-spec">56 / 58.8 · 700 · 0</code>
+            </div>
+            <div class="type-row">
+              <code class="token-value">display-md</code>
+              <div
+                class="type-sample"
+                style="font-size: 40px; font-weight: 700; line-height: 1.1"
+              >
+                Maximum precision
+              </div>
+              <code class="type-spec">40 / 44 · 700 · 0</code>
+            </div>
+            <div class="type-row">
+              <code class="token-value">display-sm</code>
+              <div
+                class="type-sample"
+                style="font-size: 32px; font-weight: 700; line-height: 1.15"
+              >
+                Motorsport engineering
+              </div>
+              <code class="type-spec">32 / 36.8 · 700 · 0</code>
+            </div>
+            <div class="type-row">
+              <code class="token-value">title-lg</code>
+              <div
+                class="type-sample"
+                style="font-size: 24px; font-weight: 700; line-height: 1.3"
+              >
+                BMW M4 Competition
+              </div>
+              <code class="type-spec">24 / 31.2 · 700 · 0</code>
+            </div>
+            <div class="type-row">
+              <code class="token-value">title-md</code>
+              <div
+                class="type-sample"
+                style="font-size: 20px; font-weight: 400; line-height: 1.4"
+              >
+                Uncompromising dynamics
+              </div>
+              <code class="type-spec">20 / 28 · 400 · 0</code>
+            </div>
+            <div class="type-row">
+              <code class="token-value">title-sm</code>
+              <div
+                class="type-sample"
+                style="font-size: 18px; font-weight: 400; line-height: 1.4"
+              >
+                Track-ready technology
+              </div>
+              <code class="type-spec">18 / 25.2 · 400 · 0</code>
+            </div>
+            <div class="type-row">
+              <code class="token-value">label-uppercase</code>
+              <div
+                class="type-sample"
+                style="
+                  font-size: 14px;
+                  font-weight: 700;
+                  line-height: 1.3;
+                  letter-spacing: 1.5px;
+                  text-transform: uppercase;
+                "
+              >
+                Explore the models
+              </div>
+              <code class="type-spec">14 / 18.2 · 700 · 1.5</code>
+            </div>
+            <div class="type-row" data-face="body">
+              <code class="token-value">body-md</code>
+              <div
+                class="type-sample"
+                style="font-size: 16px; font-weight: 300; line-height: 1.5"
+              >
+                Performance shaped by decades of motorsport experience.
+              </div>
+              <code class="type-spec">16 / 24 · 300 · 0</code>
+            </div>
+            <div class="type-row" data-face="body">
+              <code class="token-value">body-sm</code>
+              <div
+                class="type-sample"
+                style="font-size: 14px; font-weight: 300; line-height: 1.5"
+              >
+                Engineered to deliver control at every apex.
+              </div>
+              <code class="type-spec">14 / 21 · 300 · 0</code>
+            </div>
+            <div class="type-row" data-face="body">
+              <code class="token-value">caption</code>
+              <div
+                class="type-sample"
+                style="
+                  font-size: 12px;
+                  font-weight: 400;
+                  line-height: 1.4;
+                  letter-spacing: 0.5px;
+                "
+              >
+                Model specification · European configuration
+              </div>
+              <code class="type-spec">12 / 16.8 · 400 · 0.5</code>
+            </div>
+            <div class="type-row" data-face="body">
+              <code class="token-value">button</code>
+              <div
+                class="type-sample"
+                style="
+                  font-size: 14px;
+                  font-weight: 700;
+                  line-height: 1;
+                  letter-spacing: 1.5px;
+                  text-transform: uppercase;
+                "
+              >
+                Discover more
+              </div>
+              <code class="type-spec">14 / 14 · 700 · 1.5</code>
+            </div>
+            <div class="type-row" data-face="body">
+              <code class="token-value">nav-link</code>
+              <div
+                class="type-sample"
+                style="
+                  font-size: 14px;
+                  font-weight: 400;
+                  line-height: 1.4;
+                  letter-spacing: 0.5px;
+                "
+              >
+                Models · Experience · Motorsport
+              </div>
+              <code class="type-spec">14 / 19.6 · 400 · 0.5</code>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="spacing">
+        <div class="reveal container">
+          <div class="section-heading">
+            <div>
+              <span class="section-kicker">03 / Rhythm</span>
+              <h2>Spacing &amp; shapes</h2>
+            </div>
+            <p class="section-intro">
+              A compact 4px foundation scales into generous 96px section
+              spacing. Corners stay controlled and technical.
+            </p>
+          </div>
+          <div class="metrics-grid">
+            <div>
+              <h3 class="metric-title">Spacing scale</h3>
+              <div class="spacing-list">
+                <div class="spacing-row">
+                  <strong>XXS</strong>
+                  <div class="spacing-bar-wrap">
+                    <div class="spacing-bar" style="width: 4px"></div>
+                  </div>
+                  <code>4px</code>
+                </div>
+                <div class="spacing-row">
+                  <strong>XS</strong>
+                  <div class="spacing-bar-wrap">
+                    <div class="spacing-bar" style="width: 8px"></div>
+                  </div>
+                  <code>8px</code>
+                </div>
+                <div class="spacing-row">
+                  <strong>SM</strong>
+                  <div class="spacing-bar-wrap">
+                    <div class="spacing-bar" style="width: 12px"></div>
+                  </div>
+                  <code>12px</code>
+                </div>
+                <div class="spacing-row">
+                  <strong>MD</strong>
+                  <div class="spacing-bar-wrap">
+                    <div class="spacing-bar" style="width: 16px"></div>
+                  </div>
+                  <code>16px</code>
+                </div>
+                <div class="spacing-row">
+                  <strong>LG</strong>
+                  <div class="spacing-bar-wrap">
+                    <div class="spacing-bar" style="width: 24px"></div>
+                  </div>
+                  <code>24px</code>
+                </div>
+                <div class="spacing-row">
+                  <strong>XL</strong>
+                  <div class="spacing-bar-wrap">
+                    <div class="spacing-bar" style="width: 40px"></div>
+                  </div>
+                  <code>40px</code>
+                </div>
+                <div class="spacing-row">
+                  <strong>XXL</strong>
+                  <div class="spacing-bar-wrap">
+                    <div class="spacing-bar" style="width: 64px"></div>
+                  </div>
+                  <code>64px</code>
+                </div>
+                <div class="spacing-row">
+                  <strong>Section</strong>
+                  <div class="spacing-bar-wrap">
+                    <div class="spacing-bar" style="width: 96px"></div>
+                  </div>
+                  <code>96px</code>
+                </div>
+              </div>
+            </div>
+            <div>
+              <h3 class="metric-title">Radius scale</h3>
+              <div class="radius-grid">
+                <div class="radius-card">
+                  <div class="radius-demo" style="border-radius: 0"></div>
+                  <code>None · 0</code>
+                </div>
+                <div class="radius-card">
+                  <div class="radius-demo" style="border-radius: 2px"></div>
+                  <code>XS · 2px</code>
+                </div>
+                <div class="radius-card">
+                  <div class="radius-demo" style="border-radius: 4px"></div>
+                  <code>SM · 4px</code>
+                </div>
+                <div class="radius-card">
+                  <div class="radius-demo" style="border-radius: 6px"></div>
+                  <code>MD · 6px</code>
+                </div>
+                <div class="radius-card">
+                  <div class="radius-demo" style="border-radius: 9999px"></div>
+                  <code>Full · 9999px</code>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="surfaces">
+        <div class="reveal container">
+          <div class="section-heading">
+            <div>
+              <span class="section-kicker">04 / Depth</span>
+              <h2>Surfaces</h2>
+            </div>
+            <p class="section-intro">
+              Depth is expressed through tightly stepped black and gray
+              surfaces, with borders separating functional regions.
+            </p>
+          </div>
+          <div class="surface-grid">
+            <article class="surface-card" style="background: #000">
+              <strong>Canvas</strong><code>#000000</code>
+            </article>
+            <article class="surface-card" style="background: #0d0d0d">
+              <strong>Surface soft</strong><code>#0d0d0d</code>
+            </article>
+            <article class="surface-card" style="background: #1a1a1a">
+              <strong>Surface card</strong><code>#1a1a1a</code>
+            </article>
+            <article class="surface-card" style="background: #262626">
+              <strong>Surface elevated</strong><code>#262626</code>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="components">
+        <div class="reveal container">
+          <div class="section-heading">
+            <div>
+              <span class="section-kicker">05 / Interface</span>
+              <h2>Components</h2>
+            </div>
+            <p class="section-intro">
+              Square controls, concise labels, clear active states, and modular
+              specifications keep the experience direct.
+            </p>
+          </div>
+          <div class="component-stack">
+            <article class="component-panel">
+              <div class="component-meta">
+                <span class="token-count">Actions</span>
+                <h3>Buttons</h3>
+                <p>48px height · 32px inline padding</p>
+              </div>
+              <div class="component-preview">
+                <a class="btn btn-primary" href="#guidelines">Discover more</a
+                ><a class="btn btn-outline" href="#colors">Explore models</a
+                ><button
+                  class="icon-button"
+                  type="button"
+                  aria-label="Next item"
+                >
+                  →
+                </button>
+              </div>
+            </article>
+            <article class="component-panel">
+              <div class="component-meta">
+                <span class="token-count">Navigation</span>
+                <h3>Category tabs</h3>
+                <p>Uppercase label with active underline</p>
+              </div>
+              <div class="component-preview">
+                <div
+                  class="tabs"
+                  role="tablist"
+                  aria-label="Vehicle categories"
+                >
+                  <button
+                    class="tab"
+                    role="tab"
+                    type="button"
+                    aria-selected="true"
+                  >
+                    All models</button
+                  ><button
+                    class="tab"
+                    role="tab"
+                    type="button"
+                    aria-selected="false"
+                  >
+                    Coupé</button
+                  ><button
+                    class="tab"
+                    role="tab"
+                    type="button"
+                    aria-selected="false"
+                  >
+                    Sedan</button
+                  ><button
+                    class="tab"
+                    role="tab"
+                    type="button"
+                    aria-selected="false"
+                  >
+                    SUV
+                  </button>
+                </div>
+              </div>
+            </article>
+            <article class="component-panel">
+              <div class="component-meta">
+                <span class="token-count">Content</span>
+                <h3>Model &amp; specs</h3>
+                <p>Dark card with structured spec cells</p>
+              </div>
+              <div class="component-preview">
+                <div class="model-card">
+                  <div class="model-copy">
+                    <span class="token-count">BMW M4</span>
+                    <h4>Competition Coupé</h4>
+                    <p>
+                      Performance data shown as a disciplined, scan-friendly
+                      module.
+                    </p>
+                  </div>
+                  <div class="specs">
+                    <div class="spec"><strong>530</strong><span>HP</span></div>
+                    <div class="spec">
+                      <strong>3.5</strong><span>0–100 km/h</span>
+                    </div>
+                    <div class="spec"><strong>650</strong><span>Nm</span></div>
+                    <div class="spec">
+                      <strong>8</strong><span>Speed M Steptronic</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </article>
+            <article class="component-panel">
+              <div class="component-meta">
+                <span class="token-count">Form</span>
+                <h3>Text input</h3>
+                <p>Square field with blue focus state</p>
+              </div>
+              <div class="component-preview">
+                <div class="field">
+                  <label for="dealer-search">Find a BMW M partner</label
+                  ><input
+                    id="dealer-search"
+                    type="text"
+                    placeholder="City or postal code"
+                  />
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="guidelines">
+        <div class="reveal container">
+          <div class="section-heading">
+            <div>
+              <span class="section-kicker">06 / Direction</span>
+              <h2>Guidelines</h2>
+            </div>
+            <p class="section-intro">
+              Preserve the system’s technical restraint: contrast, typography,
+              and imagery carry the energy.
+            </p>
+          </div>
+          <div class="guideline-grid">
+            <article class="guideline-card">
+              <h3>Do</h3>
+              <ul>
+                <li>Anchor primary layouts to the black canvas.</li>
+                <li>Keep display headlines concise, bold, and uppercase.</li>
+                <li>Use the M tricolor as a controlled brand signature.</li>
+                <li>Preserve documented spacing and interaction states.</li>
+              </ul>
+            </article>
+            <article class="guideline-card caution">
+              <h3>Avoid</h3>
+              <ul>
+                <li>Introducing colors outside the documented palette.</li>
+                <li>Replacing white ink with an arbitrary neutral.</li>
+                <li>Softening every control with large corner radii.</li>
+                <li>Flattening spacing or component states for convenience.</li>
+              </ul>
+            </article>
+          </div>
+          <div class="downloads" aria-label="Download design system files">
+            <a class="download-link" href="#" download>DESIGN.md ↓</a>
+            <a class="download-link" href="#" download
+              >tokens.json ↓</a
+            >
+            <a class="download-link" href="#" download
+              >variables.css ↓</a
+            >
+            <a class="download-link" href="#" download>theme.css ↓</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner container">
+        <p>BMW M design reference · Source reviewed from bmw-m.com</p>
+        <div class="footer-mark" aria-label="BMW M tricolor">
+          <span></span><span></span><span></span>
+        </div>
+      </div>
+    </footer>
+
+    
+  </body>
+</html>

@@ -1,0 +1,450 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Geometric Bold — component reference</title>
+<style>
+	/* Mirrors theme.css. Plain custom properties so this file opens standalone. */
+	:root {
+		--color-primary: #000000;
+		--color-primary-foreground: #ffffff;
+		--color-surface: #ffffff;
+		--color-surface-foreground: #000000;
+		--color-surface-raised: #ffffff;
+		--color-muted: #6c3b00;
+		--color-accent: #0000ff;
+		--color-danger: #ff0000;
+		--color-border: #000000;
+
+		--color-block-red: #ff0000;
+		--color-block-blue: #0000ff;
+		--color-block-yellow: #ffff00;
+		--color-block-earth: #6c3b00;
+
+		--radius-full: 9999px;
+		--border-width-base: 4px;
+		--border-width-heavy: 8px;
+		--shadow-lg: 8px 8px 0 0 #000000;
+
+		--sans: "Helvetica Neue", Helvetica, Arial, sans-serif;
+		--mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
+	}
+
+	*, *::before, *::after { box-sizing: border-box; }
+	body {
+		margin: 0;
+		background: var(--color-surface);
+		color: var(--color-surface-foreground);
+		font-family: var(--sans);
+		font-weight: 500;
+		font-size: 16px;
+		line-height: 1.5;
+		-webkit-font-smoothing: antialiased;
+	}
+	/* Weight 900 is the floor, not the peak. There are no light headings here. */
+	h1, h2, h3 { margin: 0; font-weight: 900; text-transform: uppercase; letter-spacing: -0.02em; line-height: 1; }
+	p { margin: 0; }
+	::selection { background: var(--color-block-yellow); color: #000; }
+	.spacer { flex: 1; }
+	.mono { font-family: var(--mono); }
+	.label {
+		font-family: var(--mono); font-size: 12px;
+		text-transform: uppercase; letter-spacing: 0.2em; color: var(--color-muted);
+	}
+
+	.wrap { max-width: 1180px; margin: 0 auto; padding: 0 16px; }
+	@media (min-width: 768px) { .wrap { padding: 0 32px; } }
+	@media (min-width: 1024px) { .wrap { padding: 0 48px; } }
+
+	/* ── Masthead: a rule, not a bar ──────────────────────────────── */
+	.masthead {
+		display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
+		padding: 16px 0; border-bottom: var(--border-width-base) solid var(--color-border);
+	}
+	.wordmark { font-weight: 900; text-transform: uppercase; letter-spacing: -0.03em; font-size: 22px; display: flex; align-items: center; gap: 10px; }
+	.wordmark .sq { width: 20px; height: 20px; background: var(--color-block-red); }
+	.masthead nav { display: none; gap: 26px; }
+	@media (min-width: 780px) { .masthead nav { display: flex; } }
+
+	/* ── The poster: asymmetric blocks butting with no gutter ─────── */
+	.poster { display: grid; grid-template-columns: 1fr; border-bottom: var(--border-width-heavy) solid var(--color-border); }
+	@media (min-width: 900px) { .poster { grid-template-columns: 7fr 3fr; } }
+	.poster-main {
+		background: var(--color-primary); color: var(--color-primary-foreground);
+		padding: 28px 20px 32px; position: relative; overflow: hidden;
+	}
+	@media (min-width: 768px) { .poster-main { padding: 48px 40px 56px; } }
+	.poster-main .kicker { font-family: var(--mono); font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; }
+	/* Hero type is allowed to crop and run off the edge. */
+	.poster-main h1 { font-size: 58px; line-height: 0.86; margin-top: 18px; }
+	@media (min-width: 768px) { .poster-main h1 { font-size: 104px; } }
+	@media (min-width: 1024px) { .poster-main h1 { font-size: 148px; margin-right: -30px; } }
+	.poster-main .dates { display: flex; flex-wrap: wrap; gap: 24px; margin-top: 28px; font-family: var(--mono); font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; }
+	.poster-main .circle-crop { position: absolute; right: -70px; bottom: -70px; width: 220px; height: 220px; border-radius: var(--radius-full); background: var(--color-block-red); }
+
+	.poster-side { display: grid; grid-template-rows: 1fr 1fr 1fr; }
+	@media (min-width: 900px) { .poster-side { border-left: var(--border-width-base) solid var(--color-border); } }
+	.poster-side > div { display: grid; place-items: center; padding: 28px; border-top: var(--border-width-base) solid var(--color-border); }
+	@media (min-width: 900px) { .poster-side > div:first-child { border-top: 0; } }
+
+	/* ── Shape vocabulary ─────────────────────────────────────────── */
+	.shape-circle { width: 84px; height: 84px; border-radius: var(--radius-full); }
+	.shape-square { width: 84px; height: 84px; }
+	.shape-triangle {
+		width: 0; height: 0;
+		border-left: 42px solid transparent; border-right: 42px solid transparent;
+		border-bottom: 84px solid var(--color-block-yellow);
+	}
+	.shapes { display: flex; flex-wrap: wrap; gap: 20px; align-items: flex-end; }
+
+	/* ── Sections ─────────────────────────────────────────────────── */
+	.section { padding: 48px 0; }
+	@media (min-width: 768px) { .section { padding: 88px 0; } }
+	.section-label {
+		font-family: var(--mono); font-size: 12px;
+		text-transform: uppercase; letter-spacing: 0.2em; color: var(--color-muted);
+		border-bottom: var(--border-width-base) solid var(--color-border);
+		padding-bottom: 8px; margin-bottom: 28px;
+	}
+	.section h2 { font-size: 32px; }
+	@media (min-width: 768px) { .section h2 { font-size: 52px; } }
+	.lede { margin-top: 18px; max-width: 58ch; font-size: 16px; }
+	.note { margin-top: 22px; font-size: 14px; color: var(--color-muted); }
+	.row { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; }
+	/* Asymmetry is the layout rule — one column always outweighs the other. */
+	.split { display: grid; grid-template-columns: 1fr; gap: 0; border: var(--border-width-base) solid var(--color-border); margin-top: 32px; }
+	@media (min-width: 820px) { .split { grid-template-columns: 5fr 3fr; } }
+	.split > div { padding: 24px; }
+	@media (min-width: 768px) { .split > div { padding: 32px; } }
+	@media (min-width: 820px) { .split > div + div { border-left: var(--border-width-base) solid var(--color-border); } }
+	@media (max-width: 819px) { .split > div + div { border-top: var(--border-width-base) solid var(--color-border); } }
+
+	/* ── Buttons: solid ink or white with a 4px rule. Hover swaps. ── */
+	.btn {
+		font: inherit; font-weight: 700;
+		text-transform: uppercase; letter-spacing: 0.15em; font-size: 13px;
+		padding: 14px 26px;
+		border: var(--border-width-base) solid var(--color-border);
+		border-radius: 0; box-shadow: none;
+		background: var(--color-primary); color: var(--color-primary-foreground);
+		cursor: pointer;
+		transition: color 200ms, background-color 200ms, transform 200ms;
+	}
+	.btn:hover { background: var(--color-surface); color: var(--color-surface-foreground); transform: scale(1.05); }
+	.btn:active { transform: scale(0.95); }
+	.btn:focus-visible { outline: none; background: var(--color-block-yellow); color: var(--color-primary); }
+	.btn-outline { background: var(--color-surface); color: var(--color-surface-foreground); }
+	.btn-outline:hover { background: var(--color-primary); color: var(--color-primary-foreground); }
+	.btn-accent { background: var(--color-accent); color: #fff; }
+	.btn-accent:hover { background: var(--color-surface); color: var(--color-accent); }
+	.btn-danger { background: var(--color-danger); color: #fff; }
+	.btn-danger:hover { background: var(--color-surface); color: var(--color-danger); }
+	.btn-round { border-radius: var(--radius-full); }
+	/* Disabled is hatched, never faded — no opacity dimming in this system. */
+	.btn[disabled] {
+		cursor: not-allowed; transform: none; color: var(--color-primary);
+		background: repeating-linear-gradient(45deg, #fff 0 12px, #000 12px 14px);
+		text-decoration: line-through;
+	}
+
+	.field { max-width: 380px; }
+	.input {
+		font: inherit; font-weight: 500; font-size: 16px;
+		width: 100%; padding: 13px 14px;
+		border: var(--border-width-base) solid var(--color-border); border-radius: 0;
+		background: var(--color-surface); color: var(--color-surface-foreground);
+	}
+	.input::placeholder { color: var(--color-muted); }
+	/* Focus fills the field with yellow — the loudest possible signal. */
+	.input:focus { outline: none; background: var(--color-block-yellow); }
+
+	/* ── Cards: white, 4px rule, flat. Hierarchy from the header ink. ── */
+	.cards { display: grid; grid-template-columns: 1fr; border: var(--border-width-base) solid var(--color-border); margin-top: 32px; }
+	@media (min-width: 820px) { .cards { grid-template-columns: repeat(3, 1fr); } }
+	.card { background: var(--color-surface-raised); }
+	@media (min-width: 820px) { .card + .card { border-left: var(--border-width-base) solid var(--color-border); } }
+	@media (max-width: 819px) { .card + .card { border-top: var(--border-width-base) solid var(--color-border); } }
+	.card-head { padding: 14px 20px; border-bottom: var(--border-width-base) solid var(--color-border); font-family: var(--mono); font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; }
+	.card-head.red { background: var(--color-block-red); color: #fff; }
+	.card-head.blue { background: var(--color-block-blue); color: #fff; }
+	.card-head.yellow { background: var(--color-block-yellow); color: #000; }
+	.card-body { padding: 20px; }
+	.card-body h3 { font-size: 22px; }
+	.card-body p { margin-top: 10px; font-size: 15px; }
+
+	/* ── Ink swatches ─────────────────────────────────────────────── */
+	.inks { display: grid; grid-template-columns: repeat(2, 1fr); border: var(--border-width-base) solid var(--color-border); margin-top: 32px; }
+	@media (min-width: 720px) { .inks { grid-template-columns: repeat(4, 1fr); } }
+	.ink { padding: 0; }
+	.ink .chip { height: 96px; display: grid; place-items: end start; padding: 12px; font-family: var(--mono); font-size: 12px; letter-spacing: 0.16em; }
+	.ink .meta { padding: 12px; border-top: var(--border-width-base) solid var(--color-border); font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-muted); }
+	@media (min-width: 720px) { .ink + .ink { border-left: var(--border-width-base) solid var(--color-border); } }
+	@media (max-width: 719px) { .ink:nth-child(2n) { border-left: var(--border-width-base) solid var(--color-border); } .ink:nth-child(n+3) { border-top: var(--border-width-base) solid var(--color-border); } }
+
+	/* ── Table: 2px rules, the one place the border thins ─────────── */
+	table { width: 100%; border-collapse: collapse; margin-top: 32px; }
+	.tablewrap { overflow-x: auto; }
+	th { text-align: left; font-family: var(--mono); font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--color-muted); padding: 10px 12px; border-bottom: var(--border-width-base) solid var(--color-border); }
+	td { padding: 14px 12px; border-bottom: 2px solid var(--color-border); font-size: 15px; }
+	td.num { font-family: var(--mono); text-align: right; }
+	.dot { display: inline-block; width: 12px; height: 12px; border-radius: var(--radius-full); vertical-align: -1px; margin-right: 8px; }
+
+	/* ── Overlay: the 8px offset is the only depth cue permitted ──── */
+	.stage { margin-top: 32px; padding: 40px 20px; border: var(--border-width-base) solid var(--color-border); background: repeating-linear-gradient(45deg, #fff 0 14px, #f2f2f2 14px 28px); }
+	.dialog { max-width: 440px; margin: 0 auto; background: var(--color-surface); border: var(--border-width-base) solid var(--color-border); box-shadow: var(--shadow-lg); }
+	.dialog .bar { padding: 14px 20px; border-bottom: var(--border-width-base) solid var(--color-border); font-family: var(--mono); font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; }
+	.dialog .body { padding: 20px; }
+
+	/* ── Mobile ───────────────────────────────────────────────────── */
+	.mobile { display: grid; grid-template-columns: minmax(0, 1fr); gap: 32px; margin-top: 32px; align-items: start; }
+	@media (min-width: 900px) { .mobile { grid-template-columns: 292px 1fr; gap: 48px; } }
+	/* No rounded phone shell — the frame obeys the system too. */
+	.phone { width: 292px; max-width: 100%; margin: 0 auto; border: var(--border-width-heavy) solid var(--color-border); background: var(--color-surface); }
+	.phone-status { display: flex; justify-content: space-between; padding: 8px 12px; font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; border-bottom: var(--border-width-base) solid var(--color-border); }
+	.m-poster { background: var(--color-primary); color: var(--color-primary-foreground); padding: 18px 14px 22px; position: relative; overflow: hidden; }
+	.m-poster .kicker { font-family: var(--mono); font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; }
+	.m-poster h4 { font-size: 44px; font-weight: 900; text-transform: uppercase; line-height: 0.86; letter-spacing: -0.03em; margin: 10px 0 0; }
+	.m-poster .circle-crop { width: 120px; height: 120px; right: -46px; bottom: -50px; }
+	.m-blocks { display: grid; grid-template-columns: 1fr 1fr; border-bottom: var(--border-width-base) solid var(--color-border); }
+	.m-blocks > div { padding: 18px; display: grid; place-items: center; border-top: var(--border-width-base) solid var(--color-border); }
+	.m-blocks > div + div { border-left: var(--border-width-base) solid var(--color-border); }
+	.m-rows { padding: 0; }
+	.m-row { display: flex; align-items: center; gap: 10px; padding: 11px 14px; border-bottom: 2px solid var(--color-border); font-size: 13px; }
+	.m-row .mono { margin-left: auto; font-size: 11px; }
+	.m-cta { padding: 14px; }
+	.m-cta .btn { width: 100%; }
+
+	.rules { margin: 0; padding: 0; list-style: none; }
+	.rules li { padding: 14px 0; border-bottom: 2px solid var(--color-border); font-size: 15px; }
+	.rules b { display: block; font-family: var(--mono); font-size: 12px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; margin-bottom: 4px; }
+	.rules span { color: var(--color-muted); }
+
+	/* ── Off-style ────────────────────────────────────────────────── */
+	.compare { display: grid; grid-template-columns: 1fr; gap: 20px; margin-top: 32px; }
+	@media (min-width: 760px) { .compare { grid-template-columns: repeat(2, 1fr); } }
+	.cmp-off {
+		padding: 26px; border-radius: 16px; border: 1px solid #e5e7eb;
+		background: linear-gradient(140deg, #f9fafb, #eef2f7);
+		box-shadow: 0 10px 30px rgb(15 23 42 / 0.1);
+		color: #64748b; font-weight: 400; font-size: 16px;
+	}
+	.cmp-off small { display: block; font-size: 13px; margin-top: 10px; color: #94a3b8; }
+	.cmp-on { padding: 26px; border: var(--border-width-base) solid var(--color-border); font-weight: 900; text-transform: uppercase; font-size: 20px; line-height: 1.1; }
+	.cmp-on small { display: block; font-size: 13px; font-weight: 500; text-transform: none; color: var(--color-muted); margin-top: 12px; line-height: 1.5; }
+
+	footer { border-top: var(--border-width-heavy) solid var(--color-border); padding: 28px 0 56px; font-family: var(--mono); font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--color-muted); }
+
+	@media (prefers-reduced-motion: reduce) {
+		.btn:hover, .btn:active { transform: none; }
+	}
+</style>
+</head>
+<body>
+
+<!-- COVER — an exhibition poster that happens to be an interface. Asymmetric
+     blocks, no gutters, one cropped circle, three inks and no more. -->
+<div class="wrap">
+	<div class="masthead">
+		<span class="wordmark"><span class="sq"></span>Vetta</span>
+		<nav class="label"><span>Programme</span><span>Studio</span><span>Archive</span></nav>
+		<span class="spacer"></span>
+		<button class="btn">Tickets</button>
+	</div>
+</div>
+
+<div class="poster">
+	<div class="poster-main">
+		<p class="kicker">Vetta Kunsthalle — Hall 2</p>
+		<h1>Form<br>Follows<br>Nothing</h1>
+		<div class="dates">
+			<span>12 Apr — 30 Jun</span><span>Daily 10:00—18:00</span><span>Free entry</span>
+		</div>
+		<span class="circle-crop"></span>
+	</div>
+	<div class="poster-side">
+		<div style="background: var(--color-block-blue);"><span class="shape-circle" style="background: var(--color-surface);"></span></div>
+		<div style="background: var(--color-block-yellow);"><span class="shape-square" style="background: var(--color-primary);"></span></div>
+		<div><span class="shape-triangle"></span></div>
+	</div>
+</div>
+
+<div class="wrap">
+
+	<!-- 01 -->
+	<section class="section">
+		<p class="section-label">01 — Shape carries the meaning</p>
+		<h2>Circle, square, triangle</h2>
+		<p class="lede">The three primitives do the work an icon set would do elsewhere. They may
+			overlap, crop and hang off the margin — what they must never do is sit politely centred inside
+			a padded box.</p>
+		<div class="shapes" style="margin-top: 32px;">
+			<span class="shape-circle" style="background: var(--color-block-red);"></span>
+			<span class="shape-square" style="background: var(--color-block-blue);"></span>
+			<span class="shape-triangle"></span>
+			<span class="shape-circle" style="background: var(--color-block-earth);"></span>
+			<span class="shape-square" style="background: var(--color-primary);"></span>
+		</div>
+		<div class="split">
+			<div>
+				<h3 style="font-size:24px">Asymmetry is the layout rule</h3>
+				<p style="margin-top:12px">One column outweighs the other, blocks butt directly together, and the
+					shared 4px rule between them is a feature rather than a seam. A symmetrical, evenly balanced
+					page kills the style faster than any wrong color could.</p>
+			</div>
+			<div style="background: var(--color-block-yellow);">
+				<p class="label" style="color: var(--color-primary)">Ratio</p>
+				<p style="font-weight:900;font-size:44px;line-height:1;margin-top:10px">5:3</p>
+			</div>
+		</div>
+	</section>
+
+	<!-- 02 -->
+	<section class="section">
+		<p class="section-label">02 — Inks</p>
+		<h2>Three inks, plus black and white</h2>
+		<p class="lede">Four is already too many. There are no grays anywhere in the system — the only
+			secondary text color is earth brown, and a dimmed gray reads as a mistake on sight.</p>
+		<div class="inks">
+			<div class="ink">
+				<div class="chip" style="background: var(--color-block-red); color: #fff;">FF0000</div>
+				<div class="meta">block-red · hero, once</div>
+			</div>
+			<div class="ink">
+				<div class="chip" style="background: var(--color-block-blue); color: #fff;">0000FF</div>
+				<div class="meta">block-blue · links, selected</div>
+			</div>
+			<div class="ink">
+				<div class="chip" style="background: var(--color-block-yellow); color: #000;">FFFF00</div>
+				<div class="meta">block-yellow · focus only</div>
+			</div>
+			<div class="ink">
+				<div class="chip" style="background: var(--color-block-earth); color: #fff;">6C3B00</div>
+				<div class="meta">muted · secondary text</div>
+			</div>
+		</div>
+		<div class="cards">
+			<div class="card">
+				<div class="card-head red">01 / Flat</div>
+				<div class="card-body"><h3>No elevation</h3><p>Cards are white with a 4px rule. Hierarchy comes from size and from which ink the header block takes.</p></div>
+			</div>
+			<div class="card">
+				<div class="card-head blue">02 / Hard</div>
+				<div class="card-body"><h3>No radius</h3><p>Every corner is 0. The only exception is a true circle — nothing lives in between.</p></div>
+			</div>
+			<div class="card">
+				<div class="card-head yellow">03 / Loud</div>
+				<div class="card-body"><h3>No opacity</h3><p>Dimming with opacity is banned. Disabled states hatch; secondary text changes ink.</p></div>
+			</div>
+		</div>
+	</section>
+
+	<!-- 03 -->
+	<section class="section">
+		<p class="section-label">03 — Controls</p>
+		<h2>Hover swaps, focus goes yellow</h2>
+		<p class="lede">Buttons are a solid ink fill or white inside a 4px rule, uppercase with wide
+			tracking. Hover inverts the fill and text outright — no shading, no fade. Focus fills the field
+			with yellow, which is the reason yellow is reserved for nothing else.</p>
+		<div class="row" style="margin-top: 32px;">
+			<button class="btn">Book tickets</button>
+			<button class="btn btn-outline">Programme</button>
+			<button class="btn btn-accent">Members</button>
+			<button class="btn btn-danger">Cancel</button>
+			<button class="btn btn-round">Round</button>
+			<button class="btn" disabled>Sold out</button>
+		</div>
+		<div class="field" style="margin-top: 26px;">
+			<p class="label" style="margin-bottom: 8px;">Newsletter — click in</p>
+			<input class="input" placeholder="you@studio.com">
+		</div>
+
+		<div class="tablewrap">
+		<table>
+			<thead><tr><th>Work</th><th>Room</th><th>Ink</th><th style="text-align:right">Year</th></tr></thead>
+			<tbody>
+				<tr><td><span class="dot" style="background: var(--color-block-red)"></span>Composition in rule</td><td>Hall 2</td><td class="mono">RED</td><td class="num">1923</td></tr>
+				<tr><td><span class="dot" style="background: var(--color-block-blue)"></span>Study, three planes</td><td>Hall 2</td><td class="mono">BLUE</td><td class="num">1925</td></tr>
+				<tr><td><span class="dot" style="background: var(--color-block-yellow)"></span>Untitled (focus)</td><td>Hall 3</td><td class="mono">YELLOW</td><td class="num">1927</td></tr>
+				<tr><td><span class="dot" style="background: var(--color-block-earth)"></span>Earth, offset</td><td>Archive</td><td class="mono">EARTH</td><td class="num">1931</td></tr>
+			</tbody>
+		</table>
+		</div>
+		<p class="note">Table rules are the one place the border thins — 2px for dense rows, 4px under the header. Every number is monospace.</p>
+	</section>
+
+	<!-- 04 -->
+	<section class="section">
+		<p class="section-label">04 — Overlay</p>
+		<h2>One depth cue, eight pixels</h2>
+		<div class="stage">
+			<div class="dialog">
+				<div class="bar">Confirm — 2 tickets</div>
+				<div class="body">
+					<h3 style="font-size:22px">Hold these seats?</h3>
+					<p style="margin-top:10px;font-size:15px">The hold lasts ten minutes. After that the seats go back to the room.</p>
+					<div class="row" style="margin-top: 22px;">
+						<button class="btn">Hold</button>
+						<button class="btn btn-outline">Back</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<p class="note">A hard 8px black offset with zero blur. Every other shadow token in this system is <code class="mono">none</code>, and blurred shadows are off-style at any size.</p>
+	</section>
+
+	<!-- 05 MOBILE -->
+	<section class="section">
+		<p class="section-label">05 — Mobile</p>
+		<h2>The poster reflows, the rules do not</h2>
+		<p class="lede">A 4px rule is 4px on a 320px screen too. Everything about the mobile build is a
+			re-stacking of the same blocks — what changes is which edge carries the rule, never how heavy
+			that rule is.</p>
+		<div class="mobile">
+			<div class="phone">
+				<div class="phone-status"><span>09:41</span><span>LTE</span></div>
+				<div class="m-poster">
+					<p class="kicker">Vetta Kunsthalle</p>
+					<h4>Form<br>Follows<br>Nothing</h4>
+					<span class="circle-crop" style="position:absolute;border-radius:var(--radius-full);background:var(--color-block-red);"></span>
+				</div>
+				<div class="m-blocks">
+					<div style="background: var(--color-block-blue);"><span class="shape-circle" style="width:44px;height:44px;background:#fff"></span></div>
+					<div style="background: var(--color-block-yellow);"><span class="shape-square" style="width:44px;height:44px;background:#000"></span></div>
+				</div>
+				<div class="m-rows">
+					<div class="m-row"><span class="dot" style="background: var(--color-block-red)"></span>Composition in rule<span class="mono">1923</span></div>
+					<div class="m-row"><span class="dot" style="background: var(--color-block-blue)"></span>Study, three planes<span class="mono">1925</span></div>
+					<div class="m-row"><span class="dot" style="background: var(--color-block-yellow)"></span>Untitled (focus)<span class="mono">1927</span></div>
+				</div>
+				<div class="m-cta"><button class="btn">Book tickets</button></div>
+			</div>
+			<ul class="rules">
+				<li><b>Borders hold</b><span>4px base and 8px heavy stay exactly as they are. Thinning a rule to "breathe" on mobile is the single change that would dismantle this style.</span></li>
+				<li><b>Vertical rules become horizontal</b><span>The 7:3 poster split stacks, and the rule that divided the columns moves to the top edge of the block below it. No gutter appears between them.</span></li>
+				<li><b>Hero type</b><span>148px → 104px → 44px, still weight 900 uppercase at 0.86 line height. It stays the largest object on the screen and may still crop at the edge.</span></li>
+				<li><b>Container padding</b><span>48px → 32px → 16px. Full-bleed color panels ignore it entirely and run to the viewport edge, which is what keeps the poster feeling printed.</span></li>
+				<li><b>Shapes</b><span>Circles, squares and triangles halve in size but stay whole and stay in the block inks. A shape that shrinks below ~40px stops reading and is dropped instead.</span></li>
+				<li><b>Focus and hover</b><span>There is no hover on touch, so the color swap moves entirely to <code class="mono">:active</code>. The yellow focus fill still fires for keyboard users on tablets with a keyboard attached.</span></li>
+				<li><b>Cards and tables</b><span>Three-column card rows stack with a 4px rule between them. Table rows keep their 2px rules; the room column drops and the year stays monospace on the right.</span></li>
+			</ul>
+		</div>
+	</section>
+
+	<!-- 06 DON'T -->
+	<section class="section">
+		<p class="section-label">06 — Off-style, for contrast</p>
+		<h2>What breaks the poster</h2>
+		<div class="compare">
+			<div class="cmp-off">Soft neutral card
+				<small>16px radius · gray gradient · blurred shadow · 1px hairline · regular weight slate text. Six violations in one box, and each on its own would be enough.</small></div>
+			<div class="cmp-on">Same content, on-style
+				<small>Square corners, 4px black rule, flat white, weight 900 uppercase, earth brown for the secondary line. Loud on purpose.</small></div>
+		</div>
+		<p class="note">Also out: gradients, blur, opacity-based dimming, gray palettes, light font weights, symmetrical centred layouts, and a fourth ink.</p>
+	</section>
+</div>
+
+<footer><div class="wrap">Vetta design reference — geometric bold · three inks, black, white.</div></footer>
+</body>
+</html>

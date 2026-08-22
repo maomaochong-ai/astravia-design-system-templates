@@ -1,0 +1,71 @@
+/* templates — light design system, converted from brands-design-md. */
+@theme {
+	--color-primary: #fc5000;
+	--color-primary-foreground: #ffffff;
+	--color-surface: #ffffff;
+	--color-surface-foreground: #111111;
+	--color-surface-raised: #f7f7f7;
+	--color-muted: #6a6a6a;
+	--color-accent: #f5f28e;
+	--color-danger: #dc2626;
+	--color-border: #e5e5e5;
+
+/* 品牌 token（来自 brands-design-md） */
+/* Colors */
+  --color-basalt-canvas: #e2e2df;
+  --color-ash-white: #f7f6f2;
+  --color-abyssal-ink: #070607;
+  --color-pure-white: #ffffff;
+  --color-digital-orange: #fc5000;
+  --color-cyber-violet: #524ae9;
+  --color-pixel-glare: #f5f28e;
+
+  /* Typography */
+  --font-sans-serif: 'sans-serif', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-pp-neue-corp-compact-ultrabold: 'PP Neue Corp Compact Ultrabold', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-dm-sans: 'DM Sans', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+  /* Typography — Scale */
+  --text-body-sm: 14px;
+  --leading-body-sm: 1.25;
+  --text-body: 16px;
+  --leading-body: 1.55;
+  --text-subheading: 30px;
+  --leading-subheading: 1.11;
+  --text-heading-sm: 32px;
+  --leading-heading-sm: 0.95;
+  --tracking-heading-sm: 0.02px;
+  --text-heading: 56px;
+  --leading-heading: 0.94;
+  --tracking-heading: 0.02px;
+  --text-display: 96px;
+  --leading-display: 0.94;
+  --tracking-display: 0.02px;
+
+  /* Spacing */
+  --spacing-4: 4px;
+  --spacing-8: 8px;
+  --spacing-9: 9px;
+  --spacing-10: 10px;
+  --spacing-12: 12px;
+  --spacing-16: 16px;
+  --spacing-18: 18px;
+  --spacing-20: 20px;
+  --spacing-24: 24px;
+  --spacing-32: 32px;
+  --spacing-40: 40px;
+  --spacing-48: 48px;
+  --spacing-56: 56px;
+  --spacing-64: 64px;
+  --spacing-80: 80px;
+  --spacing-92: 92px;
+
+  /* Border Radius */
+  --radius-2xl: 16px;
+  --radius-2xl-2: 20px;
+  --radius-3xl: 24px;
+  --radius-3xl-2: 32px;
+  --radius-3xl-3: 40px;
+  --radius-full: 100px;
+  --radius-full-2: 800px;
+}

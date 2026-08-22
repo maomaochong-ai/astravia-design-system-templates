@@ -1,0 +1,32 @@
+{
+	"schemaVersion": 1,
+	"kind": "design-system",
+	"slug": "slack",
+	"name": "Slack",
+	"version": "1.0.0",
+	"order": 170,
+	"category": "productivity",
+	"vibe": "light",
+	"tags": [
+		"light-ui",
+		"gradient",
+		"design-system"
+	],
+	"blurb": "An inspired interpretation of Slacc's design language — a workplace messaging brand built on a deep aubergine primary, with cream-lavender hero gradients, blue inline links, and…",
+	"tagline": {
+		"en": "Deep aubergine workplace messaging",
+		"zh": "深茄紫的工作协作消息"
+	},
+	"license": "MIT",
+	"origin": {
+		"type": "curated",
+		"upstream": "https://github.com/ricocc/brands-design-md.git",
+		"note": "from brands-design-md (Slacc-Inspired); unofficial inspired variant."
+	},
+	"assets": {
+		"spec": "DESIGN.md",
+		"theme": "theme.css",
+		"demo": "demo.html"
+	},
+	"collectedAt": "2026-08-22"
+}

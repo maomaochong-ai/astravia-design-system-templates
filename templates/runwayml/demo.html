@@ -1,0 +1,607 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Runway — Design System</title>
+    <style>
+      :root {
+        --ink: #0c0c0c;
+        --carbon: #1a1a1a;
+        --slate: #404040;
+        --steel: #6b7280;
+        --silver: #999;
+        --bone: #e5e7eb;
+        --cloud: #eef1f5;
+        --cobalt: #2b22fa;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        margin: 0;
+        background: #fff;
+        color: var(--ink);
+        font:
+          16px/1.5 abcNormal,
+          Söhne,
+          system-ui,
+          sans-serif;
+        letter-spacing: -0.006em;
+      }
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+      button {
+        font: inherit;
+      }
+      :focus-visible {
+        outline: 2px solid var(--cobalt);
+        outline-offset: 3px;
+      }
+      .wrap {
+        width: min(100% - 40px, 1120px);
+        margin: auto;
+      }
+      .promo {
+        padding: 10px 20px;
+        background: var(--cobalt);
+        color: #fff;
+        text-align: center;
+        font-size: 11px;
+        letter-spacing: 0.025em;
+      }
+      .promo a {
+        text-decoration: underline;
+        text-underline-offset: 2px;
+      }
+      .nav {
+        position: sticky;
+        top: 0;
+        z-index: 2;
+        height: 64px;
+        display: flex;
+        align-items: center;
+        background: #fff;
+        border-bottom: 1px solid var(--bone);
+      }
+      .nav .wrap,
+      .left,
+      .links {
+        display: flex;
+        align-items: center;
+      }
+      .nav .wrap {
+        justify-content: space-between;
+      }
+      .left,
+      .links {
+        gap: 14px;
+      }
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 16px;
+        font-weight: 500;
+      }
+      .logo-favicon {
+        width: 30px;
+        height: 30px;
+        object-fit: contain;
+      }
+      .links,
+      .url,
+      .tag {
+        font-size: 13px;
+        font-weight: 500;
+      }
+      .links {
+        gap: 18px;
+      }
+      .links a:hover,
+      .url:hover {
+        text-decoration: underline;
+      }
+      .hero {
+        padding: 96px 0 80px;
+      }
+      .hero h1,
+      h2,
+      h3 {
+        font-weight: 450;
+        letter-spacing: -0.025em;
+      }
+      .hero h1 {
+        max-width: 900px;
+        font-size: clamp(40px, 6vw, 48px);
+        line-height: 1;
+        text-wrap: balance;
+      }
+      .hero p {
+        max-width: 600px;
+        margin-top: 24px;
+        color: var(--slate);
+      }
+      .ghost {
+        display: inline-flex;
+        margin-top: 28px;
+        padding: 8px 0;
+        font-size: 14px;
+        font-weight: 500;
+        text-decoration: underline;
+        text-underline-offset: 3px;
+      }
+      .site {
+        padding-top: 0;
+      }
+      section {
+        padding: 80px 0;
+        border-top: 1px solid var(--bone);
+        scroll-margin-top: 64px;
+      }
+      .head {
+        max-width: 720px;
+        margin-bottom: 32px;
+      }
+      h2 {
+        font-size: 36px;
+        line-height: 1.1;
+      }
+      .head p {
+        margin-top: 12px;
+        color: var(--slate);
+      }
+      .logos {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 24px 40px;
+        color: var(--silver);
+        font-weight: 500;
+      }
+      .swatches {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 8px;
+      }
+      .swatch {
+        min-height: 118px;
+        display: flex;
+        flex-direction: column;
+        justify-content: end;
+        padding: 12px;
+        border: 1px solid var(--bone);
+      }
+      .swatch code,
+      .spec {
+        margin-top: 4px;
+        font:
+          11px/1.4 ui-monospace,
+          monospace;
+        letter-spacing: 0;
+        opacity: 0.75;
+      }
+      .type {
+        border-top: 1px solid var(--bone);
+      }
+      .row {
+        display: grid;
+        grid-template-columns: 110px 1fr 150px;
+        gap: 16px;
+        align-items: baseline;
+        padding: 18px 0;
+        border-bottom: 1px solid var(--bone);
+      }
+      .role,
+      .spec {
+        color: var(--steel);
+      }
+      .sample {
+        font-weight: 450;
+        line-height: 1.1;
+      }
+      .metrics {
+        display: grid;
+        grid-template-columns: 1.4fr 1fr;
+        gap: 48px;
+        align-items: end;
+      }
+      .spacing {
+        height: 150px;
+        display: flex;
+        align-items: end;
+        gap: 8px;
+      }
+      .space {
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        justify-content: end;
+        gap: 6px;
+        text-align: center;
+        color: var(--steel);
+        font-size: 11px;
+      }
+      .bar {
+        width: 100%;
+        background: var(--ink);
+      }
+      .radii {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+      }
+      .radius {
+        min-height: 72px;
+        padding: 12px;
+        display: flex;
+        align-items: end;
+        background: #fff;
+        border: 1px solid var(--bone);
+        font-size: 13px;
+        color: var(--slate);
+      }
+      .research {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+      }
+      .still {
+        aspect-ratio: 16/10;
+        background: var(--cloud);
+      }
+      .still.dark {
+        background: var(--carbon);
+      }
+      .research h3 {
+        margin-top: 12px;
+        font-size: 20px;
+      }
+      .research p {
+        margin-top: 4px;
+        color: var(--slate);
+        font-size: 14px;
+      }
+      .components,
+      .guides {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+      }
+      .button {
+        padding: 10px 20px;
+        border: 0;
+        border-radius: 8px;
+        background: var(--ink);
+        color: #fff;
+        font-size: 14px;
+        font-weight: 500;
+        cursor: pointer;
+      }
+      .button:hover {
+        background: var(--carbon);
+      }
+      .button-row {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+      .card-note {
+        padding: 16px;
+        border-top: 1px solid var(--bone);
+        border-bottom: 1px solid var(--bone);
+        color: var(--slate);
+      }
+      .guides ul {
+        margin: 12px 0 0;
+        padding-left: 20px;
+        color: var(--slate);
+      }
+      .guides li + li {
+        margin-top: 8px;
+      }
+      footer {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+        padding: 32px 0 64px;
+        color: var(--steel);
+        font-size: 14px;
+      }
+      .downloads {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+      .downloads a:hover {
+        color: var(--cobalt);
+      }
+      @media (max-width: 760px) {
+        .wrap {
+          width: min(100% - 28px, 1120px);
+        }
+        .links,
+        .tag {
+          display: none;
+        }
+        .hero,
+        section {
+          padding: 56px 0;
+        }
+        .swatches {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .row {
+          grid-template-columns: 82px 1fr;
+        }
+        .row .spec {
+          grid-column: 2;
+          margin-top: -12px;
+        }
+        .metrics,
+        .research,
+        .components,
+        .guides {
+          grid-template-columns: 1fr;
+          gap: 32px;
+        }
+        footer {
+          flex-direction: column;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="promo">
+      Runway research update is now available.
+      <a href="#research">Read the release</a>
+    </div>
+    <nav class="nav">
+      <div class="wrap">
+        <div class="left">
+          <a class="brand" href="#top"
+            >Runway</a
+          ><span class="tag">Design system</span>
+        </div>
+        <div class="links">
+          <a href="#colors">Colors</a><a href="#type">Type</a
+          ><a href="#shape">Spacing</a><a href="#components">Components</a>
+        </div>
+        <a
+          class="url"
+          href="#"
+          target="_blank"
+          rel="noopener noreferrer"
+          >Site &nearr;</a
+        >
+      </div>
+    </nav>
+    <main id="top">
+      <header class="hero">
+        <div class="wrap">
+          <h1>Tools for human imagination.</h1>
+          <p>
+            Monochrome editorial infrastructure built to leave the visual
+            work—cinematic research stills—at the center.
+          </p>
+          <a class="ghost" href="#research">Get started &rarr;</a>
+        </div>
+      </header>
+      <div class="wrap site">
+        <section>
+          <div class="logos">
+            <span>Adobe</span><span>NVIDIA</span><span>CBS</span
+            ><span>Lionsgate</span><span>Allstate</span>
+          </div>
+        </section>
+        <section id="colors">
+          <div class="head">
+            <h2>Colors</h2>
+            <p>
+              White paper, black ink and one cobalt promotional signal. No
+              gradients and no decorative color.
+            </p>
+          </div>
+          <div class="swatches">
+            <div class="swatch" style="background: #0c0c0c; color: #fff">
+              <b>Ink Black</b><code>#0c0c0c</code>
+            </div>
+            <div class="swatch" style="background: #1a1a1a; color: #fff">
+              <b>Carbon</b><code>#1a1a1a</code>
+            </div>
+            <div class="swatch" style="background: #404040; color: #fff">
+              <b>Slate</b><code>#404040</code>
+            </div>
+            <div class="swatch" style="background: #e5e7eb">
+              <b>Bone</b><code>#e5e7eb</code>
+            </div>
+            <div class="swatch" style="background: #eef1f5">
+              <b>Cloud</b><code>#eef1f5</code>
+            </div>
+            <div class="swatch" style="background: #fff">
+              <b>Pure White</b><code>#ffffff</code>
+            </div>
+            <div class="swatch" style="background: #2b22fa; color: #fff">
+              <b>Cobalt Signal</b><code>#2b22fa</code>
+            </div>
+          </div>
+        </section>
+        <section id="type">
+          <div class="head">
+            <h2>Type is the hierarchy.</h2>
+            <p>
+              abcNormal remains the only voice, tightly set at display sizes and
+              open for long-form reading.
+            </p>
+          </div>
+          <div class="type">
+            <div class="row">
+              <span class="role">Display</span
+              ><span class="sample" style="font-size: 48px"
+                >Research as culture.</span
+              ><span class="spec">48 / 1 / 450</span>
+            </div>
+            <div class="row">
+              <span class="role">Heading</span
+              ><span class="sample" style="font-size: 36px"
+                >A precise statement.</span
+              ><span class="spec">36 / 1.1 / 450</span>
+            </div>
+            <div class="row">
+              <span class="role">Body</span
+              ><span
+                >Image-led stories remain comfortable to read at every
+                scale.</span
+              ><span class="spec">16 / 1.5 / 400</span>
+            </div>
+            <div class="row">
+              <span class="role">Caption</span
+              ><span style="font-size: 11px; letter-spacing: 0.28px"
+                >RESEARCH / RELEASE / 2026</span
+              ><span class="spec">11 / 1.43 / 500</span>
+            </div>
+          </div>
+        </section>
+        <section id="shape">
+          <div class="head">
+            <h2>Spacing &amp; shape</h2>
+            <p>
+              Four-pixel increments and almost square geometry keep the layout
+              print-like.
+            </p>
+          </div>
+          <div class="metrics">
+            <div class="spacing">
+              <div class="space">
+                <div class="bar" style="height: 4px"></div>
+                <span>4</span>
+              </div>
+              <div class="space">
+                <div class="bar" style="height: 12px"></div>
+                <span>12</span>
+              </div>
+              <div class="space">
+                <div class="bar" style="height: 24px"></div>
+                <span>24</span>
+              </div>
+              <div class="space">
+                <div class="bar" style="height: 40px"></div>
+                <span>40</span>
+              </div>
+              <div class="space">
+                <div class="bar" style="height: 64px"></div>
+                <span>64</span>
+              </div>
+              <div class="space">
+                <div class="bar" style="height: 96px"></div>
+                <span>96</span>
+              </div>
+            </div>
+            <div class="radii">
+              <div class="radius" style="border-radius: 0">Image<br />0px</div>
+              <div class="radius" style="border-radius: 4px">Tag<br />4px</div>
+              <div class="radius" style="border-radius: 8px">
+                Button<br />8px
+              </div>
+              <div class="radius" style="border-radius: 8px">
+                Input<br />8px
+              </div>
+            </div>
+          </div>
+        </section>
+        <section id="research">
+          <div class="head">
+            <h2>The work is the visual system.</h2>
+            <p>
+              Full-bleed, sharp-cornered research stills carry the visual
+              interest. There is no card chrome or elevation.
+            </p>
+          </div>
+          <div class="research">
+            <article>
+              <div class="still dark"></div>
+              <h3>Research still</h3>
+              <p>Dark frame · zero radius · no shadow.</p>
+            </article>
+            <article>
+              <div class="still"></div>
+              <h3>Generated image study</h3>
+              <p>Cloud wash stands in only for the image surface.</p>
+            </article>
+          </div>
+        </section>
+        <section id="components">
+          <div class="head">
+            <h2>Components</h2>
+            <p>
+              Ghost links, hairlines and a single filled dark action are enough.
+            </p>
+          </div>
+          <div class="components">
+            <div>
+              <h3>Primary action</h3>
+              <div class="button-row" style="margin-top: 16px">
+                <button class="button">Try Runway</button
+                ><a class="ghost" style="margin-top: 0" href="#research"
+                  >Learn more &rarr;</a
+                >
+              </div>
+              <p style="color: #404040; font-size: 14px">
+                Ink Black fill, white type, 8px radius. The alternate action
+                remains a text link.
+              </p>
+            </div>
+            <div class="card-note">
+              <h3>Hairline divider</h3>
+              <p>
+                Use a single 1px Bone rule or white space to separate
+                stories—never a shadow.
+              </p>
+            </div>
+          </div>
+        </section>
+        <section id="guidelines">
+          <div class="head"><h2>Make the content speak.</h2></div>
+          <div class="guides">
+            <div>
+              <h3>Do</h3>
+              <ul>
+                <li>Use white canvas and Ink Black typography.</li>
+                <li>Reserve Cobalt Signal for promotional moments.</li>
+                <li>Keep display text left-aligned and tightly tracked.</li>
+                <li>Let research images remain full-bleed and sharp.</li>
+              </ul>
+            </div>
+            <div>
+              <h3>Avoid</h3>
+              <ul>
+                <li>Gradients, shadows and glow effects.</li>
+                <li>Secondary accent colors.</li>
+                <li>Centered long-form copy.</li>
+                <li>Rounded image cards or heavy controls.</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+        <footer>
+          <span>Runway design system</span>
+          <div class="downloads">
+            <a href="#" download>DESIGN.md</a
+            ><a href="#" download>tokens.json</a
+            ><a href="#" download>variables.css</a
+            ><a href="#" download>theme.css</a>
+          </div>
+        </footer>
+      </div>
+    </main>
+  </body>
+</html>

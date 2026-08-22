@@ -1,0 +1,379 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Medium — component reference</title>
+<style>
+	/* Mirrors theme.css. Plain custom properties so this file opens standalone. */
+	:root {
+		--color-primary: #1a8917;
+		--color-primary-foreground: #ffffff;
+		--color-surface: #ffffff;
+		--color-surface-foreground: #242424;
+		--color-surface-raised: #fafafa;
+		--color-muted: #6b6b6b;
+		--color-accent: #ffc017;
+		--color-danger: #c94a4a;
+		--color-border: #e6e6e6;
+
+		--radius-sm: 2px;
+		--radius-md: 4px;
+		--radius-lg: 4px;
+		--radius-xl: 8px;
+		--radius-2xl: 12px;
+
+		--shadow-sm: 0 1px 2px rgb(0 0 0 / 0.05);
+		--shadow-md: 0 2px 10px rgb(0 0 0 / 0.08);
+		--shadow-lg: 0 8px 32px rgb(0 0 0 / 0.12);
+
+		--serif: "Iowan Old Style", "Palatino Linotype", Palatino, Charter, Georgia, Cambria, "Times New Roman", serif;
+		--sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+	}
+
+	*, *::before, *::after { box-sizing: border-box; }
+	/* Prose is serif. Chrome is sans. The two never trade places. */
+	body {
+		margin: 0;
+		background: var(--color-surface);
+		color: var(--color-surface-foreground);
+		font-family: var(--serif);
+		font-size: 20px;
+		line-height: 1.62;
+		-webkit-font-smoothing: antialiased;
+	}
+	h1, h2, h3 { margin: 0; font-family: var(--serif); font-weight: 700; line-height: 1.2; letter-spacing: -0.01em; }
+	p { margin: 0; }
+	::selection { background: rgb(255 192 23 / 0.45); }
+	.ui { font-family: var(--sans); }
+	.spacer { flex: 1; }
+
+	/* ── Masthead: the yellow band is the brand flourish ───────────── */
+	.mast { border-bottom: 1px solid var(--color-surface-foreground); background: var(--color-accent); }
+	.mast-inner { max-width: 1192px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; gap: 20px; flex-wrap: wrap; min-height: 62px; font-family: var(--sans); font-size: 14px; }
+	.wordmark { font-family: var(--serif); font-weight: 700; font-size: 26px; letter-spacing: -0.02em; }
+	.mast .links { display: none; gap: 20px; }
+	@media (min-width: 780px) { .mast .links { display: flex; } }
+
+	/* ── Story hero on the yellow ─────────────────────────────────── */
+	.hero { background: var(--color-accent); border-bottom: 1px solid var(--color-surface-foreground); }
+	.hero-inner { max-width: 1192px; margin: 0 auto; padding: 56px 24px 64px; }
+	@media (min-width: 900px) { .hero-inner { padding: 88px 24px 96px; max-width: 900px; } }
+	.hero h1 { font-size: 46px; max-width: 14ch; }
+	@media (min-width: 768px) { .hero h1 { font-size: 76px; } }
+	.hero p { margin-top: 22px; font-size: 20px; max-width: 34em; }
+	.hero .actions { margin-top: 34px; }
+
+	/* ── The sacred reading column ────────────────────────────────── */
+	.article { max-width: 680px; margin: 0 auto; padding: 0 24px 64px; }
+	.kicker { font-family: var(--sans); font-size: 13px; color: var(--color-muted); letter-spacing: 0.02em; }
+	.byline { display: flex; align-items: center; gap: 12px; padding: 28px 0; border-bottom: 1px solid var(--color-border); font-family: var(--sans); font-size: 14px; }
+	.byline .av { width: 44px; height: 44px; border-radius: 50%; background: #d8d8d8; flex: none; }
+	.byline b { display: block; font-weight: 500; }
+	.byline .meta { color: var(--color-muted); font-size: 13px; }
+	.clapbar { display: flex; align-items: center; gap: 18px; padding: 14px 0; border-bottom: 1px solid var(--color-border); font-family: var(--sans); font-size: 13px; color: var(--color-muted); }
+	.clapbar .item { display: flex; align-items: center; gap: 6px; }
+	.clapbar .g { width: 18px; height: 18px; border: 1.5px solid currentColor; border-radius: 50%; }
+
+	.article h2 { font-size: 30px; margin-top: 48px; }
+	@media (min-width: 768px) { .article h2 { font-size: 34px; } }
+	.article p { margin-top: 26px; font-size: 20px; }
+	@media (min-width: 768px) { .article p { font-size: 21px; } }
+	.article .lede-p { margin-top: 32px; }
+	.hl { background: rgb(255 192 23 / 0.4); }
+	.dropcap::first-letter { float: left; font-size: 66px; line-height: 0.8; padding: 8px 8px 0 0; font-weight: 700; }
+	.pull {
+		border-left: 3px solid var(--color-surface-foreground);
+		padding-left: 24px; margin: 40px 0; font-style: italic; font-size: 24px; line-height: 1.42;
+	}
+	@media (min-width: 768px) { .pull { font-size: 26px; } }
+	.figure { margin: 44px 0; }
+	.figure .band { height: 210px; border-radius: var(--radius-md); background: repeating-linear-gradient(135deg, #f3f3f3 0 22px, #ececec 22px 44px); }
+	.figure figcaption { font-family: var(--sans); font-size: 13px; color: var(--color-muted); text-align: center; margin-top: 12px; }
+	.divider-dots { text-align: center; letter-spacing: 0.6em; color: var(--color-muted); margin: 48px 0; }
+
+	/* ── Story list: dividers, not boxes ──────────────────────────── */
+	.listing { max-width: 1192px; margin: 0 auto; padding: 0 24px 72px; display: grid; grid-template-columns: 1fr; gap: 0; }
+	@media (min-width: 1000px) { .listing { grid-template-columns: 728px 1fr; gap: 64px; } }
+	.feed h3.feedhead { font-family: var(--sans); font-size: 14px; font-weight: 500; letter-spacing: 0.04em; padding: 22px 0 6px; border-bottom: 1px solid var(--color-surface-foreground); }
+	.story { display: flex; gap: 24px; padding: 30px 0; border-bottom: 1px solid var(--color-border); align-items: flex-start; }
+	.story .body { min-width: 0; flex: 1; }
+	.story .k { font-family: var(--sans); font-size: 13px; color: var(--color-muted); display: flex; align-items: center; gap: 8px; }
+	.story .k .av { width: 20px; height: 20px; border-radius: 50%; background: #d8d8d8; }
+	.story h4 { font-family: var(--serif); font-weight: 700; font-size: 21px; margin: 8px 0 0; line-height: 1.25; }
+	.story .ex { font-family: var(--sans); font-size: 15px; color: var(--color-muted); margin-top: 6px; line-height: 1.5; }
+	.story .m { font-family: var(--sans); font-size: 13px; color: var(--color-muted); margin-top: 14px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+	.star { color: var(--color-accent); }
+	.thumb { width: 112px; height: 112px; flex: none; border-radius: var(--radius-md); background: repeating-linear-gradient(135deg, #f0f0f0 0 16px, #e7e7e7 16px 32px); }
+	@media (max-width: 620px) { .thumb { width: 80px; height: 80px; } .story { gap: 16px; } }
+	.chip { display: inline-block; font-family: var(--sans); font-size: 13px; background: var(--color-surface-raised); border-radius: 9999px; padding: 5px 14px; color: var(--color-surface-foreground); }
+
+	.aside { display: none; }
+	@media (min-width: 1000px) { .aside { display: block; padding-top: 30px; border-left: 1px solid var(--color-border); padding-left: 40px; } }
+	.aside h5 { font-family: var(--sans); font-size: 14px; font-weight: 500; margin: 0 0 14px; }
+	.aside .s { padding: 12px 0; }
+	.aside .s b { font-family: var(--serif); font-size: 16px; display: block; line-height: 1.3; }
+	.aside .s span { font-family: var(--sans); font-size: 13px; color: var(--color-muted); }
+
+	/* ── Controls: slim pills, sans, quiet ────────────────────────── */
+	.btn {
+		font-family: var(--sans); font-size: 14px; font-weight: 400;
+		height: 38px; padding: 0 18px;
+		border: 1px solid transparent; border-radius: 9999px;
+		background: var(--color-primary); color: var(--color-primary-foreground);
+		cursor: pointer; transition: background-color 150ms ease, color 150ms ease;
+	}
+	.btn:hover { background: #156b13; }
+	.btn:focus-visible { outline: none; box-shadow: 0 0 0 3px rgb(26 137 23 / 0.3); }
+	.btn-outline { background: transparent; color: var(--color-surface-foreground); border-color: var(--color-surface-foreground); }
+	.btn-outline:hover { background: var(--color-surface-foreground); color: #fff; }
+	.btn-quiet { background: transparent; color: var(--color-muted); border-color: transparent; padding: 0 8px; }
+	.btn-quiet:hover { color: var(--color-surface-foreground); }
+	.btn[disabled] { cursor: not-allowed; background: transparent; color: #b3b3b3; border-color: var(--color-border); }
+	.row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+
+	.input {
+		font-family: var(--sans); font-size: 15px; width: 100%; max-width: 320px; height: 38px; padding: 0 4px;
+		border: 0; border-bottom: 1px solid var(--color-surface-foreground); border-radius: 0;
+		background: transparent; color: var(--color-surface-foreground);
+	}
+	.input::placeholder { color: var(--color-muted); }
+	.input:focus { outline: none; border-bottom-width: 2px; }
+
+	/* ── Reference sections ───────────────────────────────────────── */
+	.ref { max-width: 728px; margin: 0 auto; padding: 0 24px 96px; font-family: var(--sans); font-size: 16px; }
+	.section { padding-top: 56px; border-top: 1px solid var(--color-border); margin-top: 56px; }
+	.section-label { font-size: 13px; color: var(--color-muted); letter-spacing: 0.04em; margin-bottom: 10px; }
+	.section h2 { font-family: var(--serif); font-size: 30px; }
+	.lede { color: var(--color-muted); margin-top: 12px; font-size: 16px; line-height: 1.6; }
+	.note { margin-top: 18px; font-size: 14px; color: var(--color-muted); line-height: 1.6; }
+
+	.swatches { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-top: 24px; }
+	@media (min-width: 640px) { .swatches { grid-template-columns: repeat(4, 1fr); } }
+	.sw .fill { height: 58px; border-radius: var(--radius-md); border: 1px solid var(--color-border); }
+	.sw b { display: block; font-size: 13px; font-weight: 600; margin-top: 8px; }
+	.sw span { font-size: 12px; color: var(--color-muted); }
+
+	/* ── Mobile ───────────────────────────────────────────────────── */
+	.mobile { display: grid; grid-template-columns: minmax(0, 1fr); gap: 32px; margin-top: 28px; align-items: start; }
+	@media (min-width: 860px) { .mobile { grid-template-columns: 284px 1fr; gap: 40px; } }
+	.phone {
+		width: 284px; max-width: 100%; margin: 0 auto;
+		border: 1px solid var(--color-surface-foreground); border-radius: 24px;
+		overflow: hidden; background: var(--color-surface);
+	}
+	.phone-status { display: flex; justify-content: space-between; padding: 10px 16px 4px; font-size: 10px; color: var(--color-muted); background: var(--color-accent); }
+	.phone-mast { display: flex; align-items: center; gap: 8px; background: var(--color-accent); padding: 2px 16px 10px; border-bottom: 1px solid var(--color-surface-foreground); }
+	.phone-mast .wordmark { font-size: 19px; }
+	.phone-body { padding: 14px 16px 8px; }
+	.phone-body .k { font-size: 11px; color: var(--color-muted); font-family: var(--sans); display: flex; align-items: center; gap: 6px; }
+	.phone-body .k .av { width: 16px; height: 16px; border-radius: 50%; background: #d8d8d8; }
+	.phone-body h6 { font-family: var(--serif); font-weight: 700; font-size: 25px; line-height: 1.18; margin: 10px 0 0; }
+	.phone-body .p { font-size: 15px; line-height: 1.6; margin-top: 12px; }
+	.phone-body .pull { font-size: 15px; margin: 14px 0; padding-left: 12px; border-left-width: 2px; }
+	/* The floating toolbar is one of only two shadows in the system. */
+	.readbar { display: flex; align-items: center; gap: 14px; margin: 6px 12px 14px; padding: 9px 14px; border-radius: 9999px; box-shadow: var(--shadow-md); font-family: var(--sans); font-size: 11px; color: var(--color-muted); background: #fff; }
+	.readbar .g { width: 15px; height: 15px; border: 1.4px solid currentColor; border-radius: 50%; }
+
+	.rules { margin: 0; padding: 0; list-style: none; }
+	.rules li { padding: 14px 0; border-bottom: 1px solid var(--color-border); font-size: 15px; color: var(--color-muted); line-height: 1.55; }
+	.rules b { display: block; font-family: var(--serif); font-size: 17px; font-weight: 700; color: var(--color-surface-foreground); margin-bottom: 3px; }
+
+	/* ── Off-style ────────────────────────────────────────────────── */
+	.compare { display: grid; grid-template-columns: 1fr; gap: 16px; margin-top: 24px; }
+	@media (min-width: 640px) { .compare { grid-template-columns: repeat(2, 1fr); } }
+	.cmp-off { padding: 22px; border-radius: 14px; background: #fff; box-shadow: 0 8px 28px rgb(0 0 0 / 0.14); font-family: var(--sans); font-size: 17px; font-weight: 700; }
+	.cmp-off small { display: block; font-weight: 400; font-size: 13px; color: var(--color-muted); margin-top: 10px; line-height: 1.6; }
+	.cmp-on { padding: 22px 0; border-top: 1px solid var(--color-surface-foreground); font-family: var(--serif); font-size: 21px; font-weight: 700; }
+	.cmp-on small { display: block; font-family: var(--sans); font-weight: 400; font-size: 13px; color: var(--color-muted); margin-top: 10px; line-height: 1.6; }
+</style>
+</head>
+<body>
+
+<!-- COVER — the yellow band, a serif headline, and one green ask. Everything
+     else on the page is a hairline and a lot of margin. -->
+<header class="mast">
+	<div class="mast-inner">
+		<span class="wordmark">Vetta</span>
+		<span class="links"><span>Our story</span><span>Membership</span><span>Write</span></span>
+		<span class="spacer"></span>
+		<button class="btn btn-quiet">Sign in</button>
+		<button class="btn" style="background: var(--color-surface-foreground)">Get started</button>
+	</div>
+</header>
+
+<section class="hero">
+	<div class="hero-inner">
+		<h1>Stay curious.</h1>
+		<p>Serif prose, acres of margin, and chrome quiet enough that the writing is the
+			only thing on the page asking for attention.</p>
+		<div class="actions"><button class="btn" style="background: var(--color-surface-foreground); height: 44px; font-size: 17px; padding: 0 26px;">Start reading</button></div>
+	</div>
+</section>
+
+<article class="article">
+	<div class="byline">
+		<span class="av"></span>
+		<span><b>Ana Rivera</b><span class="meta">14 min read · Apr 12 · <span class="star">★</span> Member-only</span></span>
+		<span class="spacer"></span>
+		<button class="btn btn-outline">Follow</button>
+	</div>
+
+	<p class="kicker" style="margin-top:36px">DESIGN SYSTEMS</p>
+	<h2 style="font-size:38px;margin-top:10px">Dividers, not boxes</h2>
+
+	<p class="lede-p dropcap">Every story list wants to become a grid of cards. It is the reflex answer
+		to "how do I separate these things" — and it is the wrong one here. A card adds a border, a radius,
+		a shadow and a padding value to a problem that a single hairline already solved.</p>
+
+	<p>The reading column is 680px and never widens. <span class="hl">Whitespace is the design</span>, so
+		the vertical rhythm between blocks sits at 48–64px and nothing competes for the margin.</p>
+
+	<blockquote class="pull">Never set body prose in sans, and never set UI chrome in serif. That one
+		rule carries most of the identity.</blockquote>
+
+	<p>Chrome — the nav, the buttons, the bylines, the read-time — is sans at 13–14px in muted gray.
+		Prose is serif at 20–21px with relaxed leading. When those two swap, the page immediately reads
+		as a product rather than a publication.</p>
+
+	<figure class="figure">
+		<div class="band"></div>
+		<figcaption>Figures sit at 4px radius or square, never with a shadow.</figcaption>
+	</figure>
+
+	<p>Color is rationed to two: green for the few real asks — follow, subscribe, publish — and yellow
+		as the flourish, whether that is a hero band, a member star, or a wash behind a highlighted sentence.
+		They never appear in the same component.</p>
+
+	<div class="clapbar">
+		<span class="item"><span class="g"></span>1.2K</span>
+		<span class="item"><span class="g"></span>38</span>
+		<span class="spacer"></span>
+		<span class="item"><span class="g"></span></span>
+		<span class="item"><span class="g"></span></span>
+	</div>
+</article>
+
+<div class="divider-dots">· · ·</div>
+
+<div class="listing">
+	<div class="feed">
+		<h3 class="feedhead">More from Vetta</h3>
+
+		<div class="story">
+			<div class="body">
+				<div class="k"><span class="av"></span>Jun Sun <span>in</span> <b style="font-weight:500">The Column</b></div>
+				<h4>Why your type scale should start with the paragraph</h4>
+				<p class="ex">Most scales are designed from the headline down. Doing it the other way around
+					makes long-form reading the default rather than the exception.</p>
+				<div class="m"><span class="star">★</span><span>Apr 09</span><span>·</span><span>8 min read</span><span>·</span><span class="chip">Typography</span></div>
+			</div>
+			<div class="thumb"></div>
+		</div>
+
+		<div class="story">
+			<div class="body">
+				<div class="k"><span class="av"></span>Mo Okafor</div>
+				<h4>The case against the card</h4>
+				<p class="ex">A hairline and 30px of space separate two stories perfectly well. Everything
+					a card adds after that is decoration you now have to maintain.</p>
+				<div class="m"><span>Apr 07</span><span>·</span><span>6 min read</span><span>·</span><span class="chip">Layout</span></div>
+			</div>
+			<div class="thumb"></div>
+		</div>
+
+		<div class="story">
+			<div class="body">
+				<div class="k"><span class="av"></span>Kaori Mori</div>
+				<h4>Two hues is a whole palette</h4>
+				<p class="ex">One color for the ask, one for the flourish, and a strict rule that they never
+					share a component. It is more restrictive than it sounds, and more freeing.</p>
+				<div class="m"><span class="star">★</span><span>Apr 02</span><span>·</span><span>11 min read</span><span>·</span><span class="chip">Color</span></div>
+			</div>
+			<div class="thumb"></div>
+		</div>
+	</div>
+
+	<aside class="aside">
+		<h5>Staff picks</h5>
+		<div class="s"><b>The margin is the message</b><span>Ana Rivera · 5 min</span></div>
+		<div class="s"><b>Writing a house style for hairlines</b><span>Jun Sun · 7 min</span></div>
+		<div class="s"><b>When to break the 680</b><span>Mo Okafor · 4 min</span></div>
+		<h5 style="margin-top:26px">Recommended topics</h5>
+		<div class="row" style="gap:8px"><span class="chip">Design</span><span class="chip">Writing</span><span class="chip">Typography</span><span class="chip">Culture</span></div>
+	</aside>
+</div>
+
+<div class="ref">
+	<!-- 01 -->
+	<section class="section" style="border-top:0;margin-top:0;padding-top:0">
+		<p class="section-label">01 — Controls</p>
+		<h2>Almost nothing is a button</h2>
+		<p class="lede">Most "actions" are plain muted glyphs with a count next to them. The few real
+			asks are slim green pills; the rest are ink-outlined. Inputs are a single underline, not a box.</p>
+		<div class="row" style="margin-top: 22px;">
+			<button class="btn">Subscribe</button>
+			<button class="btn btn-outline">Follow</button>
+			<button class="btn btn-quiet">Save</button>
+			<button class="btn" disabled>Publishing…</button>
+		</div>
+		<div class="row" style="margin-top: 20px;">
+			<input class="input" placeholder="you@company.com">
+			<button class="btn">Get the newsletter</button>
+		</div>
+		<div class="swatches">
+			<div class="sw"><div class="fill" style="background: var(--color-primary)"></div><b>primary</b><span>#1a8917 · the ask</span></div>
+			<div class="sw"><div class="fill" style="background: var(--color-accent)"></div><b>accent</b><span>#ffc017 · the flourish</span></div>
+			<div class="sw"><div class="fill" style="background: var(--color-surface-foreground)"></div><b>ink</b><span>#242424 · prose</span></div>
+			<div class="sw"><div class="fill" style="background: var(--color-muted)"></div><b>muted</b><span>#6b6b6b · all chrome</span></div>
+		</div>
+		<p class="note">Green and yellow never co-occur in one component, and there are no other hues in the system at all.</p>
+	</section>
+
+	<!-- 02 MOBILE -->
+	<section class="section">
+		<p class="section-label">02 — Mobile</p>
+		<h2>A phone is where long-form actually gets read</h2>
+		<p class="lede">The 680px column becomes the viewport, prose drops one step to 18px, and the
+			thumbnail shrinks instead of disappearing — a story list without images loses its scanning rhythm.</p>
+		<div class="mobile">
+			<div class="phone">
+				<div class="phone-status"><span>9:41</span><span>LTE ▮</span></div>
+				<div class="phone-mast"><span class="wordmark">Vetta</span><span class="spacer"></span><span style="font-family:var(--sans);font-size:11px">⌕ ☰</span></div>
+				<div class="phone-body">
+					<div class="k"><span class="av"></span>Ana Rivera · 14 min</div>
+					<h6>Dividers, not boxes</h6>
+					<p class="p">Every story list wants to become a grid of cards. <span class="hl">It is the wrong reflex.</span></p>
+					<blockquote class="pull">Never set body prose in sans.</blockquote>
+					<p class="p" style="font-size:14px;color:var(--color-muted)">A hairline and 30px of space separate two stories perfectly well.</p>
+				</div>
+				<div class="readbar"><span class="g"></span>1.2K<span class="g"></span>38<span class="spacer"></span><span class="g"></span><span class="g"></span></div>
+			</div>
+			<ul class="rules">
+				<li><b>The column</b>680px becomes the viewport at 24px gutters. Prose goes 21px → 18px and line height stays at 1.62 — that leading is what makes a long piece survive a small screen.</li>
+				<li><b>Titles</b>Article titles 38px → 25px, hero 76px → 46px. They stay serif bold; they never switch to sans for "clarity at small sizes".</li>
+				<li><b>The drop cap</b>Kept, at roughly half size. It is a publication signal, and it costs nothing on touch.</li>
+				<li><b>Story list</b>Thumbnails shrink 112px → 80px rather than dropping out. The excerpt goes from two lines to one; the meta row wraps instead of truncating.</li>
+				<li><b>The aside</b>The 368px sticky sidebar moves below the feed as a plain divider-separated list. It never becomes a carousel of cards.</li>
+				<li><b>Clap bar</b>Detaches from the flow and floats as a pill on <code>shadow-md</code> above the bottom edge — one of only two shadows this system permits.</li>
+				<li><b>Yellow</b>The masthead band stays yellow on mobile. It is the one piece of color the reader sees before the writing starts, so it survives every breakpoint.</li>
+			</ul>
+		</div>
+	</section>
+
+	<!-- 03 DON'T -->
+	<section class="section">
+		<p class="section-label">03 — Off-style, for contrast</p>
+		<h2>What breaks the magazine</h2>
+		<div class="compare">
+			<div class="cmp-off">Sans headline in a floating card
+				<small>14px radius · drop shadow · sans-serif title · boxed excerpt. This is the single most common way a Medium-style layout stops looking like one.</small></div>
+			<div class="cmp-on">Same story, on-style
+				<small>Serif bold title, one ink hairline above it, sans excerpt in muted gray, no box at all. Dividers separate; boxes decorate.</small></div>
+		</div>
+		<p class="note">Also out: prose in sans, chrome in serif, shadows on story items, and any third hue beyond the green and the yellow.</p>
+	</section>
+</div>
+
+</body>
+</html>

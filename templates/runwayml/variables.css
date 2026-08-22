@@ -1,0 +1,37 @@
+/* Runway design tokens */
+:root {
+  --color-cinematic-full-bleed-photography-and-video-as-primary-ui-elements-single-typeface-system-abcnormal-for-everything-from-display-to-micro-labels-dark-dominant-palette-with-cool-toned-neutrals-767d88-7d848e-zero-shadows-minimal-borders-the-interface-is-intentionally-invisible-tight-display-typography-line-height-1-0-with-negative-tracking-0-9px-to-1-2px-uppercase-labels-with-positive-letter-spacing-for-navigational-structure-weight-450-unusual-intermediate-for-small-uppercase-text-precision-craft-editorial-magazine-layout-with-mixed-size-image-grids-2-color-palette-roles-primary: #000000;
+  --color-deep-black: #030303;
+  --color-dark-surface: #1a1a1a;
+  --color-pure-white: #ffffff;
+  --color-near-white: #fefefe;
+  --color-cool-cloud: #e9ecf2;
+  --color-border-dark: #27272a;
+  --color-charcoal: #404040;
+  --color-near-charcoal: #3f3f3f;
+  --color-cool-slate: #767d88;
+  --color-mid-slate: #7d848e;
+  --color-muted-gray: #a7a7a7;
+  --color-cool-silver: #c9ccd1;
+  --color-light-silver: #d0d4d4;
+  --color-tailwind-gray: #6b7280;
+  --color-dark-link: #0c0c0c;
+  --color-footer-gray: #999999;
+  --font-primary: Inter, system-ui, sans-serif;
+  --text-body: 16px;
+  --leading-body: 1.5;
+  --tracking-body: 0;
+  --spacing-4: 4px;
+  --spacing-8: 8px;
+  --spacing-12: 12px;
+  --spacing-16: 16px;
+  --spacing-20: 20px;
+  --spacing-24: 24px;
+  --spacing-32: 32px;
+  --spacing-40: 40px;
+  --spacing-48: 48px;
+  --spacing-64: 64px;
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+}

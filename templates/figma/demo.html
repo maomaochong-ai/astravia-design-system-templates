@@ -1,0 +1,596 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Figma — Design System</title>
+    
+    
+    <style>
+      :root {
+        --ink: #000;
+        --paper: #fff;
+        --mist: #e2e2e2;
+        --gray: #595959;
+        --indigo: #4d49fc;
+        --cyan: #00b6ff;
+        --green: #24cb71;
+        --orange: #ff7237;
+        --lime: #e4ff97;
+        --lilac: #c4baff;
+        --blush: #ffc9c1;
+        --aqua: #c7f8fb;
+        --teal: #33dfdf;
+        --mustard: #b98e01;
+        --sans: figmaSans, Inter, sans-serif;
+        --mono: figmaMono, "IBM Plex Mono", monospace;
+        --shadow: rgba(0, 0, 0, 0.1) 0 24px 70px;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        margin: 0;
+        background: var(--paper);
+        color: var(--ink);
+        font: 400 16px/1.45 var(--sans);
+        letter-spacing: -0.11px;
+      }
+      a {
+        color: inherit;
+      }
+      a:focus-visible,
+      button:focus-visible {
+        outline: 2px solid var(--indigo);
+        outline-offset: 3px;
+      }
+      .page {
+        max-width: 960px;
+        margin: auto;
+        padding: 0 32px 96px;
+      }
+      .nav {
+        height: 64px;
+        margin: 0 -32px;
+        padding: 0 16px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        position: sticky;
+        top: 0;
+        z-index: 2;
+        background: rgba(255, 255, 255, 0.96);
+      }
+      .left,
+      .right {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .logo-favicon {
+        width: 30px;
+        height: 30px;
+        object-fit: contain;
+      }
+      .wordmark {
+        font-weight: 500;
+        text-decoration: none;
+      }
+      .tag {
+        padding: 3px 10px;
+        border-radius: 8px;
+        background: var(--mist);
+        font: 12px/1 var(--mono);
+        letter-spacing: 0.48px;
+      }
+      .link {
+        padding: 6px 10px;
+        color: var(--gray);
+        font-size: 14px;
+        text-decoration: none;
+      }
+      .site {
+        padding: 7px 12px;
+        border: 1px solid var(--ink);
+        border-radius: 8px;
+        color: var(--ink);
+      }
+      .hero {
+        padding: 72px 0 48px;
+      }
+      .label {
+        margin-bottom: 10px;
+        color: var(--indigo);
+        font: 12px/1 var(--mono);
+        letter-spacing: 0.48px;
+        text-transform: uppercase;
+      }
+      .hero h1 {
+        margin: 0;
+        font: 320 clamp(48px, 7vw, 72px)/1.1 var(--sans);
+        letter-spacing: -1.44px;
+      }
+      .hero p {
+        max-width: 560px;
+        margin: 16px 0 24px;
+        color: var(--gray);
+        font-size: 18px;
+      }
+      .actions {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+      .btn {
+        padding: 10px 20px;
+        border: 1px solid var(--ink);
+        border-radius: 50px;
+        background: #fff;
+        font: 400 16px/1 var(--sans);
+        text-decoration: none;
+      }
+      .btn.primary {
+        background: var(--indigo);
+        border-color: var(--indigo);
+        color: #fff;
+      }
+      .section {
+        padding-top: 80px;
+        margin-top: 56px;
+        border-top: 1px solid var(--mist);
+        scroll-margin-top: 64px;
+      }
+      .section h2 {
+        margin: 0 0 24px;
+        font: 320 32px/1.1 var(--sans);
+        letter-spacing: -0.48px;
+      }
+      .desc {
+        margin: 10px 0 32px;
+        max-width: 600px;
+        color: var(--gray);
+      }
+      .grid {
+        display: grid;
+        gap: 12px;
+      }
+      .colors {
+        grid-template-columns: repeat(4, 1fr);
+      }
+      .token {
+        min-height: 122px;
+        padding: 12px;
+        border: 1px solid var(--mist);
+        border-radius: 16px;
+        display: flex;
+        align-items: end;
+        font: 12px/1.35 var(--mono);
+      }
+      .type-list {
+        border-top: 1px solid var(--mist);
+      }
+      .type {
+        display: grid;
+        grid-template-columns: 480px 1fr;
+        gap: 12px;
+        align-items: baseline;
+        padding: 16px 0;
+        border-bottom: 1px solid var(--mist);
+      }
+      .type small {
+        color: var(--gray);
+        font: 12px/1.3 var(--mono);
+        text-align: right;
+      }
+      .display {
+        font: 320 72px/1.1 var(--sans);
+        letter-spacing: -1.44px;
+      }
+      .heading {
+        font: 320 56px/1.1 var(--sans);
+        letter-spacing: -0.84px;
+      }
+      .body {
+        font-size: 18px;
+      }
+      .metrics {
+        grid-template-columns: 1fr 1fr;
+      }
+      .panel {
+        padding: 20px;
+        border: 1px solid var(--mist);
+        border-radius: 16px;
+      }
+      .panel h3 {
+        margin: 0 0 18px;
+        font-size: 16px;
+      }
+      .space {
+        display: grid;
+        grid-template-columns: 42px 1fr 42px;
+        gap: 8px;
+        align-items: center;
+        margin: 8px 0;
+        font: 12px/1 var(--mono);
+      }
+      .bar {
+        height: 8px;
+        background: var(--indigo);
+        border-radius: 2px;
+      }
+      .radii {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 12px;
+      }
+      .radius {
+        height: 68px;
+        padding: 8px;
+        display: flex;
+        align-items: end;
+        background: var(--mist);
+        font: 11px/1 var(--mono);
+      }
+      .radius:nth-child(1) {
+        border-radius: 2px;
+      }
+      .radius:nth-child(2) {
+        border-radius: 8px;
+      }
+      .radius:nth-child(3) {
+        border-radius: 16px;
+      }
+      .radius:nth-child(4) {
+        border-radius: 50px;
+      }
+      .shadow {
+        padding: 32px 20px;
+        border-radius: 16px;
+        background: #fff;
+        box-shadow: var(--shadow);
+        font: 12px/1.4 var(--mono);
+      }
+      .components {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+      .component {
+        padding: 24px;
+        border: 1px solid var(--mist);
+        border-radius: 16px;
+      }
+      .component h3 {
+        margin: 0 0 16px;
+        font-size: 16px;
+      }
+      .preview {
+        padding: 20px;
+        background: var(--mist);
+        border-radius: 8px;
+      }
+      .logo {
+        display: grid;
+        grid-template-columns: repeat(2, 14px);
+        gap: 2px;
+      }
+      .logo i {
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+      }
+      .logo i:nth-child(1) {
+        background: var(--cyan);
+      }
+      .logo i:nth-child(2) {
+        background: var(--orange);
+      }
+      .logo i:nth-child(3) {
+        background: var(--green);
+      }
+      .logo i:nth-child(4) {
+        background: var(--ink);
+      }
+      .guides {
+        grid-template-columns: 1fr 1fr;
+      }
+      .guide {
+        padding: 20px;
+        border-radius: 16px;
+      }
+      .do {
+        border: 1px solid var(--mist);
+      }
+      .avoid {
+        background: var(--mist);
+      }
+      .guide h3 {
+        margin: 0 0 12px;
+        font-size: 16px;
+      }
+      .guide ul {
+        margin: 0;
+        padding-left: 18px;
+      }
+      .guide li + li {
+        margin-top: 8px;
+      }
+      .downloads {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        margin-top: 24px;
+      }
+      .download {
+        padding: 7px 10px;
+        border: 1px solid var(--mist);
+        border-radius: 8px;
+        font: 12px/1 var(--mono);
+        text-decoration: none;
+      }
+      .footer {
+        margin-top: 80px;
+        padding-top: 24px;
+        border-top: 1px solid var(--mist);
+        color: var(--gray);
+        font: 12px/1.4 var(--mono);
+      }
+      @media (max-width: 700px) {
+        .nav .link {
+          display: none;
+        }
+        .colors {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .type {
+          grid-template-columns: 1fr;
+        }
+        .type small {
+          text-align: left;
+        }
+        .metrics,
+        .components,
+        .guides {
+          grid-template-columns: 1fr;
+        }
+        .display {
+          font-size: 52px;
+        }
+        .heading {
+          font-size: 42px;
+        }
+      }
+      @media (max-width: 460px) {
+        .page {
+          padding: 0 20px 72px;
+        }
+        .nav {
+          margin: 0 -20px;
+        }
+        .tag {
+          display: none;
+        }
+        .hero {
+          padding-top: 56px;
+        }
+        .radii {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <nav class="nav">
+        <div class="left">
+          <a class="wordmark" href="#top">Figma</a
+          ><span class="tag">Design System</span>
+        </div>
+        <div class="right">
+          <a class="link" href="#colors">Colors</a
+          ><a class="link" href="#type">Type</a
+          ><a class="link" href="#spacing">Spacing</a
+          ><a class="link" href="#components">Components</a
+          ><a
+            class="link site"
+            href="#"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Site ↗</a
+          >
+        </div>
+      </nav>
+      <main id="top">
+        <header class="hero">
+          <p class="label">Design System / Light</p>
+          <h1>White gallery wall.<br />Indigo focus.</h1>
+          <p>
+            Figma keeps interface chrome black and white so the work can carry
+            the color. Electric Indigo remains the singular action signal.
+          </p>
+          <div class="actions">
+            <a class="btn primary" href="#components">Explore components</a
+            ><a class="btn" href="#" download>Download spec</a>
+          </div>
+        </header>
+        <section class="section" id="colors">
+          <p class="label">Foundation</p>
+          <h2>Color tokens</h2>
+          <p class="desc">
+            Core UI uses Ink, Paper and one Electric Indigo. Brand and pastel
+            colors are displayed-work tokens, not UI accents.
+          </p>
+          <div class="colors grid">
+            <div class="token" style="background: #000; color: #fff">
+              Ink Black<br />#000000
+            </div>
+            <div class="token" style="background: #fff">
+              Paper White<br />#ffffff
+            </div>
+            <div class="token" style="background: #e2e2e2">
+              Soft Mist<br />#e2e2e2
+            </div>
+            <div class="token" style="background: #4d49fc; color: #fff">
+              Electric Indigo<br />#4d49fc
+            </div>
+            <div class="token" style="background: #00b6ff">
+              Figma Cyan<br />#00b6ff
+            </div>
+            <div class="token" style="background: #24cb71">
+              Figma Green<br />#24cb71
+            </div>
+            <div class="token" style="background: #ff7237">
+              Figma Orange<br />#ff7237
+            </div>
+            <div class="token" style="background: #c4baff">
+              Lilac<br />#c4baff
+            </div>
+          </div>
+        </section>
+        <section class="section" id="type">
+          <p class="label">Typography</p>
+          <h2>Type scale</h2>
+          <div class="type-list">
+            <div class="type">
+              <span class="display">Figma</span
+              ><small>Display / 72 / 1.1 / 320</small>
+            </div>
+            <div class="type">
+              <span class="heading">Make it real.</span
+              ><small>Heading-lg / 56 / 1.1 / 320</small>
+            </div>
+            <div class="type">
+              <span style="font-size: 24px">Design with precision.</span
+              ><small>Heading / 24 / 1.35 / 340</small>
+            </div>
+            <div class="type">
+              <span class="body">The canvas gives the work room to speak.</span
+              ><small>Body / 18 / 1.4 / 400</small>
+            </div>
+          </div>
+        </section>
+        <section class="section" id="spacing">
+          <p class="label">Layout</p>
+          <h2>Spacing &amp; shape</h2>
+          <div class="metrics grid">
+            <article class="panel">
+              <h3>Spacing</h3>
+              <div class="space">
+                <span>4</span><i class="bar" style="width: 4px"></i
+                ><span>4px</span>
+              </div>
+              <div class="space">
+                <span>8</span><i class="bar" style="width: 8px"></i
+                ><span>8px</span>
+              </div>
+              <div class="space">
+                <span>16</span><i class="bar" style="width: 16px"></i
+                ><span>16px</span>
+              </div>
+              <div class="space">
+                <span>24</span><i class="bar" style="width: 24px"></i
+                ><span>24px</span>
+              </div>
+              <div class="space">
+                <span>48</span><i class="bar" style="width: 48px"></i
+                ><span>48px</span>
+              </div>
+              <div class="space">
+                <span>80</span><i class="bar" style="width: 80px"></i
+                ><span>80px</span>
+              </div>
+            </article>
+            <article class="panel">
+              <h3>Radius</h3>
+              <div class="radii">
+                <div class="radius">2px<br />icons</div>
+                <div class="radius">8px<br />tags</div>
+                <div class="radius">16px<br />cards</div>
+                <div class="radius">50px<br />buttons</div>
+              </div>
+            </article>
+          </div>
+        </section>
+        <section class="section">
+          <p class="label">Elevation</p>
+          <h2>Shadow</h2>
+          <p class="desc">
+            One shadow only, reserved for the hero floating card.
+          </p>
+          <div class="shadow">
+            shadow-xl<br />rgba(0, 0, 0, 0.1) 0px 24px 70px 0px
+          </div>
+        </section>
+        <section class="section" id="components">
+          <p class="label">Components</p>
+          <h2>Component library</h2>
+          <div class="components">
+            <article class="component">
+              <h3>Actions</h3>
+              <div class="preview">
+                <button class="btn primary">Get started</button>
+                <button class="btn">Sign in</button>
+              </div>
+              <p class="desc">
+                Indigo is the one primary action; the ghost action stays black
+                and white.
+              </p>
+            </article>
+            <article class="component">
+              <h3>Brand mark</h3>
+              <div class="preview">
+                <div class="logo" aria-label="Figma color mark">
+                  <i></i><i></i><i></i><i></i>
+                </div>
+              </div>
+              <p class="desc">
+                The logo is the only UI element where the four marker colors
+                appear together.
+              </p>
+            </article>
+          </div>
+        </section>
+        <section class="section">
+          <p class="label">Guidelines</p>
+          <h2>Use with restraint</h2>
+          <div class="guides grid">
+            <article class="guide do">
+              <h3>Do</h3>
+              <ul>
+                <li>Reserve Electric Indigo for one CTA per viewport.</li>
+                <li>Use weight 320 display type at 56–72px.</li>
+                <li>Apply shadow-xl only to the hero card.</li>
+              </ul>
+            </article>
+            <article class="guide avoid">
+              <h3>Avoid</h3>
+              <ul>
+                <li>Do not color ordinary UI controls with logo hues.</li>
+                <li>Do not shadow gallery cards.</li>
+                <li>
+                  Do not replace the white canvas with decorative surfaces.
+                </li>
+              </ul>
+            </article>
+          </div>
+          <div class="downloads">
+            <a class="download" href="#" download>DESIGN.md</a
+            ><a class="download" href="#" download>tokens.json</a
+            ><a class="download" href="#" download>variables.css</a
+            ><a class="download" href="#" download>theme.css</a>
+          </div>
+        </section>
+      </main>
+      <footer class="footer">FIGMA DESIGN SYSTEM · LIGHT REFERENCE</footer>
+    </div>
+  </body>
+</html>

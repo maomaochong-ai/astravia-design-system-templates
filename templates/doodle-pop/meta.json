@@ -1,0 +1,31 @@
+{
+	"schemaVersion": 1,
+	"kind": "design-system",
+	"slug": "doodle-pop",
+	"name": "Doodle Pop",
+	"version": "1.1.0",
+	"order": 20,
+	"category": "playful",
+	"vibe": "light",
+	"tags": [
+		"playful",
+		"light"
+	],
+	"blurb": "Lime × black sticker energy; thick ink borders, hard offset shadows, polka-dot textures, coral & pastel pops.",
+	"tagline": {
+		"en": "Lime × black polka-dot sticker pop",
+		"zh": "柠黄撞黑，波点贴纸游戏感"
+	},
+	"license": "MIT",
+	"origin": {
+		"type": "curated",
+		"upstream": "https://github.com/VoltAgent/awesome-design-md",
+		"note": "Vetta-adapted from awesome-design-md (MIT)."
+	},
+	"assets": {
+		"spec": "DESIGN.md",
+		"theme": "theme.css",
+		"demo": "demo.html"
+	},
+	"collectedAt": "2026-08-11"
+}

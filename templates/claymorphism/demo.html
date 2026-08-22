@@ -1,0 +1,596 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Claymorphism — component reference</title>
+<style>
+	/* Mirrors theme.css. Plain custom properties so this file opens standalone. */
+	:root {
+		--color-primary: #f8b4d9;
+		--color-primary-foreground: #1f2937;
+		--color-surface: #fffbeb;
+		--color-surface-foreground: #1f2937;
+		--color-surface-raised: #ffffff;
+		--color-muted: #78716c;
+		--color-accent: #c4b5fd;
+		--color-danger: #f9a8c0;
+		--color-border: #f5e6d8;
+
+		--color-clay-pink: #f8b4d9;
+		--color-clay-mint: #a7f3d0;
+		--color-clay-lavender: #c4b5fd;
+		--color-clay-yellow: #fcd34d;
+		--color-clay-cream: #fef3c7;
+
+		--color-clay-pink-foreground: #7c2d62;
+		--color-clay-mint-foreground: #115e52;
+		--color-clay-lavender-foreground: #4c3a8c;
+		--color-clay-yellow-foreground: #92400e;
+		--color-clay-cream-foreground: #92400e;
+
+		--radius-sm: 16px;
+		--radius-md: 20px;
+		--radius-lg: 24px;
+		--radius-xl: 28px;
+		--radius-2xl: 32px;
+		--radius-full: 9999px;
+
+		--shadow-sm: 4px 4px 0 rgb(0 0 0 / 0.08), inset 0 1px 3px rgb(255 255 255 / 0.6);
+		--shadow-md: 8px 8px 0 rgb(0 0 0 / 0.13), inset 0 2px 4px rgb(255 255 255 / 0.6);
+		--shadow-lg: 12px 12px 0 rgb(0 0 0 / 0.18), inset 0 3px 6px rgb(255 255 255 / 0.7);
+		--shadow-hover: 12px 12px 0 rgb(0 0 0 / 0.15), inset 0 2px 4px rgb(255 255 255 / 0.6);
+		--shadow-active: 4px 4px 0 rgb(0 0 0 / 0.1), inset 0 2px 4px rgb(255 255 255 / 0.5);
+		--shadow-bloom: 0 16px 40px rgb(248 180 217 / 0.55), inset 0 2px 5px rgb(255 255 255 / 0.65);
+		--shadow-focus-ring: 0 0 0 4px rgb(196 181 253 / 0.55);
+
+		--gradient-page: linear-gradient(135deg, #fef3c7 0%, #fce7f3 50%, #ede9fe 100%);
+		--gradient-primary: linear-gradient(135deg, #fce7f3 0%, #f8b4d9 100%);
+		--gradient-mint: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+		--gradient-rainbow: linear-gradient(135deg, #f8b4d9 0%, #c4b5fd 40%, #a7f3d0 70%, #fcd34d 100%);
+
+		--blob-radius: 60% 40% 55% 45% / 40% 60% 40% 60%;
+		--blob-radius-alt: 45% 55% 40% 60% / 55% 45% 55% 45%;
+
+		--ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+		--duration-base: 200ms;
+	}
+
+	*, *::before, *::after { box-sizing: border-box; }
+	body {
+		margin: 0;
+		background: var(--color-surface);
+		color: var(--color-surface-foreground);
+		/* Geometric sans with open letterforms, carrying a real 900 for display.
+		   No mono and no condensed face anywhere in this system. */
+		font-family: -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display",
+			"Segoe UI", Nunito, Quicksand, "Helvetica Neue", Arial, sans-serif;
+		font-weight: 500;
+		font-size: 16px;
+		line-height: 1.6;
+		-webkit-font-smoothing: antialiased;
+	}
+	h1, h2, h3 { margin: 0; font-weight: 900; letter-spacing: -0.01em; line-height: 1.15; }
+	p { margin: 0; }
+	::selection { background: var(--color-clay-lavender); color: var(--color-clay-lavender-foreground); }
+	.spacer { flex: 1; }
+	.muted { color: var(--color-muted); }
+
+	.wrap { max-width: 1000px; margin: 0 auto; padding: 0 24px 96px; position: relative; z-index: 1; }
+	@media (min-width: 768px) { .wrap { padding: 0 32px 128px; } }
+
+	/* ── Background blobs: lumps of clay, never circles ────────────── */
+	.blob { position: absolute; pointer-events: none; z-index: 0; }
+	.blob-a { width: 180px; height: 150px; border-radius: var(--blob-radius); background: var(--color-clay-pink); opacity: 0.55; }
+	.blob-b { width: 130px; height: 130px; border-radius: var(--blob-radius-alt); background: var(--color-clay-mint); opacity: 0.5; }
+	.blob-c { width: 96px; height: 96px; border-radius: var(--blob-radius); background: var(--color-clay-lavender); opacity: 0.5; }
+	.blob-d { width: 150px; height: 120px; border-radius: var(--blob-radius-alt); background: var(--color-clay-yellow); opacity: 0.45; }
+
+	/* ── COVER: a habit tracker, which is what this material is for ── */
+	.app { position: relative; overflow: hidden; padding: 24px 24px 48px; }
+	@media (min-width: 768px) { .app { padding: 32px 32px 64px; } }
+	.app-inner { position: relative; z-index: 1; max-width: 1000px; margin: 0 auto; }
+
+	.appbar { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+	.logo { display: flex; align-items: center; gap: 12px; font-weight: 900; font-size: 20px; }
+	.logo .lump { width: 34px; height: 34px; border-radius: var(--blob-radius); background: var(--gradient-primary); box-shadow: var(--shadow-sm); }
+	.avatar { width: 44px; height: 44px; border-radius: var(--radius-full); background: var(--color-clay-lavender); box-shadow: var(--shadow-sm); display: grid; place-items: center; font-weight: 800; color: var(--color-clay-lavender-foreground); }
+
+	.hello { margin-top: 28px; }
+	.hello h1 { font-size: 34px; }
+	@media (min-width: 768px) { .hello h1 { font-size: 46px; } }
+	/* The one place a heading takes color: a gradient-filled accent word. */
+	.tint {
+		background: linear-gradient(135deg, #f07fb8 0%, #a78bfa 55%, #4fd1b1 100%);
+		-webkit-background-clip: text; background-clip: text; color: transparent;
+	}
+	.hello p { color: var(--color-muted); margin-top: 10px; max-width: 46ch; }
+
+	.board { display: grid; grid-template-columns: 1fr; gap: 24px; margin-top: 32px; }
+	@media (min-width: 860px) { .board { grid-template-columns: 1.35fr 1fr; gap: 32px; } }
+
+	/* Cards: fat radius, offset drop, inset sheen, no border. */
+	.card {
+		position: relative; overflow: hidden;
+		padding: 24px; border-radius: var(--radius-2xl);
+		background: var(--color-surface-raised);
+		box-shadow: var(--shadow-lg);
+	}
+	@media (min-width: 768px) { .card { padding: 32px; } }
+	/* The inset white bar near the top edge — the moulded sheen. */
+	.card::before {
+		content: ""; position: absolute; left: 24px; right: 24px; top: 12px; height: 4px;
+		border-radius: var(--radius-full); background: rgb(255 255 255 / 0.65);
+	}
+	.card-pink { background: var(--color-clay-pink); color: var(--color-clay-pink-foreground); }
+	.card-mint { background: var(--color-clay-mint); color: var(--color-clay-mint-foreground); }
+	.card-lavender { background: var(--color-clay-lavender); color: var(--color-clay-lavender-foreground); }
+	.card h3 { font-size: 20px; }
+	.card p { font-size: 15px; opacity: 0.82; }
+
+	.chip {
+		display: inline-block; padding: 6px 16px; border-radius: var(--radius-full);
+		background: rgb(255 255 255 / 0.6); box-shadow: var(--shadow-sm);
+		font-size: 12px; font-weight: 800;
+	}
+
+	/* Habit rows: recessed groove track + raised fill, the in/out language. */
+	.habit { display: flex; align-items: center; gap: 16px; }
+	.habit + .habit { margin-top: 22px; }
+	.habit .icon { width: 52px; height: 52px; flex: none; border-radius: var(--radius-full); display: grid; place-items: center; font-size: 21px; box-shadow: var(--shadow-sm); }
+	.habit .body { flex: 1; min-width: 0; }
+	.habit .body b { display: block; font-weight: 800; font-size: 16px; }
+	.habit .body span { font-size: 13px; color: var(--color-muted); font-weight: 600; }
+	.meter { display: block; height: 18px; border-radius: var(--radius-full); background: var(--color-clay-cream); box-shadow: inset 0 2px 5px rgb(0 0 0 / 0.12); padding: 3px; margin-top: 8px; }
+	.meter .fill { display: block; height: 12px; border-radius: var(--radius-full); }
+
+	.ring { position: relative; flex: none; }
+	.ring svg { display: block; }
+	.ring .pct { position: absolute; inset: 0; display: grid; place-items: center; font-weight: 900; font-size: 26px; }
+
+	.streaks { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 22px; }
+	.day { width: 40px; height: 40px; border-radius: var(--radius-full); display: grid; place-items: center; font-size: 12px; font-weight: 800; box-shadow: var(--shadow-sm); }
+	.day.todo { background: var(--color-clay-cream); color: #b6a99a; box-shadow: inset 0 2px 4px rgb(0 0 0 / 0.07); }
+
+	/* ── Buttons ───────────────────────────────────────────────────── */
+	.btn {
+		font: inherit; font-weight: 800; font-size: 16px;
+		padding: 14px 30px; min-height: 44px;
+		border: 0; border-radius: var(--radius-full);
+		background: var(--color-clay-pink); color: var(--color-clay-pink-foreground);
+		box-shadow: var(--shadow-md);
+		cursor: pointer;
+		transition: box-shadow var(--duration-base) var(--ease-spring),
+			transform var(--duration-base) var(--ease-spring);
+	}
+	.btn:hover { box-shadow: var(--shadow-hover); transform: scale(1.04); }
+	.btn:active { box-shadow: var(--shadow-active); transform: scale(0.97); }
+	.btn:focus-visible { outline: none; box-shadow: var(--shadow-md), var(--shadow-focus-ring); }
+	.btn-mint { background: var(--color-clay-mint); color: var(--color-clay-mint-foreground); }
+	.btn-lavender { background: var(--color-clay-lavender); color: var(--color-clay-lavender-foreground); }
+	.btn-yellow { background: var(--color-clay-yellow); color: var(--color-clay-yellow-foreground); }
+	.btn-cream { background: var(--color-clay-cream); color: var(--color-clay-cream-foreground); box-shadow: var(--shadow-sm); }
+	.btn-sm { font-size: 14px; padding: 10px 20px; box-shadow: var(--shadow-sm); }
+	.btn-lg { font-size: 20px; padding: 18px 40px; box-shadow: var(--shadow-lg); }
+	/* Disabled loses its drop entirely: pressed flat, not faded out. */
+	.btn[disabled] {
+		cursor: not-allowed; background: var(--color-clay-cream); color: #a8a29e;
+		box-shadow: inset 0 2px 4px rgb(0 0 0 / 0.06);
+		transform: none;
+	}
+	.row { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; }
+
+	/* ── Section scaffold ──────────────────────────────────────────── */
+	.section { padding-top: 64px; }
+	@media (min-width: 768px) { .section { padding-top: 96px; } }
+	.section-label {
+		display: inline-block;
+		padding: 8px 20px; margin-bottom: 24px;
+		border-radius: var(--radius-full);
+		background: var(--color-clay-cream); color: var(--color-clay-cream-foreground);
+		box-shadow: var(--shadow-sm);
+		font-size: 13px; font-weight: 800;
+	}
+	.section h2 { font-size: 30px; }
+	@media (min-width: 768px) { .section h2 { font-size: 38px; } }
+	.lede { color: var(--color-muted); max-width: 60ch; margin-top: 12px; }
+	.note { margin-top: 20px; font-size: 14px; color: var(--color-muted); }
+
+	/* ── Palette ───────────────────────────────────────────────────── */
+	.palette { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; margin-top: 32px; }
+	@media (min-width: 720px) { .palette { grid-template-columns: repeat(3, 1fr); } }
+	.swatch { border-radius: var(--radius-2xl); overflow: hidden; box-shadow: var(--shadow-md); background: var(--color-surface-raised); }
+	.swatch-top { position: relative; height: 100px; }
+	.swatch-top::before {
+		content: ""; position: absolute; left: 16px; right: 16px; top: 10px; height: 3px;
+		border-radius: var(--radius-full); background: rgb(255 255 255 / 0.7);
+	}
+	.swatch-meta { padding: 16px 20px 20px; }
+	.swatch-meta b { display: block; font-weight: 800; font-size: 15px; }
+	.swatch-meta span { font-size: 13px; color: var(--color-muted); }
+
+	/* ── Depth scale ───────────────────────────────────────────────── */
+	.depths { display: grid; grid-template-columns: 1fr; gap: 32px; margin-top: 32px; }
+	@media (min-width: 720px) { .depths { grid-template-columns: repeat(3, 1fr); } }
+	.depth { padding: 32px 24px; border-radius: var(--radius-lg); text-align: center; font-weight: 800; }
+	.depth-sm { background: var(--color-clay-pink); color: var(--color-clay-pink-foreground); box-shadow: var(--shadow-sm); }
+	.depth-md { background: var(--color-clay-mint); color: var(--color-clay-mint-foreground); box-shadow: var(--shadow-md); }
+	.depth-lg { background: var(--color-clay-lavender); color: var(--color-clay-lavender-foreground); box-shadow: var(--shadow-lg); }
+	.depth small { display: block; font-weight: 600; font-size: 12px; opacity: 0.8; margin-top: 8px; }
+
+	/* ── Form ──────────────────────────────────────────────────────── */
+	.field { display: block; max-width: 460px; }
+	.field + .field { margin-top: 24px; }
+	.flabel { display: block; margin-bottom: 10px; font-size: 14px; font-weight: 800; }
+	.input {
+		width: 100%; font: inherit; font-weight: 500; padding: 16px 20px; min-height: 44px;
+		border: 0; border-radius: var(--radius-xl);
+		background: var(--color-clay-cream); color: var(--color-surface-foreground);
+		/* Recessed: highlight only, no drop — the field sits *in* the page. */
+		box-shadow: inset 0 2px 5px rgb(0 0 0 / 0.08), inset 0 -1px 2px rgb(255 255 255 / 0.9);
+		transition: box-shadow var(--duration-base) var(--ease-spring);
+	}
+	.input::placeholder { color: #b6a99a; }
+	.input:focus { outline: none; box-shadow: inset 0 2px 5px rgb(0 0 0 / 0.08), var(--shadow-focus-ring); }
+	.input-error { background: var(--color-danger); }
+	.msg { margin-top: 10px; font-size: 14px; font-weight: 700; color: var(--color-clay-pink-foreground); }
+
+	.toggle { display: inline-flex; align-items: center; gap: 12px; font-weight: 700; font-size: 14px; }
+	.track {
+		width: 64px; height: 36px; border-radius: var(--radius-full);
+		background: var(--color-clay-mint); padding: 4px;
+		box-shadow: inset 0 2px 5px rgb(0 0 0 / 0.12);
+		display: flex; justify-content: flex-end;
+	}
+	.track-off { background: var(--color-clay-cream); justify-content: flex-start; }
+	.knob { width: 28px; height: 28px; border-radius: var(--radius-full); background: #fff; box-shadow: var(--shadow-sm); }
+
+	/* Tabs: one pill track with the active tab raised inside it. */
+	.tabs { display: inline-flex; gap: 4px; padding: 5px; border-radius: var(--radius-full); background: var(--color-clay-cream); box-shadow: inset 0 2px 5px rgb(0 0 0 / 0.1); }
+	.tabs span { padding: 8px 20px; border-radius: var(--radius-full); font-size: 14px; font-weight: 800; color: var(--color-clay-cream-foreground); }
+	.tabs .is-active { background: var(--color-surface-raised); box-shadow: var(--shadow-sm); color: var(--color-surface-foreground); }
+
+	/* ── Dialog ────────────────────────────────────────────────────── */
+	.scrim { border-radius: var(--radius-2xl); padding: 40px 24px; background: var(--gradient-page); margin-top: 32px; }
+	.dialog { max-width: 420px; margin: 0 auto; padding: 32px; border-radius: var(--radius-2xl); background: var(--color-surface-raised); box-shadow: var(--shadow-lg); }
+
+	/* ── Mobile ────────────────────────────────────────────────────── */
+	.mobile { display: grid; grid-template-columns: minmax(0, 1fr); gap: 36px; margin-top: 32px; align-items: start; }
+	@media (min-width: 880px) { .mobile { grid-template-columns: 296px 1fr; gap: 48px; } }
+	.phone {
+		width: 296px; max-width: 100%; margin: 0 auto;
+		border-radius: 44px; padding: 10px;
+		background: var(--color-clay-cream);
+		box-shadow: var(--shadow-lg);
+		position: relative; overflow: hidden;
+	}
+	.phone-inner { position: relative; z-index: 1; border-radius: 36px; background: var(--color-surface); overflow: hidden; }
+	.phone-status { display: flex; justify-content: space-between; padding: 12px 20px 4px; font-size: 11px; font-weight: 700; color: var(--color-muted); }
+	.phone-body { padding: 6px 16px 14px; position: relative; }
+	.phone-body h4 { font-size: 24px; font-weight: 900; letter-spacing: -0.01em; }
+	.phone-body .sub { font-size: 12px; color: var(--color-muted); font-weight: 600; }
+	.m-card { border-radius: var(--radius-xl); padding: 16px; margin-top: 14px; position: relative; overflow: hidden; box-shadow: var(--shadow-md); background: var(--color-surface-raised); }
+	.m-card::before { content: ""; position: absolute; left: 16px; right: 16px; top: 9px; height: 3px; border-radius: var(--radius-full); background: rgb(255 255 255 / 0.65); }
+	.m-habit { display: flex; align-items: center; gap: 12px; }
+	.m-habit + .m-habit { margin-top: 14px; }
+	.m-habit .icon { width: 38px; height: 38px; border-radius: var(--radius-full); display: grid; place-items: center; font-size: 16px; box-shadow: var(--shadow-sm); flex: none; }
+	.m-habit b { font-size: 13px; font-weight: 800; display: block; }
+	.m-habit .meter { height: 14px; margin-top: 5px; }
+	.m-habit .meter .fill { height: 8px; }
+	/* Bottom bar is a floating clay pill, not a docked strip. */
+	.m-bar { display: flex; gap: 6px; margin: 12px 14px 16px; padding: 6px; border-radius: var(--radius-full); background: var(--color-surface-raised); box-shadow: var(--shadow-md); }
+	.m-bar div { flex: 1; text-align: center; padding: 8px 0; border-radius: var(--radius-full); font-size: 10px; font-weight: 800; color: var(--color-muted); }
+	.m-bar .is-active { background: var(--color-clay-pink); color: var(--color-clay-pink-foreground); box-shadow: var(--shadow-sm); }
+
+	.rules { margin: 0; padding: 0; list-style: none; }
+	.rules li { padding: 16px 0; border-bottom: 2px solid var(--color-border); font-size: 15px; color: var(--color-muted); }
+	.rules li:last-child { border-bottom: 0; }
+	.rules b { display: block; color: var(--color-surface-foreground); font-size: 16px; font-weight: 800; margin-bottom: 3px; }
+
+	/* ── Off-style comparison ──────────────────────────────────────── */
+	.compare { display: grid; grid-template-columns: 1fr; gap: 24px; margin-top: 32px; }
+	@media (min-width: 720px) { .compare { grid-template-columns: repeat(2, 1fr); } }
+	.cmp-off { padding: 24px; border-radius: 4px; background: #e5e7eb; color: #6b7280; font-weight: 400; box-shadow: none; }
+	.cmp-on { padding: 24px; border-radius: var(--radius-2xl); background: var(--color-clay-mint); color: var(--color-clay-mint-foreground); font-weight: 700; box-shadow: var(--shadow-lg); }
+
+	@media (prefers-reduced-motion: reduce) {
+		.btn:hover, .btn:active { transform: none; }
+	}
+</style>
+</head>
+<body>
+
+<!-- COVER — a habit tracker, which is what this material is actually for.
+     Cream page, clay lumps behind, every piece moulded and squishy. -->
+<header class="app">
+	<div class="blob blob-a" style="top: 20px; left: -70px;"></div>
+	<div class="blob blob-b" style="top: 220px; right: -50px;"></div>
+	<div class="blob blob-c" style="bottom: 40px; left: 8%;"></div>
+	<div class="blob blob-d" style="bottom: -30px; right: 12%;"></div>
+
+	<div class="app-inner">
+		<div class="appbar">
+			<span class="logo"><span class="lump"></span>Squish</span>
+			<span class="spacer"></span>
+			<span class="tabs"><span class="is-active">Today</span><span>Week</span><span>All</span></span>
+			<span class="avatar">KM</span>
+		</div>
+
+		<div class="hello">
+			<h1>Nice work today, <span class="tint">Kaori</span>.</h1>
+			<p>Three of four habits done. The last one takes ten minutes.</p>
+		</div>
+
+		<div class="board">
+			<div class="card">
+				<span class="chip">Today's habits</span>
+				<div style="margin-top: 22px;">
+					<div class="habit">
+						<span class="icon" style="background: var(--color-clay-mint); color: var(--color-clay-mint-foreground)">🌿</span>
+						<span class="body">
+							<b>Morning stretch</b><span>10 of 10 minutes</span>
+							<span class="meter"><span class="fill" style="width:100%; background: var(--color-clay-mint)"></span></span>
+						</span>
+					</div>
+					<div class="habit">
+						<span class="icon" style="background: var(--color-clay-lavender); color: var(--color-clay-lavender-foreground)">📖</span>
+						<span class="body">
+							<b>Read something long</b><span>18 of 20 pages</span>
+							<span class="meter"><span class="fill" style="width:90%; background: var(--color-clay-lavender)"></span></span>
+						</span>
+					</div>
+					<div class="habit">
+						<span class="icon" style="background: var(--color-clay-yellow); color: var(--color-clay-yellow-foreground)">💧</span>
+						<span class="body">
+							<b>Drink water</b><span>6 of 8 glasses</span>
+							<span class="meter"><span class="fill" style="width:75%; background: var(--color-clay-yellow)"></span></span>
+						</span>
+					</div>
+					<div class="habit">
+						<span class="icon" style="background: var(--color-clay-pink); color: var(--color-clay-pink-foreground)">🎹</span>
+						<span class="body">
+							<b>Practise piano</b><span>Not started</span>
+							<span class="meter"><span class="fill" style="width:6%; background: var(--color-clay-pink)"></span></span>
+						</span>
+					</div>
+				</div>
+				<div class="row" style="margin-top: 28px;">
+					<button class="btn">Start piano</button>
+					<button class="btn btn-cream">Skip today</button>
+				</div>
+			</div>
+
+			<div style="display: grid; gap: 24px; align-content: start;">
+				<div class="card card-mint" style="display: flex; align-items: center; gap: 20px;">
+					<span class="ring">
+						<svg width="96" height="96" viewBox="0 0 96 96" role="img" aria-label="76 percent of today complete">
+							<circle cx="48" cy="48" r="38" fill="none" stroke="rgb(255 255 255 / 0.55)" stroke-width="14"/>
+							<circle cx="48" cy="48" r="38" fill="none" stroke="#115e52" stroke-width="14" stroke-linecap="round"
+								stroke-dasharray="239" stroke-dashoffset="58" transform="rotate(-90 48 48)"/>
+						</svg>
+						<span class="pct">76%</span>
+					</span>
+					<span>
+						<h3>Today</h3>
+						<p>Three done, one to go.</p>
+					</span>
+				</div>
+
+				<div class="card">
+					<span class="chip" style="background: var(--color-clay-pink); color: var(--color-clay-pink-foreground)">12 day streak</span>
+					<h3 style="margin-top: 16px;">This week</h3>
+					<div class="streaks">
+						<span class="day" style="background: var(--color-clay-mint); color: var(--color-clay-mint-foreground)">M</span>
+						<span class="day" style="background: var(--color-clay-mint); color: var(--color-clay-mint-foreground)">T</span>
+						<span class="day" style="background: var(--color-clay-mint); color: var(--color-clay-mint-foreground)">W</span>
+						<span class="day" style="background: var(--color-clay-yellow); color: var(--color-clay-yellow-foreground)">T</span>
+						<span class="day" style="background: var(--color-clay-pink); color: var(--color-clay-pink-foreground)">F</span>
+						<span class="day todo">S</span>
+						<span class="day todo">S</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</header>
+
+<div class="wrap">
+
+	<!-- 01 PALETTE -->
+	<section class="section">
+		<p class="section-label">01 — Candy palette</p>
+		<h2>Five tints, five inks</h2>
+		<p class="lede">Every tint is light, so contrast lives in the paired ink.
+			White text on clay lands near 2:1 and is never used.</p>
+		<div class="palette">
+			<div class="swatch">
+				<div class="swatch-top" style="background: var(--color-clay-pink);"></div>
+				<div class="swatch-meta"><b>clay-pink</b><span>#f8b4d9 · primary action</span></div>
+			</div>
+			<div class="swatch">
+				<div class="swatch-top" style="background: var(--color-clay-mint);"></div>
+				<div class="swatch-meta"><b>clay-mint</b><span>#a7f3d0 · success, secondary</span></div>
+			</div>
+			<div class="swatch">
+				<div class="swatch-top" style="background: var(--color-clay-lavender);"></div>
+				<div class="swatch-meta"><b>clay-lavender</b><span>#c4b5fd · accent, selection</span></div>
+			</div>
+			<div class="swatch">
+				<div class="swatch-top" style="background: var(--color-clay-yellow);"></div>
+				<div class="swatch-meta"><b>clay-yellow</b><span>#fcd34d · highlight</span></div>
+			</div>
+			<div class="swatch">
+				<div class="swatch-top" style="background: var(--color-clay-cream);"></div>
+				<div class="swatch-meta"><b>clay-cream</b><span>#fef3c7 · quiet fills, inputs</span></div>
+			</div>
+			<div class="swatch">
+				<div class="swatch-top" style="background: var(--gradient-rainbow);"></div>
+				<div class="swatch-meta"><b>gradient-rainbow</b><span>all five · once per screen</span></div>
+			</div>
+		</div>
+		<p class="note">The page itself stays warm cream. A white or gray background flattens every piece on it, and two or three tints per screen is the working limit.</p>
+	</section>
+
+	<!-- 02 DEPTH -->
+	<section class="section">
+		<p class="section-label">02 — Depth pair</p>
+		<h2>Offset drop plus inner shine</h2>
+		<p class="lede">The drop has zero blur, which is what reads as extruded
+			thickness rather than a cast shadow. The inset white highlight along the
+			top is the moulded sheen. Remove either half and the clay is gone.</p>
+		<div class="depths">
+			<div class="depth depth-sm">shadow-sm<small>4px offset · chips, pills</small></div>
+			<div class="depth depth-md">shadow-md<small>8px offset · buttons, controls</small></div>
+			<div class="depth depth-lg">shadow-lg<small>12px offset · cards, dialogs</small></div>
+		</div>
+		<p class="note">Gaps never drop below 16px: the drop needs clearance to the right and below, or the depth turns to mud.</p>
+	</section>
+
+	<!-- 03 BUTTONS -->
+	<section class="section">
+		<p class="section-label">03 — Buttons &amp; states</p>
+		<h2>Press and it squashes</h2>
+		<div class="row" style="margin-top: 32px;">
+			<button class="btn">Pink clay</button>
+			<button class="btn btn-mint">Mint</button>
+			<button class="btn btn-lavender">Lavender</button>
+			<button class="btn btn-yellow">Yellow</button>
+			<button class="btn btn-cream">Cream</button>
+		</div>
+		<div class="row" style="margin-top: 24px;">
+			<button class="btn btn-sm btn-lavender">Small pill</button>
+			<button class="btn btn-mint">Medium slab</button>
+			<button class="btn btn-lg">Large chunk</button>
+			<button class="btn" disabled>Disabled</button>
+		</div>
+		<p class="note">Hover pushes the drop out to 12px and scales to 1.04; active pulls it back to 4px and scales to 0.97 — the
+			shrinking drop is what sells the press. Tab to a button for the lavender focus ring. Disabled loses its drop entirely
+			rather than fading.</p>
+	</section>
+
+	<!-- 04 FORM -->
+	<section class="section">
+		<p class="section-label">04 — Inputs &amp; controls</p>
+		<h2>Recessed, not raised</h2>
+		<p class="lede">Inputs are the one inverted case: no drop at all, so the field
+			reads as pressed into the page while everything else sits on top of it.</p>
+		<div style="margin-top: 32px;">
+			<label class="field">
+				<span class="flabel">Habit name</span>
+				<input class="input" type="text" placeholder="Click or tab in →">
+			</label>
+			<label class="field">
+				<span class="flabel">Reminder email</span>
+				<input class="input input-error" type="email" value="not-an-email">
+				<span class="msg">Enter a valid address</span>
+			</label>
+		</div>
+		<div class="row" style="margin-top: 32px; gap: 32px;">
+			<span class="toggle"><span class="track"><span class="knob"></span></span> Nudge me</span>
+			<span class="toggle"><span class="track track-off"><span class="knob"></span></span> Weekend off</span>
+			<span class="tabs"><span class="is-active">Today</span><span>Week</span><span>All</span></span>
+		</div>
+		<p class="note">Tracks, tabs and meters share one language: a recessed groove holding a raised piece.</p>
+	</section>
+
+	<!-- 05 OVERLAY -->
+	<section class="section">
+		<p class="section-label">05 — Overlay</p>
+		<h2>Dialogs stay clay</h2>
+		<div class="scrim">
+			<div class="dialog">
+				<h3 style="font-size: 22px;">Delete this habit?</h3>
+				<p style="margin: 12px 0 24px; color: var(--color-muted); font-size: 15px;">
+					Twelve days of streak go with it. Nothing is fired yet, so this is easy to undo.</p>
+				<div class="row">
+					<button class="btn" style="background: var(--color-danger);">Delete</button>
+					<button class="btn btn-cream">Cancel</button>
+				</div>
+			</div>
+		</div>
+		<p class="note">The scrim is warm, not black: cream through pink to lavender. Dark scrims break the material.</p>
+	</section>
+
+	<!-- 06 MOBILE -->
+	<section class="section">
+		<p class="section-label">06 — Mobile</p>
+		<h2>Fat shapes were built for thumbs</h2>
+		<p class="lede">This material is at its best on a phone: the fat radii already put every target
+			well past 44px, and the offset drop makes a small screen feel like a tray of objects rather than
+			a list. The one thing to watch is clearance — drops need room to the right and below.</p>
+		<div class="mobile">
+			<div class="phone">
+				<div class="blob blob-c" style="top: -20px; right: -20px; opacity: 0.35;"></div>
+				<div class="phone-inner">
+					<div class="phone-status"><span>9:41</span><span>LTE ▮</span></div>
+					<div class="phone-body">
+						<div style="display:flex;align-items:center;gap:10px">
+							<span class="logo" style="font-size:15px;gap:8px"><span class="lump" style="width:24px;height:24px"></span>Squish</span>
+							<span class="spacer"></span>
+							<span class="avatar" style="width:30px;height:30px;font-size:11px">KM</span>
+						</div>
+						<h4 style="margin-top:14px">Nice work, <span class="tint">Kaori</span>.</h4>
+						<div class="sub">Three of four done today</div>
+
+						<div class="m-card card-mint" style="display:flex;align-items:center;gap:14px">
+							<span class="ring">
+								<svg width="54" height="54" viewBox="0 0 96 96" role="img" aria-label="76 percent complete">
+									<circle cx="48" cy="48" r="38" fill="none" stroke="rgb(255 255 255 / 0.55)" stroke-width="16"/>
+									<circle cx="48" cy="48" r="38" fill="none" stroke="#115e52" stroke-width="16" stroke-linecap="round" stroke-dasharray="239" stroke-dashoffset="58" transform="rotate(-90 48 48)"/>
+								</svg>
+							</span>
+							<span><b style="font-weight:900;font-size:15px">76% today</b><br><span style="font-size:11px;opacity:0.8">One habit to go</span></span>
+						</div>
+
+						<div class="m-card">
+							<div class="m-habit">
+								<span class="icon" style="background: var(--color-clay-mint); color: var(--color-clay-mint-foreground)">🌿</span>
+								<span style="flex:1"><b>Morning stretch</b><span class="meter"><span class="fill" style="width:100%;background:var(--color-clay-mint)"></span></span></span>
+							</div>
+							<div class="m-habit">
+								<span class="icon" style="background: var(--color-clay-yellow); color: var(--color-clay-yellow-foreground)">💧</span>
+								<span style="flex:1"><b>Drink water</b><span class="meter"><span class="fill" style="width:75%;background:var(--color-clay-yellow)"></span></span></span>
+							</div>
+							<div class="m-habit">
+								<span class="icon" style="background: var(--color-clay-pink); color: var(--color-clay-pink-foreground)">🎹</span>
+								<span style="flex:1"><b>Practise piano</b><span class="meter"><span class="fill" style="width:6%;background:var(--color-clay-pink)"></span></span></span>
+							</div>
+						</div>
+					</div>
+					<div class="m-bar">
+						<div class="is-active">Today</div><div>Habits</div><div>Streaks</div><div>You</div>
+					</div>
+				</div>
+			</div>
+			<ul class="rules">
+				<li><b>Clearance before density</b>The offset drop needs room to its right and below, so the 16px gap floor holds at every width. When space runs short, a card is removed rather than tightened.</li>
+				<li><b>Shadow steps down</b>Cards go <code>shadow-lg</code> → <code>shadow-md</code>, controls <code>shadow-md</code> → <code>shadow-sm</code>. The offset stays proportional to the piece so a small card does not look like it is floating away.</li>
+				<li><b>Radius eases, never squares</b>32px cards become 28px, 44px phone shell corners stay generous. The 16px floor is absolute — nothing rounds down past it on a small screen.</li>
+				<li><b>Targets are already there</b>Pills at 44px minimum, icon holders at 38–52px circles. The fat shapes mean no touch-specific resizing is needed, which is the material's biggest practical advantage.</li>
+				<li><b>Bottom bar is a floating pill</b>Not a docked strip with a divider. It keeps the full radius and its own drop, with the active tab raised in clay pink — the same groove-and-raised-piece language as the tabs.</li>
+				<li><b>Blobs move behind, and shrink</b>One or two lumps at reduced opacity, clipped by the screen edge. They never sit behind small text, at any width.</li>
+				<li><b>Motion</b>The spring stays. Press-to-squash at 0.97 is the whole personality, and it is the one interaction touch gets for free — hover simply has no equivalent.</li>
+			</ul>
+		</div>
+	</section>
+
+	<!-- 07 DON'T -->
+	<section class="section">
+		<p class="section-label">07 — Off-style, for contrast</p>
+		<h2>What breaks the spell</h2>
+		<div class="compare">
+			<div class="cmp-off">
+				Sharp 4px corner · flat, no shadow · cool gray fill · desaturated neutral text · regular weight.
+				Every one of these is forbidden here.
+			</div>
+			<div class="cmp-on">
+				Same content, on-style: 32px corner, candy tint, offset drop plus inner shine, dark paired ink, weight 700.
+			</div>
+		</div>
+		<p class="note">Also out: dark or moody backgrounds, monospace and condensed faces, neon accents, and any shadow harsh
+			enough to read as a cast shadow instead of thickness.</p>
+	</section>
+
+</div>
+</body>
+</html>

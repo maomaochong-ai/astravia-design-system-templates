@@ -1,0 +1,53 @@
+:root {
+  /* Colors */
+  --mistral-parchment: #fffaeb;
+  --mistral-card: #ffffff;
+  --mistral-ink: #1f1f1f;
+  --mistral-carbon: #000000;
+  --mistral-graphite: #3c3c3c;
+  --mistral-ember: #fa520f;
+  --mistral-butter: #fff0c2;
+  --mistral-honeycomb: #ecdaa2;
+
+  /* Typography */
+  --mistral-font-sans: Arial, Helvetica, Inter, system-ui, sans-serif;
+  --mistral-weight: 400;
+  --mistral-tracking: -0.025em;
+  --mistral-text-caption: 14px;
+  --mistral-text-body-sm: 16px;
+  --mistral-text-body: 24px;
+  --mistral-text-subheading: 32px;
+  --mistral-text-heading-sm: 38px;
+  --mistral-text-heading: 48px;
+  --mistral-text-heading-lg: 56px;
+  --mistral-text-display: 82px;
+
+  /* Spacing and layout */
+  --mistral-space-4: 4px;
+  --mistral-space-8: 8px;
+  --mistral-space-12: 12px;
+  --mistral-space-16: 16px;
+  --mistral-space-20: 20px;
+  --mistral-space-24: 24px;
+  --mistral-space-32: 32px;
+  --mistral-space-36: 36px;
+  --mistral-space-40: 40px;
+  --mistral-space-48: 48px;
+  --mistral-space-64: 64px;
+  --mistral-space-72: 72px;
+  --mistral-space-80: 80px;
+  --mistral-space-100: 100px;
+  --mistral-page-max: 1200px;
+  --mistral-section-gap: 80px;
+
+  /* Shape and depth */
+  --mistral-radius-button: 6px;
+  --mistral-radius-input: 8px;
+  --mistral-radius-card: 12px;
+  --mistral-radius-pill: 9999px;
+  --mistral-shadow-xl:
+    rgba(127, 99, 21, 0.12) -8px 16px 39px 0px,
+    rgba(127, 99, 21, 0.1) -33px 64px 72px 0px,
+    rgba(127, 99, 21, 0.06) -73px 144px 97px 0px,
+    rgba(127, 99, 21, 0.02) -130px 256px 115px 0px;
+}

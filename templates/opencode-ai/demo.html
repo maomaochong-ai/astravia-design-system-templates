@@ -1,0 +1,1613 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="design-source" content="https://opencode.ai/" />
+    <title>OpenCode — Design System Preview</title>
+    
+    
+    
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+      :root {
+        --canvas: #fdfcfc;
+        --surface: #f8f7f7;
+        --surface-2: #201d1d;
+        --ink: #201d1d;
+        --muted: #646262;
+        --accent: #201d1d;
+        --accent-2: #9a9898;
+        --border: rgba(15, 0, 0, 0.18);
+        --on-accent: #fdfcfc;
+        --display: "IBM Plex Mono", monospace;
+        --body: "IBM Plex Mono", monospace;
+        --radius: 4px;
+        --section-space: clamp(72px, 10vw, 132px);
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        margin: 0;
+        background: var(--canvas);
+        color: var(--ink);
+        font: 400 16px/1.55 var(--body);
+        -webkit-font-smoothing: antialiased;
+      }
+      ::selection {
+        background: var(--accent);
+        color: var(--on-accent);
+      }
+      a {
+        color: inherit;
+      }
+      button,
+      input {
+        font: inherit;
+      }
+      code {
+        font:
+          500 11px/1.4 ui-monospace,
+          SFMono-Regular,
+          Consolas,
+          monospace;
+        overflow-wrap: anywhere;
+      }
+      .page-shell {
+        min-height: 100vh;
+        overflow: hidden;
+        background: var(--canvas);
+      }
+      .wrap {
+        width: min(1120px, calc(100% - 48px));
+        margin-inline: auto;
+      }
+      .nav {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        min-height: 68px;
+        padding: 0 max(24px, calc((100vw - 1120px) / 2));
+        border-bottom: 1px solid var(--border);
+        background: color-mix(in srgb, var(--canvas) 88%, transparent);
+        backdrop-filter: blur(18px);
+      }
+      .brand-lockup {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        text-decoration: none;
+        font: 700 18px/1 var(--display);
+        letter-spacing: -0.02em;
+      }
+      .brand-lockup i {
+        width: 11px;
+        height: 11px;
+        background: var(--accent);
+        border-radius: 0;
+        box-shadow: 16px 0 0 var(--accent-2);
+      }
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+      .nav-links a {
+        padding: 8px 10px;
+        color: var(--muted);
+        text-decoration: none;
+        font-size: 12px;
+        font-weight: 600;
+      }
+      .nav-links a:hover {
+        color: var(--ink);
+      }
+      .source-link {
+        border: 1px solid var(--border);
+        border-radius: 999px !important;
+        margin-left: 8px;
+        color: var(--ink) !important;
+      }
+      .hero {
+        position: relative;
+        display: grid;
+        grid-template-columns: minmax(0, 1.05fr) minmax(320px, 0.75fr);
+        gap: clamp(40px, 7vw, 96px);
+        align-items: center;
+        min-height: calc(100vh - 68px);
+        padding-block: clamp(72px, 10vw, 132px);
+        border-bottom: 1px solid var(--border);
+      }
+      .hero-copy {
+        position: relative;
+        z-index: 2;
+      }
+      .eyebrow {
+        margin: 0 0 18px;
+        color: var(--accent);
+        font:
+          700 11px/1.2 ui-monospace,
+          SFMono-Regular,
+          monospace;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+      }
+      .hero h1 {
+        max-width: 790px;
+        margin: 0;
+        font: 600 clamp(58px, 9.4vw, 132px)/0.86 var(--display);
+        letter-spacing: -0.055em;
+        text-wrap: balance;
+      }
+      .hero-summary {
+        max-width: 680px;
+        margin: 30px 0 0;
+        color: var(--muted);
+        font-size: clamp(16px, 1.6vw, 19px);
+        line-height: 1.65;
+      }
+      .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 32px;
+      }
+      .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 44px;
+        padding: 10px 18px;
+        border: 1px solid var(--border);
+        border-radius: 4px;
+        cursor: pointer;
+        text-decoration: none;
+        font-weight: 700;
+        transition:
+          transform 0.18s,
+          background 0.18s,
+          color 0.18s,
+          border-color 0.18s;
+      }
+      .button:active {
+        transform: translateY(2px);
+      }
+      .button-primary {
+        border-color: var(--accent);
+        background: var(--accent);
+        color: var(--on-accent);
+      }
+      .button-primary:hover {
+        filter: brightness(1.08);
+        transform: translateY(-2px);
+      }
+      .button-secondary {
+        background: transparent;
+        color: var(--ink);
+      }
+      .button-secondary:hover,
+      .button-quiet:hover {
+        border-color: var(--accent);
+        color: var(--accent);
+      }
+      .button-quiet {
+        border-color: transparent;
+        background: transparent;
+        color: var(--muted);
+      }
+      .hero-stats {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 34px;
+      }
+      .hero-stats span {
+        padding: 6px 10px;
+        border: 1px solid var(--border);
+        border-radius: 999px;
+        color: var(--muted);
+        font:
+          600 11px/1.2 ui-monospace,
+          SFMono-Regular,
+          monospace;
+      }
+      .hero-art {
+        position: relative;
+        min-height: 480px;
+        border: 1px solid var(--border);
+        border-radius: calc(var(--radius) * 1.5);
+        overflow: hidden;
+        background: var(--surface);
+        isolation: isolate;
+      }
+      .hero-art::before {
+        content: "";
+        position: absolute;
+        inset: -30%;
+        background:
+          radial-gradient(
+            circle at 68% 30%,
+            color-mix(in srgb, var(--accent) 70%, transparent),
+            transparent 32%
+          ),
+          radial-gradient(
+            circle at 20% 80%,
+            color-mix(in srgb, var(--accent-2) 45%, transparent),
+            transparent 38%
+          );
+        filter: blur(16px);
+        opacity: 0.68;
+      }
+      .art-grid {
+        position: absolute;
+        inset: 0;
+        background-image:
+          linear-gradient(
+            color-mix(in srgb, var(--border) 70%, transparent) 1px,
+            transparent 1px
+          ),
+          linear-gradient(
+            90deg,
+            color-mix(in srgb, var(--border) 70%, transparent) 1px,
+            transparent 1px
+          );
+        background-size: 42px 42px;
+        mask-image: linear-gradient(to bottom, black, transparent 90%);
+      }
+      .art-content {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 28px;
+      }
+      .art-content small {
+        font:
+          700 10px/1 ui-monospace,
+          SFMono-Regular,
+          monospace;
+        letter-spacing: 0.14em;
+        color: var(--muted);
+      }
+      .art-title {
+        font: 700 clamp(66px, 9vw, 122px)/0.75 var(--display);
+        letter-spacing: -0.07em;
+        color: var(--ink);
+        text-transform: uppercase;
+        overflow-wrap: anywhere;
+      }
+      .art-chips {
+        display: flex;
+        gap: 7px;
+      }
+      .art-chips span {
+        height: 7px;
+        flex: 1;
+        background: var(--accent);
+      }
+      .art-chips span:nth-child(2) {
+        background: var(--accent-2);
+      }
+      .art-chips span:nth-child(3) {
+        background: var(--ink);
+      }
+      .section {
+        padding-block: var(--section-space);
+        border-bottom: 1px solid var(--border);
+      }
+      .section-head {
+        display: grid;
+        grid-template-columns:
+          minmax(130px, 0.35fr) minmax(260px, 0.9fr)
+          minmax(260px, 0.75fr);
+        gap: 24px;
+        align-items: start;
+        margin-bottom: 48px;
+      }
+      .section-head .eyebrow {
+        margin-top: 9px;
+      }
+      .section-head h2 {
+        margin: 0;
+        font: 600 clamp(38px, 6vw, 72px)/0.95 var(--display);
+        letter-spacing: -0.045em;
+      }
+      .section-head > p:last-child {
+        margin: 6px 0 0;
+        color: var(--muted);
+        line-height: 1.7;
+      }
+      .color-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 12px;
+      }
+      .swatch {
+        min-width: 0;
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        overflow: hidden;
+        background: var(--surface);
+      }
+      .swatch-color {
+        height: 132px;
+        border-bottom: 1px solid var(--border);
+      }
+      .swatch-copy {
+        display: grid;
+        gap: 3px;
+        padding: 14px;
+      }
+      .swatch-copy strong {
+        font-size: 13px;
+      }
+      .swatch-copy code,
+      .swatch-copy span {
+        color: var(--muted);
+        font-size: 10px;
+        overflow-wrap: anywhere;
+      }
+      .gradient-grid {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        gap: 14px;
+      }
+      .gradient-card {
+        display: flex;
+        align-items: flex-end;
+        min-height: 280px;
+        padding: 24px;
+        border: 1px solid var(--border);
+        border-radius: calc(var(--radius) * 1.4);
+        overflow: hidden;
+      }
+      .gradient-card > div {
+        max-width: 360px;
+        padding: 16px;
+        background: color-mix(in srgb, var(--canvas) 82%, transparent);
+        color: var(--ink);
+        border: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
+        border-radius: var(--radius);
+        backdrop-filter: blur(14px);
+      }
+      .gradient-card strong {
+        font: 600 22px/1.1 var(--display);
+      }
+      .gradient-card p {
+        margin: 8px 0 0;
+        color: var(--muted);
+        font-size: 12px;
+      }
+      .type-table {
+        border-top: 1px solid var(--border);
+      }
+      .type-row {
+        display: grid;
+        grid-template-columns: 210px minmax(0, 1fr);
+        gap: 32px;
+        align-items: center;
+        padding: 26px 0;
+        border-bottom: 1px solid var(--border);
+      }
+      .type-meta {
+        display: grid;
+        gap: 5px;
+      }
+      .type-meta strong {
+        font-size: 12px;
+        text-transform: uppercase;
+      }
+      .type-meta code {
+        color: var(--muted);
+      }
+      .type-sample {
+        min-width: 0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .font-table {
+        margin-top: 42px;
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        overflow: hidden;
+      }
+      .font-row {
+        display: grid;
+        grid-template-columns: 100px 1fr 1fr;
+        gap: 20px;
+        padding: 17px 20px;
+        border-bottom: 1px solid var(--border);
+        background: var(--surface);
+      }
+      .font-row:last-child {
+        border-bottom: 0;
+      }
+      .font-row span,
+      .font-row small {
+        color: var(--muted);
+        font-size: 11px;
+      }
+      .font-row strong {
+        font-family: var(--display);
+      }
+      .metric-title {
+        margin: 46px 0 20px;
+        font: 600 20px/1.2 var(--display);
+      }
+      .spacing-grid {
+        display: flex;
+        align-items: flex-end;
+        gap: 12px;
+        min-height: 150px;
+        padding: 24px;
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        background: var(--surface);
+      }
+      .space-item {
+        display: grid;
+        flex: 1;
+        gap: 6px;
+        justify-items: center;
+        min-width: 44px;
+      }
+      .space-bar {
+        display: block;
+        width: 100%;
+        max-width: 72px;
+        background: var(--accent);
+        border-radius: 3px 3px 0 0;
+      }
+      .space-item strong {
+        font-size: 11px;
+      }
+      .space-item code {
+        color: var(--muted);
+        font-size: 9px;
+      }
+      .radius-grid,
+      .shadow-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+        gap: 12px;
+      }
+      .radius-item,
+      .shadow-item {
+        display: grid;
+        place-items: center;
+        gap: 10px;
+        min-height: 160px;
+        padding: 18px;
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        background: var(--surface);
+      }
+      .radius-item > div {
+        width: 72px;
+        height: 72px;
+        border: 2px solid var(--accent);
+        background: color-mix(in srgb, var(--accent) 12%, var(--surface));
+      }
+      .radius-item code,
+      .shadow-item code {
+        color: var(--muted);
+        text-align: center;
+      }
+      .shadow-item {
+        min-height: 130px;
+        margin: 10px;
+        background: var(--surface);
+      }
+      .flat-note {
+        display: flex;
+        align-items: center;
+        gap: 22px;
+        padding: 28px;
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        background: var(--surface);
+      }
+      .flat-note > span {
+        font: 700 44px/1 var(--display);
+        color: var(--accent);
+      }
+      .flat-note p {
+        margin: 4px 0 0;
+        color: var(--muted);
+      }
+      .surface-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+      }
+      .surface-card {
+        min-height: 180px;
+        padding: 20px;
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+      }
+      .surface-card strong {
+        font: 600 22px/1 var(--display);
+      }
+      .surface-card code {
+        margin-top: 8px;
+        color: var(--muted);
+      }
+      .component-list {
+        display: grid;
+        gap: 18px;
+      }
+      .component-card {
+        border: 1px solid var(--border);
+        border-radius: calc(var(--radius) * 1.25);
+        overflow: hidden;
+        background: var(--surface);
+      }
+      .component-card > header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+        padding: 17px 20px;
+        border-bottom: 1px solid var(--border);
+      }
+      .component-card > header > div {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+      }
+      .component-card header span {
+        color: var(--accent);
+        font:
+          600 10px/1 ui-monospace,
+          monospace;
+      }
+      .component-card h3 {
+        margin: 0;
+        font: 600 16px/1.2 var(--display);
+      }
+      .component-card header code {
+        color: var(--muted);
+      }
+      .component-stage {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        min-height: 170px;
+        padding: 30px;
+        background: color-mix(in srgb, var(--surface) 65%, var(--canvas));
+        overflow: auto;
+      }
+      .state-demo {
+        filter: brightness(1.08);
+        transform: translateY(-2px);
+      }
+      .mini-card {
+        width: min(340px, 100%);
+        padding: 22px;
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        background: var(--canvas);
+      }
+      .mini-card strong {
+        display: block;
+        margin-top: 10px;
+        font: 600 22px/1.2 var(--display);
+      }
+      .mini-card p {
+        color: var(--muted);
+        font-size: 13px;
+      }
+      .mini-label {
+        color: var(--accent);
+        font:
+          700 10px/1 ui-monospace,
+          monospace;
+        text-transform: uppercase;
+      }
+      .mini-progress {
+        height: 6px;
+        margin-top: 18px;
+        background: var(--border);
+        overflow: hidden;
+        border-radius: 99px;
+      }
+      .mini-progress span {
+        display: block;
+        width: 68%;
+        height: 100%;
+        background: var(--accent);
+      }
+      .demo-field {
+        display: grid;
+        gap: 7px;
+        width: min(390px, 100%);
+        font-size: 12px;
+        font-weight: 600;
+      }
+      .demo-field input {
+        width: 100%;
+        padding: 13px 14px;
+        border: 1px solid var(--accent);
+        border-radius: 2px;
+        outline: 3px solid color-mix(in srgb, var(--accent) 18%, transparent);
+        background: var(--canvas);
+        color: var(--ink);
+      }
+      .demo-field small {
+        color: var(--muted);
+        font-weight: 400;
+      }
+      .guide-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+      }
+      .guide-card {
+        padding: 28px;
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        background: var(--surface);
+      }
+      .guide-card.do {
+        border-top: 4px solid var(--accent);
+      }
+      .guide-card.dont {
+        border-top: 4px solid var(--accent-2);
+      }
+      .guide-card h3 {
+        margin: 0 0 22px;
+        font: 600 24px/1 var(--display);
+      }
+      .guide-card ul {
+        display: grid;
+        gap: 13px;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+      .guide-card li {
+        position: relative;
+        padding-left: 22px;
+        color: var(--muted);
+        font-size: 14px;
+      }
+      .guide-card li::before {
+        position: absolute;
+        left: 0;
+        color: var(--accent);
+        font-weight: 800;
+      }
+      .guide-card.do li::before {
+        content: "+";
+      }
+      .guide-card.dont li::before {
+        content: "×";
+        color: var(--accent-2);
+      }
+      .footer {
+        display: flex;
+        justify-content: space-between;
+        gap: 30px;
+        padding: 44px max(24px, calc((100vw - 1120px) / 2));
+        color: var(--muted);
+        font-size: 12px;
+      }
+      .footer-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 18px;
+      }
+      .footer a:hover {
+        color: var(--ink);
+      }
+      .reveal {
+        opacity:1;
+        
+        transition:
+          opacity 0.7s cubic-bezier(0.2, 0.8, 0.2, 1),
+          transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
+      }
+      .reveal.visible {
+        opacity: 1;
+        transform: none;
+      }
+      body[data-tone="retro"] {
+        background: #000;
+      }
+      .page-shell[data-tone="retro"] {
+        width: min(1180px, calc(100% - 28px));
+        margin: auto;
+        border-inline: 10px solid #000;
+      }
+      .page-shell[data-tone="retro"] .nav {
+        backdrop-filter: none;
+        background: #fff;
+      }
+      .page-shell[data-tone="retro"] .hero-art,
+      .page-shell[data-tone="retro"] .component-card {
+        box-shadow: 8px 8px 0 #000;
+      }
+      .page-shell[data-tone="retro"] .hero h1 {
+        text-transform: uppercase;
+      }
+      .page-shell[data-tone="retro"] .art-grid {
+        background-size: 8px 8px;
+      }
+      .page-shell[data-tone="motorsport"] .hero-art::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 32%;
+        height: 18px;
+        background: linear-gradient(
+          90deg,
+          #0066b1 0 33%,
+          #1c69d4 33% 66%,
+          #e22718 66%
+        );
+      }
+      .page-shell[data-tone="chevron"] .hero-art::after {
+        content: "";
+        position: absolute;
+        width: 230px;
+        height: 460px;
+        right: -100px;
+        top: 10px;
+        background: var(--accent);
+        transform: skewX(-24deg);
+        opacity: 0.75;
+      }
+      .page-shell[data-tone="precision"] .hero-art {
+        box-shadow: 0 0 90px rgba(94, 106, 210, 0.18);
+      }
+      .page-shell[data-tone="precision"] .art-grid {
+        background-size: 24px 24px;
+      }
+      .page-shell[data-tone="sunset"] .hero-art::before {
+        background: linear-gradient(155deg, #ffd900, #fa520f 60%, #6f1700);
+        filter: none;
+        opacity: 1;
+      }
+      .page-shell[data-tone="sunset"] .art-title {
+        font-family: "Cormorant Garamond", serif;
+      }
+      .page-shell[data-tone="chrome"] .hero-art,
+      .page-shell[data-tone="chrome"] .component-card {
+        box-shadow:
+          inset 3px 3px 0 #d7e6f5,
+          inset -4px -4px 0 #3d4f97,
+          6px 7px 0 rgba(33, 36, 46, 0.25);
+      }
+      .page-shell[data-tone="chrome"] .nav {
+        background: #21242e;
+        color: #fff;
+      }
+      .page-shell[data-tone="chrome"] .nav-links a {
+        color: #ecab37;
+      }
+      .page-shell[data-tone="chrome"] .source-link {
+        color: #ecab37 !important;
+        border-color: #60619c;
+      }
+      .page-shell[data-tone="terminal"] * {
+        border-radius: 4px !important;
+      }
+      .page-shell[data-tone="terminal"] .hero-art::before {
+        background: #201d1d;
+        filter: none;
+        opacity: 1;
+      }
+      .page-shell[data-tone="terminal"] .art-grid {
+        background-image: linear-gradient(
+          rgba(253, 252, 252, 0.07) 1px,
+          transparent 1px
+        );
+        background-size: 100% 24px;
+      }
+      .page-shell[data-tone="terminal"] .art-title {
+        color: #fdfcfc;
+      }
+      .page-shell[data-tone="terminal"] .art-content small {
+        color: #9a9898;
+      }
+      .page-shell[data-tone="collaboration"] .hero-art::after {
+        content: "";
+        position: absolute;
+        width: 120px;
+        height: 120px;
+        border-radius: 32px;
+        right: 28px;
+        top: 28px;
+        background: conic-gradient(
+          #36c5f0 0 25%,
+          #2eb67d 0 50%,
+          #ecb22e 0 75%,
+          #e01e5a 0
+        );
+      }
+      .page-shell[data-tone="orbital"] .hero-art::before {
+        background:
+          radial-gradient(
+            circle at 72% 72%,
+            #d9e5ef 0 2%,
+            #536779 3%,
+            #14202b 17%,
+            transparent 36%
+          ),
+          radial-gradient(circle, #fff 0 1px, transparent 1.5px);
+        background-size:
+          auto,
+          29px 29px;
+        filter: none;
+        opacity: 0.8;
+      }
+      .page-shell[data-tone="orbital"] h1,
+      .page-shell[data-tone="orbital"] h2 {
+        text-transform: uppercase;
+      }
+      .page-shell[data-tone="spectrum"] .hero-art::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 18px;
+        background: linear-gradient(90deg, #fc4c02, #ef2cc1, #bdbbff);
+      }
+      .page-shell[data-tone="cosmic"] .hero-art::before {
+        background: radial-gradient(
+          circle at 66% 30%,
+          #ffc285,
+          #ff7a17 10%,
+          #7c3aed 28%,
+          #0d1726 54%,
+          #0a0a0a 75%
+        );
+        filter: none;
+        opacity: 1;
+      }
+      .page-shell[data-tone="pixel"] .hero-art::after {
+        content: "";
+        position: absolute;
+        inset: auto 0 0 auto;
+        width: 52%;
+        height: 44%;
+        background:
+          linear-gradient(90deg, var(--accent) 50%, transparent 0),
+          linear-gradient(var(--accent-2) 50%, transparent 0);
+        background-size: 38px 38px;
+        mix-blend-mode: multiply;
+      }
+      .page-shell[data-tone="playful"] .button-primary {
+        box-shadow: 0 4px 0 #46a302;
+      }
+      .page-shell[data-tone="playful"] .button-primary:active {
+        box-shadow: 0 2px 0 #46a302;
+      }
+      .page-shell[data-tone="playful"] .hero-art {
+        border-radius: 28px;
+      }
+      .page-shell[data-tone="playful"] .hero-art::after {
+        content: "★";
+        position: absolute;
+        right: 34px;
+        top: 28px;
+        color: #ffc800;
+        font-size: 64px;
+        transform: rotate(12deg);
+      }
+      @media (max-width: 900px) {
+        .nav-links a:not(.source-link) {
+          display: none;
+        }
+        .hero {
+          grid-template-columns: 1fr;
+          min-height: auto;
+        }
+        .hero-art {
+          min-height: 380px;
+        }
+        .section-head {
+          grid-template-columns: 1fr;
+        }
+        .section-head .eyebrow {
+          margin-bottom: 0;
+        }
+        .color-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .gradient-grid {
+          grid-template-columns: 1fr;
+        }
+        .type-row {
+          grid-template-columns: 1fr;
+        }
+        .surface-grid {
+          grid-template-columns: 1fr;
+        }
+        .font-row {
+          grid-template-columns: 80px 1fr;
+        }
+        .font-row small {
+          grid-column: 2;
+        }
+        .guide-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+      @media (max-width: 560px) {
+        .wrap {
+          width: min(100% - 28px, 1120px);
+        }
+        .nav {
+          padding-inline: 14px;
+        }
+        .brand-lockup {
+          font-size: 15px;
+        }
+        .source-link {
+          font-size: 10px !important;
+        }
+        .hero h1 {
+          font-size: clamp(48px, 17vw, 82px);
+        }
+        .hero-art {
+          min-height: 320px;
+        }
+        .color-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+        .swatch-color {
+          height: 100px;
+        }
+        .spacing-grid {
+          overflow-x: auto;
+          align-items: flex-end;
+        }
+        .space-item {
+          min-width: 58px;
+        }
+        .component-stage {
+          padding: 20px;
+          align-items: flex-start;
+          flex-direction: column;
+        }
+        .footer {
+          flex-direction: column;
+        }
+        .page-shell[data-tone="retro"] {
+          width: 100%;
+          border-inline: 5px solid #000;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+        .reveal {
+          opacity: 1;
+          transform: none;
+          transition: none;
+        }
+        .button {
+          transition: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page-shell" data-tone="terminal">
+      <nav class="nav" aria-label="Preview navigation">
+        <a class="brand-lockup" href="#top"
+          >OpenCode</a
+        >
+        <div class="nav-links">
+          <a href="#colors">Colors</a><a href="#typography">Type</a
+          ><a href="#spacing">Metrics</a><a href="#components">Components</a>
+          <a
+            class="source-link"
+            href="#"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Site ↗</a
+          >
+        </div>
+      </nav>
+
+      <main class="wrap" id="top">
+        <header class="hero">
+          <div class="hero-copy reveal">
+            <p class="eyebrow">OpenCode / Design system</p>
+            <h1>The open source coding agent.</h1>
+            <p class="hero-summary">
+              A terminal-native marketing system rendered entirely in Berkeley
+              Mono — every word on the page, from the hero headline down to the
+              footer fine print, is monospaced. The page itself reads like a
+              manpage or a static-site README: warm cream canvas (`#fdfcfc`),
+              nearly-black ink (`#201d1d`), 4px-radius rectangles for the few
+              interactive elements, and bracketed…
+            </p>
+            <div class="hero-actions">
+              <a class="button button-primary" href="#" download
+                >Download spec</a
+              >
+              <a class="button button-secondary" href="#" download
+                >Tokens JSON</a
+              >
+              <a class="button button-quiet" href="#" download
+                >Variables CSS</a
+              >
+              <a class="button button-quiet" href="#" download
+                >Tailwind theme</a
+              >
+            </div>
+            <div class="hero-stats">
+              <span>18 colors</span><span>8 type styles</span
+              ><span>8 spacing steps</span><span>3 radii</span>
+            </div>
+          </div>
+          <div class="hero-art reveal" aria-label="OpenCode visual signature">
+            <div class="art-grid"></div>
+            <div class="art-content">
+              <small>OPENCODE / TTY-01</small>
+              <div class="art-title">&gt;_</div>
+              <div class="art-chips">
+                <span></span><span></span><span></span>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <section class="section" id="colors">
+          <div class="section-head reveal">
+            <p class="eyebrow">01 / Foundation</p>
+            <h2>Color tokens.</h2>
+            <p>
+              Real values from the packaged OpenCode design reference. Semantic
+              names remain searchable in CSS and JSON exports.
+            </p>
+          </div>
+          <div class="color-grid">
+            <article class="swatch reveal">
+              <div class="swatch-color" style="background: #201d1d"></div>
+              <div class="swatch-copy">
+                <strong>Primary</strong><code>#201d1d</code
+                ><span>--color-primary</span>
+              </div>
+            </article>
+            <article class="swatch reveal">
+              <div class="swatch-color" style="background: #fdfcfc"></div>
+              <div class="swatch-copy">
+                <strong>On Primary</strong><code>#fdfcfc</code
+                ><span>--color-on-primary</span>
+              </div>
+            </article>
+            <article class="swatch reveal">
+              <div class="swatch-color" style="background: #201d1d"></div>
+              <div class="swatch-copy">
+                <strong>Ink</strong><code>#201d1d</code><span>--color-ink</span>
+              </div>
+            </article>
+            <article class="swatch reveal">
+              <div class="swatch-color" style="background: #0f0000"></div>
+              <div class="swatch-copy">
+                <strong>Ink Deep</strong><code>#0f0000</code
+                ><span>--color-ink-deep</span>
+              </div>
+            </article>
+            <article class="swatch reveal">
+              <div class="swatch-color" style="background: #302c2c"></div>
+              <div class="swatch-copy">
+                <strong>Charcoal</strong><code>#302c2c</code
+                ><span>--color-charcoal</span>
+              </div>
+            </article>
+            <article class="swatch reveal">
+              <div class="swatch-color" style="background: #424245"></div>
+              <div class="swatch-copy">
+                <strong>Body</strong><code>#424245</code
+                ><span>--color-body</span>
+              </div>
+            </article>
+            <article class="swatch reveal">
+              <div class="swatch-color" style="background: #646262"></div>
+              <div class="swatch-copy">
+                <strong>Mute</strong><code>#646262</code
+                ><span>--color-mute</span>
+              </div>
+            </article>
+            <article class="swatch reveal">
+              <div class="swatch-color" style="background: #6e6e73"></div>
+              <div class="swatch-copy">
+                <strong>Stone</strong><code>#6e6e73</code
+                ><span>--color-stone</span>
+              </div>
+            </article>
+            <article class="swatch reveal">
+              <div class="swatch-color" style="background: #9a9898"></div>
+              <div class="swatch-copy">
+                <strong>Ash</strong><code>#9a9898</code><span>--color-ash</span>
+              </div>
+            </article>
+            <article class="swatch reveal">
+              <div class="swatch-color" style="background: #fdfcfc"></div>
+              <div class="swatch-copy">
+                <strong>Canvas</strong><code>#fdfcfc</code
+                ><span>--color-canvas</span>
+              </div>
+            </article>
+            <article class="swatch reveal">
+              <div class="swatch-color" style="background: #f8f7f7"></div>
+              <div class="swatch-copy">
+                <strong>Surface Soft</strong><code>#f8f7f7</code
+                ><span>--color-surface-soft</span>
+              </div>
+            </article>
+            <article class="swatch reveal">
+              <div class="swatch-color" style="background: #f1eeee"></div>
+              <div class="swatch-copy">
+                <strong>Surface Card</strong><code>#f1eeee</code
+                ><span>--color-surface-card</span>
+              </div>
+            </article>
+            <article class="swatch reveal">
+              <div class="swatch-color" style="background: #201d1d"></div>
+              <div class="swatch-copy">
+                <strong>Surface Dark</strong><code>#201d1d</code
+                ><span>--color-surface-dark</span>
+              </div>
+            </article>
+            <article class="swatch reveal">
+              <div class="swatch-color" style="background: #302c2c"></div>
+              <div class="swatch-copy">
+                <strong>Surface Dark Elevated</strong><code>#302c2c</code
+                ><span>--color-surface-dark-elevated</span>
+              </div>
+            </article>
+            <article class="swatch reveal">
+              <div
+                class="swatch-color"
+                style="background: rgba(15, 0, 0, 0.12)"
+              ></div>
+              <div class="swatch-copy">
+                <strong>Hairline</strong><code>rgba(15,0,0,0.12)</code
+                ><span>--color-hairline</span>
+              </div>
+            </article>
+            <article class="swatch reveal">
+              <div class="swatch-color" style="background: #646262"></div>
+              <div class="swatch-copy">
+                <strong>Hairline Strong</strong><code>#646262</code
+                ><span>--color-hairline-strong</span>
+              </div>
+            </article>
+            <article class="swatch reveal">
+              <div class="swatch-color" style="background: #fdfcfc"></div>
+              <div class="swatch-copy">
+                <strong>On Dark</strong><code>#fdfcfc</code
+                ><span>--color-on-dark</span>
+              </div>
+            </article>
+            <article class="swatch reveal">
+              <div class="swatch-color" style="background: #9a9898"></div>
+              <div class="swatch-copy">
+                <strong>On Dark Mute</strong><code>#9a9898</code
+                ><span>--color-on-dark-mute</span>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="section" id="typography">
+          <div class="section-head reveal">
+            <p class="eyebrow">02 / Typography</p>
+            <h2>Voice at every scale.</h2>
+            <p>
+              Documented sizes, weights, line heights and tracking. Proprietary
+              families fall back to an open-source preview substitute.
+            </p>
+          </div>
+          <div class="type-table">
+            <article class="type-row reveal">
+              <div class="type-meta">
+                <strong>display-xl</strong><code>38px · 700 · 1.5 · 0</code>
+              </div>
+              <div
+                class="type-sample"
+                style="
+                  font-family: &quot;IBM Plex Mono&quot;, monospace;
+                  font-size: clamp(1rem, 38px, 3.75rem);
+                  font-weight: 700;
+                  line-height: 1.5;
+                  letter-spacing: 0;
+                "
+              >
+                The open source coding agent.
+              </div>
+            </article>
+            <article class="type-row reveal">
+              <div class="type-meta">
+                <strong>heading-md</strong><code>16px · 700 · 1.5 · 0</code>
+              </div>
+              <div
+                class="type-sample"
+                style="
+                  font-family: &quot;IBM Plex Mono&quot;, monospace;
+                  font-size: clamp(1rem, 16px, 3.75rem);
+                  font-weight: 700;
+                  line-height: 1.5;
+                  letter-spacing: 0;
+                "
+              >
+                The open source coding agent.
+              </div>
+            </article>
+            <article class="type-row reveal">
+              <div class="type-meta">
+                <strong>body-md</strong><code>16px · 400 · 1.5 · 0</code>
+              </div>
+              <div
+                class="type-sample"
+                style="
+                  font-family: &quot;IBM Plex Mono&quot;, monospace;
+                  font-size: clamp(1rem, 16px, 3.75rem);
+                  font-weight: 400;
+                  line-height: 1.5;
+                  letter-spacing: 0;
+                "
+              >
+                The open source coding agent.
+              </div>
+            </article>
+            <article class="type-row reveal">
+              <div class="type-meta">
+                <strong>body-strong</strong><code>16px · 500 · 1.5 · 0</code>
+              </div>
+              <div
+                class="type-sample"
+                style="
+                  font-family: &quot;IBM Plex Mono&quot;, monospace;
+                  font-size: clamp(1rem, 16px, 3.75rem);
+                  font-weight: 500;
+                  line-height: 1.5;
+                  letter-spacing: 0;
+                "
+              >
+                OpenCode builds a recognizable visual language.
+              </div>
+            </article>
+            <article class="type-row reveal">
+              <div class="type-meta">
+                <strong>body-tight</strong><code>16px · 500 · 1 · 0</code>
+              </div>
+              <div
+                class="type-sample"
+                style="
+                  font-family: &quot;IBM Plex Mono&quot;, monospace;
+                  font-size: clamp(1rem, 16px, 3.75rem);
+                  font-weight: 500;
+                  line-height: 1;
+                  letter-spacing: 0;
+                "
+              >
+                OpenCode builds a recognizable visual language.
+              </div>
+            </article>
+            <article class="type-row reveal">
+              <div class="type-meta">
+                <strong>link-md</strong><code>16px · 400 · 1.5 · 0</code>
+              </div>
+              <div
+                class="type-sample"
+                style="
+                  font-family: &quot;IBM Plex Mono&quot;, monospace;
+                  font-size: clamp(1rem, 16px, 3.75rem);
+                  font-weight: 400;
+                  line-height: 1.5;
+                  letter-spacing: 0;
+                "
+              >
+                OpenCode builds a recognizable visual language.
+              </div>
+            </article>
+            <article class="type-row reveal">
+              <div class="type-meta">
+                <strong>button-md</strong><code>16px · 500 · 2 · 0</code>
+              </div>
+              <div
+                class="type-sample"
+                style="
+                  font-family: &quot;IBM Plex Mono&quot;, monospace;
+                  font-size: clamp(1rem, 16px, 3.75rem);
+                  font-weight: 500;
+                  line-height: 2;
+                  letter-spacing: 0;
+                "
+              >
+                OpenCode builds a recognizable visual language.
+              </div>
+            </article>
+            <article class="type-row reveal">
+              <div class="type-meta">
+                <strong>caption-md</strong><code>14px · 400 · 2 · 0</code>
+              </div>
+              <div
+                class="type-sample"
+                style="
+                  font-family: &quot;IBM Plex Mono&quot;, monospace;
+                  font-size: clamp(1rem, 14px, 3.75rem);
+                  font-weight: 400;
+                  line-height: 2;
+                  letter-spacing: 0;
+                "
+              >
+                OpenCode builds a recognizable visual language.
+              </div>
+            </article>
+          </div>
+          <h3 class="metric-title">Font families</h3>
+          <div class="font-table">
+            <div class="font-row">
+              <span>Primary</span><strong>Berkeley Mono</strong
+              ><small>Previewed with IBM Plex Mono, monospace</small>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" id="spacing">
+          <div class="section-head reveal">
+            <p class="eyebrow">03 / Geometry</p>
+            <h2>Rhythm and shape.</h2>
+            <p>
+              Spacing and corner geometry are presented directly from the
+              package rather than normalized into a generic scale.
+            </p>
+          </div>
+          <h3 class="metric-title">Spacing scale</h3>
+          <div class="spacing-grid">
+            <div class="space-item reveal">
+              <span class="space-bar" style="height: 8px"></span
+              ><strong>xxs</strong><code>1px</code>
+            </div>
+            <div class="space-item reveal">
+              <span class="space-bar" style="height: 8px"></span
+              ><strong>xs</strong><code>4px</code>
+            </div>
+            <div class="space-item reveal">
+              <span class="space-bar" style="height: 9.2px"></span
+              ><strong>sm</strong><code>8px</code>
+            </div>
+            <div class="space-item reveal">
+              <span
+                class="space-bar"
+                style="height: 13.799999999999999px"
+              ></span
+              ><strong>md</strong><code>12px</code>
+            </div>
+            <div class="space-item reveal">
+              <span class="space-bar" style="height: 18.4px"></span
+              ><strong>lg</strong><code>16px</code>
+            </div>
+            <div class="space-item reveal">
+              <span
+                class="space-bar"
+                style="height: 27.599999999999998px"
+              ></span
+              ><strong>xl</strong><code>24px</code>
+            </div>
+            <div class="space-item reveal">
+              <span class="space-bar" style="height: 36.8px"></span
+              ><strong>xxl</strong><code>32px</code>
+            </div>
+            <div class="space-item reveal">
+              <span class="space-bar" style="height: 96px"></span
+              ><strong>section</strong><code>96px</code>
+            </div>
+          </div>
+          <h3 class="metric-title">Border radius</h3>
+          <div class="radius-grid">
+            <article class="radius-item reveal">
+              <div style="border-radius: 0px"></div>
+              <strong>none</strong><code>0px</code>
+            </article>
+            <article class="radius-item reveal">
+              <div style="border-radius: 4px"></div>
+              <strong>sm</strong><code>4px</code>
+            </article>
+            <article class="radius-item reveal">
+              <div style="border-radius: 9999px"></div>
+              <strong>full</strong><code>9999px</code>
+            </article>
+          </div>
+          <h3 class="metric-title">Shadows</h3>
+          <div class="flat-note reveal">
+            <span>00</span>
+            <div>
+              <strong>Flat by design</strong>
+              <p>
+                No shadow tokens are documented for OpenCode. Surface contrast,
+                borders and composition create hierarchy instead.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" id="surfaces">
+          <div class="section-head reveal">
+            <p class="eyebrow">04 / Depth</p>
+            <h2>Surface hierarchy.</h2>
+            <p>
+              Three working levels show how the brand creates hierarchy using
+              contrast, borders and restrained elevation.
+            </p>
+          </div>
+          <div class="surface-grid">
+            <article
+              class="surface-card reveal"
+              style="background: var(--canvas)"
+            >
+              <strong>Canvas</strong><code>#fdfcfc</code>
+            </article>
+            <article
+              class="surface-card reveal"
+              style="background: var(--surface)"
+            >
+              <strong>Surface</strong><code>#f8f7f7</code>
+            </article>
+            <article
+              class="surface-card reveal"
+              style="background: var(--surface-2); color: #201d1d"
+            >
+              <strong>Emphasis</strong><code>#201d1d</code>
+            </article>
+          </div>
+        </section>
+
+        <section class="section" id="components">
+          <div class="section-head reveal">
+            <p class="eyebrow">05 / Components</p>
+            <h2>Brand behavior.</h2>
+            <p>
+              Live controls combine the documented palette, typography, geometry
+              and interaction hierarchy.
+            </p>
+          </div>
+          <div class="component-list">
+            <article class="component-card reveal">
+              <header>
+                <div>
+                  <span>01</span>
+                  <h3>Solid terminal command</h3>
+                </div>
+                <code>.button-primary</code>
+              </header>
+              <div class="component-stage">
+                <button class="button button-primary">
+                  Solid terminal command</button
+                ><button class="button button-primary state-demo">
+                  Hover / active
+                </button>
+              </div>
+            </article>
+            <article class="component-card reveal">
+              <header>
+                <div>
+                  <span>02</span>
+                  <h3>Bracketed text action</h3>
+                </div>
+                <code>.button-secondary</code>
+              </header>
+              <div class="component-stage">
+                <button class="button button-secondary">
+                  Bracketed text action</button
+                ><button class="button button-quiet">Quiet action</button>
+              </div>
+            </article>
+            <article class="component-card reveal">
+              <header>
+                <div>
+                  <span>03</span>
+                  <h3>TUI output panel</h3>
+                </div>
+                <code>.brand-card</code>
+              </header>
+              <div class="component-stage">
+                <article class="mini-card">
+                  <span class="mini-label">Featured</span
+                  ><strong>TUI output panel</strong>
+                  <p>
+                    Brand surface, type and border treatments working as one
+                    component.
+                  </p>
+                  <div class="mini-progress"><span></span></div>
+                </article>
+              </div>
+            </article>
+            <article class="component-card reveal">
+              <header>
+                <div>
+                  <span>04</span>
+                  <h3>Command input</h3>
+                </div>
+                <code>input:focus</code>
+              </header>
+              <div class="component-stage">
+                <label class="demo-field"
+                  ><span>Command input</span
+                  ><input
+                    value="Focused state"
+                    aria-label="Command input"
+                  /><small>Documented focus treatment</small></label
+                >
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="section" id="guidelines">
+          <div class="section-head reveal">
+            <p class="eyebrow">06 / Guidelines</p>
+            <h2>Keep it recognizable.</h2>
+            <p>
+              Concrete implementation guardrails for preserving the visual
+              character of OpenCode.
+            </p>
+          </div>
+          <div class="guide-grid">
+            <article class="guide-card do reveal">
+              <h3>Do / Embrace</h3>
+              <ul>
+                <li>Use monospaced type for every visible word.</li>
+                <li>Keep the warm cream canvas and near-black ink.</li>
+                <li>Use [ + ] and [ − ] markers as structural punctuation.</li>
+                <li>Separate sections with single hairline rules.</li>
+              </ul>
+            </article>
+            <article class="guide-card dont reveal">
+              <h3>Don't / Avoid</h3>
+              <ul>
+                <li>Do not introduce non-monospace display fonts.</li>
+                <li>Do not add gradients, glows or soft shadows.</li>
+                <li>Do not round rectangles beyond 4px.</li>
+                <li>
+                  Do not replace terminal density with oversized marketing
+                  cards.
+                </li>
+              </ul>
+            </article>
+          </div>
+        </section>
+      </main>
+
+      <footer class="footer">
+        <span>OpenCode design system preview</span>
+        <div class="footer-links">
+          <a href="#colors">Colors</a><a href="#typography">Typography</a
+          ><a href="#spacing">Spacing</a><a href="#components">Components</a
+          ><a
+            href="#"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Compare official site ↗</a
+          >
+        </div>
+      </footer>
+    </div>
+    
+  </body>
+</html>

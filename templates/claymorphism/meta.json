@@ -1,0 +1,36 @@
+{
+	"schemaVersion": 1,
+	"kind": "design-system",
+	"slug": "claymorphism",
+	"name": "Claymorphism",
+	"version": "1.1.0",
+	"order": 105,
+	"category": "playful",
+	"vibe": "light",
+	"tags": [
+		"playful",
+		"light",
+		"pastel",
+		"3d",
+		"soft",
+		"consumer"
+	],
+	"blurb": "Soft modelling-clay UI: candy pastels on warm cream, 24-32px corners and full pills, and a zero-blur offset drop paired with an inset white highlight that makes every surface look extruded and squishy. Hover swells, press squashes.",
+	"tagline": {
+		"en": "Candy pastels, fat corners, squishy 3D depth",
+		"zh": "糖果马卡龙，超大圆角，捏得动的立体感"
+	},
+	"license": "CC-BY-4.0",
+	"origin": {
+		"type": "collected",
+		"upstream": "https://www.stylekit.top",
+		"sourceUrl": "https://www.stylekit.top/zh/styles/claymorphism",
+		"note": "Vetta-adapted from the StyleKit「粘土拟态」guide and its showcase page: rewritten as Vetta spec prose and re-expressed in Vetta base tokens. Shadow and palette values follow the showcase's own CSS. No upstream assets included."
+	},
+	"assets": {
+		"spec": "DESIGN.md",
+		"theme": "theme.css",
+		"demo": "demo.html"
+	},
+	"collectedAt": "2026-08-11"
+}

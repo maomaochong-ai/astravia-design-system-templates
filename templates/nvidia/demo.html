@@ -1,0 +1,1861 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NVIDIA &mdash; Design System</title>
+    
+    
+    
+    <style>
+      *,
+      *::before,
+      *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      :root {
+        --void-black: #000000;
+        --carbon: #0a0a0a;
+        --obsidian: #111111;
+        --gunmetal: #1a1a1a;
+        --slate: #2a2a2a;
+        --platinum: #ffffff;
+        --silver: #e0e0e0;
+        --pewter: #888888;
+        --ash: #666666;
+        --nvidia-green: #76b900;
+        --bright-lime: #8ed100;
+        --deep-teal: #00c8b4;
+        --slate-blue: #4a90d9;
+
+        --r-sm: 4px;
+        --r-md: 8px;
+        --r-lg: 12px;
+        --r-xl: 16px;
+        --r-pill: 9999px;
+      }
+
+      ::selection {
+        background: rgba(118, 185, 0, 0.3);
+        color: var(--platinum);
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        font-family:
+          "Inter",
+          system-ui,
+          -apple-system,
+          sans-serif;
+        background: var(--void-black);
+        color: var(--platinum);
+        font-size: 16px;
+        line-height: 1.5;
+        letter-spacing: 0;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+
+      .page {
+        max-width: 960px;
+        margin: 0 auto;
+        padding: 0 32px 120px;
+      }
+
+      /* ── NAV ── */
+      .nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 56px;
+        padding: 0 16px;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        background: rgba(0, 0, 0, 0.95);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border-bottom: 1px solid var(--gunmetal);
+        margin: 0 -32px;
+      }
+      .nav-left {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .nav-wordmark {
+        font-size: 16px;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        color: var(--platinum);
+        text-decoration: none;
+      }
+      .nav-tag {
+        font-size: 10px;
+        font-weight: 600;
+        color: var(--nvidia-green);
+        background: rgba(118, 185, 0, 0.1);
+        padding: 3px 10px;
+        border-radius: var(--r-pill);
+        border: 1px solid rgba(118, 185, 0, 0.2);
+        letter-spacing: 0.06px;
+        text-transform: uppercase;
+      }
+      .nav-url {
+        font-size: 12px;
+        font-weight: 500;
+        color: var(--slate);
+        text-decoration: none;
+        padding: 4px 10px;
+        border-radius: var(--r-md);
+        transition: color 0.2s;
+      }
+      .nav-url:hover {
+        color: var(--obsidian);
+      }
+      .nav-right {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+      .nav-link {
+        font-size: 13px;
+        font-weight: 500;
+        color: var(--pewter);
+        text-decoration: none;
+        padding: 6px 12px;
+        border-radius: var(--r-sm);
+        transition: all 0.2s;
+        letter-spacing: 0.01px;
+      }
+      .nav-link:hover {
+        color: var(--platinum);
+        background: var(--gunmetal);
+      }
+      .nav-link--active {
+        color: var(--nvidia-green);
+      }
+
+      /* ── SECTIONS ── */
+      .section {
+        padding: 64px 0 0;
+        border-top: 1px solid var(--gunmetal);
+        margin-top: 48px;
+      }
+      .section:first-of-type {
+        border-top: none;
+        margin-top: 40px;
+      }
+      .section-header {
+        margin-bottom: 32px;
+      }
+      .section-label {
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 0.08px;
+        text-transform: uppercase;
+        color: var(--nvidia-green);
+        margin-bottom: 8px;
+      }
+      .section-title {
+        font-size: 28px;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        line-height: 1.15;
+        color: var(--platinum);
+      }
+      .section-desc {
+        font-size: 14px;
+        line-height: 1.6;
+        color: var(--pewter);
+        margin-top: 8px;
+        max-width: 560px;
+      }
+
+      /* ── HERO ── */
+      .hero {
+        padding: 64px 0 40px;
+        border-bottom: 1px solid var(--gunmetal);
+        margin: 0 -32px;
+        padding-left: 32px;
+        padding-right: 32px;
+        position: relative;
+        overflow: hidden;
+      }
+      .hero::before {
+        content: "";
+        position: absolute;
+        width: 500px;
+        height: 500px;
+        background: radial-gradient(
+          circle,
+          rgba(118, 185, 0, 0.08),
+          transparent 70%
+        );
+        border-radius: 50%;
+        filter: blur(100px);
+        right: -120px;
+        top: -160px;
+        pointer-events: none;
+      }
+      .hero-label {
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 0.12px;
+        text-transform: uppercase;
+        color: var(--nvidia-green);
+        margin-bottom: 16px;
+      }
+      .hero-title {
+        font-size: clamp(36px, 6vw, 52px);
+        font-weight: 800;
+        line-height: 1;
+        letter-spacing: -0.04em;
+        color: var(--platinum);
+      }
+      .hero-title em {
+        font-style: normal;
+        color: var(--nvidia-green);
+      }
+      .hero-subtitle {
+        font-size: 15px;
+        line-height: 1.6;
+        color: var(--pewter);
+        margin-top: 16px;
+        max-width: 480px;
+      }
+      .hero-tags {
+        display: flex;
+        gap: 8px;
+        margin-top: 24px;
+        flex-wrap: wrap;
+      }
+      .hero-tag {
+        font-size: 10px;
+        font-weight: 500;
+        color: var(--pewter);
+        background: var(--obsidian);
+        padding: 4px 12px;
+        border-radius: var(--r-pill);
+        border: 1px solid var(--gunmetal);
+        letter-spacing: 0.04px;
+        text-transform: uppercase;
+      }
+      .hero-actions {
+        display: flex;
+        gap: 12px;
+        margin-top: 24px;
+      }
+
+      /* ── BUTTONS ── */
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-family: inherit;
+        font-size: 13px;
+        font-weight: 600;
+        line-height: 1;
+        letter-spacing: 0.01px;
+        padding: 10px 28px;
+        border-radius: var(--r-md);
+        cursor: pointer;
+        text-decoration: none;
+        white-space: nowrap;
+        transition:
+          opacity 0.15s,
+          transform 0.15s,
+          background 0.15s,
+          border-color 0.15s;
+      }
+      .btn:active {
+        transform: scale(0.97);
+      }
+      .btn-primary {
+        background: var(--nvidia-green);
+        color: var(--void-black);
+        border: 1px solid transparent;
+      }
+      .btn-primary:hover {
+        background: var(--bright-lime);
+      }
+      .btn-secondary {
+        background: transparent;
+        color: var(--nvidia-green);
+        border: 1px solid var(--nvidia-green);
+      }
+      .btn-secondary:hover {
+        background: rgba(118, 185, 0, 0.08);
+      }
+      .btn-ghost {
+        background: transparent;
+        color: var(--platinum);
+        border: 1px solid var(--gunmetal);
+      }
+      .btn-ghost:hover {
+        border-color: var(--slate);
+        background: var(--obsidian);
+      }
+
+      /* ── COLOR TOKENS ── */
+      .color-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        gap: 12px;
+      }
+      .color-token {
+        background: var(--obsidian);
+        border: 1px solid var(--gunmetal);
+        border-radius: var(--r-lg);
+        overflow: hidden;
+        transition: border-color 0.2s;
+      }
+      .color-token:hover {
+        border-color: var(--slate);
+      }
+      .color-swatch {
+        width: 100%;
+        height: 64px;
+      }
+      .color-info {
+        padding: 12px 14px;
+      }
+      .color-name {
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 0.01px;
+        color: var(--platinum);
+      }
+      .color-hex {
+        font-size: 11px;
+        font-weight: 500;
+        color: var(--pewter);
+        margin-top: 2px;
+        font-family: "JetBrains Mono", monospace;
+        letter-spacing: 0;
+      }
+      .color-role {
+        font-size: 11px;
+        color: var(--ash);
+        margin-top: 4px;
+        line-height: 1.4;
+      }
+
+      /* ── GRADIENT TOKENS ── */
+      .gradient-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+        gap: 12px;
+      }
+      .gradient-token {
+        border-radius: var(--r-lg);
+        padding: 20px;
+        border: 1px solid var(--gunmetal);
+        min-height: 100px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+      }
+      .gradient-name {
+        font-size: 11px;
+        font-weight: 600;
+        color: var(--pewter);
+        letter-spacing: 0.01px;
+        margin-bottom: 4px;
+        font-family: "JetBrains Mono", monospace;
+      }
+      .gradient-desc {
+        font-size: 11px;
+        color: var(--ash);
+        line-height: 1.4;
+      }
+
+      /* ── TYPE SCALE ── */
+      .type-table {
+        display: flex;
+        flex-direction: column;
+        border: 1px solid var(--gunmetal);
+        border-radius: var(--r-lg);
+        overflow: hidden;
+      }
+      .type-row {
+        display: grid;
+        grid-template-columns: 90px 1fr 200px;
+        align-items: baseline;
+        padding: 14px 20px;
+        border-bottom: 1px solid var(--gunmetal);
+      }
+      .type-row:last-child {
+        border-bottom: none;
+      }
+      .type-row:hover {
+        background: rgba(255, 255, 255, 0.02);
+      }
+      .type-meta {
+        font-size: 10px;
+        font-weight: 600;
+        color: var(--nvidia-green);
+        letter-spacing: 0.06px;
+        text-transform: uppercase;
+      }
+      .type-sample {
+        color: var(--platinum);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .type-specs {
+        font-size: 11px;
+        color: var(--pewter);
+        text-align: right;
+        font-family: "JetBrains Mono", monospace;
+        letter-spacing: 0;
+      }
+
+      /* ── SPACING ── */
+      .spacing-bars {
+        display: flex;
+        align-items: flex-end;
+        gap: 16px;
+        height: 100px;
+      }
+      .spacing-col {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+      }
+      .spacing-bar {
+        width: 100%;
+        border-radius: var(--r-sm);
+        background: var(--nvidia-green);
+        opacity:1;
+        transition: opacity 0.3s;
+      }
+      .spacing-col:hover .spacing-bar {
+        opacity: 0.5;
+      }
+      .spacing-val {
+        font-size: 11px;
+        font-weight: 600;
+        color: var(--platinum);
+        font-family: "JetBrains Mono", monospace;
+      }
+      .spacing-name {
+        font-size: 10px;
+        font-weight: 500;
+        color: var(--pewter);
+      }
+
+      /* ── SHAPES ── */
+      .shapes-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        align-items: flex-end;
+      }
+      .shape-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
+      }
+      .shape-box {
+        width: 64px;
+        height: 64px;
+        background: var(--obsidian);
+        border: 1.5px solid var(--gunmetal);
+        transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+      .shape-box:hover {
+        border-color: var(--nvidia-green);
+        transform: scale(1.06);
+      }
+      .shape-label {
+        font-size: 10px;
+        font-weight: 500;
+        color: var(--pewter);
+        letter-spacing: 0.01px;
+        white-space: nowrap;
+      }
+      .shape-value {
+        font-size: 10px;
+        font-weight: 400;
+        color: var(--ash);
+        font-family: "JetBrains Mono", monospace;
+      }
+
+      /* ── DEPTH ── */
+      .depth-row {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        padding: 16px 0;
+        border-bottom: 1px solid var(--gunmetal);
+      }
+      .depth-row:last-child {
+        border-bottom: none;
+      }
+      .depth-swatch {
+        width: 48px;
+        height: 48px;
+        border-radius: var(--r-sm);
+        flex-shrink: 0;
+      }
+      .depth-info {
+        flex: 1;
+      }
+      .depth-name {
+        font-size: 13px;
+        font-weight: 600;
+        letter-spacing: 0;
+        color: var(--platinum);
+      }
+      .depth-desc {
+        font-size: 11px;
+        color: var(--pewter);
+        margin-top: 2px;
+      }
+      .depth-value {
+        font-size: 11px;
+        font-weight: 500;
+        color: var(--ash);
+        font-family: "JetBrains Mono", monospace;
+      }
+
+      /* ── SURFACES ── */
+      .surface-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        gap: 12px;
+      }
+      .surface-item {
+        border-radius: var(--r-lg);
+        padding: 24px 16px;
+        text-align: center;
+        border: 1px solid var(--gunmetal);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 4px;
+        min-height: 90px;
+        transition: transform 0.3s;
+      }
+      .surface-item:hover {
+        transform: scale(1.02);
+      }
+      .surface-name {
+        font-size: 13px;
+        font-weight: 600;
+        letter-spacing: 0;
+      }
+      .surface-val {
+        font-size: 10px;
+        font-weight: 500;
+        color: var(--pewter);
+        font-family: "JetBrains Mono", monospace;
+      }
+
+      /* ── COMPONENTS ── */
+      .component-card {
+        background: var(--obsidian);
+        border: 1px solid var(--gunmetal);
+        border-radius: var(--r-lg);
+        padding: 24px;
+        margin-bottom: 16px;
+        transition: border-color 0.2s;
+      }
+      .component-card:hover {
+        border-color: var(--slate);
+      }
+      .component-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 16px;
+      }
+      .component-name {
+        font-size: 14px;
+        font-weight: 600;
+        letter-spacing: 0;
+        color: var(--platinum);
+      }
+      .component-role {
+        font-size: 11px;
+        color: var(--pewter);
+        margin-top: 2px;
+      }
+      .component-class {
+        font-size: 10px;
+        font-weight: 500;
+        color: var(--nvidia-green);
+        background: rgba(118, 185, 0, 0.08);
+        padding: 3px 10px;
+        border-radius: var(--r-pill);
+        border: 1px solid rgba(118, 185, 0, 0.15);
+        font-family: "JetBrains Mono", monospace;
+      }
+      .component-preview {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+        flex-wrap: wrap;
+        padding: 16px;
+        background: var(--void-black);
+        border-radius: var(--r-md);
+        border: 1px solid var(--gunmetal);
+      }
+      .component-desc {
+        font-size: 11px;
+        color: var(--ash);
+        line-height: 1.5;
+        margin-top: 10px;
+        max-width: 480px;
+      }
+
+      /* ── DO/DON'T ── */
+      .guide-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+      .guide-card {
+        border-radius: var(--r-lg);
+        padding: 24px;
+        border: 1px solid var(--gunmetal);
+      }
+      .guide-card--do {
+        background: rgba(118, 185, 0, 0.03);
+        border-color: rgba(118, 185, 0, 0.12);
+      }
+      .guide-card--dont {
+        background: rgba(255, 60, 60, 0.03);
+        border-color: rgba(255, 60, 60, 0.1);
+      }
+      .guide-label {
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 0.06px;
+        text-transform: uppercase;
+        margin-bottom: 12px;
+      }
+      .guide-card--do .guide-label {
+        color: var(--nvidia-green);
+      }
+      .guide-card--dont .guide-label {
+        color: #ff3c3c;
+      }
+      .guide-list {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .guide-list li {
+        font-size: 12px;
+        line-height: 1.5;
+        padding-left: 18px;
+        position: relative;
+        color: var(--silver);
+      }
+      .guide-card--do .guide-list li::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 6px;
+        width: 6px;
+        height: 6px;
+        background: var(--nvidia-green);
+        border-radius: 50%;
+      }
+      .guide-card--dont .guide-list li::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 6px;
+        width: 6px;
+        height: 6px;
+        background: #ff3c3c;
+        border-radius: 50%;
+      }
+
+      /* ── FOOTER ── */
+      .footer {
+        margin-top: 80px;
+        padding: 24px 0;
+        border-top: 1px solid var(--gunmetal);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .footer-left {
+        font-size: 12px;
+        font-weight: 500;
+        color: var(--ash);
+        letter-spacing: 0.04px;
+        text-transform: uppercase;
+      }
+      .footer-right {
+        display: flex;
+        gap: 16px;
+      }
+      .footer-link {
+        font-size: 11px;
+        font-weight: 500;
+        color: var(--pewter);
+        text-decoration: none;
+        transition: color 0.2s;
+        letter-spacing: 0.01px;
+      }
+      .footer-link:hover {
+        color: var(--nvidia-green);
+      }
+
+      /* ── RESPONSIVE ── */
+      @media (max-width: 768px) {
+        .page {
+          padding: 0 20px 80px;
+        }
+        .hero {
+          margin: 0 -20px;
+          padding-left: 20px;
+          padding-right: 20px;
+          padding-top: 48px;
+        }
+        .nav {
+          margin: 0 -20px;
+        }
+        .section-title {
+          font-size: 22px;
+        }
+        .type-row {
+          grid-template-columns: 60px 1fr;
+          gap: 8px;
+        }
+        .type-specs {
+          display: none;
+        }
+        .guide-grid {
+          grid-template-columns: 1fr;
+        }
+        .color-grid {
+          grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        }
+        .hero-title {
+          font-size: 32px;
+        }
+      }
+
+      /* ── ENTRANCE ANIMATION ── */
+      .section,
+      .hero {
+        opacity:1;
+        
+        transition:
+          opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+          transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+      .section.visible,
+      .hero.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      body {
+        background: #fff;
+        color: #1a1a1a;
+      }
+      .page {
+        max-width: 1200px;
+      }
+      .nav {
+        background: rgba(255, 255, 255, 0.97);
+        border-bottom-color: #ccc;
+      }
+      .nav-wordmark,
+      .section-title,
+      .hero-title {
+        color: #000;
+      }
+      .nav-link {
+        color: #1a1a1a;
+      }
+      .nav-link:hover {
+        background: #f7f7f7;
+      }
+      .nav-url {
+        color: #5e5e5e;
+        border: 1px solid #ccc;
+        border-radius: 9999px;
+      }
+      .nav-url:hover {
+        color: #000;
+      }
+      .hero {
+        background: #f7f7f7;
+        border-color: #ccc;
+      }
+      .hero::before {
+        display: none;
+      }
+      .hero-subtitle,
+      .section-desc {
+        color: #5e5e5e;
+      }
+      .hero-tag {
+        background: #fff;
+        border-color: #ccc;
+        color: #1a1a1a;
+      }
+      .section {
+        border-color: #ccc;
+      }
+      .section-label {
+        color: #5a8d00;
+      }
+      .btn-secondary {
+        background: #fff;
+        color: #1a1a1a;
+        border-color: #5e5e5e;
+      }
+      .btn-secondary:hover {
+        background: #f7f7f7;
+      }
+      .footer {
+        border-color: #ccc;
+        color: #5e5e5e;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <!-- NAV -->
+      <nav class="nav">
+        <div class="nav-left">
+          
+          <a href="#" class="nav-wordmark">NVIDIA</a>
+          <span class="nav-tag">Design System</span>
+        </div>
+        <div class="nav-right">
+          <a href="#colors" class="nav-link nav-link--active">Colors</a>
+          <a href="#typography" class="nav-link">Type</a>
+          <a href="#spacing" class="nav-link">Spacing</a>
+          <a href="#components" class="nav-link">Components</a>
+          <a
+            href="#"
+            class="nav-url"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Site ↗</a
+          >
+        </div>
+      </nav>
+
+      <!-- HERO -->
+      <div class="hero">
+        <div class="hero-label">Design System</div>
+        <h1 class="hero-title">The AI computing<br /><em>platform.</em></h1>
+        <p class="hero-subtitle">
+          A bright engineering system with NVIDIA Green reserved for decisive
+          actions and active states.
+        </p>
+        <div class="hero-tags">
+          <span class="hero-tag">15 color tokens</span>
+          <span class="hero-tag">9 type steps</span>
+          <span class="hero-tag">4px grid</span>
+          <span class="hero-tag">4 surface levels</span>
+        </div>
+        <div class="hero-actions">
+          <a href="#" class="btn btn-primary" download>Download Spec</a>
+          <a href="#" class="btn btn-secondary" download>theme.css</a>
+          <a href="#" class="btn btn-secondary" download
+            >tokens.json</a
+          >
+          <a href="#" class="btn btn-secondary" download
+            >variables.css</a
+          >
+        </div>
+      </div>
+
+      <!-- COLORS -->
+      <section class="section" id="colors">
+        <div class="section-header">
+          <div class="section-label">Foundation</div>
+          <h2 class="section-title">Color Tokens</h2>
+          <p class="section-desc">
+            Pure black canvas with NVIDIA Green as the singular accent.
+            Monochrome neutrals in 5 steps from Void Black to Slate.
+          </p>
+        </div>
+        <div class="color-grid">
+          <div class="color-token">
+            <div class="color-swatch" style="background: #000000"></div>
+            <div class="color-info">
+              <div class="color-name">Void Black</div>
+              <div class="color-hex">#000000</div>
+              <div class="color-role">Base canvas</div>
+            </div>
+          </div>
+          <div class="color-token">
+            <div class="color-swatch" style="background: #0a0a0a"></div>
+            <div class="color-info">
+              <div class="color-name">Carbon</div>
+              <div class="color-hex">#0a0a0a</div>
+              <div class="color-role">Elevated surfaces</div>
+            </div>
+          </div>
+          <div class="color-token">
+            <div class="color-swatch" style="background: #111111"></div>
+            <div class="color-info">
+              <div class="color-name">Obsidian</div>
+              <div class="color-hex">#111111</div>
+              <div class="color-role">Secondary sections</div>
+            </div>
+          </div>
+          <div class="color-token">
+            <div class="color-swatch" style="background: #1a1a1a"></div>
+            <div class="color-info">
+              <div class="color-name">Gunmetal</div>
+              <div class="color-hex">#1a1a1a</div>
+              <div class="color-role">Borders, dividers</div>
+            </div>
+          </div>
+          <div class="color-token">
+            <div class="color-swatch" style="background: #2a2a2a"></div>
+            <div class="color-info">
+              <div class="color-name">Slate</div>
+              <div class="color-hex">#2a2a2a</div>
+              <div class="color-role">Inactive states</div>
+            </div>
+          </div>
+          <div class="color-token">
+            <div class="color-swatch" style="background: #ffffff"></div>
+            <div class="color-info">
+              <div class="color-name">Platinum</div>
+              <div class="color-hex">#ffffff</div>
+              <div class="color-role">Primary text</div>
+            </div>
+          </div>
+          <div class="color-token">
+            <div class="color-swatch" style="background: #e0e0e0"></div>
+            <div class="color-info">
+              <div class="color-name">Silver</div>
+              <div class="color-hex">#e0e0e0</div>
+              <div class="color-role">Secondary text</div>
+            </div>
+          </div>
+          <div class="color-token">
+            <div class="color-swatch" style="background: #888888"></div>
+            <div class="color-info">
+              <div class="color-name">Pewter</div>
+              <div class="color-hex">#888888</div>
+              <div class="color-role">Placeholders</div>
+            </div>
+          </div>
+          <div class="color-token">
+            <div class="color-swatch" style="background: #666666"></div>
+            <div class="color-info">
+              <div class="color-name">Ash</div>
+              <div class="color-hex">#666666</div>
+              <div class="color-role">Helper text</div>
+            </div>
+          </div>
+          <div class="color-token">
+            <div class="color-swatch" style="background: #76b900"></div>
+            <div class="color-info">
+              <div class="color-name">NVIDIA Green</div>
+              <div class="color-hex">#76B900</div>
+              <div class="color-role">Primary accent, CTAs</div>
+            </div>
+          </div>
+          <div class="color-token">
+            <div class="color-swatch" style="background: #8ed100"></div>
+            <div class="color-info">
+              <div class="color-name">Bright Lime</div>
+              <div class="color-hex">#8ED100</div>
+              <div class="color-role">Hover, emphasis</div>
+            </div>
+          </div>
+          <div class="color-token">
+            <div class="color-swatch" style="background: #f5f5f5"></div>
+            <div class="color-info">
+              <div class="color-name">Signal White</div>
+              <div class="color-hex">#f5f5f5</div>
+              <div class="color-role">Button labels</div>
+            </div>
+          </div>
+          <div class="color-token">
+            <div class="color-swatch" style="background: #00c8b4"></div>
+            <div class="color-info">
+              <div class="color-name">Deep Teal</div>
+              <div class="color-hex">#00C8B4</div>
+              <div class="color-role">Data viz, info</div>
+            </div>
+          </div>
+          <div class="color-token">
+            <div class="color-swatch" style="background: #4a90d9"></div>
+            <div class="color-info">
+              <div class="color-name">Slate Blue</div>
+              <div class="color-hex">#4A90D9</div>
+              <div class="color-role">Links, secondary</div>
+            </div>
+          </div>
+        </div>
+
+        <h3
+          style="
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--platinum);
+            margin: 32px 0 16px;
+            letter-spacing: 0;
+          "
+        >
+          Gradients
+        </h3>
+        <div class="gradient-grid">
+          <div
+            class="gradient-token"
+            style="
+              background:
+                radial-gradient(
+                  circle at 50% 50%,
+                  rgba(118, 185, 0, 0.12) 0%,
+                  transparent 70%
+                ),
+                var(--obsidian);
+            "
+          >
+            <div class="gradient-name">nvidia-green-glow</div>
+            <div class="gradient-desc">
+              Ambient green glow for hero sections
+            </div>
+          </div>
+          <div
+            class="gradient-token"
+            style="
+              background: linear-gradient(
+                180deg,
+                rgba(10, 10, 10, 0.8) 0%,
+                rgba(0, 0, 0, 1) 100%
+              );
+            "
+          >
+            <div class="gradient-name">carbon-gradient</div>
+            <div class="gradient-desc">Subtle depth gradient for sections</div>
+          </div>
+          <div
+            class="gradient-token"
+            style="
+              background:
+                linear-gradient(
+                  135deg,
+                  rgba(118, 185, 0, 0.06) 0%,
+                  transparent 50%
+                ),
+                var(--obsidian);
+            "
+          >
+            <div class="gradient-name">diagonal-slash</div>
+            <div class="gradient-desc">Angular accent for cards and panels</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TYPOGRAPHY -->
+      <section class="section" id="typography">
+        <div class="section-header">
+          <div class="section-label">Typography</div>
+          <h2 class="section-title">Type Scale</h2>
+          <p class="section-desc">
+            Inter as primary typeface (NVIDIA Display substitute). Tight
+            letter-spacing and bold weights for technical authority.
+          </p>
+        </div>
+        <div class="type-table">
+          <div class="type-row">
+            <span class="type-meta">Display-xl</span>
+            <span
+              class="type-sample"
+              style="
+                font-size: 28px;
+                font-weight: 800;
+                line-height: 1;
+                letter-spacing: -0.04em;
+              "
+              >The AI platform</span
+            >
+            <span class="type-specs">64px / 1.0 / -0.04em</span>
+          </div>
+          <div class="type-row">
+            <span class="type-meta">Display</span>
+            <span
+              class="type-sample"
+              style="
+                font-size: 24px;
+                font-weight: 800;
+                line-height: 1.1;
+                letter-spacing: -0.02em;
+              "
+              >Built for speed</span
+            >
+            <span class="type-specs">48px / 1.1 / -0.02em</span>
+          </div>
+          <div class="type-row">
+            <span class="type-meta">Heading-lg</span>
+            <span
+              class="type-sample"
+              style="
+                font-size: 18px;
+                font-weight: 700;
+                line-height: 1.15;
+                letter-spacing: -0.02em;
+              "
+              >GPU Architecture</span
+            >
+            <span class="type-specs">32px / 1.15 / -0.02em</span>
+          </div>
+          <div class="type-row">
+            <span class="type-meta">Heading</span>
+            <span
+              class="type-sample"
+              style="
+                font-size: 16px;
+                font-weight: 700;
+                line-height: 1.2;
+                letter-spacing: -0.01em;
+              "
+              >Section heading</span
+            >
+            <span class="type-specs">24px / 1.2 / -0.01em</span>
+          </div>
+          <div class="type-row">
+            <span class="type-meta">Heading-sm</span>
+            <span
+              class="type-sample"
+              style="
+                font-size: 14px;
+                font-weight: 600;
+                line-height: 1.25;
+                letter-spacing: -0.01em;
+              "
+              >Feature title</span
+            >
+            <span class="type-specs">20px / 1.25 / -0.01em</span>
+          </div>
+          <div class="type-row">
+            <span class="type-meta">Body</span>
+            <span
+              class="type-sample"
+              style="
+                font-size: 16px;
+                font-weight: 400;
+                line-height: 1.5;
+                letter-spacing: 0;
+              "
+              >Default body text for readable content</span
+            >
+            <span class="type-specs">16px / 1.5 / 0</span>
+          </div>
+          <div class="type-row">
+            <span class="type-meta">Body-sm</span>
+            <span
+              class="type-sample"
+              style="
+                font-size: 14px;
+                font-weight: 400;
+                line-height: 1.5;
+                letter-spacing: 0.01px;
+              "
+              >Dense data, specs, comparison rows</span
+            >
+            <span class="type-specs">14px / 1.5 / 0.01px</span>
+          </div>
+          <div class="type-row">
+            <span class="type-meta">Caption</span>
+            <span
+              class="type-sample"
+              style="
+                font-size: 13px;
+                font-weight: 400;
+                line-height: 1.5;
+                letter-spacing: 0.02px;
+              "
+              >Meta info · Labels · Helper text</span
+            >
+            <span class="type-specs">13px / 1.5 / 0.02px</span>
+          </div>
+        </div>
+
+        <h3
+          style="
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--platinum);
+            margin: 32px 0 16px;
+            letter-spacing: 0;
+          "
+        >
+          Fonts
+        </h3>
+        <div
+          style="
+            display: flex;
+            flex-direction: column;
+            border: 1px solid var(--gunmetal);
+            border-radius: var(--r-lg);
+            overflow: hidden;
+          "
+        >
+          <div
+            style="
+              padding: 16px 20px;
+              border-bottom: 1px solid var(--gunmetal);
+              display: flex;
+              align-items: baseline;
+              gap: 16px;
+            "
+          >
+            <span
+              style="
+                font-size: 10px;
+                font-weight: 600;
+                color: var(--nvidia-green);
+                letter-spacing: 0.06px;
+                text-transform: uppercase;
+                flex: 0 0 60px;
+              "
+              >Display</span
+            >
+            <span
+              style="
+                font-size: 15px;
+                font-weight: 700;
+                color: var(--platinum);
+                letter-spacing: -0.02em;
+              "
+              >Inter</span
+            >
+            <span style="font-size: 11px; color: var(--pewter)"
+              >400-700 · 14-24px</span
+            >
+          </div>
+          <div
+            style="
+              padding: 16px 20px;
+              border-bottom: 1px solid var(--gunmetal);
+              display: flex;
+              align-items: baseline;
+              gap: 16px;
+            "
+          >
+            <span
+              style="
+                font-size: 10px;
+                font-weight: 600;
+                color: var(--nvidia-green);
+                letter-spacing: 0.06px;
+                text-transform: uppercase;
+                flex: 0 0 60px;
+              "
+              >Text</span
+            >
+            <span
+              style="
+                font-size: 15px;
+                font-weight: 500;
+                color: var(--platinum);
+                letter-spacing: 0;
+              "
+              >Inter</span
+            >
+            <span style="font-size: 11px; color: var(--pewter)"
+              >400-700 · 13-18px</span
+            >
+          </div>
+          <div
+            style="
+              padding: 16px 20px;
+              display: flex;
+              align-items: baseline;
+              gap: 16px;
+            "
+          >
+            <span
+              style="
+                font-size: 10px;
+                font-weight: 600;
+                color: var(--nvidia-green);
+                letter-spacing: 0.06px;
+                text-transform: uppercase;
+                flex: 0 0 60px;
+              "
+              >Mono</span
+            >
+            <span
+              style="
+                font-size: 15px;
+                font-weight: 500;
+                color: var(--platinum);
+                font-family: &quot;JetBrains Mono&quot;, monospace;
+              "
+              >JetBrains Mono</span
+            >
+            <span style="font-size: 11px; color: var(--pewter)"
+              >400-700 · Specs & code</span
+            >
+          </div>
+        </div>
+      </section>
+
+      <!-- SPACING & SHAPES -->
+      <section class="section" id="spacing">
+        <div class="section-header">
+          <div class="section-label">Layout</div>
+          <h2 class="section-title">Spacing & Shapes</h2>
+          <p class="section-desc">
+            Base unit 4px. Compact density for information-rich interfaces.
+            13-step spacing scale, 9 border radius values.
+          </p>
+        </div>
+
+        <h3
+          style="
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--platinum);
+            margin-bottom: 16px;
+            letter-spacing: 0;
+          "
+        >
+          Spacing Scale (4px base)
+        </h3>
+        <div class="spacing-bars">
+          <div class="spacing-col">
+            <div class="spacing-bar" style="height: 6px"></div>
+            <span class="spacing-val">4</span
+            ><span class="spacing-name">4px</span>
+          </div>
+          <div class="spacing-col">
+            <div class="spacing-bar" style="height: 10px"></div>
+            <span class="spacing-val">8</span
+            ><span class="spacing-name">8px</span>
+          </div>
+          <div class="spacing-col">
+            <div class="spacing-bar" style="height: 16px"></div>
+            <span class="spacing-val">12</span
+            ><span class="spacing-name">12px</span>
+          </div>
+          <div class="spacing-col">
+            <div class="spacing-bar" style="height: 22px"></div>
+            <span class="spacing-val">16</span
+            ><span class="spacing-name">16px</span>
+          </div>
+          <div class="spacing-col">
+            <div class="spacing-bar" style="height: 32px"></div>
+            <span class="spacing-val">24</span
+            ><span class="spacing-name">24px</span>
+          </div>
+          <div class="spacing-col">
+            <div class="spacing-bar" style="height: 44px"></div>
+            <span class="spacing-val">32</span
+            ><span class="spacing-name">32px</span>
+          </div>
+          <div class="spacing-col">
+            <div class="spacing-bar" style="height: 64px"></div>
+            <span class="spacing-val">48</span
+            ><span class="spacing-name">48px</span>
+          </div>
+          <div class="spacing-col">
+            <div class="spacing-bar" style="height: 80px"></div>
+            <span class="spacing-val">64</span
+            ><span class="spacing-name">64px</span>
+          </div>
+          <div class="spacing-col">
+            <div class="spacing-bar" style="height: 100px"></div>
+            <span class="spacing-val">96</span
+            ><span class="spacing-name">96px</span>
+          </div>
+        </div>
+
+        <h3
+          style="
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--platinum);
+            margin: 32px 0 16px;
+            letter-spacing: 0;
+          "
+        >
+          Border Radius
+        </h3>
+        <div class="shapes-row">
+          <div class="shape-item">
+            <div class="shape-box" style="border-radius: 0"></div>
+            <span class="shape-label">sharp</span>
+            <span class="shape-value">0px</span>
+          </div>
+          <div class="shape-item">
+            <div class="shape-box" style="border-radius: 4px"></div>
+            <span class="shape-label">sm</span>
+            <span class="shape-value">4px</span>
+          </div>
+          <div class="shape-item">
+            <div class="shape-box" style="border-radius: 8px"></div>
+            <span class="shape-label">md</span>
+            <span class="shape-value">8px</span>
+          </div>
+          <div class="shape-item">
+            <div class="shape-box" style="border-radius: 12px"></div>
+            <span class="shape-label">lg</span>
+            <span class="shape-value">12px</span>
+          </div>
+          <div class="shape-item">
+            <div class="shape-box" style="border-radius: 16px"></div>
+            <span class="shape-label">xl</span>
+            <span class="shape-value">16px</span>
+          </div>
+          <div class="shape-item">
+            <div class="shape-box" style="border-radius: 9999px"></div>
+            <span class="shape-label">pill</span>
+            <span class="shape-value">9999px</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- DEPTH & SURFACES -->
+      <section class="section" id="depth">
+        <div class="section-header">
+          <div class="section-label">Elevation</div>
+          <h2 class="section-title">Depth & Surfaces</h2>
+          <p class="section-desc">
+            Subtle surface-level shifts instead of shadows. 4 distinct levels
+            from Void Black to Gunmetal.
+          </p>
+        </div>
+
+        <h3
+          style="
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--platinum);
+            margin-bottom: 12px;
+            letter-spacing: 0;
+          "
+        >
+          Depth Levels
+        </h3>
+        <div style="margin-bottom: 32px">
+          <div class="depth-row">
+            <div
+              class="depth-swatch"
+              style="background: #000000; border: 1px solid var(--gunmetal)"
+            ></div>
+            <div class="depth-info">
+              <div class="depth-name">Void Black</div>
+              <div class="depth-desc">Base page background &mdash; the canvas</div>
+            </div>
+            <div class="depth-value">Level 0</div>
+          </div>
+          <div class="depth-row">
+            <div
+              class="depth-swatch"
+              style="background: #0a0a0a; border: 1px solid var(--gunmetal)"
+            ></div>
+            <div class="depth-info">
+              <div class="depth-name">Carbon</div>
+              <div class="depth-desc">Elevated panels, card surfaces</div>
+            </div>
+            <div class="depth-value">Level 1</div>
+          </div>
+          <div class="depth-row">
+            <div
+              class="depth-swatch"
+              style="background: #111111; border: 1px solid var(--gunmetal)"
+            ></div>
+            <div class="depth-info">
+              <div class="depth-name">Obsidian</div>
+              <div class="depth-desc">Secondary sections, code blocks</div>
+            </div>
+            <div class="depth-value">Level 2</div>
+          </div>
+          <div class="depth-row">
+            <div
+              class="depth-swatch"
+              style="background: #1a1a1a; border: 1px solid var(--gunmetal)"
+            ></div>
+            <div class="depth-info">
+              <div class="depth-name">Gunmetal</div>
+              <div class="depth-desc">Borders, dividers, tertiary surfaces</div>
+            </div>
+            <div class="depth-value">Level 3</div>
+          </div>
+        </div>
+
+        <h3
+          style="
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--platinum);
+            margin-bottom: 12px;
+            letter-spacing: 0;
+          "
+        >
+          Surface System
+        </h3>
+        <div class="surface-grid">
+          <div class="surface-item" style="background: #000000">
+            <span class="surface-name">Void Black</span>
+            <span class="surface-val">#000000</span>
+          </div>
+          <div class="surface-item" style="background: #0a0a0a">
+            <span class="surface-name">Carbon</span>
+            <span class="surface-val">#0a0a0a</span>
+          </div>
+          <div class="surface-item" style="background: #111111">
+            <span class="surface-name">Obsidian</span>
+            <span class="surface-val">#111111</span>
+          </div>
+          <div class="surface-item" style="background: #1a1a1a">
+            <span class="surface-name">Gunmetal</span>
+            <span class="surface-val">#1a1a1a</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- COMPONENTS -->
+      <section class="section" id="components">
+        <div class="section-header">
+          <div class="section-label">Components</div>
+          <h2 class="section-title">Button Variants</h2>
+          <p class="section-desc">
+            Primary CTA (NVIDIA Green filled), secondary (green outlined), and
+            ghost variants for interaction hierarchy.
+          </p>
+        </div>
+
+        <div class="component-card">
+          <div class="component-header">
+            <div>
+              <div class="component-name">Primary Button</div>
+              <div class="component-role">
+                Main call to action &mdash; highest visual weight
+              </div>
+            </div>
+            <span class="component-class">.btn-primary</span>
+          </div>
+          <div class="component-preview">
+            <button class="btn btn-primary">Buy Now</button>
+            <button
+              class="btn btn-primary"
+              style="background: var(--bright-lime)"
+            >
+              Hover
+            </button>
+          </div>
+          <div class="component-desc">
+            NVIDIA Green (#76B900) background, Void Black text, 8px radius. Use
+            for the single most important action.
+          </div>
+        </div>
+
+        <div class="component-card">
+          <div class="component-header">
+            <div>
+              <div class="component-name">Secondary Button</div>
+              <div class="component-role">Secondary interactive actions</div>
+            </div>
+            <span class="component-class">.btn-secondary</span>
+          </div>
+          <div class="component-preview">
+            <button class="btn btn-secondary">Learn More</button>
+            <button
+              class="btn btn-secondary"
+              style="background: rgba(118, 185, 0, 0.08)"
+            >
+              Hover
+            </button>
+          </div>
+          <div class="component-desc">
+            NVIDIA Green text and border, transparent background. Clear
+            interactive target that defers to primary.
+          </div>
+        </div>
+
+        <div class="component-card">
+          <div class="component-header">
+            <div>
+              <div class="component-name">Ghost Button</div>
+              <div class="component-role">Tertiary actions, navigation</div>
+            </div>
+            <span class="component-class">.btn-ghost</span>
+          </div>
+          <div class="component-preview">
+            <button class="btn btn-ghost">Sign In</button>
+            <button
+              class="btn btn-ghost"
+              style="border-color: var(--slate); background: var(--obsidian)"
+            >
+              Hover
+            </button>
+          </div>
+          <div class="component-desc">
+            Platinum text, Gunmetal border. For low-emphasis actions and
+            navigation items.
+          </div>
+        </div>
+
+        <div class="component-card">
+          <div class="component-header">
+            <div>
+              <div class="component-name">Dark Card</div>
+              <div class="component-role">
+                Content containers, feature blocks
+              </div>
+            </div>
+            <span class="component-class">.card-dark</span>
+          </div>
+          <div class="component-preview">
+            <div
+              style="
+                background: var(--carbon);
+                border: 1px solid var(--gunmetal);
+                border-radius: var(--r-lg);
+                padding: 20px;
+                flex: 1;
+                max-width: 280px;
+              "
+            >
+              <div
+                style="
+                  font-size: 14px;
+                  font-weight: 700;
+                  color: var(--platinum);
+                  margin-bottom: 6px;
+                "
+              >
+                GeForce RTX 5090
+              </div>
+              <div
+                style="
+                  font-size: 12px;
+                  color: var(--pewter);
+                  font-family: &quot;JetBrains Mono&quot;, monospace;
+                "
+              >
+                32GB GDDR7 · 21,760 CUDA Cores
+              </div>
+            </div>
+          </div>
+          <div class="component-desc">
+            Carbon (#0a0a0a) background, 12px radius, 24px padding, 1px Gunmetal
+            border.
+          </div>
+        </div>
+
+        <div class="component-card">
+          <div class="component-header">
+            <div>
+              <div class="component-name">Accent Card</div>
+              <div class="component-role">Highlighted content, promotions</div>
+            </div>
+            <span class="component-class">.card-accent</span>
+          </div>
+          <div class="component-preview">
+            <div
+              style="
+                background: var(--obsidian);
+                border: 1px solid var(--nvidia-green);
+                border-radius: var(--r-lg);
+                padding: 20px;
+                flex: 1;
+                max-width: 280px;
+              "
+            >
+              <div
+                style="
+                  font-size: 14px;
+                  font-weight: 700;
+                  color: var(--platinum);
+                  margin-bottom: 6px;
+                "
+              >
+                New Release
+              </div>
+              <div style="font-size: 12px; color: var(--pewter)">
+                Blackwell architecture delivers 2x performance per watt.
+              </div>
+            </div>
+          </div>
+          <div class="component-desc">
+            Obsidian background with NVIDIA Green left border. Draws attention
+            without overwhelming.
+          </div>
+        </div>
+
+        <div class="component-card">
+          <div class="component-header">
+            <div>
+              <div class="component-name">Tag / Badge</div>
+              <div class="component-role">Status indicators, categories</div>
+            </div>
+            <span class="component-class">.tag</span>
+          </div>
+          <div class="component-preview">
+            <span
+              style="
+                font-size: 11px;
+                font-weight: 600;
+                color: var(--nvidia-green);
+                background: rgba(118, 185, 0, 0.1);
+                padding: 4px 12px;
+                border-radius: var(--r-pill);
+                letter-spacing: 0.04px;
+                text-transform: uppercase;
+              "
+              >New</span
+            >
+            <span
+              style="
+                font-size: 11px;
+                font-weight: 600;
+                color: var(--deep-teal);
+                background: rgba(0, 200, 180, 0.1);
+                padding: 4px 12px;
+                border-radius: var(--r-pill);
+                letter-spacing: 0.04px;
+                text-transform: uppercase;
+              "
+              >AI</span
+            >
+            <span
+              style="
+                font-size: 11px;
+                font-weight: 600;
+                color: var(--slate-blue);
+                background: rgba(74, 144, 217, 0.1);
+                padding: 4px 12px;
+                border-radius: var(--r-pill);
+                letter-spacing: 0.04px;
+                text-transform: uppercase;
+              "
+              >GPU</span
+            >
+          </div>
+          <div class="component-desc">
+            Semi-transparent accent background, pill shape, uppercase caption
+            text.
+          </div>
+        </div>
+
+        <div class="component-card">
+          <div class="component-header">
+            <div>
+              <div class="component-name">Input Field</div>
+              <div class="component-role">User text input</div>
+            </div>
+            <span class="component-class">input</span>
+          </div>
+          <div class="component-preview">
+            <div
+              style="
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+                flex: 1;
+                max-width: 320px;
+              "
+            >
+              <input
+                type="text"
+                placeholder="Enter email"
+                style="
+                  background: var(--void-black);
+                  border: 1px solid var(--gunmetal);
+                  border-radius: 8px;
+                  padding: 10px 14px;
+                  color: var(--platinum);
+                  font-size: 13px;
+                  font-family: inherit;
+                  outline: none;
+                "
+              />
+              <input
+                type="text"
+                value="Focused"
+                style="
+                  background: var(--void-black);
+                  border: 1px solid var(--nvidia-green);
+                  border-radius: 8px;
+                  padding: 10px 14px;
+                  color: var(--platinum);
+                  font-size: 13px;
+                  font-family: inherit;
+                  outline: none;
+                "
+              />
+            </div>
+          </div>
+          <div class="component-desc">
+            Void Black background, 1px Gunmetal border, 8px radius. Focus uses
+            NVIDIA Green border.
+          </div>
+        </div>
+      </section>
+
+      <!-- DO'S & DON'TS -->
+      <section class="section" id="guidelines">
+        <div class="section-header">
+          <div class="section-label">Guidelines</div>
+          <h2 class="section-title">Do's & Don'ts</h2>
+        </div>
+        <div class="guide-grid">
+          <div class="guide-card guide-card--do">
+            <div class="guide-label">Do</div>
+            <ul class="guide-list">
+              <li>Void Black (#000000) as primary background</li>
+              <li>NVIDIA Green (#76B900) exclusively for accents and CTAs</li>
+              <li>Platinum (#ffffff) for all primary text</li>
+              <li>Compact, information-dense layouts</li>
+              <li>Sharp geometric shapes and clean lines</li>
+              <li>NVIDIA Mono for all technical data and specs</li>
+              <li>Small border radii (4-12px) for precision</li>
+            </ul>
+          </div>
+          <div class="guide-card guide-card--dont">
+            <div class="guide-label">Don't</div>
+            <ul class="guide-list">
+              <li>Use NVIDIA Green for large backgrounds</li>
+              <li>Introduce warm or saturated secondary colors</li>
+              <li>Use rounded, playful shapes</li>
+              <li>Apply generous, airy spacing</li>
+              <li>Add decorative illustrations or hand-drawn elements</li>
+              <li>Use script or display typefaces</li>
+              <li>Use mono fonts for non-code content</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- FOOTER -->
+      <footer class="footer">
+        <div class="footer-left">NVIDIA Design System</div>
+        <div class="footer-right">
+          <a href="#colors" class="footer-link">Colors</a>
+          <a href="#typography" class="footer-link">Typography</a>
+          <a href="#spacing" class="footer-link">Spacing</a>
+          <a href="#components" class="footer-link">Components</a>
+          <a href="#" class="footer-link" download>Download Spec</a>
+        </div>
+      </footer>
+    </div>
+
+    
+  </body>
+</html>

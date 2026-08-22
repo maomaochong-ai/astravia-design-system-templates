@@ -1,0 +1,33 @@
+{
+	"schemaVersion": 1,
+	"kind": "design-system",
+	"slug": "theverge",
+	"name": "The Verge",
+	"version": "1.0.0",
+	"order": 690,
+	"category": "media",
+	"vibe": "light",
+	"tags": [
+		"light-ui",
+		"editorial",
+		"developer-focused",
+		"design-system"
+	],
+	"blurb": "The Verge's 2024 redesign feels like somebody wired a Condé Nast magazine to a chiptune soundboard.",
+	"tagline": {
+		"en": "Condé Nast wired to a chiptune soundboard",
+		"zh": "康泰纳仕 × 芯片音乐合成器"
+	},
+	"license": "MIT",
+	"origin": {
+		"type": "curated",
+		"upstream": "https://github.com/ricocc/brands-design-md.git",
+		"note": "from brands-design-md (The Verge)."
+	},
+	"assets": {
+		"spec": "DESIGN.md",
+		"theme": "theme.css",
+		"demo": "demo.html"
+	},
+	"collectedAt": "2026-08-22"
+}

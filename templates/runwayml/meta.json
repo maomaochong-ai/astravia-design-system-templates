@@ -1,0 +1,32 @@
+{
+	"schemaVersion": 1,
+	"kind": "design-system",
+	"slug": "runwayml",
+	"name": "Runway",
+	"version": "1.0.0",
+	"order": 610,
+	"category": "ai",
+	"vibe": "light",
+	"tags": [
+		"light-ui",
+		"editorial",
+		"design-system"
+	],
+	"blurb": "Runway's interface is a cinematic reel brought to life as a website — a dark, editorial, film-production-grade design where full-bleed photography and video ARE the primary UI e…",
+	"tagline": {
+		"en": "Cinematic dark editorial, film-production grade",
+		"zh": "电影级暗色编辑风"
+	},
+	"license": "MIT",
+	"origin": {
+		"type": "curated",
+		"upstream": "https://github.com/ricocc/brands-design-md.git",
+		"note": "from brands-design-md (Runway)."
+	},
+	"assets": {
+		"spec": "DESIGN.md",
+		"theme": "theme.css",
+		"demo": "demo.html"
+	},
+	"collectedAt": "2026-08-22"
+}

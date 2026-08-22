@@ -1,0 +1,33 @@
+{
+	"schemaVersion": 1,
+	"kind": "design-system",
+	"slug": "intercom",
+	"name": "Intercom",
+	"version": "1.0.0",
+	"order": 410,
+	"category": "productivity",
+	"vibe": "light",
+	"tags": [
+		"light-ui",
+		"editorial",
+		"minimal",
+		"design-system"
+	],
+	"blurb": "An editorial customer-service marketing canvas built around a soft cream-white ground, charcoal type set in Saans (Intercom's proprietary geometric sans), and a single confident…",
+	"tagline": {
+		"en": "Editorial cream-white ground with charcoal type",
+		"zh": "奶油白底编辑风 + 炭黑文字"
+	},
+	"license": "MIT",
+	"origin": {
+		"type": "curated",
+		"upstream": "https://github.com/ricocc/brands-design-md.git",
+		"note": "from brands-design-md (Intercom)."
+	},
+	"assets": {
+		"spec": "DESIGN.md",
+		"theme": "theme.css",
+		"demo": "demo.html"
+	},
+	"collectedAt": "2026-08-22"
+}

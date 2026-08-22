@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Expo — Design System</title>
+
+
+
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+
+:root{
+  --canvas-white:#fafafa;
+  --pure-white:#ffffff;
+  --paper-gray:#f5f5f5;
+  --border-light:#e6e6e6;
+  --border-medium:#d4d4d4;
+  --deep-navy:#000023;
+  --dark-ink:#1a1a2e;
+  --slate-gray:#5a5a7a;
+  --muted-gray:#8c8c9e;
+  --expo-purple:#4630EB;
+  --purple-light:#7b68ee;
+  --purple-glow:#e8e0ff;
+  --success-green:#00823;
+  --warning-amber:#e8a317;
+  --error-red:#dc3545;
+  --code-surface:#f8f7ff;
+
+  --r-sm:4px;--r-md:6px;--r-lg:8px;--r-xl:12px;
+  --r-cards:12px;--r-pill:9999px;
+}
+
+::selection{background:rgba(70,48,235,.15);color:var(--deep-navy)}
+html{scroll-behavior:smooth}
+
+body{
+  font-family:'Inter',system-ui,-apple-system,sans-serif;
+  background:var(--canvas-white);color:var(--deep-navy);
+  font-size:16px;line-height:1.6;letter-spacing:0;
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
+}
+
+.page{max-width:960px;margin:0 auto;padding:0 32px 120px}
+
+/* ── NAV ── */
+.nav{
+  display:flex;justify-content:space-between;align-items:center;
+  height:56px;padding:0 16px;position:sticky;top:0;z-index:100;
+  background:rgba(250,250,250,.92);backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--border-light);
+  margin:0 -32px;
+}
+.nav-left{display:flex;align-items:center;gap:12px}
+.nav-wordmark{
+  font-size:18px;font-weight:700;letter-spacing:-.35px;
+  color:var(--deep-navy);text-decoration:none;
+}
+.nav-tag{
+  font-size:11px;font-weight:500;color:var(--expo-purple);
+  background:var(--purple-glow);padding:3px 10px;border-radius:var(--r-pill);
+  border:1px solid rgba(70,48,235,.15);letter-spacing:.02px;
+}
+.nav-right{display:flex;align-items:center;gap:8px}
+.nav-link{
+  font-size:13px;font-weight:500;color:var(--slate-gray);text-decoration:none;
+  padding:6px 12px;border-radius:var(--r-md);transition:all .2s;letter-spacing:.015px;
+}
+.nav-link:hover{color:var(--deep-navy);background:var(--paper-gray)}
+.nav-link--active{color:var(--expo-purple);font-weight:600}
+.nav-url{
+  font-size:11px;font-weight:400;color:var(--slate-gray);text-decoration:none;
+  padding:4px 10px;border-radius:9999px;transition:all .2s;
+  background:rgba(0,0,0,.03);border:1px solid rgba(0,0,0,.06);
+  letter-spacing:.02px;white-space:nowrap;
+}
+.nav-url:hover{color:var(--expo-purple);background:rgba(78,0,220,.06);border-color:rgba(78,0,220,.12)}
+
+/* ── SECTIONS ── */
+.section{
+  padding:80px 0 0;
+  border-top:1px solid var(--border-light);
+  margin-top:64px;
+}
+.section:first-of-type{border-top:none;margin-top:48px}
+.section-header{margin-bottom:40px}
+.section-label{
+  font-size:11px;font-weight:600;letter-spacing:.08px;
+  text-transform:uppercase;color:var(--expo-purple);margin-bottom:8px;
+}
+.section-title{
+  font-size:32px;font-weight:700;letter-spacing:-.5px;line-height:1.15;
+  color:var(--deep-navy);
+}
+.section-desc{
+  font-size:15px;line-height:1.6;color:var(--slate-gray);
+  margin-top:12px;max-width:560px;
+}
+
+/* ── HERO ── */
+.hero{
+  padding:80px 0 48px;
+  border-bottom:1px solid var(--border-light);
+  margin:0 -32px;padding-left:32px;padding-right:32px;
+  position:relative;overflow:hidden;
+}
+.hero::before{
+  content:'';position:absolute;
+  width:400px;height:400px;
+  background:radial-gradient(circle,rgba(70,48,235,.08),transparent 70%);
+  border-radius:50%;filter:blur(80px);
+  right:-80px;top:-120px;pointer-events:none;
+}
+.hero::after{
+  content:'';position:absolute;
+  width:300px;height:300px;
+  background:radial-gradient(circle,rgba(123,104,238,.06),transparent 70%);
+  border-radius:50%;filter:blur(60px);
+  left:20%;bottom:-80px;pointer-events:none;
+}
+.hero-label{
+  font-size:11px;font-weight:600;letter-spacing:.1px;
+  text-transform:uppercase;color:var(--expo-purple);margin-bottom:16px;
+}
+.hero-title{
+  font-size:clamp(40px,6vw,56px);font-weight:700;line-height:1;
+  letter-spacing:-.04em;color:var(--deep-navy);
+}
+.hero-title em{
+  font-style:normal;
+  background:linear-gradient(135deg,var(--expo-purple),var(--purple-light));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.hero-subtitle{
+  font-size:17px;line-height:1.6;color:var(--slate-gray);
+  margin-top:20px;max-width:480px;
+}
+.hero-tags{display:flex;gap:8px;margin-top:28px;flex-wrap:wrap}
+.hero-tag{
+  font-size:11px;font-weight:500;color:var(--slate-gray);
+  background:var(--paper-gray);padding:5px 12px;border-radius:var(--r-pill);
+  border:1px solid var(--border-light);letter-spacing:.015px;
+}
+.hero-actions{display:flex;gap:12px;margin-top:28px}
+
+/* ── BUTTONS ── */
+.btn{
+  display:inline-flex;align-items:center;gap:6px;
+  font-family:inherit;font-size:13px;font-weight:600;line-height:1;
+  letter-spacing:.01px;padding:10px 24px;border-radius:var(--r-md);
+  cursor:pointer;text-decoration:none;white-space:nowrap;
+  transition:opacity .15s,transform .15s,background .15s,border-color .15s;
+}
+.btn:active{transform:scale(.97)}
+.btn-primary{background:var(--expo-purple);color:#ffffff;border:1px solid transparent}
+.btn-primary:hover{opacity:.85}
+.btn-secondary{background:transparent;color:var(--expo-purple);border:1px solid var(--expo-purple)}
+.btn-secondary:hover{background:var(--purple-glow)}
+.btn-ghost{background:transparent;color:var(--deep-navy);border:1px solid var(--border-light)}
+.btn-ghost:hover{border-color:var(--border-medium);background:var(--paper-gray)}
+
+/* ── COLOR TOKENS ── */
+.color-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;
+}
+.color-token{
+  background:var(--pure-white);border:1px solid var(--border-light);
+  border-radius:var(--r-cards);overflow:hidden;transition:border-color .2s;
+}
+.color-token:hover{border-color:var(--border-medium)}
+.color-swatch{width:100%;height:80px}
+.color-info{padding:14px 16px}
+.color-name{font-size:13px;font-weight:600;letter-spacing:.01px;color:var(--deep-navy)}
+.color-hex{
+  font-size:12px;font-weight:500;color:var(--slate-gray);margin-top:2px;
+  font-variant-numeric:tabular-nums;letter-spacing:.015px;
+}
+.color-role{font-size:11px;color:var(--muted-gray);margin-top:6px;line-height:1.4}
+
+/* ── TYPE SCALE ── */
+.type-table{
+  display:flex;flex-direction:column;border:1px solid var(--border-light);
+  border-radius:var(--r-cards);overflow:hidden;
+}
+.type-row{
+  display:grid;grid-template-columns:100px 1fr 220px;align-items:baseline;
+  padding:16px 24px;border-bottom:1px solid var(--border-light);
+  background:var(--pure-white);
+}
+.type-row:last-child{border-bottom:none}
+.type-row:hover{background:var(--paper-gray)}
+.type-meta{
+  font-size:10px;font-weight:600;color:var(--expo-purple);
+  letter-spacing:.06px;text-transform:uppercase;
+}
+.type-sample{color:var(--deep-navy);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.type-specs{
+  font-size:11px;color:var(--slate-gray);text-align:right;
+  font-variant-numeric:tabular-nums;letter-spacing:.015px;
+}
+
+/* ── SPACING ── */
+.spacing-bars{display:flex;align-items:flex-end;gap:20px;height:120px}
+.spacing-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px}
+.spacing-bar{
+  width:100%;border-radius:var(--r-md);
+  background:var(--expo-purple);
+  opacity:.15;transition:opacity .3s;
+}
+.spacing-col:hover .spacing-bar{opacity:.35}
+.spacing-val{font-size:11px;font-weight:600;color:var(--deep-navy);letter-spacing:.015px}
+.spacing-name{font-size:10px;font-weight:500;color:var(--slate-gray);letter-spacing:.015px}
+
+/* ── SHAPES ── */
+.shapes-row{display:flex;flex-wrap:wrap;gap:24px;align-items:flex-end}
+.shape-item{display:flex;flex-direction:column;align-items:center;gap:8px}
+.shape-box{
+  width:72px;height:72px;background:var(--pure-white);
+  border:1.5px solid var(--border-light);transition:all .3s cubic-bezier(.22,1,.36,1);
+}
+.shape-box:hover{border-color:var(--expo-purple);transform:scale(1.06)}
+.shape-label{font-size:11px;font-weight:500;color:var(--slate-gray);letter-spacing:.015px;white-space:nowrap}
+.shape-value{
+  font-size:10px;font-weight:400;color:var(--muted-gray);letter-spacing:.015px;
+  font-variant-numeric:tabular-nums;
+}
+
+/* ── SURFACES ── */
+.surface-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px}
+.surface-item{
+  border-radius:var(--r-cards);padding:28px 20px;
+  text-align:center;border:1px solid var(--border-light);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:6px;min-height:110px;transition:transform .3s;
+}
+.surface-item:hover{transform:scale(1.02)}
+.surface-name{font-size:14px;font-weight:600;letter-spacing:.01px}
+.surface-val{
+  font-size:11px;font-weight:500;color:var(--slate-gray);
+  font-variant-numeric:tabular-nums;letter-spacing:.015px;
+}
+
+/* ── COMPONENTS ── */
+.component-card{
+  background:var(--pure-white);border:1px solid var(--border-light);
+  border-radius:var(--r-cards);padding:32px;margin-bottom:20px;
+  transition:border-color .2s;
+}
+.component-card:hover{border-color:var(--border-medium)}
+.component-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px}
+.component-name{font-size:15px;font-weight:600;letter-spacing:.01px;color:var(--deep-navy)}
+.component-role{font-size:12px;color:var(--slate-gray);margin-top:4px;letter-spacing:.015px}
+.component-class{
+  font-size:11px;font-weight:500;color:var(--expo-purple);
+  background:var(--purple-glow);padding:3px 10px;border-radius:var(--r-pill);
+  border:1px solid rgba(70,48,235,.12);letter-spacing:.015px;
+  font-family:'SFMono-Regular',Consolas,monospace;
+}
+.component-preview{
+  display:flex;gap:16px;align-items:center;flex-wrap:wrap;
+  padding:20px;background:var(--canvas-white);border-radius:var(--r-xl);
+  border:1px solid var(--border-light);
+}
+.component-desc{
+  font-size:12px;color:var(--muted-gray);line-height:1.5;
+  margin-top:12px;max-width:480px;
+}
+
+/* ── CODE BLOCK ── */
+.code-block-demo{
+  background:var(--code-surface);border:1px solid var(--border-light);
+  border-radius:var(--r-cards);padding:20px;
+  font-family:'SFMono-Regular',Consolas,'Liberation Mono',Menlo,monospace;
+  font-size:14px;line-height:1.5;color:var(--deep-navy);
+  overflow-x:auto;
+}
+.code-block-demo .kw{color:var(--expo-purple);font-weight:500}
+.code-block-demo .str{color:#00823}
+.code-block-demo .cmt{color:var(--muted-gray);font-style:italic}
+.code-block-demo .fn{color:#c2185b}
+
+/* ── TAG / BADGE ── */
+.tag{
+  display:inline-flex;align-items:center;
+  font-size:12px;font-weight:500;color:var(--expo-purple);
+  background:var(--purple-glow);padding:4px 12px;border-radius:var(--r-pill);
+  border:1px solid rgba(70,48,235,.12);letter-spacing:.015px;
+}
+.tag--success{color:var(--success-green);background:rgba(0,130,51,.08);border-color:rgba(0,130,51,.15)}
+.tag--warning{color:var(--warning-amber);background:rgba(232,163,23,.08);border-color:rgba(232,163,23,.15)}
+.tag--error{color:var(--error-red);background:rgba(220,53,69,.08);border-color:rgba(220,53,69,.12)}
+
+/* ── SIDEBAR NAV ── */
+.sidebar-demo{
+  background:var(--pure-white);border:1px solid var(--border-light);
+  border-radius:var(--r-cards);padding:16px 0;width:240px;flex-shrink:0;
+}
+.sidebar-item{
+  display:flex;align-items:center;padding:8px 16px 8px 18px;
+  font-size:14px;font-weight:400;color:var(--deep-navy);
+  text-decoration:none;transition:all .2s;position:relative;
+  border-left:2px solid transparent;
+}
+.sidebar-item:hover{background:var(--paper-gray)}
+.sidebar-item--active{
+  color:var(--expo-purple);font-weight:600;
+  background:var(--purple-glow);
+  border-left-color:var(--expo-purple);
+}
+
+/* ── SEARCH INPUT ── */
+.search-input{
+  background:var(--pure-white);border:1px solid var(--border-light);
+  border-radius:var(--r-lg);padding:12px 16px;
+  font-size:14px;font-family:inherit;color:var(--deep-navy);
+  outline:none;width:100%;max-width:360px;transition:border-color .2s;
+}
+.search-input:focus{border-color:var(--expo-purple);box-shadow:0 0 0 3px rgba(70,48,235,.08)}
+.search-input::placeholder{color:var(--muted-gray)}
+
+/* ── DO/DON'T ── */
+.guide-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.guide-card{
+  border-radius:var(--r-cards);padding:28px;
+  border:1px solid var(--border-light);
+  background:var(--pure-white);
+}
+.guide-card--do{background:rgba(0,130,51,.03);border-color:rgba(0,130,51,.12)}
+.guide-card--dont{background:rgba(220,53,69,.03);border-color:rgba(220,53,69,.1)}
+.guide-label{font-size:11px;font-weight:600;letter-spacing:.06px;text-transform:uppercase;margin-bottom:16px}
+.guide-card--do .guide-label{color:var(--success-green)}
+.guide-card--dont .guide-label{color:var(--error-red)}
+.guide-list{
+  list-style:none;display:flex;flex-direction:column;gap:10px;
+}
+.guide-list li{
+  font-size:13px;line-height:1.5;padding-left:20px;position:relative;
+  color:var(--dark-ink);
+}
+.guide-card--do .guide-list li::before{
+  content:'✓';position:absolute;left:0;color:var(--success-green);font-weight:700;font-size:12px;
+}
+.guide-card--dont .guide-list li::before{
+  content:'✕';position:absolute;left:0;color:var(--error-red);font-weight:700;font-size:12px;
+}
+
+/* ── FOOTER ── */
+.footer{
+  margin-top:96px;padding:32px 0;
+  border-top:1px solid var(--border-light);
+  display:flex;justify-content:space-between;align-items:center;
+}
+.footer-left{font-size:14px;font-weight:500;color:var(--slate-gray);opacity:.6}
+.footer-right{display:flex;gap:20px}
+.footer-link{
+  font-size:12px;font-weight:500;color:var(--slate-gray);text-decoration:none;
+  transition:color .2s;letter-spacing:.015px;
+}
+.footer-link:hover{color:var(--expo-purple)}
+
+/* ── RESPONSIVE ── */
+@media(max-width:768px){
+  .page{padding:0 20px 80px}
+  .hero{margin:0 -20px;padding-left:20px;padding-right:20px;padding-top:56px}
+  .nav{margin:0 -20px}
+  .section-title{font-size:24px}
+  .type-row{grid-template-columns:70px 1fr;gap:8px}
+  .type-specs{display:none}
+  .guide-grid{grid-template-columns:1fr}
+  .color-grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr))}
+  .hero-title{font-size:36px}
+}
+
+/* ── ENTRANCE ANIMATION ── */
+.section,.hero{opacity:1;transition:opacity .6s cubic-bezier(.22,1,.36,1),transform .6s cubic-bezier(.22,1,.36,1)}
+.section.visible,.hero.visible{opacity:1;transform:translateY(0)}
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="nav-left">
+      <a href="#" class="nav-wordmark">Expo</a>
+      <span class="nav-tag">Design System</span>
+      <a href="#" class="nav-url">https://expo.dev</a>
+    </div>
+    <div class="nav-right">
+      <a href="#colors" class="nav-link nav-link--active">Colors</a>
+      <a href="#typography" class="nav-link">Type</a>
+      <a href="#spacing" class="nav-link">Spacing</a>
+      <a href="#components" class="nav-link">Components</a>
+      <a href="#" target="_blank" rel="noopener noreferrer" style="display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:var(--r-full);color:var(--slate-gray);transition:color .2s,background .2s;text-decoration:none" title="Visit Expo">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+      </a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-label">Design System</div>
+    <h1 class="hero-title">Build what<br>matters,<br><em>faster.</em></h1>
+    <p class="hero-subtitle">A clean, bright developer documentation system. Deep navy text, vibrant purple accents, and generous whitespace for focused technical content.</p>
+    <div class="hero-tags">
+      <span class="hero-tag">16 color tokens</span>
+      <span class="hero-tag">9 type steps</span>
+      <span class="hero-tag">4px grid</span>
+      <span class="hero-tag">4 surface levels</span>
+    </div>
+    <div class="hero-actions">
+      <a href="#" class="btn btn-primary" download>Download Spec</a>
+      <a href="#" class="btn btn-secondary" download>theme.css</a>
+      <a href="#" class="btn btn-secondary" download>tokens.json</a>
+      <a href="#" class="btn btn-secondary" download>variables.css</a>
+    </div>
+  </div>
+
+  <!-- COLORS -->
+  <section class="section" id="colors">
+    <div class="section-header">
+      <div class="section-label">Foundation</div>
+      <h2 class="section-title">Color Tokens</h2>
+      <p class="section-desc">Light neutrals with deep navy text and vibrant Expo Purple accent. 16 tokens across base surfaces, text hierarchy, interaction, and status colors.</p>
+    </div>
+    <div class="color-grid">
+      <div class="color-token">
+        <div class="color-swatch" style="background:#fafafa;border-bottom:1px solid var(--border-light)"></div>
+        <div class="color-info"><div class="color-name">Canvas White</div><div class="color-hex">#fafafa</div><div class="color-role">Primary page background</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#ffffff;border-bottom:1px solid var(--border-light)"></div>
+        <div class="color-info"><div class="color-name">Pure White</div><div class="color-hex">#ffffff</div><div class="color-role">Cards, code blocks, inputs</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#f5f5f5"></div>
+        <div class="color-info"><div class="color-name">Paper Gray</div><div class="color-hex">#f5f5f5</div><div class="color-role">Secondary sections</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#e6e6e6"></div>
+        <div class="color-info"><div class="color-name">Border Light</div><div class="color-hex">#e6e6e6</div><div class="color-role">Borders, dividers</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#d4d4d4"></div>
+        <div class="color-info"><div class="color-name">Border Medium</div><div class="color-hex">#d4d4d4</div><div class="color-role">Stronger borders, active</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#000023"></div>
+        <div class="color-info"><div class="color-name">Deep Navy</div><div class="color-hex">#000023</div><div class="color-role">Primary text, headings</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#1a1a2e"></div>
+        <div class="color-info"><div class="color-name">Dark Ink</div><div class="color-hex">#1a1a2e</div><div class="color-role">Secondary text, body copy</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#5a5a7a"></div>
+        <div class="color-info"><div class="color-name">Slate Gray</div><div class="color-hex">#5a5a7a</div><div class="color-role">Tertiary text, captions</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#8c8c9e"></div>
+        <div class="color-info"><div class="color-name">Muted Gray</div><div class="color-hex">#8c8c9e</div><div class="color-role">Placeholders, disabled</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#4630EB"></div>
+        <div class="color-info"><div class="color-name">Expo Purple</div><div class="color-hex">#4630EB</div><div class="color-role">Primary accent, links, CTAs</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#7b68ee"></div>
+        <div class="color-info"><div class="color-name">Purple Light</div><div class="color-hex">#7b68ee</div><div class="color-role">Hover states, secondary</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#e8e0ff"></div>
+        <div class="color-info"><div class="color-name">Purple Glow</div><div class="color-hex">#e8e0ff</div><div class="color-role">Selection, subtle fills</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#00823"></div>
+        <div class="color-info"><div class="color-name">Success Green</div><div class="color-hex">#00823</div><div class="color-role">Success states</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#e8a317"></div>
+        <div class="color-info"><div class="color-name">Warning Amber</div><div class="color-hex">#e8a317</div><div class="color-role">Warning states</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#dc3545"></div>
+        <div class="color-info"><div class="color-name">Error Red</div><div class="color-hex">#dc3545</div><div class="color-role">Error, destructive</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#f8f7ff"></div>
+        <div class="color-info"><div class="color-name">Code Surface</div><div class="color-hex">#f8f7ff</div><div class="color-role">Code block background</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TYPOGRAPHY -->
+  <section class="section" id="typography">
+    <div class="section-header">
+      <div class="section-label">Typography</div>
+      <h2 class="section-title">Type Scale</h2>
+      <p class="section-desc">Inter as primary typeface with precise weight and size hierarchy. 9 scale steps from caption to display-lg for clear documentation structure.</p>
+    </div>
+    <div class="type-table">
+      <div class="type-row">
+        <span class="type-meta">Display-lg</span>
+        <span class="type-sample" style="font-size:28px;font-weight:700;line-height:1;letter-spacing:-.04em">Build faster</span>
+        <span class="type-specs">48px / 1.0 / −0.04em</span>
+      </div>
+      <div class="type-row">
+        <span class="type-meta">Display</span>
+        <span class="type-sample" style="font-size:24px;font-weight:700;line-height:1.1;letter-spacing:-.04em">Ship with Expo</span>
+        <span class="type-specs">40px / 1.1 / −0.04em</span>
+      </div>
+      <div class="type-row">
+        <span class="type-meta">Heading-lg</span>
+        <span class="type-sample" style="font-size:20px;font-weight:700;line-height:1.2;letter-spacing:-.25px">Getting Started</span>
+        <span class="type-specs">32px / 1.2 / −0.025px</span>
+      </div>
+      <div class="type-row">
+        <span class="type-meta">Heading</span>
+        <span class="type-sample" style="font-size:18px;font-weight:600;line-height:1.3;letter-spacing:-.2px">Section heading</span>
+        <span class="type-specs">24px / 1.3 / −0.02px</span>
+      </div>
+      <div class="type-row">
+        <span class="type-meta">Subheading</span>
+        <span class="type-sample" style="font-size:16px;font-weight:500;line-height:1.5;letter-spacing:0">Subsection title</span>
+        <span class="type-specs">18px / 1.5 / 0</span>
+      </div>
+      <div class="type-row">
+        <span class="type-meta">Body</span>
+        <span class="type-sample" style="font-size:16px;font-weight:400;line-height:1.6;letter-spacing:0">Default body text for readable documentation</span>
+        <span class="type-specs">16px / 1.6 / 0</span>
+      </div>
+      <div class="type-row">
+        <span class="type-meta">Body-sm</span>
+        <span class="type-sample" style="font-size:13px;font-weight:400;line-height:1.6;letter-spacing:.01px">Dense content, table cells, compact lists</span>
+        <span class="type-specs">13px / 1.6 / 0.01px</span>
+      </div>
+      <div class="type-row">
+        <span class="type-meta">Caption</span>
+        <span class="type-sample" style="font-size:12px;font-weight:400;line-height:1.5;letter-spacing:.02px">Meta info · Footnotes · Labels</span>
+        <span class="type-specs">12px / 1.5 / 0.02px</span>
+      </div>
+    </div>
+
+    <h3 style="font-size:14px;font-weight:600;color:var(--deep-navy);margin:40px 0 20px;letter-spacing:.01px">Fonts</h3>
+    <div style="display:flex;flex-direction:column;border:1px solid var(--border-light);border-radius:var(--r-cards);overflow:hidden">
+      <div style="padding:20px 24px;border-bottom:1px solid var(--border-light);display:flex;align-items:baseline;gap:16px;background:var(--pure-white)">
+        <span style="font-size:10px;font-weight:600;color:var(--expo-purple);letter-spacing:.06px;text-transform:uppercase;flex:0 0 60px">Primary</span>
+        <span style="font-size:16px;font-weight:600;color:var(--deep-navy);letter-spacing:-.2px">Inter</span>
+        <span style="font-size:11px;color:var(--slate-gray);letter-spacing:.015px">400–700 · 12–48px</span>
+      </div>
+      <div style="padding:20px 24px;display:flex;align-items:baseline;gap:16px;background:var(--pure-white)">
+        <span style="font-size:10px;font-weight:600;color:var(--expo-purple);letter-spacing:.06px;text-transform:uppercase;flex:0 0 60px">Mono</span>
+        <span style="font-size:16px;font-weight:500;color:var(--deep-navy);letter-spacing:-.2px">Inter Mono</span>
+        <span style="font-size:11px;color:var(--slate-gray);letter-spacing:.015px">400–500 · 12–16px · Code only</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- SPACING & SHAPES -->
+  <section class="section" id="spacing">
+    <div class="section-header">
+      <div class="section-label">Layout</div>
+      <h2 class="section-title">Spacing & Shapes</h2>
+      <p class="section-desc">Base unit 4px. Comfortable density with generous breathing room. 14-step spacing scale, 6 border radius values.</p>
+    </div>
+
+    <h3 style="font-size:14px;font-weight:600;color:var(--deep-navy);margin-bottom:20px;letter-spacing:.01px">Spacing Scale (4px base)</h3>
+    <div class="spacing-bars">
+      <div class="spacing-col"><div class="spacing-bar" style="height:8px"></div><span class="spacing-val">4</span><span class="spacing-name">4px</span></div>
+      <div class="spacing-col"><div class="spacing-bar" style="height:14px"></div><span class="spacing-val">8</span><span class="spacing-name">8px</span></div>
+      <div class="spacing-col"><div class="spacing-bar" style="height:20px"></div><span class="spacing-val">12</span><span class="spacing-name">12px</span></div>
+      <div class="spacing-col"><div class="spacing-bar" style="height:28px"></div><span class="spacing-val">16</span><span class="spacing-name">16px</span></div>
+      <div class="spacing-col"><div class="spacing-bar" style="height:36px"></div><span class="spacing-val">24</span><span class="spacing-name">24px</span></div>
+      <div class="spacing-col"><div class="spacing-bar" style="height:48px"></div><span class="spacing-val">32</span><span class="spacing-name">32px</span></div>
+      <div class="spacing-col"><div class="spacing-bar" style="height:64px"></div><span class="spacing-val">48</span><span class="spacing-name">48px</span></div>
+      <div class="spacing-col"><div class="spacing-bar" style="height:90px"></div><span class="spacing-val">96</span><span class="spacing-name">96px</span></div>
+    </div>
+
+    <h3 style="font-size:14px;font-weight:600;color:var(--deep-navy);margin:40px 0 20px;letter-spacing:.01px">Border Radius</h3>
+    <div class="shapes-row">
+      <div class="shape-item">
+        <div class="shape-box" style="border-radius:4px"></div>
+        <span class="shape-label">sm</span>
+        <span class="shape-value">4px</span>
+      </div>
+      <div class="shape-item">
+        <div class="shape-box" style="border-radius:6px"></div>
+        <span class="shape-label">md</span>
+        <span class="shape-value">6px</span>
+      </div>
+      <div class="shape-item">
+        <div class="shape-box" style="border-radius:8px"></div>
+        <span class="shape-label">lg</span>
+        <span class="shape-value">8px</span>
+      </div>
+      <div class="shape-item">
+        <div class="shape-box" style="border-radius:12px"></div>
+        <span class="shape-label">xl / cards</span>
+        <span class="shape-value">12px</span>
+      </div>
+      <div class="shape-item">
+        <div class="shape-box" style="border-radius:9999px"></div>
+        <span class="shape-label">pill</span>
+        <span class="shape-value">9999px</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- SURFACES -->
+  <section class="section" id="surfaces">
+    <div class="section-header">
+      <div class="section-label">Elevation</div>
+      <h2 class="section-title">Surfaces</h2>
+      <p class="section-desc">Clean, layered surfaces from canvas to code. Borders define elevation more than shadows. 4 distinct surface levels.</p>
+    </div>
+
+    <h3 style="font-size:14px;font-weight:600;color:var(--deep-navy);margin-bottom:16px;letter-spacing:.01px">Surface System</h3>
+    <div class="surface-grid">
+      <div class="surface-item" style="background:#fafafa">
+        <span class="surface-name">Canvas White</span>
+        <span class="surface-val">#fafafa</span>
+      </div>
+      <div class="surface-item" style="background:#f5f5f5">
+        <span class="surface-name">Paper Gray</span>
+        <span class="surface-val">#f5f5f5</span>
+      </div>
+      <div class="surface-item" style="background:#ffffff">
+        <span class="surface-name">Pure White</span>
+        <span class="surface-val">#ffffff</span>
+      </div>
+      <div class="surface-item" style="background:#f8f7ff">
+        <span class="surface-name">Code Surface</span>
+        <span class="surface-val">#f8f7ff</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPONENTS -->
+  <section class="section" id="components">
+    <div class="section-header">
+      <div class="section-label">Components</div>
+      <h2 class="section-title">UI Elements</h2>
+      <p class="section-desc">Button variants, documentation cards, code blocks, sidebar navigation, tags, and search inputs for developer documentation.</p>
+    </div>
+
+    <!-- Buttons -->
+    <div class="component-card">
+      <div class="component-header">
+        <div><div class="component-name">Primary Action Button</div><div class="component-role">Main call to action — highest visual weight</div></div>
+        <span class="component-class">.btn-primary</span>
+      </div>
+      <div class="component-preview">
+        <button class="btn btn-primary">Get Started</button>
+        <button class="btn btn-primary" style="opacity:.85">Hover state</button>
+      </div>
+      <div class="component-desc">Expo Purple (#4630EB) background, white text, 6px radius. Use exclusively for the single most important action.</div>
+    </div>
+
+    <div class="component-card">
+      <div class="component-header">
+        <div><div class="component-name">Secondary Button</div><div class="component-role">Secondary actions, navigation</div></div>
+        <span class="component-class">.btn-secondary</span>
+      </div>
+      <div class="component-preview">
+        <button class="btn btn-secondary">Read Docs</button>
+        <button class="btn btn-secondary" style="background:var(--purple-glow)">Hover state</button>
+      </div>
+      <div class="component-desc">Expo Purple text, Expo Purple border. For actions that need visibility without competing with primary CTA.</div>
+    </div>
+
+    <div class="component-card">
+      <div class="component-header">
+        <div><div class="component-name">Ghost Button</div><div class="component-role">Tertiary actions, less prominent</div></div>
+        <span class="component-class">.btn-ghost</span>
+      </div>
+      <div class="component-preview">
+        <button class="btn btn-ghost">Learn More</button>
+        <button class="btn btn-ghost" style="background:var(--paper-gray)">Hover state</button>
+      </div>
+      <div class="component-desc">Deep Navy text, Border Light border. For subtle actions that shouldn't distract from content.</div>
+    </div>
+
+    <!-- Tags -->
+    <div class="component-card">
+      <div class="component-header">
+        <div><div class="component-name">Tags & Badges</div><div class="component-role">Version indicators, status labels</div></div>
+        <span class="component-class">.tag</span>
+      </div>
+      <div class="component-preview">
+        <span class="tag">v3.2.0</span>
+        <span class="tag tag--success">Stable</span>
+        <span class="tag tag--warning">Beta</span>
+        <span class="tag tag--error">Deprecated</span>
+      </div>
+      <div class="component-desc">Pill shape with Purple Glow background. Variant colors for success, warning, and error states.</div>
+    </div>
+
+    <!-- Code Block -->
+    <div class="component-card">
+      <div class="component-header">
+        <div><div class="component-name">Code Block</div><div class="component-role">Code snippets and terminal output</div></div>
+        <span class="component-class">.code-block</span>
+      </div>
+      <div class="component-preview" style="flex-direction:column;align-items:stretch">
+        <div class="code-block-demo"><span class="kw">import</span> { <span class="fn">StatusBar</span> } <span class="kw">from</span> <span class="str">'expo-status-bar'</span>;
+<span class="kw">import</span> { <span class="fn">StyleSheet</span>, <span class="fn">Text</span>, <span class="fn">View</span> } <span class="kw">from</span> <span class="str">'react-native'</span>;
+
+<span class="kw">export default function</span> <span class="fn">App</span>() {
+  <span class="kw">return</span> (
+    &lt;<span class="fn">View</span> style={styles.container}&gt;
+      &lt;<span class="fn">Text</span>&gt;Open up App.js&lt;/<span class="fn">Text</span>&gt;
+      &lt;<span class="fn">StatusBar</span> style=<span class="str">"auto"</span> /&gt;
+    &lt;/<span class="fn">View</span>&gt;
+  );
+}</div>
+      </div>
+      <div class="component-desc">Code Surface (#f8f7ff) background, 12px radius, 20px padding. Inter Mono for all code content.</div>
+    </div>
+
+    <!-- Sidebar Nav -->
+    <div class="component-card">
+      <div class="component-header">
+        <div><div class="component-name">Sidebar Navigation</div><div class="component-role">Documentation navigation</div></div>
+        <span class="component-class">.sidebar-item</span>
+      </div>
+      <div class="component-preview">
+        <div class="sidebar-demo">
+          <a class="sidebar-item" href="#">Introduction</a>
+          <a class="sidebar-item sidebar-item--active" href="#">Getting Started</a>
+          <a class="sidebar-item" href="#">Installation</a>
+          <a class="sidebar-item" href="#">Configuration</a>
+          <a class="sidebar-item" href="#">API Reference</a>
+          <a class="sidebar-item" href="#">Guides</a>
+        </div>
+      </div>
+      <div class="component-desc">Active state: Expo Purple text, Purple Glow background, 2px left border in Expo Purple.</div>
+    </div>
+
+    <!-- Search Input -->
+    <div class="component-card">
+      <div class="component-header">
+        <div><div class="component-name">Search Input</div><div class="component-role">Documentation search</div></div>
+        <span class="component-class">.search-input</span>
+      </div>
+      <div class="component-preview">
+        <input type="text" class="search-input" placeholder="Search documentation...">
+      </div>
+      <div class="component-desc">Pure White background, 8px radius, Border Light outline. Focus state uses Expo Purple border with subtle purple glow shadow.</div>
+    </div>
+
+    <!-- Documentation Card -->
+    <div class="component-card">
+      <div class="component-header">
+        <div><div class="component-name">Documentation Card</div><div class="component-role">Content sections, feature blocks</div></div>
+        <span class="component-class">.doc-card</span>
+      </div>
+      <div class="component-preview" style="flex-direction:column;align-items:stretch;gap:16px">
+        <div style="background:var(--pure-white);border:1px solid var(--border-light);border-radius:var(--r-cards);padding:24px">
+          <div style="font-size:20px;font-weight:600;color:var(--deep-navy);letter-spacing:-.02px;margin-bottom:8px">File-based Routing</div>
+          <div style="font-size:16px;line-height:1.6;color:var(--dark-ink)">Create pages by adding files to the <span style="font-family:'SFMono-Regular',Consolas,monospace;font-size:14px;background:var(--code-surface);padding:2px 6px;border-radius:4px;color:var(--expo-purple)">app/</span> directory. Routes are automatically generated from the file system.</div>
+        </div>
+      </div>
+      <div class="component-desc">Pure White background, 12px radius, 24px padding, 1px Border Light border. Clean container for documentation content.</div>
+    </div>
+  </section>
+
+  <!-- DO'S & DON'TS -->
+  <section class="section" id="guidelines">
+    <div class="section-header">
+      <div class="section-label">Guidelines</div>
+      <h2 class="section-title">Do's & Don'ts</h2>
+    </div>
+    <div class="guide-grid">
+      <div class="guide-card guide-card--do">
+        <div class="guide-label">Do — Embrace</div>
+        <ul class="guide-list">
+          <li>Canvas White (#fafafa) as primary page background</li>
+          <li>Deep Navy (#000023) for headings and primary text</li>
+          <li>Expo Purple (#4630EB) for links, active states, and CTAs</li>
+          <li>12px border radius for cards consistently</li>
+          <li>4px-based spacing with generous whitespace</li>
+          <li>Inter Mono for all code content</li>
+          <li>Purple Glow (#e8e0ff) for selected states</li>
+          <li>Code Surface (#f8f7ff) for code blocks</li>
+        </ul>
+      </div>
+      <div class="guide-card guide-card--dont">
+        <div class="guide-label">Don't — Avoid</div>
+        <ul class="guide-list">
+          <li>Dark backgrounds for main content areas</li>
+          <li>Expo Purple for large background fills</li>
+          <li>Body text fonts inside code blocks</li>
+          <li>Inconsistent border radii below 4px</li>
+          <li>Heavy drop shadows over borders</li>
+          <li>Colors outside the defined palette</li>
+          <li>Dense packing without whitespace</li>
+          <li>Decorative or script fonts</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-left">Expo Design System</div>
+    <div class="footer-right">
+      <a href="#colors" class="footer-link">Colors</a>
+      <a href="#typography" class="footer-link">Typography</a>
+      <a href="#spacing" class="footer-link">Spacing</a>
+      <a href="#components" class="footer-link">Components</a>
+      <a href="#" class="footer-link" download>Download Spec</a>
+    </div>
+  </footer>
+
+</div>
+
+
+
+</body>
+</html>

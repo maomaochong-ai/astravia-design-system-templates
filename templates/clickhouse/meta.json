@@ -1,0 +1,33 @@
+{
+	"schemaVersion": 1,
+	"kind": "design-system",
+	"slug": "clickhouse",
+	"name": "ClickHouse",
+	"version": "1.0.0",
+	"order": 320,
+	"category": "dev",
+	"vibe": "dark",
+	"tags": [
+		"dark-ui",
+		"gradient",
+		"developer-focused",
+		"design-system"
+	],
+	"blurb": "A high-performance database interface anchored on near-pure black canvas with electric yellow as the brand voltage.",
+	"tagline": {
+		"en": "Near-black DB canvas with electric yellow voltage",
+		"zh": "近黑数据库画布 + 电光黄"
+	},
+	"license": "MIT",
+	"origin": {
+		"type": "curated",
+		"upstream": "https://github.com/ricocc/brands-design-md.git",
+		"note": "from brands-design-md (ClickHouse)."
+	},
+	"assets": {
+		"spec": "DESIGN.md",
+		"theme": "theme.css",
+		"demo": "demo.html"
+	},
+	"collectedAt": "2026-08-22"
+}

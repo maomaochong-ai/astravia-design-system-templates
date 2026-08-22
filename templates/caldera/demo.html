@@ -1,0 +1,1157 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="design-source" content="https://caldera.xyz/" />
+    <meta name="theme-color" content="#e2e2df" />
+    <title>Caldera — Design System</title>
+    
+    
+    
+    <style>
+      :root {
+        --canvas: #e2e2df;
+        --surface: #f7f6f2;
+        --ink: #070607;
+        --white: #fff;
+        --orange: #fc5000;
+        --orange-deep: #eb4a00;
+        --violet: #524ae9;
+        --sulfur: #f5f28e;
+        --line: #c9c9c4;
+        --display: "Bebas Neue", "Arial Narrow", sans-serif;
+        --body: "DM Sans", sans-serif;
+        --max: 1200px;
+      }
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+        scroll-padding-top: 76px;
+      }
+      body {
+        margin: 0;
+        background: var(--canvas);
+        color: var(--ink);
+        font-family: var(--body);
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 1.55;
+        -webkit-font-smoothing: antialiased;
+      }
+      a {
+        color: inherit;
+      }
+      button,
+      input {
+        font: inherit;
+      }
+      ::selection {
+        background: var(--orange);
+        color: var(--ink);
+      }
+      :focus-visible {
+        outline: 3px solid var(--violet);
+        outline-offset: 3px;
+      }
+      .wrap {
+        width: min(100%, calc(var(--max) + 48px));
+        margin: auto;
+        padding-inline: 24px;
+      }
+      .nav {
+        position: sticky;
+        top: 0;
+        z-index: 30;
+        background: rgba(226, 226, 223, 0.94);
+        border-bottom: 1px solid var(--line);
+        backdrop-filter: blur(14px);
+      }
+      .nav-inner {
+        min-height: 68px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+      }
+      .nav-left,
+      .nav-right {
+        display: flex;
+        align-items: center;
+      }
+      .nav-left {
+        gap: 10px;
+        text-decoration: none;
+      }
+      .logo-favicon {
+        width: 30px;
+        height: 30px;
+        object-fit: contain;
+      }
+      .wordmark {
+        font-size: 19px;
+        font-weight: 700;
+        letter-spacing: -0.04em;
+      }
+      .tag {
+        padding: 4px 9px;
+        background: var(--surface);
+        border-radius: 800px;
+        font-size: 10px;
+        font-weight: 700;
+        text-transform: uppercase;
+      }
+      .nav-right {
+        gap: 3px;
+      }
+      .nav-link {
+        padding: 7px 10px;
+        border-radius: 800px;
+        color: #52524e;
+        font-size: 12px;
+        text-decoration: none;
+      }
+      .nav-link:hover {
+        background: var(--surface);
+        color: var(--ink);
+      }
+      .site-link {
+        margin-left: 5px;
+        background: var(--orange);
+        color: var(--white);
+        font-weight: 500;
+      }
+      .site-link:hover{
+        background:  var(--orange-deep);
+                color: var(--white);
+      }
+      .hero {
+        min-height: calc(100vh - 68px);
+        display: grid;
+        align-content: space-between;
+        padding-block: clamp(72px, 8vw, 108px) 44px;
+      }
+      .hero-title {
+        max-width: 940px;
+        margin: 0;
+        font-family: var(--display);
+        font-size: clamp(92px, 16vw, 189px);
+        font-weight: 400;
+        letter-spacing: 0.02em;
+        line-height: 0.78;
+        text-transform: uppercase;
+      }
+      .hero-bottom {
+        display: grid;
+        grid-template-columns: 1fr minmax(280px, 420px);
+        gap: 48px;
+        align-items: end;
+      }
+      .hero-mark {
+        width: 78px;
+        height: 26px;
+        background: var(--orange);
+        border-radius: 40px 40px 8px 8px;
+      }
+      .hero-copy {
+        margin: 0;
+        font-size: 18px;
+        line-height: 1.5;
+      }
+      .hero-actions,
+      .hero-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      .hero-actions {
+        margin-top: 24px;
+      }
+      .hero-tags {
+        margin-top: 16px;
+      }
+      .hero-tags span {
+        padding: 6px 10px;
+        border: 1px solid var(--ink);
+        border-radius: 800px;
+        font-size: 10px;
+        text-transform: uppercase;
+      }
+      .btn {
+        min-height: 46px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 12px 24px;
+        border-bottom-width: 1.5px;
+        border-color: var(--ink, rgb(7, 6, 7));
+        border-left-width: 1.5px;
+        border-right-width: 1.5px;
+        border-style: dotted;
+        border-top-width: 1.5px;
+        border-radius: 800px;
+        background: transparent;
+        color: var(--ink);
+        font-size: 14px;
+        font-weight: 500;
+        text-decoration: none;
+        transition:
+          transform 0.16s ease,
+          background 0.16s ease;
+      }
+      .btn:hover {
+       background-color: var(--ink);
+       color: var(--white);
+      }
+      .btn-primary {
+        border-color: var(--orange);
+        background: var(--orange);
+        color: var(--white);
+      }
+      .btn-primary:hover{
+        background: var(--orange-deep);
+      }
+      .section {
+        padding-block: clamp(78px, 10vw, 128px);
+        border-top: 1px solid var(--line);
+      }
+      .section-head {
+        display: grid;
+        grid-template-columns: 160px minmax(0, 1fr) minmax(260px, 390px);
+        gap: 32px;
+        align-items: start;
+        margin-bottom: 44px;
+      }
+      .kicker {
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+      .section h2 {
+        margin: 0;
+        font-family: var(--display);
+        font-size: clamp(52px, 8vw, 92px);
+        font-weight: 400;
+        letter-spacing: 0.02em;
+        line-height: 0.88;
+        text-transform: uppercase;
+      }
+      .section-desc {
+        margin: 4px 0 0;
+        color: #555552;
+        font-size: 14px;
+      }
+      .color-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        border-top: 1px solid var(--ink);
+        border-left: 1px solid var(--ink);
+      }
+      .swatch {
+        background: var(--surface);
+        border-right: 1px solid var(--ink);
+        border-bottom: 1px solid var(--ink);
+      }
+      .swatch-color {
+        height: 124px;
+        border-bottom: 1px solid var(--ink);
+      }
+      .swatch-meta {
+        padding: 14px;
+      }
+      .swatch-name {
+        font-size: 13px;
+        font-weight: 700;
+      }
+      .token {
+        display: block;
+        margin-top: 3px;
+        color: #676763;
+        font-family: ui-monospace, monospace;
+        font-size: 10px;
+      }
+      .type-families {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        margin-bottom: 42px;
+        border-top: 1px solid var(--ink);
+        border-left: 1px solid var(--ink);
+      }
+      .family {
+        min-height: 210px;
+        padding: 24px;
+        background: var(--surface);
+        border-right: 1px solid var(--ink);
+        border-bottom: 1px solid var(--ink);
+      }
+      .family-sample {
+        margin: 36px 0 10px;
+        font-family: var(--display);
+        font-size: 72px;
+        line-height: 0.8;
+        text-transform: uppercase;
+      }
+      .family.body .family-sample {
+        font-family: var(--body);
+        font-size: 42px;
+        font-weight: 500;
+        line-height: 1;
+      }
+      .family p {
+        margin: 0;
+        color: #676763;
+        font-size: 12px;
+      }
+      .type-list {
+        border-top: 1px solid var(--ink);
+      }
+      .type-row {
+        display: grid;
+        grid-template-columns: 150px minmax(0, 1fr) 170px;
+        gap: 24px;
+        align-items: baseline;
+        padding: 20px 0;
+        border-bottom: 1px solid var(--ink);
+      }
+      .type-sample {
+        overflow: hidden;
+        font-family: var(--display);
+        font-weight: 400;
+        letter-spacing: 0.02em;
+        line-height: 0.94;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        text-transform: uppercase;
+      }
+      .type-row.body .type-sample {
+        font-family: var(--body);
+        font-weight: 500;
+        letter-spacing: 0;
+        line-height: 1.5;
+        text-transform: none;
+      }
+      .spec {
+        color: #676763;
+        font-family: ui-monospace, monospace;
+        font-size: 10px;
+        text-align: right;
+      }
+      .metrics {
+        display: grid;
+        grid-template-columns: 1.2fr 0.8fr;
+        gap: 48px;
+      }
+      .metric-title {
+        margin: 0 0 20px;
+        font-family: var(--display);
+        font-size: 28px;
+        font-weight: 400;
+        letter-spacing: 0.02em;
+        text-transform: uppercase;
+      }
+      .space-grid {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: flex-end;
+        gap: 8px;
+      }
+      .space-item {
+        width: 58px;
+        display: grid;
+        gap: 7px;
+        justify-items: center;
+      }
+      .space-bar {
+        width: 100%;
+        background: var(--orange);
+        border-radius: 16px 16px 0 0;
+      }
+      .space-item code {
+        font-size: 10px;
+      }
+      .radius-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        border-top: 1px solid var(--ink);
+        border-left: 1px solid var(--ink);
+      }
+      .radius-item {
+        min-height: 116px;
+        display: grid;
+        place-items: center;
+        gap: 6px;
+        padding: 14px;
+        background: var(--surface);
+        border-right: 1px solid var(--ink);
+        border-bottom: 1px solid var(--ink);
+        text-align: center;
+      }
+      .radius-shape {
+        width: 50px;
+        height: 50px;
+        background: var(--sulfur);
+    
+      }
+      .radius-item code {
+        font-size: 9px;
+      }
+      .surface-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        border: 1px solid var(--ink);
+      }
+      .surface {
+        min-height: 240px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        padding: 24px;
+        border-right: 1px solid var(--ink);
+      }
+      .surface:last-child {
+        border-right: 0;
+      }
+      .surface strong {
+        font-family: var(--display);
+        font-size: 32px;
+        font-weight: 400;
+        letter-spacing: 0.02em;
+        text-transform: uppercase;
+      }
+      .surface.dark {
+        color: var(--white);
+      }
+      .components {
+        display: grid;
+        gap: 20px;
+      }
+      .component {
+        overflow: hidden;
+        background: var(--surface);
+        border: 1px solid var(--ink);
+        border-radius: 40px;
+      }
+      .component-head {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+        padding: 18px 26px;
+        border-bottom: 1px solid var(--ink);
+      }
+      .component-head h3 {
+        margin: 0;
+        font-size: 15px;
+      }
+      .component-head code {
+        font-size: 10px;
+      }
+      .stage {
+        min-height: 190px;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 14px;
+        padding: 32px;
+      }
+      .stats {
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+      }
+      .stat {
+        min-height: 210px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 30px;
+        border-radius: 40px;
+        background: var(--orange);
+        color: var(--white);
+      }
+      .stat:nth-child(2) {
+        background: var(--surface);
+        color: var(--ink);
+        border: 1px solid var(--ink);
+      }
+      .stat:nth-child(3) {
+        background: var(--sulfur);
+        color: var(--ink);
+      }
+      .stat strong {
+        font-family: var(--display);
+        font-size: 72px;
+        font-weight: 400;
+        line-height: 0.8;
+      }
+      .stat span {
+        font-size: 13px;
+      }
+      .dark-stage {
+        background: var(--ink);
+      }
+      .field {
+        width: min(100%, 560px);
+        display: flex;
+        gap: 8px;
+      }
+      .field input {
+        min-width: 0;
+        flex: 1;
+        padding: 18px 24px;
+        border: 1.5px solid var(--white);
+        border-radius: 100px;
+        background: transparent;
+        color: var(--white);
+        outline: 0;
+      }
+      .field input::placeholder {
+        color: var(--white);
+      }
+      .field .btn {
+        border-color: var(--orange);
+        background: var(--orange);
+      }
+      .content-card {
+        width: min(100%, 480px);
+        padding: 40px;
+        border-radius: 40px;
+        background: var(--surface);
+        border: 1px solid var(--line);
+      }
+      .badge {
+        display: inline-flex;
+        padding: 6px 12px;
+        border-radius: 800px;
+        background: var(--sulfur);
+        font-size: 11px;
+      }
+      .content-card h4 {
+        margin: 24px 0 8px;
+        font-family: var(--display);
+        font-size: 42px;
+        font-weight: 400;
+        letter-spacing: 0.02em;
+        line-height: 0.95;
+        text-transform: uppercase;
+      }
+      .content-card p {
+        margin: 0;
+        color: #555552;
+        font-size: 14px;
+      }
+      .guide-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        border-top: 1px solid var(--ink);
+        border-left: 1px solid var(--ink);
+      }
+      .guide {
+        padding: 36px;
+        background: var(--surface);
+        border-right: 1px solid var(--ink);
+        border-bottom: 1px solid var(--ink);
+      }
+      .guide h3 {
+        margin: 0 0 22px;
+        font-family: var(--display);
+        font-size: 36px;
+        font-weight: 400;
+        text-transform: uppercase;
+      }
+      .guide ul {
+        display: grid;
+        gap: 12px;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+      .guide li {
+        position: relative;
+        padding-left: 20px;
+        font-size: 14px;
+      }
+      .guide li::before {
+        position: absolute;
+        left: 0;
+        color: var(--orange);
+        content: "+";
+      }
+      .guide.avoid li::before {
+        color: var(--violet);
+        content: "×";
+      }
+      .downloads {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 36px;
+      }
+      .download {
+        padding: 9px 13px;
+        border: 1px solid var(--ink);
+        border-radius: 800px;
+        font-family: ui-monospace, monospace;
+        font-size: 11px;
+        text-decoration: none;
+      }
+      .footer {
+        padding-block: 38px;
+        border-top: 1px solid var(--line);
+      }
+      .footer-inner {
+        display: flex;
+        justify-content: space-between;
+        gap: 24px;
+        color: #555552;
+        font-size: 12px;
+      }
+      .reveal {
+        opacity:1;
+        
+        transition:
+          opacity 0.5s ease,
+          transform 0.5s ease;
+      }
+      .reveal.visible {
+        opacity: 1;
+        transform: none;
+      }
+      @media (max-width: 850px) {
+        .nav-link:not(.site-link) {
+          display: none;
+        }
+        .hero-bottom,
+        .section-head,
+        .metrics {
+          grid-template-columns: 1fr;
+        }
+        .color-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .type-row {
+          grid-template-columns: 110px 1fr;
+        }
+        .spec {
+          grid-column: 2;
+          text-align: left;
+        }
+        .surface-grid,
+        .stats {
+          grid-template-columns: 1fr;
+        }
+        .surface {
+          min-height: 160px;
+          border-right: 0;
+          border-bottom: 1px solid var(--ink);
+        }
+        .surface:last-child {
+          border-bottom: 0;
+        }
+      }
+      @media (max-width: 560px) {
+        .tag {
+          display: none;
+        }
+        .hero-title {
+          font-size: clamp(78px, 25vw, 124px);
+        }
+        .type-families,
+        .guide-grid {
+          grid-template-columns: 1fr;
+        }
+        .type-row {
+          grid-template-columns: 1fr;
+        }
+        .spec {
+          grid-column: auto;
+        }
+        .radius-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .stage {
+          padding: 22px;
+        }
+        .field {
+          flex-direction: column;
+        }
+        .footer-inner {
+          flex-direction: column;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+        .reveal {
+          opacity: 1;
+          transform: none;
+          transition: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="nav" aria-label="Design system navigation">
+      <div class="wrap nav-inner">
+        <a class="nav-left" href="#top"
+          ><span class="wordmark">caldera</span
+          ><span class="tag">Design System</span></a
+        >
+        <div class="nav-right">
+          <a class="nav-link" href="#colors">Colors</a
+          ><a class="nav-link" href="#type">Type</a
+          ><a class="nav-link" href="#spacing">Spacing</a
+          ><a class="nav-link" href="#components">Components</a
+          ><a
+            class="nav-link site-link"
+            href="#"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Site ↗</a
+          >
+        </div>
+      </div>
+    </nav>
+    <main id="top">
+      <header class="wrap hero">
+        <h1 class="hero-title">The Internet<br />of Chains</h1>
+        <div class="hero-bottom">
+          <div>
+            <div class="hero-mark" aria-hidden="true"></div>
+            <div class="hero-tags">
+              <span>Light theme</span><span>Flat color blocks</span
+              ><span>40px cards</span><span>Pill controls</span>
+            </div>
+          </div>
+          <div>
+            <p class="hero-copy">
+              Warm pumice surfaces contain volcanic orange, compressed
+              architectural type, and sparingly placed violet and sulfur
+              accents.
+            </p>
+            <div class="hero-actions">
+              <a class="btn btn-primary" href="#" download
+                >Download spec</a
+              ><a class="btn" href="#components">View components</a>
+            </div>
+          </div>
+        </div>
+      </header>
+      <section class="section" id="colors">
+        <div class="wrap reveal">
+          <div class="section-head">
+            <span class="kicker">01 / Foundation</span>
+            <h2>Color system</h2>
+            <p class="section-desc">
+              Seven observed colors. Orange commands action; violet stays
+              decorative and sulfur marks compact labels.
+            </p>
+          </div>
+          <div class="color-grid">
+            <article class="swatch">
+              <div class="swatch-color" style="background: #e2e2df"></div>
+              <div class="swatch-meta">
+                <div class="swatch-name">Pumice</div>
+                <code class="token">#e2e2df · canvas</code>
+              </div>
+            </article>
+            <article class="swatch">
+              <div class="swatch-color" style="background: #f7f6f2"></div>
+              <div class="swatch-meta">
+                <div class="swatch-name">Limestone</div>
+                <code class="token">#f7f6f2 · surface</code>
+              </div>
+            </article>
+            <article class="swatch">
+              <div class="swatch-color" style="background: #070607"></div>
+              <div class="swatch-meta">
+                <div class="swatch-name">Obsidian</div>
+                <code class="token">#070607 · ink</code>
+              </div>
+            </article>
+            <article class="swatch">
+              <div class="swatch-color" style="background: #fff"></div>
+              <div class="swatch-meta">
+                <div class="swatch-name">Chalk</div>
+                <code class="token">#ffffff · on-dark</code>
+              </div>
+            </article>
+            <article class="swatch">
+              <div class="swatch-color" style="background: #fc5000"></div>
+              <div class="swatch-meta">
+                <div class="swatch-name">Ember</div>
+                <code class="token">#fc5000 · action</code>
+              </div>
+            </article>
+            <article class="swatch">
+              <div class="swatch-color" style="background: #524ae9"></div>
+              <div class="swatch-meta">
+                <div class="swatch-name">Plasma Violet</div>
+                <code class="token">#524ae9 · decorative</code>
+              </div>
+            </article>
+            <article class="swatch">
+              <div class="swatch-color" style="background: #f5f28e"></div>
+              <div class="swatch-meta">
+                <div class="swatch-name">Sulfur</div>
+                <code class="token">#f5f28e · badge</code>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+      <section class="section" id="type">
+        <div class="wrap reveal">
+          <div class="section-head">
+            <span class="kicker">02 / Typography</span>
+            <h2>Compressed voice</h2>
+            <p class="section-desc">
+              PP Neue Corp Compact Ultrabold supplies the source display voice;
+              Bebas Neue is used here as an open substitute. DM Sans remains
+              medium-weight throughout body UI.
+            </p>
+          </div>
+          <div class="type-families">
+            <article class="family">
+              <span class="kicker">Display substitute</span>
+              <div class="family-sample">Caldera 189</div>
+              <p>Bebas Neue · source: PP Neue Corp Compact Ultrabold</p>
+            </article>
+            <article class="family body">
+              <span class="kicker">Body family</span>
+              <div class="family-sample">DM Sans Aa</div>
+              <p>DM Sans · weight 500</p>
+            </article>
+          </div>
+          <div class="type-list">
+            <div class="type-row">
+              <code class="token">display</code>
+              <div
+                class="type-sample"
+                style="font-size: clamp(58px, 10vw, 96px)"
+              >
+                Internet of chains
+              </div>
+              <code class="spec">96px / .95 / .02em</code>
+            </div>
+            <div class="type-row">
+              <code class="token">heading</code>
+              <div class="type-sample" style="font-size: 56px">
+                Build worlds
+              </div>
+              <code class="spec">56px / .94 / .02em</code>
+            </div>
+            <div class="type-row">
+              <code class="token">heading-sm</code>
+              <div class="type-sample" style="font-size: 32px">
+                Purpose built
+              </div>
+              <code class="spec">32px / 1 / .02em</code>
+            </div>
+            <div class="type-row body">
+              <code class="token">subheading</code>
+              <div
+                class="type-sample"
+                style="font-size: 30px; line-height: 1.11"
+              >
+                Interconnected rollups
+              </div>
+              <code class="spec">30px / 1.11 / 500</code>
+            </div>
+            <div class="type-row body">
+              <code class="token">body</code>
+              <div class="type-sample" style="font-size: 16px">
+                Caldera is a network of interconnected, purpose-built
+                blockchains.
+              </div>
+              <code class="spec">16px / 1.55 / 500</code>
+            </div>
+            <div class="type-row body">
+              <code class="token">body-sm</code>
+              <div class="type-sample" style="font-size: 14px">
+                Rollups · Metalayer · Infrastructure
+              </div>
+              <code class="spec">14px / 1.25 / 500</code>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="section" id="spacing">
+        <div class="wrap reveal">
+          <div class="section-head">
+            <span class="kicker">03 / Geometry</span>
+            <h2>Rhythm &amp; shape</h2>
+            <p class="section-desc">
+              A broad sixteen-step spacing scale supports dense labels and
+              architectural display moments. Forty-pixel cards and exaggerated
+              pills define the silhouette.
+            </p>
+          </div>
+          <div class="metrics">
+            <div>
+              <h3 class="metric-title">Spacing scale</h3>
+              <div class="space-grid">
+                <div class="space-item">
+                  <span class="space-bar" style="height: 4px"></span
+                  ><code>4</code>
+                </div>
+                <div class="space-item">
+                  <span class="space-bar" style="height: 8px"></span
+                  ><code>8</code>
+                </div>
+                <div class="space-item">
+                  <span class="space-bar" style="height: 9px"></span
+                  ><code>9</code>
+                </div>
+                <div class="space-item">
+                  <span class="space-bar" style="height: 10px"></span
+                  ><code>10</code>
+                </div>
+                <div class="space-item">
+                  <span class="space-bar" style="height: 12px"></span
+                  ><code>12</code>
+                </div>
+                <div class="space-item">
+                  <span class="space-bar" style="height: 16px"></span
+                  ><code>16</code>
+                </div>
+                <div class="space-item">
+                  <span class="space-bar" style="height: 18px"></span
+                  ><code>18</code>
+                </div>
+                <div class="space-item">
+                  <span class="space-bar" style="height: 20px"></span
+                  ><code>20</code>
+                </div>
+                <div class="space-item">
+                  <span class="space-bar" style="height: 24px"></span
+                  ><code>24</code>
+                </div>
+                <div class="space-item">
+                  <span class="space-bar" style="height: 32px"></span
+                  ><code>32</code>
+                </div>
+                <div class="space-item">
+                  <span class="space-bar" style="height: 40px"></span
+                  ><code>40</code>
+                </div>
+                <div class="space-item">
+                  <span class="space-bar" style="height: 48px"></span
+                  ><code>48</code>
+                </div>
+                <div class="space-item">
+                  <span class="space-bar" style="height: 56px"></span
+                  ><code>56</code>
+                </div>
+                <div class="space-item">
+                  <span class="space-bar" style="height: 64px"></span
+                  ><code>64</code>
+                </div>
+                <div class="space-item">
+                  <span class="space-bar" style="height: 80px"></span
+                  ><code>80</code>
+                </div>
+                <div class="space-item">
+                  <span class="space-bar" style="height: 92px"></span
+                  ><code>92</code>
+                </div>
+              </div>
+            </div>
+            <div>
+              <h3 class="metric-title">Radius scale</h3>
+              <div class="radius-grid">
+                <div class="radius-item">
+                  <div class="radius-shape" style="border-radius: 16px"></div>
+                  <code>16px</code>
+                </div>
+                <div class="radius-item">
+                  <div class="radius-shape" style="border-radius: 20px"></div>
+                  <code>20px</code>
+                </div>
+                <div class="radius-item">
+                  <div class="radius-shape" style="border-radius: 24px"></div>
+                  <code>24px</code>
+                </div>
+                <div class="radius-item">
+                  <div class="radius-shape" style="border-radius: 32px"></div>
+                  <code>32px</code>
+                </div>
+                <div class="radius-item">
+                  <div class="radius-shape" style="border-radius: 40px"></div>
+                  <code>40px</code>
+                </div>
+                <div class="radius-item">
+                  <div class="radius-shape" style="border-radius: 100px"></div>
+                  <code>100px</code>
+                </div>
+                <div class="radius-item">
+                  <div class="radius-shape" style="border-radius: 800px"></div>
+                  <code>800px</code>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="section" id="surfaces">
+        <div class="wrap reveal">
+          <div class="section-head">
+            <span class="kicker">04 / Surfaces</span>
+            <h2>Flat hierarchy</h2>
+            <p class="section-desc">
+              Solid surface changes, borders, and scale carry depth across the
+              system.
+            </p>
+          </div>
+          <div class="surface-grid">
+            <article class="surface" style="background: #e2e2df">
+              <strong>Pumice canvas</strong><code class="token">#e2e2df</code>
+            </article>
+            <article class="surface" style="background: #f7f6f2">
+              <strong>Limestone card</strong><code class="token">#f7f6f2</code>
+            </article>
+            <article class="surface dark" style="background: #070607">
+              <strong>Obsidian band</strong
+              ><code class="token" style="color: #fff">#070607</code>
+            </article>
+          </div>
+        </div>
+      </section>
+      <section class="section" id="components">
+        <div class="wrap reveal">
+          <div class="section-head">
+            <span class="kicker">05 / Components</span>
+            <h2>Contained heat</h2>
+            <p class="section-desc">
+              Rounded containers keep the loud display type and molten orange
+              deliberate rather than chaotic.
+            </p>
+          </div>
+          <div class="components">
+            <article class="component">
+              <div class="component-head">
+                <h3>Primary and ghost actions</h3>
+                <code>pill / 12×24</code>
+              </div>
+              <div class="stage">
+                <button class="btn btn-primary" type="button">
+                  Explore chains</button
+                ><button class="btn" type="button">Book a call</button>
+              </div>
+            </article>
+            <article class="component">
+              <div class="component-head">
+                <h3>Stats row</h3>
+                <code>40px radius / 40px pad</code>
+              </div>
+              <div class="stage">
+                <div class="stats">
+                  <div class="stat">
+                    <span>Rollups deployed</span><strong>50+</strong>
+                  </div>
+                  <div class="stat">
+                    <span>Chains connected</span><strong>1K</strong>
+                  </div>
+                  <div class="stat">
+                    <span>Settlement speed</span><strong>2S</strong>
+                  </div>
+                </div>
+              </div>
+            </article>
+            <article class="component">
+              <div class="component-head">
+                <h3>Content card</h3>
+                <code>limestone / sulfur</code>
+              </div>
+              <div class="stage">
+                <div class="content-card">
+                  <span class="badge">METALAYER</span>
+                  <h4>One network, many worlds</h4>
+                  <p>
+                    Large compressed titles stay structural above concise DM
+                    Sans copy.
+                  </p>
+                </div>
+              </div>
+            </article>
+            <article class="component">
+              <div class="component-head">
+                <h3>Dark input section</h3>
+                <code>100px input radius</code>
+              </div>
+              <div class="stage dark-stage">
+                <label class="field"
+                  ><input
+                    type="email"
+                    placeholder="Enter your work email"
+                    aria-label="Work email"
+                  /><button class="btn" type="button">
+                    Get started
+                  </button></label
+                >
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+      <section class="section" id="guidelines">
+        <div class="wrap reveal">
+          <div class="section-head">
+            <span class="kicker">06 / Direction</span>
+            <h2>Usage rules</h2>
+            <p class="section-desc">
+              Concrete constraints drawn from the Caldera reference.
+            </p>
+          </div>
+          <div class="guide-grid">
+            <article class="guide">
+              <h3>Preserve</h3>
+              <ul>
+                <li>Use Pumice as the broad page canvas.</li>
+                <li>Set structural headings at 48px or larger.</li>
+                <li>Keep DM Sans body copy at weight 500.</li>
+                <li>Reserve Ember for primary actions and key cards.</li>
+              </ul>
+            </article>
+            <article class="guide avoid">
+              <h3>Avoid</h3>
+              <ul>
+                <li>Using Plasma Violet for controls or body text.</li>
+                <li>
+                  Adding extra chromatic accents beyond the three observed hues.
+                </li>
+                <li>Compressing the 40px card padding.</li>
+                <li>Replacing compact display type with a generic sans.</li>
+              </ul>
+            </article>
+          </div>
+          <div class="downloads">
+            <a class="download" href="#" download>DESIGN.md ↓</a
+            ><a class="download" href="#" download>tokens.json ↓</a
+            ><a class="download" href="#" download
+              >variables.css ↓</a
+            ><a class="download" href="#" download>theme.css ↓</a>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer class="footer">
+      <div class="wrap footer-inner">
+        <span>Caldera light design reference</span
+        ><a
+          href="#"
+          target="_blank"
+          rel="noopener noreferrer"
+          >caldera.xyz ↗</a
+        >
+      </div>
+    </footer>
+    
+  </body>
+</html>

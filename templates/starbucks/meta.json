@@ -1,0 +1,31 @@
+{
+	"schemaVersion": 1,
+	"kind": "design-system",
+	"slug": "starbucks",
+	"name": "Starbucks",
+	"version": "1.0.0",
+	"order": 650,
+	"category": "commerce",
+	"vibe": "light",
+	"tags": [
+		"light-ui",
+		"design-system"
+	],
+	"blurb": "Starbucks' design system is a **warm, confident retail flagship** wearing the green of their storefront apron across every surface.",
+	"tagline": {
+		"en": "Warm confident retail in storefront green",
+		"zh": "门店绿包裹的温暖自信零售"
+	},
+	"license": "MIT",
+	"origin": {
+		"type": "curated",
+		"upstream": "https://github.com/ricocc/brands-design-md.git",
+		"note": "from brands-design-md (Starbucks)."
+	},
+	"assets": {
+		"spec": "DESIGN.md",
+		"theme": "theme.css",
+		"demo": "demo.html"
+	},
+	"collectedAt": "2026-08-22"
+}

@@ -1,0 +1,34 @@
+{
+	"schemaVersion": 1,
+	"kind": "design-system",
+	"slug": "elevenlabs",
+	"name": "ElevenLabs",
+	"version": "1.0.0",
+	"order": 360,
+	"category": "ai",
+	"vibe": "light",
+	"tags": [
+		"light-ui",
+		"editorial",
+		"gradient",
+		"developer-focused",
+		"design-system"
+	],
+	"blurb": "A voice-AI brand whose marketing surfaces read like a quietly editorial print magazine.",
+	"tagline": {
+		"en": "Quiet editorial print-magazine calm for voice AI",
+		"zh": "语音 AI 的编辑部式沉静"
+	},
+	"license": "MIT",
+	"origin": {
+		"type": "curated",
+		"upstream": "https://github.com/ricocc/brands-design-md.git",
+		"note": "from brands-design-md (ElevenLabs)."
+	},
+	"assets": {
+		"spec": "DESIGN.md",
+		"theme": "theme.css",
+		"demo": "demo.html"
+	},
+	"collectedAt": "2026-08-22"
+}

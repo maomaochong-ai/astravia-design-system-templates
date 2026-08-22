@@ -1,0 +1,1362 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="design-source" content="https://cursor.com/" />
+    <meta name="theme-color" content="#f7f7f4" />
+    <title>Cursor — Light Design System</title>
+    
+    
+    
+    <style>
+      :root {
+        color-scheme: light;
+        --canvas: #f7f7f4;
+        --canvas-soft: #fafaf7;
+        --bone: #f2f1ed;
+        --paper: #fff;
+        --ink: #26251e;
+        --muted: #7a7974;
+        --linen: #e6e5e0;
+        --line: #cdcdc9;
+        --orange: #f54e00;
+        --forest: #34785c;
+        --amber: #c08532;
+        --error: #cf2d56;
+        --success: #1f8a65;
+        --thinking: #dfa88f;
+        --grep: #9fc9a2;
+        --read: #9fbbe0;
+        --edit: #c0a8dd;
+        --display: "Inter", system-ui, sans-serif;
+        --mono: "JetBrains Mono", monospace;
+        --serif: "EB Garamond", serif;
+        --max: 1080px;
+      }
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+        scroll-padding-top: 72px;
+      }
+      body {
+        margin: 0;
+        background: var(--canvas);
+        color: var(--ink);
+        font-family: var(--display);
+        font-size: 16px;
+        line-height: 1.5;
+        -webkit-font-smoothing: antialiased;
+      }
+      a {
+        color: inherit;
+      }
+      button,
+      input {
+        font: inherit;
+      }
+      ::selection {
+        background: rgba(245, 78, 0, 0.2);
+        color: var(--ink);
+      }
+      :focus-visible {
+        outline: 2px solid var(--orange);
+        outline-offset: 3px;
+      }
+      .wrap {
+        width: min(100%, calc(var(--max) + 48px));
+        margin: auto;
+        padding-inline: 24px;
+      }
+      .nav {
+        position: sticky;
+        top: 0;
+        z-index: 30;
+        background: rgba(247, 247, 244, 0.95);
+        border-bottom: 1px solid var(--linen);
+        backdrop-filter: blur(14px);
+      }
+      .nav-inner {
+        min-height: 62px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+      }
+      .nav-left,
+      .nav-right {
+        display: flex;
+        align-items: center;
+      }
+      .nav-left {
+        gap: 9px;
+        text-decoration: none;
+      }
+      .logo-favicon {
+        width: 30px;
+        height: 30px;
+        object-fit: contain;
+      }
+      .wordmark {
+        font-size: 15px;
+        font-weight: 600;
+        letter-spacing: -0.025em;
+        text-transform: uppercase;
+      }
+      .tag {
+        padding: 3px 8px;
+        background: var(--linen);
+        border-radius: 4px;
+        font-size: 10px;
+      }
+      .nav-right {
+        gap: 2px;
+      }
+      .nav-link {
+        padding: 7px 9px;
+        border-radius: 4px;
+        color: var(--muted);
+        font-size: 12px;
+        text-decoration: none;
+      }
+      .nav-link:hover {
+        background: var(--linen);
+        color: var(--ink);
+      }
+      .site-link {
+        margin-left: 6px;
+        background: var(--ink);
+        color: var(--canvas);
+      }
+      .hero {
+        padding-block: clamp(72px, 9vw, 112px);
+      }
+      .hero-copy {
+        max-width: 560px;
+      }
+      .hero-label {
+        margin: 0 0 14px;
+        color: var(--muted);
+        font-family: var(--mono);
+        font-size: 11px;
+      }
+      .hero h1 {
+        margin: 0;
+        color: var(--ink);
+        font-size: clamp(50px, 7vw, 72px);
+        font-weight: 400;
+        letter-spacing: -2.16px;
+        line-height: 1.1;
+      }
+      .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 9px;
+        margin-top: 26px;
+      }
+      .btn {
+        min-height: 42px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.78em 1.35em 0.8em;
+        border: 0;
+        border-radius: 4px;
+        background: var(--linen);
+        color: var(--ink);
+        font-size: 14px;
+        font-weight: 400;
+        text-decoration: none;
+        transition:
+          background 0.15s cubic-bezier(0.4, 0, 0.2, 1),
+          color 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      .btn-primary {
+        background: var(--ink);
+        color: var(--canvas);
+      }
+      .btn:hover {
+        background: var(--line);
+      }
+      .btn-primary:hover {
+        background: var(--orange);
+      }
+      .product-stage {
+        margin-top: 56px;
+        padding: clamp(24px, 5vw, 54px);
+        background: var(--bone);
+        border: 1px solid color-mix(in oklab, var(--ink) 5%, transparent);
+        border-radius: 4px;
+        box-shadow:
+          rgba(0, 0, 0, 0.14) 0 28px 70px 0,
+          rgba(0, 0, 0, 0.1) 0 14px 32px 0,
+          oklab(0.263084 -0.00230259 0.0124794 / 0.1) 0 0 0 1px;
+      }
+      .window {
+        overflow: hidden;
+        background: var(--canvas-soft);
+        border: 1px solid var(--line);
+        border-radius: 8px;
+      }
+      .window-bar {
+        height: 38px;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        align-items: center;
+        padding-inline: 12px;
+        border-bottom: 1px solid var(--line);
+        color: var(--muted);
+        font-size: 11px;
+      }
+      .dots {
+        display: flex;
+        gap: 5px;
+      }
+      .dots span {
+        width: 8px;
+        height: 8px;
+        background: var(--line);
+        border-radius: 50%;
+      }
+      .window-title {
+        text-align: center;
+      }
+      .window-body {
+        min-height: 390px;
+        display: grid;
+        grid-template-columns: 180px 1fr 1fr;
+      }
+      .pane {
+        min-width: 0;
+        padding: 18px;
+        border-right: 1px solid var(--line);
+        font-family: var(--mono);
+        font-size: 11px;
+      }
+      .pane:last-child {
+        border-right: 0;
+      }
+      .pane-title {
+        margin-bottom: 18px;
+        color: var(--muted);
+        font-family: var(--display);
+        font-size: 11px;
+        text-transform: uppercase;
+      }
+      .task {
+        padding: 9px 0;
+        border-bottom: 1px solid var(--linen);
+      }
+      .task.done::before {
+        margin-right: 7px;
+        color: var(--success);
+        content: "✓";
+      }
+      .code-line {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 8px;
+        border-bottom: 1px solid var(--linen);
+      }
+      .plus {
+        color: var(--success);
+      }
+      .minus {
+        color: var(--error);
+      }
+      .section {
+        padding-block: clamp(76px, 9vw, 112px);
+        border-top: 1px solid var(--linen);
+      }
+      .section-head {
+        display: grid;
+        grid-template-columns: 130px minmax(0, 1fr) minmax(260px, 360px);
+        gap: 28px;
+        margin-bottom: 42px;
+      }
+      .kicker {
+        color: var(--orange);
+        font-family: var(--mono);
+        font-size: 10px;
+      }
+      .section h2 {
+        margin: 0;
+        color: var(--ink);
+        font-size: clamp(38px, 5vw, 56px);
+        font-weight: 400;
+        letter-spacing: -1.2px;
+        line-height: 1.05;
+      }
+      .section-desc {
+        margin: 4px 0 0;
+        color: var(--muted);
+        font-size: 14px;
+      }
+      .color-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+      }
+      .swatch {
+        overflow: hidden;
+        background: var(--paper);
+        border: 1px solid var(--linen);
+        border-radius: 4px;
+      }
+      .swatch-color {
+        height: 88px;
+        border-bottom: 1px solid var(--linen);
+      }
+      .swatch-meta {
+        padding: 12px;
+      }
+      .swatch-name {
+        font-size: 12px;
+        font-weight: 500;
+      }
+      .token {
+        display: block;
+        margin-top: 3px;
+        color: var(--muted);
+        font-family: var(--mono);
+        font-size: 9px;
+      }
+      .font-grid {
+        display: grid;
+        grid-template-columns: 1.2fr 0.8fr 0.8fr;
+        gap: 10px;
+        margin-bottom: 36px;
+      }
+      .font-card {
+        min-height: 190px;
+        padding: 22px;
+        background: var(--bone);
+        border: 1px solid var(--linen);
+        border-radius: 4px;
+      }
+      .glyph {
+        margin: 34px 0 12px;
+        font-size: 52px;
+        line-height: 0.9;
+      }
+      .font-card.mono .glyph {
+        font-family: var(--mono);
+        font-size: 32px;
+      }
+      .font-card.serif .glyph {
+        font-family: var(--serif);
+        font-size: 44px;
+      }
+      .font-card p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 11px;
+      }
+      .type-list {
+        border-top: 1px solid var(--line);
+      }
+      .type-row {
+        display: grid;
+        grid-template-columns: 145px minmax(0, 1fr) 190px;
+        gap: 22px;
+        align-items: baseline;
+        padding: 19px 0;
+        border-bottom: 1px solid var(--line);
+      }
+      .sample {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .type-row.mono .sample {
+        font-family: var(--mono);
+      }
+      .spec {
+        color: var(--muted);
+        font-family: var(--mono);
+        font-size: 9px;
+        text-align: right;
+      }
+      .metrics {
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr;
+        gap: 44px;
+      }
+      .metric-title {
+        margin: 0 0 20px;
+        font-size: 14px;
+        font-weight: 500;
+      }
+      .space-list {
+        display: grid;
+        gap: 11px;
+      }
+      .space-row {
+        display: grid;
+        grid-template-columns: 44px minmax(0, 1fr) 42px;
+        gap: 11px;
+        align-items: center;
+      }
+      .space-bar {
+        height: 4px;
+        background: var(--orange);
+      }
+      .space-row code {
+        color: var(--muted);
+        font-family: var(--mono);
+        font-size: 9px;
+      }
+      .radius-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 9px;
+      }
+      .radius-item {
+        min-height: 105px;
+        display: grid;
+        place-items: center;
+        gap: 7px;
+        background: var(--bone);
+        border: 1px solid var(--line);
+        text-align: center;
+      }
+      .radius-shape {
+        width: 48px;
+        height: 48px;
+        background: var(--linen);
+        border: 1px solid var(--ink);
+      }
+      .radius-item code {
+        font-family: var(--mono);
+        font-size: 9px;
+      }
+      .depth-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 18px;
+      }
+      .depth-stage {
+        min-height: 280px;
+        display: grid;
+        place-items: center;
+        padding: 32px;
+        background: var(--bone);
+        border: 1px solid var(--linen);
+        border-radius: 4px;
+      }
+      .depth-card {
+        width: min(100%, 360px);
+        min-height: 150px;
+        padding: 24px;
+        background: var(--canvas-soft);
+        border-radius: 4px;
+      }
+      .depth-card.primary {
+        box-shadow:
+          rgba(0, 0, 0, 0.14) 0 28px 70px 0,
+          rgba(0, 0, 0, 0.1) 0 14px 32px 0,
+          oklab(0.263084 -0.00230259 0.0124794 / 0.1) 0 0 0 1px;
+      }
+      .depth-card.secondary {
+        box-shadow:
+          rgba(0, 0, 0, 0.25) 0 25px 50px -12px,
+          rgba(0, 0, 0, 0.15) 0 12px 24px -8px,
+          oklab(0.263084 -0.00230259 0.0124794 / 0.1) 0 0 0 0.5px;
+      }
+      .depth-card strong {
+        font-weight: 500;
+      }
+      .depth-card code {
+        display: block;
+        margin-top: 10px;
+        color: var(--muted);
+        font-family: var(--mono);
+        font-size: 9px;
+        overflow-wrap: anywhere;
+      }
+      .components {
+        display: grid;
+        gap: 16px;
+      }
+      .component {
+        overflow: hidden;
+        background: var(--paper);
+        border: 1px solid var(--linen);
+        border-radius: 4px;
+      }
+      .component-head {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+        padding: 15px 18px;
+        border-bottom: 1px solid var(--linen);
+      }
+      .component-head h3 {
+        margin: 0;
+        font-size: 13px;
+        font-weight: 500;
+      }
+      .component-head code {
+        color: var(--muted);
+        font-family: var(--mono);
+        font-size: 9px;
+      }
+      .stage {
+        min-height: 180px;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 10px;
+        padding: 28px;
+        background: var(--canvas);
+      }
+      .terminal {
+        width: min(100%, 600px);
+        padding: 14px;
+        background: var(--bone);
+        border: 1px solid var(--line);
+        border-radius: 4px;
+        font-family: var(--mono);
+        font-size: 12px;
+      }
+      .prompt {
+        color: var(--muted);
+      }
+      .terminal strong {
+        font-weight: 400;
+      }
+      .accent-link {
+        color: var(--orange);
+        text-decoration: none;
+      }
+      .accent-link:hover {
+        text-decoration: underline;
+      }
+      .timeline {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+      .pill {
+        padding: 7px 10px;
+        border-radius: 4px;
+        color: var(--ink);
+        font-family: var(--mono);
+        font-size: 10px;
+      }
+      .pill.thinking {
+        background: var(--thinking);
+      }
+      .pill.grep {
+        background: var(--grep);
+      }
+      .pill.read {
+        background: var(--read);
+      }
+      .pill.edit {
+        background: var(--edit);
+      }
+      .pill.done {
+        background: var(--amber);
+        color: #fff;
+      }
+      .mini-window {
+        width: min(100%, 720px);
+        overflow: hidden;
+        background: var(--bone);
+        border: 1px solid var(--line);
+        border-radius: 4px;
+        box-shadow:
+          rgba(0, 0, 0, 0.14) 0 28px 70px 0,
+          rgba(0, 0, 0, 0.1) 0 14px 32px 0;
+      }
+      .mini-bar {
+        padding: 10px;
+        border-bottom: 1px solid var(--line);
+        color: var(--muted);
+        font-size: 11px;
+        text-align: center;
+      }
+      .mini-body {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        min-height: 210px;
+      }
+      .mini-pane {
+        padding: 18px;
+        border-right: 1px solid var(--line);
+        font-family: var(--mono);
+        font-size: 11px;
+      }
+      .mini-pane:last-child {
+        border-right: 0;
+      }
+      .field {
+        width: min(100%, 480px);
+        display: flex;
+        gap: 8px;
+      }
+      .field input {
+        min-width: 0;
+        flex: 1;
+        height: 42px;
+        padding-inline: 12px;
+        background: var(--bone);
+        border: 1px solid var(--line);
+        border-radius: 4px;
+        color: var(--ink);
+        font-family: var(--mono);
+        font-size: 12px;
+      }
+      .guide-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+      .guide {
+        padding: 28px;
+        background: var(--bone);
+        border: 1px solid var(--linen);
+        border-radius: 4px;
+      }
+      .guide h3 {
+        margin: 0 0 18px;
+        font-size: 22px;
+        font-weight: 400;
+      }
+      .guide ul {
+        display: grid;
+        gap: 11px;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+      .guide li {
+        position: relative;
+        padding-left: 18px;
+        color: var(--muted);
+        font-size: 13px;
+      }
+      .guide li::before {
+        position: absolute;
+        left: 0;
+        color: var(--success);
+        content: "+";
+      }
+      .guide.avoid li::before {
+        color: var(--error);
+        content: "−";
+      }
+      .downloads {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 32px;
+      }
+      .download {
+        padding: 8px 11px;
+        background: var(--linen);
+        border-radius: 4px;
+        color: var(--ink);
+        font-family: var(--mono);
+        font-size: 10px;
+        text-decoration: none;
+      }
+      .footer {
+        padding-block: 36px;
+        border-top: 1px solid var(--linen);
+      }
+      .footer-inner {
+        display: flex;
+        justify-content: space-between;
+        gap: 24px;
+        color: var(--muted);
+        font-size: 11px;
+      }
+      .reveal {
+        opacity:1;
+        
+        transition:
+          opacity 0.45s ease,
+          transform 0.45s ease;
+      }
+      .reveal.visible {
+        opacity: 1;
+        transform: none;
+      }
+      @media (max-width: 850px) {
+        .nav-link:not(.site-link) {
+          display: none;
+        }
+        .window-body {
+          grid-template-columns: 150px 1fr;
+        }
+        .window-body .pane:last-child {
+          display: none;
+        }
+        .section-head,
+        .metrics {
+          grid-template-columns: 1fr;
+        }
+        .color-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .font-grid {
+          grid-template-columns: 1fr;
+        }
+        .type-row {
+          grid-template-columns: 110px 1fr;
+        }
+        .spec {
+          grid-column: 2;
+          text-align: left;
+        }
+      }
+      @media (max-width: 560px) {
+        .tag {
+          display: none;
+        }
+        .hero h1 {
+          font-size: 48px;
+          letter-spacing: -1.5px;
+        }
+        .product-stage {
+          padding: 12px;
+        }
+        .window-body {
+          grid-template-columns: 1fr;
+        }
+        .window-body .pane:first-child {
+          display: none;
+        }
+        .depth-grid,
+        .guide-grid {
+          grid-template-columns: 1fr;
+        }
+        .color-grid {
+          grid-template-columns: 1fr;
+        }
+        .type-row {
+          grid-template-columns: 1fr;
+        }
+        .spec {
+          grid-column: auto;
+        }
+        .radius-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .stage {
+          padding: 18px;
+        }
+        .mini-body {
+          grid-template-columns: 1fr;
+        }
+        .mini-pane {
+          border-right: 0;
+          border-bottom: 1px solid var(--line);
+        }
+        .field {
+          flex-direction: column;
+        }
+        .footer-inner {
+          flex-direction: column;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+        .reveal {
+          opacity: 1;
+          transform: none;
+          transition: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="nav" aria-label="Design system navigation">
+      <div class="wrap nav-inner">
+        <a class="nav-left" href="#top"
+          ><span class="wordmark">Cursor</span
+          ><span class="tag">Light Design System</span></a
+        >
+        <div class="nav-right">
+          <a class="nav-link" href="#colors">Colors</a
+          ><a class="nav-link" href="#type">Type</a
+          ><a class="nav-link" href="#spacing">Spacing</a
+          ><a class="nav-link" href="#components">Components</a
+          ><a
+            class="nav-link site-link"
+            href="#"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Site ↗</a
+          >
+        </div>
+      </div>
+    </nav>
+    <main id="top">
+      <header class="wrap hero">
+        <div class="hero-copy">
+          <p class="hero-label">// default theme · light</p>
+          <h1>Cursor is your coding agent for building ambitious software.</h1>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#" download
+              >Download for Linux ↓</a
+            ><a class="btn" href="#components">Request a demo →</a>
+          </div>
+        </div>
+        <div class="product-stage" aria-label="Cursor product window">
+          <div class="window">
+            <div class="window-bar">
+              <div class="dots"><span></span><span></span><span></span></div>
+              <div class="window-title">Cursor Desktop</div>
+              <div></div>
+            </div>
+            <div class="window-body">
+              <div class="pane">
+                <div class="pane-title">In progress 2</div>
+                <div class="task">Analyze usage patterns</div>
+                <div class="task done">Build landing page</div>
+                <div class="task done">Set up Cursor Rules</div>
+              </div>
+              <div class="pane">
+                <div class="pane-title">Build landing page</div>
+                <div class="task">Read brand-guidelines.pdf</div>
+                <div class="task">Plan search and build</div>
+                <div class="code-line">
+                  <span>app/page.tsx</span
+                  ><span><b class="plus">+52</b> <b class="minus">-0</b></span>
+                </div>
+                <div class="code-line">
+                  <span>app/globals.css</span
+                  ><span><b class="plus">+18</b> <b class="minus">-0</b></span>
+                </div>
+              </div>
+              <div class="pane">
+                <div class="pane-title">Cursor Agent</div>
+                <div class="task">Analyze workspace context</div>
+                <div class="task">Review implementation plan</div>
+                <div class="code-line">
+                  <span>summary.py</span><span class="plus">+51</span>
+                </div>
+                <div class="code-line">
+                  <span>report.py</span><span class="plus">+40</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+      <section class="section" id="colors">
+        <div class="wrap reveal">
+          <div class="section-head">
+            <span class="kicker">01 / Foundation</span>
+            <h2>Warm technical light</h2>
+            <p class="section-desc">
+              Parchment replaces stark white, warm ink carries text, and orange
+              is limited to links and emphasis. Product states introduce muted
+              functional colors.
+            </p>
+          </div>
+          <div class="color-grid">
+            <article class="swatch">
+              <div class="swatch-color" style="background: #26251e"></div>
+              <div class="swatch-meta">
+                <div class="swatch-name">Ink</div>
+                <code class="token">#26251e · text/action</code>
+              </div>
+            </article>
+            <article class="swatch">
+              <div class="swatch-color" style="background: #f7f7f4"></div>
+              <div class="swatch-meta">
+                <div class="swatch-name">Parchment</div>
+                <code class="token">#f7f7f4 · canvas</code>
+              </div>
+            </article>
+            <article class="swatch">
+              <div class="swatch-color" style="background: #f2f1ed"></div>
+              <div class="swatch-meta">
+                <div class="swatch-name">Bone</div>
+                <code class="token">#f2f1ed · card</code>
+              </div>
+            </article>
+            <article class="swatch">
+              <div class="swatch-color" style="background: #fff"></div>
+              <div class="swatch-meta">
+                <div class="swatch-name">Paper</div>
+                <code class="token">#ffffff · window</code>
+              </div>
+            </article>
+            <article class="swatch">
+              <div class="swatch-color" style="background: #e6e5e0"></div>
+              <div class="swatch-meta">
+                <div class="swatch-name">Linen</div>
+                <code class="token">#e6e5e0 · secondary action</code>
+              </div>
+            </article>
+            <article class="swatch">
+              <div class="swatch-color" style="background: #cdcdc9"></div>
+              <div class="swatch-meta">
+                <div class="swatch-name">Hairline</div>
+                <code class="token">#cdcdc9 · border</code>
+              </div>
+            </article>
+            <article class="swatch">
+              <div class="swatch-color" style="background: #7a7974"></div>
+              <div class="swatch-meta">
+                <div class="swatch-name">Muted Ink</div>
+                <code class="token">#7a7974 · secondary text</code>
+              </div>
+            </article>
+            <article class="swatch">
+              <div class="swatch-color" style="background: #f54e00"></div>
+              <div class="swatch-meta">
+                <div class="swatch-name">Cursor Orange</div>
+                <code class="token">#f54e00 · link/accent</code>
+              </div>
+            </article>
+            <article class="swatch">
+              <div class="swatch-color" style="background: #34785c"></div>
+              <div class="swatch-meta">
+                <div class="swatch-name">Forest</div>
+                <code class="token">#34785c · PR action</code>
+              </div>
+            </article>
+            <article class="swatch">
+              <div class="swatch-color" style="background: #c08532"></div>
+              <div class="swatch-meta">
+                <div class="swatch-name">Amber</div>
+                <code class="token">#c08532 · product action</code>
+              </div>
+            </article>
+            <article class="swatch">
+              <div class="swatch-color" style="background: #cf2d56"></div>
+              <div class="swatch-meta">
+                <div class="swatch-name">Error</div>
+                <code class="token">#cf2d56 · deletion/error</code>
+              </div>
+            </article>
+            <article class="swatch">
+              <div class="swatch-color" style="background: #1f8a65"></div>
+              <div class="swatch-meta">
+                <div class="swatch-name">Success</div>
+                <code class="token">#1f8a65 · addition/success</code>
+              </div>
+            </article>
+            <article class="swatch">
+              <div class="swatch-color" style="background: #dfa88f"></div>
+              <div class="swatch-meta">
+                <div class="swatch-name">Thinking</div>
+                <code class="token">#dfa88f · timeline</code>
+              </div>
+            </article>
+            <article class="swatch">
+              <div class="swatch-color" style="background: #9fc9a2"></div>
+              <div class="swatch-meta">
+                <div class="swatch-name">Grep</div>
+                <code class="token">#9fc9a2 · timeline</code>
+              </div>
+            </article>
+            <article class="swatch">
+              <div class="swatch-color" style="background: #9fbbe0"></div>
+              <div class="swatch-meta">
+                <div class="swatch-name">Read</div>
+                <code class="token">#9fbbe0 · timeline</code>
+              </div>
+            </article>
+            <article class="swatch">
+              <div class="swatch-color" style="background: #c0a8dd"></div>
+              <div class="swatch-meta">
+                <div class="swatch-name">Edit</div>
+                <code class="token">#c0a8dd · timeline</code>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+      <section class="section" id="type">
+        <div class="wrap reveal">
+          <div class="section-head">
+            <span class="kicker">02 / Typography</span>
+            <h2>Interface-first type</h2>
+            <p class="section-desc">
+              CursorGothic leads marketing and UI, berkeleyMono handles agent
+              and terminal content, while EB Garamond appears only inside
+              editorial mockups. Inter and JetBrains Mono are open substitutes.
+            </p>
+          </div>
+          <div class="font-grid">
+            <article class="font-card">
+              <span class="kicker">CursorGothic substitute</span>
+              <div class="glyph">Cursor Aa</div>
+              <p>Inter · weights 400–500</p>
+            </article>
+            <article class="font-card mono">
+              <span class="kicker">Mono substitute</span>
+              <div class="glyph">$ build()</div>
+              <p>JetBrains Mono · source: berkeleyMono</p>
+            </article>
+            <article class="font-card serif">
+              <span class="kicker">Editorial</span>
+              <div class="glyph">Acme Labs</div>
+              <p>EB Garamond · mockups only</p>
+            </article>
+          </div>
+          <div class="type-list">
+            <div class="type-row">
+              <code class="token">hero</code>
+              <div
+                class="sample"
+                style="
+                  font-size: clamp(44px, 7vw, 72px);
+                  line-height: 1.1;
+                  letter-spacing: -2.16px;
+                "
+              >
+                Build ambitious software
+              </div>
+              <code class="spec">72 / 1.1 / 400 / -2.16</code>
+            </div>
+            <div class="type-row">
+              <code class="token">display</code>
+              <div
+                class="sample"
+                style="
+                  font-size: 36px;
+                  line-height: 1.2;
+                  letter-spacing: -0.72px;
+                "
+              >
+                Your coding agent
+              </div>
+              <code class="spec">36 / 1.2 / 400 / -.72</code>
+            </div>
+            <div class="type-row">
+              <code class="token">heading</code>
+              <div
+                class="sample"
+                style="
+                  font-size: 26px;
+                  line-height: 1.25;
+                  letter-spacing: -0.325px;
+                "
+              >
+                Agentic development
+              </div>
+              <code class="spec">26 / 1.25 / 400</code>
+            </div>
+            <div class="type-row">
+              <code class="token">heading-sm</code>
+              <div
+                class="sample"
+                style="
+                  font-size: 22px;
+                  line-height: 1.3;
+                  letter-spacing: -0.11px;
+                "
+              >
+                Work across your codebase
+              </div>
+              <code class="spec">22 / 1.3 / 400</code>
+            </div>
+            <div class="type-row">
+              <code class="token">body</code>
+              <div class="sample" style="font-size: 16px; line-height: 1.5">
+                Plan, search, build, and review without leaving the editor.
+              </div>
+              <code class="spec">16 / 1.5 / 400</code>
+            </div>
+            <div class="type-row mono">
+              <code class="token">code</code>
+              <div class="sample" style="font-size: 12px; line-height: 1.67">
+                const result = await agent.run()
+              </div>
+              <code class="spec">12 / 1.67 / 400</code>
+            </div>
+            <div class="type-row">
+              <code class="token">caption</code>
+              <div class="sample" style="font-size: 11px; line-height: 1.5">
+                Reviewed workspace · 7s
+              </div>
+              <code class="spec">11 / 1.5 / 400</code>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="section" id="spacing">
+        <div class="wrap reveal">
+          <div class="section-head">
+            <span class="kicker">03 / Geometry</span>
+            <h2>Compact rhythm</h2>
+            <p class="section-desc">
+              Small product increments and 4px corners make the system feel
+              native to desktop software rather than a rounded marketing
+              template.
+            </p>
+          </div>
+          <div class="metrics">
+            <div>
+              <h3 class="metric-title">Core spacing</h3>
+              <div class="space-list">
+                <div class="space-row">
+                  <code>2</code>
+                  <div class="space-bar" style="width: 3%"></div>
+                  <code>2px</code>
+                </div>
+                <div class="space-row">
+                  <code>3</code>
+                  <div class="space-bar" style="width: 5%"></div>
+                  <code>3px</code>
+                </div>
+                <div class="space-row">
+                  <code>4</code>
+                  <div class="space-bar" style="width: 7%"></div>
+                  <code>4px</code>
+                </div>
+                <div class="space-row">
+                  <code>8</code>
+                  <div class="space-bar" style="width: 13%"></div>
+                  <code>8px</code>
+                </div>
+                <div class="space-row">
+                  <code>12</code>
+                  <div class="space-bar" style="width: 20%"></div>
+                  <code>12px</code>
+                </div>
+                <div class="space-row">
+                  <code>16</code>
+                  <div class="space-bar" style="width: 27%"></div>
+                  <code>16px</code>
+                </div>
+                <div class="space-row">
+                  <code>20</code>
+                  <div class="space-bar" style="width: 33%"></div>
+                  <code>20px</code>
+                </div>
+                <div class="space-row">
+                  <code>24</code>
+                  <div class="space-bar" style="width: 40%"></div>
+                  <code>24px</code>
+                </div>
+                <div class="space-row">
+                  <code>32</code>
+                  <div class="space-bar" style="width: 53%"></div>
+                  <code>32px</code>
+                </div>
+                <div class="space-row">
+                  <code>48</code>
+                  <div class="space-bar" style="width: 80%"></div>
+                  <code>48px</code>
+                </div>
+                <div class="space-row">
+                  <code>60</code>
+                  <div class="space-bar" style="width: 100%"></div>
+                  <code>60px</code>
+                </div>
+              </div>
+            </div>
+            <div>
+              <h3 class="metric-title">Observed radii</h3>
+              <div class="radius-grid">
+                <div class="radius-item">
+                  <div class="radius-shape" style="border-radius: 1.5px"></div>
+                  <code>1.5px</code>
+                </div>
+                <div class="radius-item">
+                  <div class="radius-shape" style="border-radius: 4px"></div>
+                  <code>4px</code>
+                </div>
+                <div class="radius-item">
+                  <div class="radius-shape" style="border-radius: 8px"></div>
+                  <code>8px</code>
+                </div>
+                <div class="radius-item">
+                  <div class="radius-shape" style="border-radius: 12px"></div>
+                  <code>12px</code>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="section" id="depth">
+        <div class="wrap reveal">
+          <div class="section-head">
+            <span class="kicker">04 / Product elevation</span>
+            <h2>Window depth</h2>
+            <p class="section-desc">
+              Layered warm-black elevation is reserved for product mockups; flat
+              lists and ordinary content stay on the canvas.
+            </p>
+          </div>
+          <div class="depth-grid">
+            <div class="depth-stage">
+              <article class="depth-card primary">
+                <strong>Default product card</strong
+                ><code
+                  >0 28px 70px rgba(0,0,0,.14) + 0 14px 32px
+                  rgba(0,0,0,.1)</code
+                >
+              </article>
+            </div>
+            <div class="depth-stage">
+              <article class="depth-card secondary">
+                <strong>Focused product card</strong
+                ><code
+                  >0 25px 50px -12px rgba(0,0,0,.25) + 0 12px 24px -8px
+                  rgba(0,0,0,.15)</code
+                >
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="section" id="components">
+        <div class="wrap reveal">
+          <div class="section-head">
+            <span class="kicker">05 / Components</span>
+            <h2>Agent interface</h2>
+            <p class="section-desc">
+              Marketing controls and in-product surfaces share the same warm
+              light palette, sharp geometry, and semantic status colors.
+            </p>
+          </div>
+          <div class="components">
+            <article class="component">
+              <div class="component-head">
+                <h3>Primary and secondary actions</h3>
+                <code>4px radius</code>
+              </div>
+              <div class="stage">
+                <button class="btn btn-primary" type="button">
+                  Download for Linux ↓</button
+                ><button class="btn" type="button">Request a demo →</button
+                ><a class="accent-link" href="#guidelines">Read the docs →</a>
+              </div>
+            </article>
+            <article class="component">
+              <div class="component-head">
+                <h3>Terminal command</h3>
+                <code>berkeleyMono / bone</code>
+              </div>
+              <div class="stage">
+                <div class="terminal">
+                  <span class="prompt">$</span>
+                  <strong>curl https://cursor.com/install -fsS | bash</strong>
+                </div>
+              </div>
+            </article>
+            <article class="component">
+              <div class="component-head">
+                <h3>Agent timeline states</h3>
+                <code>semantic pills</code>
+              </div>
+              <div class="stage">
+                <div class="timeline">
+                  <span class="pill thinking">Thinking</span
+                  ><span class="pill grep">Grep</span
+                  ><span class="pill read">Read</span
+                  ><span class="pill edit">Edit</span
+                  ><span class="pill done">Done</span>
+                </div>
+              </div>
+            </article>
+            <article class="component">
+              <div class="component-head">
+                <h3>Window mockup and input</h3>
+                <code>elevated bone</code>
+              </div>
+              <div class="stage">
+                <div class="mini-window">
+                  <div class="mini-bar">Cursor Agent</div>
+                  <div class="mini-body">
+                    <div class="mini-pane">
+                      Plan, search, build anything…<br /><br /><span
+                        class="prompt"
+                        >@ Agent · Composer 2.5</span
+                      >
+                    </div>
+                    <div class="mini-pane">
+                      <span class="plus">+52</span> app/page.tsx<br /><span
+                        class="plus"
+                        >+18</span
+                      >
+                      app/globals.css<br /><br />Done. Ready for review.
+                    </div>
+                  </div>
+                </div>
+                <label class="field"
+                  ><input
+                    type="text"
+                    placeholder="Ask Cursor anything"
+                    aria-label="Ask Cursor anything"
+                  /><button class="btn btn-primary" type="button">
+                    ↑
+                  </button></label
+                >
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+      <section class="section" id="guidelines">
+        <div class="wrap reveal">
+          <div class="section-head">
+            <span class="kicker">06 / Direction</span>
+            <h2>Usage rules</h2>
+            <p class="section-desc">
+              Cursor’s default public design is light, warm, and compact; the
+              editor context should not turn the whole reference dark.
+            </p>
+          </div>
+          <div class="guide-grid">
+            <article class="guide">
+              <h3>Preserve</h3>
+              <ul>
+                <li>Use Parchment as the default page canvas.</li>
+                <li>Keep primary actions filled with Ink.</li>
+                <li>Reserve orange for links and small emphasis.</li>
+                <li>Use 4px geometry across controls and product cards.</li>
+              </ul>
+            </article>
+            <article class="guide avoid">
+              <h3>Avoid</h3>
+              <ul>
+                <li>
+                  Replacing the default reference with a dark editor theme.
+                </li>
+                <li>Using orange as a large surface fill.</li>
+                <li>Applying product-card elevation to flat lists.</li>
+                <li>Setting interface copy in the editorial serif.</li>
+              </ul>
+            </article>
+          </div>
+          <div class="downloads">
+            <a class="download" href="#" download>DESIGN.md ↓</a
+            ><a class="download" href="#" download>tokens.json ↓</a
+            ><a class="download" href="#" download
+              >variables.css ↓</a
+            ><a class="download" href="#" download>theme.css ↓</a>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer class="footer">
+      <div class="wrap footer-inner">
+        <span>Cursor default light design reference</span
+        ><a href="#" target="_blank" rel="noopener noreferrer"
+          >cursor.com ↗</a
+        >
+      </div>
+    </footer>
+    
+  </body>
+</html>

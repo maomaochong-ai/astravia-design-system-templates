@@ -1,0 +1,34 @@
+{
+	"schemaVersion": 1,
+	"kind": "design-system",
+	"slug": "ollama",
+	"name": "Ollama",
+	"version": "1.0.0",
+	"order": 510,
+	"category": "dev",
+	"vibe": "light",
+	"tags": [
+		"light-ui",
+		"minimal",
+		"gradient",
+		"developer-focused",
+		"design-system"
+	],
+	"blurb": "An almost defiantly minimal documentation-first system that treats the home page like a Markdown README — paper-white canvas, 36px center-aligned heading, a single black pill CT…",
+	"tagline": {
+		"en": "Defiantly minimal, README-like documentation-first",
+		"zh": "倔强极简，README 式文档优先"
+	},
+	"license": "MIT",
+	"origin": {
+		"type": "curated",
+		"upstream": "https://github.com/ricocc/brands-design-md.git",
+		"note": "from brands-design-md (Ollama)."
+	},
+	"assets": {
+		"spec": "DESIGN.md",
+		"theme": "theme.css",
+		"demo": "demo.html"
+	},
+	"collectedAt": "2026-08-22"
+}

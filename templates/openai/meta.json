@@ -1,0 +1,31 @@
+{
+	"schemaVersion": 1,
+	"kind": "design-system",
+	"slug": "openai",
+	"name": "OpenAI",
+	"version": "1.1.0",
+	"order": 160,
+	"category": "ai",
+	"vibe": "light",
+	"tags": [
+		"ai",
+		"light"
+	],
+	"blurb": "Restrained lab white; teal signal only, near-flat, centered reading column, quiet cards.",
+	"tagline": {
+		"en": "Lab white with a teal signal",
+		"zh": "实验室白，青绿点睛"
+	},
+	"license": "MIT",
+	"origin": {
+		"type": "curated",
+		"upstream": "https://github.com/VoltAgent/awesome-design-md",
+		"note": "Vetta-adapted from awesome-design-md (MIT)."
+	},
+	"assets": {
+		"spec": "DESIGN.md",
+		"theme": "theme.css",
+		"demo": "demo.html"
+	},
+	"collectedAt": "2026-08-11"
+}

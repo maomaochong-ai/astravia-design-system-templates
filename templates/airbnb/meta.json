@@ -1,0 +1,34 @@
+{
+	"schemaVersion": 1,
+	"kind": "design-system",
+	"slug": "airbnb",
+	"name": "Airbnb",
+	"version": "1.0.0",
+	"order": 130,
+	"category": "consumer",
+	"vibe": "light",
+	"tags": [
+		"light-ui",
+		"minimal",
+		"enterprise",
+		"playful",
+		"design-system"
+	],
+	"blurb": "Airbnb pairs a clean white canvas with its signature Rausch pink, friendly rounded forms, generous spacing, and photography-led cards to create a warm, approachable marketplace…",
+	"tagline": {
+		"en": "Warm white hospitality, coral CTAs, friendly rounded forms",
+		"zh": "暖白待客之道，珊瑚色 CTA，圆润友好的形态"
+	},
+	"license": "MIT",
+	"origin": {
+		"type": "curated",
+		"upstream": "https://github.com/ricocc/brands-design-md.git",
+		"note": "from brands-design-md (Airbnb)."
+	},
+	"assets": {
+		"spec": "DESIGN.md",
+		"theme": "theme.css",
+		"demo": "demo.html"
+	},
+	"collectedAt": "2026-08-22"
+}

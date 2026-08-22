@@ -1,0 +1,31 @@
+/* templates — light design system, converted from brands-design-md. */
+@theme {
+	--color-primary: #000000;
+	--color-primary-foreground: #ffffff;
+	--color-surface: #ffffff;
+	--color-surface-foreground: #111111;
+	--color-surface-raised: #f7f7f7;
+	--color-muted: #6a6a6a;
+	--color-accent: #c4baff;
+	--color-danger: #dc2626;
+	--color-border: #e5e5e5;
+
+/* 品牌 token（来自 brands-design-md） */
+--color-figma-ink-black: #000000;
+  --color-figma-paper-white: #ffffff;
+  --color-figma-soft-mist: #e2e2e2;
+  --color-figma-graphite: #595959;
+  --color-figma-electric-indigo: #4d49fc;
+  --color-figma-figma-cyan: #00b6ff;
+  --color-figma-figma-green: #24cb71;
+  --color-figma-figma-orange: #ff7237;
+  --color-figma-lime-wash: #e4ff97;
+  --color-figma-lilac: #c4baff;
+  --color-figma-blush: #ffc9c1;
+  --color-figma-aqua-mist: #c7f8fb;
+  --color-figma-earworm-teal: #33dfdf;
+  --color-figma-mustard: #b98e01;
+  --font-figma-sans: figmaSans, Inter, sans-serif;
+  --font-figma-mono: figmaMono, ui-monospace, monospace;
+  --shadow-figma-xl: rgba(0, 0, 0, 0.1) 0px 24px 70px 0px;
+}

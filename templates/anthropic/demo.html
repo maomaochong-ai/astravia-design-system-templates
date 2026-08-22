@@ -1,0 +1,361 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Anthropic — component reference</title>
+<style>
+	/* Mirrors theme.css. Plain custom properties so this file opens standalone. */
+	:root {
+		--color-primary: #191919;
+		--color-primary-foreground: #ffffff;
+		--color-surface: #f0eee6;
+		--color-surface-foreground: #191919;
+		--color-surface-raised: #ffffff;
+		--color-muted: #6e6c64;
+		--color-accent: #cc785c;
+		--color-danger: #bf4d43;
+		--color-border: #dcdad1;
+
+		--radius-sm: 8px;
+		--radius-md: 12px;
+		--radius-lg: 16px;
+		--radius-xl: 20px;
+		--radius-2xl: 28px;
+
+		--shadow-sm: 0 1px 3px rgb(25 25 25 / 0.06);
+		--shadow-md: 0 6px 16px rgb(25 25 25 / 0.08);
+		--shadow-lg: 0 16px 48px rgb(25 25 25 / 0.12);
+
+		--serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, Cambria, "Times New Roman", serif;
+		--sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+		--mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+	}
+
+	*, *::before, *::after { box-sizing: border-box; }
+	body {
+		margin: 0;
+		background: var(--color-surface);
+		color: var(--color-surface-foreground);
+		font-family: var(--sans);
+		font-size: 16px;
+		line-height: 1.75;
+		-webkit-font-smoothing: antialiased;
+	}
+	/* The serif heading is the literary signature of the whole system. */
+	h1, h2, h3 { margin: 0; font-family: var(--serif); font-weight: 500; letter-spacing: -0.01em; line-height: 1.2; }
+	p { margin: 0; }
+	::selection { background: rgb(204 120 92 / 0.28); }
+	code { font-family: var(--mono); font-size: 0.86em; background: var(--color-surface-raised); border: 1px solid var(--color-border); border-radius: var(--radius-sm); padding: 1px 6px; }
+	a { color: var(--color-accent); text-decoration: none; border-bottom: 1px solid rgb(204 120 92 / 0.4); }
+
+	.col { max-width: 720px; margin: 0 auto; padding: 0 22px; }
+	@media (min-width: 768px) { .col { padding: 0 32px; } }
+	.wide { max-width: 980px; margin: 0 auto; padding: 0 22px; }
+	@media (min-width: 768px) { .wide { padding: 0 32px; } }
+
+	/* ── Masthead ──────────────────────────────────────────────────── */
+	.top { display: flex; align-items: center; gap: 20px; padding: 22px 0; }
+	.mark { display: flex; gap: 3px; align-items: flex-end; height: 20px; }
+	.mark i { width: 3px; background: var(--color-surface-foreground); display: block; border-radius: 1px; }
+	.mark i:nth-child(1) { height: 12px; } .mark i:nth-child(2) { height: 20px; }
+	.mark i:nth-child(3) { height: 16px; } .mark i:nth-child(4) { height: 9px; }
+	.top b { font-family: var(--serif); font-size: 19px; font-weight: 500; }
+	.top nav { display: none; gap: 22px; font-size: 15px; color: var(--color-muted); }
+	@media (min-width: 700px) { .top nav { display: flex; } }
+	.spacer { flex: 1; }
+
+	/* ── Opening spread ────────────────────────────────────────────── */
+	.opening { padding: 40px 0 64px; }
+	@media (min-width: 768px) { .opening { padding: 64px 0 88px; } }
+	.eyebrow { font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-accent); }
+	.opening h1 { font-size: 38px; margin-top: 18px; max-width: 16ch; }
+	@media (min-width: 768px) { .opening h1 { font-size: 56px; } }
+	/* A drop cap: print convention, and the reason the serif exists. */
+	.lede-first { margin-top: 26px; font-size: 18px; }
+	.lede-first::first-letter {
+		float: left; font-family: var(--serif); font-size: 62px; line-height: 0.82;
+		padding: 6px 10px 0 0; color: var(--color-accent);
+	}
+	.opening .actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 36px; }
+
+	/* ── Sections ─────────────────────────────────────────────────── */
+	.section { padding: 56px 0; border-top: 1px solid var(--color-border); }
+	@media (min-width: 768px) { .section { padding: 80px 0; } }
+	.section-label { font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-accent); margin-bottom: 14px; }
+	.section h2 { font-size: 30px; }
+	@media (min-width: 768px) { .section h2 { font-size: 38px; } }
+	.lede { color: var(--color-muted); margin-top: 16px; max-width: 60ch; }
+	.note { margin-top: 22px; font-size: 14px; color: var(--color-muted); }
+	.row { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
+
+	/* ── Buttons: ink pills. Clay never fills one. ────────────────── */
+	.btn {
+		font: inherit; font-size: 15px; font-weight: 500;
+		height: 46px; padding: 0 26px;
+		border: 1px solid var(--color-primary); border-radius: 9999px;
+		background: var(--color-primary); color: var(--color-primary-foreground);
+		cursor: pointer; transition: background-color 200ms ease, color 200ms ease;
+	}
+	.btn:hover { background: #2f2f2c; }
+	.btn:focus-visible { outline: none; box-shadow: 0 0 0 3px rgb(204 120 92 / 0.45); }
+	.btn-secondary { background: transparent; color: var(--color-surface-foreground); border-color: var(--color-border); }
+	.btn-secondary:hover { background: var(--color-surface-raised); border-color: var(--color-muted); }
+	.btn-quiet { background: transparent; border-color: transparent; color: var(--color-accent); }
+	.btn-quiet:hover { background: rgb(204 120 92 / 0.1); }
+	.btn[disabled] { cursor: not-allowed; background: transparent; color: #a8a69c; border-color: var(--color-border); }
+
+	.input {
+		font: inherit; font-size: 15px; width: 100%; max-width: 360px; height: 46px; padding: 0 18px;
+		border: 1px solid var(--color-border); border-radius: 9999px;
+		background: var(--color-surface-raised); color: var(--color-surface-foreground);
+	}
+	.input::placeholder { color: #a8a69c; }
+	.input:focus { outline: none; border-color: var(--color-accent); box-shadow: 0 0 0 3px rgb(204 120 92 / 0.18); }
+
+	/* ── Cards: white paper on cream, clay eyebrow, serif title ───── */
+	.cards { display: grid; grid-template-columns: 1fr; gap: 22px; margin-top: 32px; }
+	@media (min-width: 700px) { .cards { grid-template-columns: repeat(3, 1fr); } }
+	.card {
+		background: var(--color-surface-raised);
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-2xl);
+		padding: 26px 28px;
+	}
+	.card .k { font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-accent); }
+	.card h3 { font-size: 21px; margin-top: 12px; }
+	.card p { font-size: 15px; color: var(--color-muted); margin-top: 10px; line-height: 1.65; }
+
+	/* ── Pull quote & callout ─────────────────────────────────────── */
+	.pull {
+		font-family: var(--serif); font-size: 24px; line-height: 1.4;
+		border-left: 3px solid var(--color-accent);
+		padding: 4px 0 4px 24px; margin: 32px 0; max-width: 34em;
+	}
+	@media (min-width: 768px) { .pull { font-size: 28px; } }
+	.pull cite { display: block; font-family: var(--sans); font-size: 14px; font-style: normal; color: var(--color-muted); margin-top: 14px; }
+	.callout {
+		border-left: 3px solid var(--color-accent);
+		background: rgb(204 120 92 / 0.07);
+		border-radius: 0 var(--radius-md) var(--radius-md) 0;
+		padding: 20px 24px; margin-top: 28px;
+	}
+	.callout b { font-family: var(--serif); font-weight: 500; font-size: 18px; display: block; margin-bottom: 6px; }
+	.callout p { font-size: 15px; color: var(--color-muted); }
+
+	/* ── A thin-line figure, the way this system draws diagrams ───── */
+	.figure { background: var(--color-surface-raised); border: 1px solid var(--color-border); border-radius: var(--radius-2xl); padding: 30px; margin-top: 32px; }
+	.figure svg { display: block; width: 100%; height: auto; }
+	.figcaption { font-family: var(--serif); font-style: italic; font-size: 15px; color: var(--color-muted); margin-top: 16px; text-align: center; }
+
+	/* ── Palette ──────────────────────────────────────────────────── */
+	.swatches { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; margin-top: 30px; }
+	@media (min-width: 700px) { .swatches { grid-template-columns: repeat(4, 1fr); } }
+	.sw .fill { height: 78px; border-radius: var(--radius-lg); border: 1px solid var(--color-border); }
+	.sw b { display: block; font-size: 14px; font-weight: 600; margin-top: 10px; }
+	.sw span { font-size: 13px; color: var(--color-muted); }
+
+	/* ── Mobile ───────────────────────────────────────────────────── */
+	.mobile { display: grid; grid-template-columns: minmax(0, 1fr); gap: 34px; margin-top: 34px; align-items: start; }
+	@media (min-width: 860px) { .mobile { grid-template-columns: 286px 1fr; gap: 48px; } }
+	.phone {
+		width: 286px; max-width: 100%; margin: 0 auto;
+		border: 1px solid var(--color-border); border-radius: 30px;
+		background: var(--color-surface); overflow: hidden; box-shadow: var(--shadow-md);
+	}
+	.phone-status { display: flex; justify-content: space-between; padding: 12px 20px 4px; font-size: 10px; color: var(--color-muted); }
+	.phone-top { display: flex; align-items: center; gap: 8px; padding: 6px 20px 14px; }
+	.phone-top b { font-family: var(--serif); font-size: 15px; font-weight: 500; }
+	.phone-body { padding: 0 20px 20px; }
+	.phone-body .eyebrow { font-size: 10px; }
+	.phone-body h4 { font-family: var(--serif); font-weight: 500; font-size: 25px; line-height: 1.15; margin: 8px 0 12px; }
+	.phone-body p { font-size: 13px; line-height: 1.7; color: var(--color-muted); }
+	.phone-body .drop::first-letter { float: left; font-family: var(--serif); font-size: 40px; line-height: 0.8; padding: 4px 7px 0 0; color: var(--color-accent); }
+	.m-card { background: var(--color-surface-raised); border: 1px solid var(--color-border); border-radius: var(--radius-xl); padding: 14px 16px; margin-top: 14px; }
+	.m-card .k { font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-accent); }
+	.m-card h5 { font-family: var(--serif); font-weight: 500; font-size: 16px; margin: 6px 0 0; }
+	.m-cta { padding: 0 20px 22px; }
+	.m-cta .btn { width: 100%; height: 42px; font-size: 14px; }
+
+	.rules { margin: 0; padding: 0; list-style: none; }
+	.rules li { padding: 15px 0; border-bottom: 1px solid var(--color-border); font-size: 15px; color: var(--color-muted); }
+	.rules b { display: block; font-family: var(--serif); font-size: 17px; font-weight: 500; color: var(--color-surface-foreground); margin-bottom: 3px; }
+
+	/* ── Off-style ────────────────────────────────────────────────── */
+	.compare { display: grid; grid-template-columns: 1fr; gap: 18px; margin-top: 30px; }
+	@media (min-width: 700px) { .compare { grid-template-columns: repeat(2, 1fr); } }
+	.cmp-off {
+		padding: 26px; border-radius: 6px;
+		background: #11131a; color: #cbd5e1;
+		font-family: var(--sans); font-size: 15px; font-weight: 600;
+		box-shadow: 0 14px 32px rgb(17 19 26 / 0.4);
+	}
+	.cmp-off small { display: block; font-weight: 400; font-size: 13px; color: #7c8ba1; margin-top: 10px; line-height: 1.6; }
+	.cmp-on { padding: 26px; background: var(--color-surface-raised); border: 1px solid var(--color-border); border-radius: var(--radius-2xl); }
+	.cmp-on b { font-family: var(--serif); font-weight: 500; font-size: 19px; }
+	.cmp-on small { display: block; font-size: 13px; color: var(--color-muted); margin-top: 10px; line-height: 1.6; }
+
+	footer { border-top: 1px solid var(--color-border); padding: 34px 0 60px; font-size: 14px; color: var(--color-muted); }
+</style>
+</head>
+<body>
+
+<!-- COVER — an opening spread. Cream paper, serif display, a clay drop cap,
+     one ink pill. Print does not cast shadows, so nothing here does. -->
+<div class="wide">
+	<div class="top">
+		<span class="mark"><i></i><i></i><i></i><i></i></span>
+		<b>Vetta</b>
+		<nav><span>Research</span><span>Handbook</span><span>Notes</span></nav>
+		<span class="spacer"></span>
+		<button class="btn btn-quiet">Sign in</button>
+	</div>
+</div>
+
+<div class="col opening">
+	<p class="eyebrow">Design notes — no. 04</p>
+	<h1>A system set like a well-bound book</h1>
+	<p class="lede-first">Warm cream paper, dark ink, and a single clay voice. The serif carries every
+		heading; the sans carries every sentence you actually have to read at length. Nothing is cool-toned,
+		nothing is glossy, and the page is allowed to be unhurried.</p>
+	<div class="actions">
+		<button class="btn">Read the handbook</button>
+		<button class="btn btn-secondary">Browse components</button>
+	</div>
+</div>
+
+<div class="col">
+
+	<!-- 01 -->
+	<section class="section">
+		<p class="section-label">01 — Voice</p>
+		<h2>Two typefaces, one job each</h2>
+		<p class="lede">Serif for display, sans for body, mono only where a machine wrote the value.
+			Headings sit at weight 500 — a heavy serif reads as a newspaper, not a book.</p>
+		<blockquote class="pull">Clay is an accent voice, not a brand shout. It underlines, it labels,
+			it draws a line in a figure — it never fills a button.
+			<cite>Working rule, page 12</cite></blockquote>
+		<div class="callout">
+			<b>On warmth</b>
+			<p>Every neutral in this system leans warm. A blue-gray border or a cool #f5f5f5 fill will
+				fight the cream page immediately, even at 1px.</p>
+		</div>
+	</section>
+
+	<!-- 02 -->
+	<section class="section">
+		<p class="section-label">02 — Cards</p>
+		<h2>White paper laid on cream</h2>
+		<div class="cards">
+			<div class="card"><div class="k">Surface</div><h3>28px corners</h3><p>Cards are generous rectangles of white with warm hairline borders. Depth is the paper contrast, not a shadow.</p></div>
+			<div class="card"><div class="k">Rhythm</div><h3>720px column</h3><p>The reading measure never widens. Grids sit outside it; prose never does.</p></div>
+			<div class="card"><div class="k">Accent</div><h3>One clay line</h3><p>An eyebrow label, a quote rule, a link underline. Three appearances per screen is already a lot.</p></div>
+		</div>
+	</section>
+
+	<!-- 03 -->
+	<section class="section">
+		<p class="section-label">03 — Figures</p>
+		<h2>Thin ink lines, one clay highlight</h2>
+		<p class="lede">Diagrams are drawn, not rendered: hairline strokes, open shapes, a single warm
+			emphasis. No gradients, no 3D, no drop shadows on a diagram element.</p>
+		<div class="figure">
+			<svg viewBox="0 0 640 200" role="img" aria-label="Token flows from theme into components and pages">
+				<g fill="none" stroke="#191919" stroke-width="1.25">
+					<rect x="12" y="62" width="150" height="76" rx="18"/>
+					<rect x="245" y="62" width="150" height="76" rx="18"/>
+					<rect x="478" y="62" width="150" height="76" rx="18"/>
+					<path d="M162 100 H245" stroke="#cc785c" stroke-width="1.5"/>
+					<path d="M395 100 H478" stroke="#cc785c" stroke-width="1.5"/>
+					<path d="M236 94 l9 6 -9 6" stroke="#cc785c" stroke-width="1.5"/>
+					<path d="M469 94 l9 6 -9 6" stroke="#cc785c" stroke-width="1.5"/>
+					<circle cx="87" cy="30" r="7" stroke="#cc785c"/>
+					<circle cx="320" cy="30" r="7" stroke="#cc785c"/>
+					<circle cx="553" cy="30" r="7" stroke="#cc785c"/>
+				</g>
+				<g font-family="Georgia, serif" font-size="16" fill="#191919" text-anchor="middle">
+					<text x="87" y="106">theme.css</text>
+					<text x="320" y="106">components</text>
+					<text x="553" y="106">the page</text>
+				</g>
+				<g font-family="-apple-system, sans-serif" font-size="11" fill="#6e6c64" text-anchor="middle" letter-spacing="1.4">
+					<text x="87" y="170">TOKENS</text>
+					<text x="320" y="170">SHAPES</text>
+					<text x="553" y="170">VOICE</text>
+				</g>
+			</svg>
+			<p class="figcaption">One value, changed once, arriving everywhere.</p>
+		</div>
+	</section>
+
+	<!-- 04 -->
+	<section class="section">
+		<p class="section-label">04 — Controls</p>
+		<h2>Ink pills</h2>
+		<div class="row" style="margin-top: 28px;">
+			<button class="btn">Primary</button>
+			<button class="btn btn-secondary">Secondary</button>
+			<button class="btn btn-quiet">Learn more</button>
+			<button class="btn" disabled>Unavailable</button>
+		</div>
+		<div class="row" style="margin-top: 20px;">
+			<input class="input" placeholder="you@company.com">
+			<button class="btn">Subscribe</button>
+		</div>
+		<div class="swatches">
+			<div class="sw"><div class="fill" style="background: var(--color-surface)"></div><b>surface</b><span>#f0eee6 · book cloth</span></div>
+			<div class="sw"><div class="fill" style="background: var(--color-primary)"></div><b>primary</b><span>#191919 · ink pills</span></div>
+			<div class="sw"><div class="fill" style="background: var(--color-accent)"></div><b>accent</b><span>#cc785c · clay voice</span></div>
+			<div class="sw"><div class="fill" style="background: var(--color-surface-raised)"></div><b>raised</b><span>#ffffff · paper</span></div>
+		</div>
+		<p class="note">Buttons are full pills at 46px. The clay swatch above is the largest area of accent the system ever shows — and it is a swatch, not a surface.</p>
+	</section>
+
+	<!-- 05 MOBILE -->
+	<section class="section">
+		<p class="section-label">05 — Mobile</p>
+		<h2>A pocket edition, not a different book</h2>
+		<p class="lede">The phone build keeps the serif display, the drop cap and the cream page. What
+			changes is the measure and the margins — the same choices a printer makes going from folio to pocket.</p>
+		<div class="mobile">
+			<div class="phone">
+				<div class="phone-status"><span>9:41</span><span>LTE ▮</span></div>
+				<div class="phone-top"><span class="mark"><i></i><i></i><i></i><i></i></span><b>Vetta</b><span class="spacer"></span><span style="color:var(--color-muted);font-size:13px">☰</span></div>
+				<div class="phone-body">
+					<p class="eyebrow">Design notes — no. 04</p>
+					<h4>A system set like a well-bound book</h4>
+					<p class="drop">Warm cream paper, dark ink, a single clay voice. The serif carries every heading; the sans carries the sentences.</p>
+					<div class="m-card"><div class="k">Surface</div><h5>28px corners</h5></div>
+					<div class="m-card"><div class="k">Accent</div><h5>One clay line</h5></div>
+				</div>
+				<div class="m-cta"><button class="btn">Read the handbook</button></div>
+			</div>
+			<ul class="rules">
+				<li><b>The measure</b>720px becomes the viewport at 22px gutters. Body text holds 16px/1.75 — a book does not shrink its text to fit a smaller page, it shortens the line.</li>
+				<li><b>Display type</b>56px → 38px → 25px in the phone frame. Serif headings keep weight 500 at every size; they never bold up to compensate for a small screen.</li>
+				<li><b>The drop cap</b>Survives, at 40px instead of 62px. It is the one ornament worth keeping on a phone, and it stays clay.</li>
+				<li><b>Cards</b>Three columns become one stack with 14px gaps. Padding drops 28px → 16px and the radius eases 28px → 20px, so the corner stays proportional to the box.</li>
+				<li><b>Pills</b>Buttons keep the full radius and go full width for the primary action. Height 46px → 42px, still comfortably above the touch minimum.</li>
+				<li><b>Navigation</b>The masthead links collapse to a single menu glyph. No bottom tab bar exists — this is a document, and documents scroll.</li>
+				<li><b>Figures</b>Thin-line diagrams reflow to a vertical stack with the clay arrow rotated. Stroke weight stays 1.25px; hairlines are the drawing style, not a desktop detail.</li>
+			</ul>
+		</div>
+	</section>
+
+	<!-- 06 DON'T -->
+	<section class="section">
+		<p class="section-label">06 — Off-style, for contrast</p>
+		<h2>What breaks the binding</h2>
+		<div class="compare">
+			<div class="cmp-off">Cool dark panel
+				<small>Blue-gray neutrals · 6px corner · sans everywhere · glossy shadow · dark mode. Each one on its own is enough to make this stop looking like print.</small></div>
+			<div class="cmp-on"><b>Same content, on-style</b>
+				<small>Cream page, white card, 28px corner, warm hairline, serif heading at weight 500, no shadow. If it feels unhurried, it is right.</small></div>
+		</div>
+		<p class="note">Also out: clay-filled buttons or banners, tight dense grids, cool grays of any kind, and a dark theme — this system has one temperature.</p>
+	</section>
+</div>
+
+<footer><div class="col">Vetta design reference — anthropic · cream, ink, one clay voice.</div></footer>
+</body>
+</html>

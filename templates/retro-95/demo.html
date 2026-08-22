@@ -1,0 +1,415 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Retro 95 — component reference</title>
+<style>
+	/* Mirrors theme.css. Plain custom properties so this file opens standalone. */
+	:root {
+		--color-primary: #000080;
+		--color-primary-foreground: #ffffff;
+		--color-surface: #008080;
+		--color-surface-foreground: #000000;
+		--color-surface-raised: #c3c3c3;
+		--color-muted: #5a5a5a;
+		--color-accent: #008080;
+		--color-danger: #aa0000;
+		--color-border: #868a8e;
+
+		--radius-sm: 0px;
+		--radius-md: 0px;
+		--radius-lg: 0px;
+		--radius-xl: 0px;
+		--radius-2xl: 0px;
+
+		--shadow-sm: 1px 1px 0 rgb(0 0 0 / 0.5);
+		--shadow-md: 2px 2px 0 rgb(0 0 0 / 0.5);
+		--shadow-lg: 4px 4px 0 rgb(0 0 0 / 0.5);
+
+		--bevel-light: #ffffff;
+		--bevel-dark: #5a5a5a;
+		--sans: "Segoe UI", Tahoma, Verdana, Geneva, "MS Sans Serif", -apple-system, sans-serif;
+		--mono: "Courier New", ui-monospace, Menlo, monospace;
+	}
+
+	*, *::before, *::after { box-sizing: border-box; }
+	body {
+		margin: 0;
+		background: var(--color-surface);
+		color: var(--color-surface-foreground);
+		font-family: var(--sans);
+		font-size: 12px;
+		line-height: 1.45;
+		padding: 14px 12px 40px;
+	}
+	/* Headings are just bold 13px. No display type exists in this system. */
+	h1, h2, h3 { margin: 0; font-size: 13px; font-weight: 700; line-height: 1.3; }
+	p { margin: 0; }
+	::selection { background: var(--color-primary); color: #fff; }
+	.spacer { flex: 1; }
+	.mono { font-family: var(--mono); }
+
+	/* ── The bevel IS the depth. Raised: light top/left, dark bottom/right. ── */
+	.raised {
+		background: var(--color-surface-raised);
+		border-top: 2px solid var(--bevel-light);
+		border-left: 2px solid var(--bevel-light);
+		border-bottom: 2px solid var(--bevel-dark);
+		border-right: 2px solid var(--bevel-dark);
+	}
+	.sunken {
+		background: #ffffff;
+		border-top: 2px solid var(--bevel-dark);
+		border-left: 2px solid var(--bevel-dark);
+		border-bottom: 2px solid var(--bevel-light);
+		border-right: 2px solid var(--bevel-light);
+	}
+	.sunken-gray { background: var(--color-surface-raised); }
+
+	/* ── Windows float on the teal desktop, slightly offset ───────── */
+	.window { max-width: 880px; margin: 0 auto 22px; box-shadow: var(--shadow-md); }
+	.window.offset { margin-left: auto; margin-right: auto; }
+	.titlebar {
+		display: flex; align-items: center; gap: 6px;
+		background: var(--color-primary); color: var(--color-primary-foreground);
+		padding: 3px 3px 3px 5px; font-size: 12px; font-weight: 700;
+		margin: 2px;
+	}
+	.titlebar.inactive { background: var(--color-border); }
+	.titlebar .ico { width: 14px; height: 14px; background: var(--color-surface-raised); flex: none; }
+	.tbtn {
+		width: 17px; height: 15px; flex: none;
+		background: var(--color-surface-raised); color: #000;
+		border-top: 1px solid var(--bevel-light); border-left: 1px solid var(--bevel-light);
+		border-bottom: 1px solid var(--bevel-dark); border-right: 1px solid var(--bevel-dark);
+		display: grid; place-items: center; font-size: 9px; font-weight: 700; line-height: 1;
+	}
+	.menubar { display: flex; gap: 2px; padding: 1px 4px; font-size: 12px; }
+	.menubar span { padding: 2px 7px; }
+	.menubar span:first-child { background: var(--color-primary); color: #fff; }
+	.menubar u { text-decoration: underline; }
+	.toolbar { display: flex; align-items: center; gap: 3px; padding: 3px 4px; }
+	.tool {
+		width: 24px; height: 22px; display: grid; place-items: center; font-size: 12px;
+		background: var(--color-surface-raised);
+		border-top: 1px solid var(--bevel-light); border-left: 1px solid var(--bevel-light);
+		border-bottom: 1px solid var(--bevel-dark); border-right: 1px solid var(--bevel-dark);
+	}
+	.tool.pressed { border-top-color: var(--bevel-dark); border-left-color: var(--bevel-dark); border-bottom-color: var(--bevel-light); border-right-color: var(--bevel-light); }
+	.toolsep { width: 2px; height: 20px; border-left: 1px solid var(--bevel-dark); border-right: 1px solid var(--bevel-light); margin: 0 3px; }
+	.content { margin: 3px; padding: 8px; }
+	.statusbar { display: flex; gap: 3px; margin: 3px; font-size: 11px; }
+	.statusbar .cell { padding: 2px 6px; flex: none; border-top: 1px solid var(--bevel-dark); border-left: 1px solid var(--bevel-dark); border-bottom: 1px solid var(--bevel-light); border-right: 1px solid var(--bevel-light); }
+	.statusbar .cell.grow { flex: 1; }
+
+	/* ── File list ────────────────────────────────────────────────── */
+	.filelist { width: 100%; border-collapse: collapse; font-size: 12px; background: #fff; }
+	.filelist th {
+		text-align: left; font-weight: 400; padding: 2px 6px; background: var(--color-surface-raised);
+		border-top: 1px solid var(--bevel-light); border-left: 1px solid var(--bevel-light);
+		border-bottom: 1px solid var(--bevel-dark); border-right: 1px solid var(--bevel-dark);
+	}
+	.filelist td { padding: 2px 6px; }
+	.filelist tr.selected td { background: var(--color-primary); color: #fff; }
+	.filelist .ic { width: 16px; }
+	@media (max-width: 620px) { .filelist .hide-sm { display: none; } }
+
+	/* ── Controls ─────────────────────────────────────────────────── */
+	.btn {
+		font-family: var(--sans); font-size: 12px; font-weight: 400;
+		height: 24px; min-width: 78px; padding: 0 12px;
+		background: var(--color-surface-raised); color: #000;
+		border-top: 2px solid var(--bevel-light); border-left: 2px solid var(--bevel-light);
+		border-bottom: 2px solid var(--bevel-dark); border-right: 2px solid var(--bevel-dark);
+		border-radius: 0; cursor: pointer;
+	}
+	/* Pressed inverts the bevel and nudges the label 1px down-right. */
+	.btn:active {
+		border-top-color: var(--bevel-dark); border-left-color: var(--bevel-dark);
+		border-bottom-color: var(--bevel-light); border-right-color: var(--bevel-light);
+		padding: 1px 11px 0 13px;
+	}
+	.btn:focus-visible { outline: 1px dotted #000; outline-offset: -4px; }
+	.btn.default { box-shadow: 0 0 0 1px #000; }
+	.btn[disabled] { cursor: default; color: var(--color-muted); text-shadow: 1px 1px 0 #fff; }
+	.row { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+
+	.input {
+		font-family: var(--sans); font-size: 12px; height: 22px; padding: 0 5px; width: 100%; max-width: 240px;
+		background: #fff; color: #000; border-radius: 0;
+		border-top: 2px solid var(--bevel-dark); border-left: 2px solid var(--bevel-dark);
+		border-bottom: 2px solid var(--bevel-light); border-right: 2px solid var(--bevel-light);
+	}
+	.input:focus { outline: none; }
+
+	.check { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; }
+	.box { width: 13px; height: 13px; background: #fff; flex: none; display: grid; place-items: center; font-size: 10px; line-height: 1;
+		border-top: 2px solid var(--bevel-dark); border-left: 2px solid var(--bevel-dark);
+		border-bottom: 2px solid var(--bevel-light); border-right: 2px solid var(--bevel-light); }
+	.radio { width: 12px; height: 12px; border-radius: 50%; background: #fff; border: 2px inset #868a8e; flex: none; display: grid; place-items: center; font-size: 9px; }
+
+	.progress { height: 20px; padding: 2px; display: flex; gap: 2px; max-width: 280px; }
+	.progress i { width: 12px; background: var(--color-primary); display: block; }
+
+	.fieldset { border: 1px solid var(--bevel-dark); border-right-color: var(--bevel-light); border-bottom-color: var(--bevel-light); padding: 10px; margin-top: 10px; position: relative; }
+	.fieldset > .legend { position: absolute; top: -8px; left: 8px; background: var(--color-surface-raised); padding: 0 4px; font-size: 12px; }
+
+	.notepad { font-family: var(--mono); font-size: 12px; line-height: 1.5; padding: 6px; min-height: 120px; white-space: pre-wrap; }
+
+	/* ── Sections ─────────────────────────────────────────────────── */
+	.section-title { display: flex; align-items: center; gap: 6px; margin-bottom: 8px; }
+	.lede { margin-top: 6px; max-width: 74ch; }
+	.note { margin-top: 10px; color: var(--color-muted); }
+
+	.swatches { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-top: 10px; }
+	@media (min-width: 640px) { .swatches { grid-template-columns: repeat(4, 1fr); } }
+	.sw .fill { height: 42px; }
+	.sw b { display: block; font-size: 12px; font-weight: 700; margin-top: 5px; }
+	.sw span { color: var(--color-muted); }
+
+	/* ── Mobile ───────────────────────────────────────────────────── */
+	.mobile { display: grid; grid-template-columns: minmax(0, 1fr); gap: 18px; margin-top: 12px; align-items: start; }
+	@media (min-width: 820px) { .mobile { grid-template-columns: 264px 1fr; gap: 26px; } }
+	/* A 1995 window on a 2026 phone: the chrome does not round, it shrinks. */
+	.phone { width: 264px; max-width: 100%; margin: 0 auto; background: var(--color-surface); padding: 6px; box-shadow: var(--shadow-md); }
+	.phone-status { display: flex; justify-content: space-between; font-size: 10px; color: #cfe9e9; padding: 2px 4px 6px; }
+	.m-window { box-shadow: var(--shadow-sm); }
+	.m-window .titlebar { font-size: 11px; }
+	.m-content { margin: 3px; padding: 6px; }
+	.m-filelist { width: 100%; border-collapse: collapse; font-size: 11px; background: #fff; }
+	.m-filelist td { padding: 2px 5px; }
+	.m-filelist tr.selected td { background: var(--color-primary); color: #fff; }
+	.m-taskbar { display: flex; gap: 4px; align-items: center; margin-top: 6px; padding: 2px; }
+	.m-start { font-weight: 700; font-size: 11px; padding: 2px 8px; display: flex; align-items: center; gap: 4px;
+		border-top: 2px solid var(--bevel-light); border-left: 2px solid var(--bevel-light);
+		border-bottom: 2px solid var(--bevel-dark); border-right: 2px solid var(--bevel-dark); }
+	.m-task { flex: 1; font-size: 11px; padding: 2px 6px; text-align: left; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+		border-top: 2px solid var(--bevel-dark); border-left: 2px solid var(--bevel-dark);
+		border-bottom: 2px solid var(--bevel-light); border-right: 2px solid var(--bevel-light); }
+	.m-clock { font-size: 11px; padding: 2px 6px;
+		border-top: 1px solid var(--bevel-dark); border-left: 1px solid var(--bevel-dark);
+		border-bottom: 1px solid var(--bevel-light); border-right: 1px solid var(--bevel-light); }
+
+	.rules { margin: 0; padding: 0; list-style: none; }
+	.rules li { padding: 7px 0; border-bottom: 1px solid var(--bevel-dark); }
+	.rules li:last-child { border-bottom: 0; }
+	.rules b { display: block; font-weight: 700; margin-bottom: 1px; }
+	.rules span { color: var(--color-muted); }
+
+	/* ── Off-style ────────────────────────────────────────────────── */
+	.compare { display: grid; grid-template-columns: 1fr; gap: 10px; margin-top: 10px; }
+	@media (min-width: 640px) { .compare { grid-template-columns: repeat(2, 1fr); } }
+	.cmp-off { padding: 16px; border-radius: 12px; background: linear-gradient(140deg, #f8fafc, #e2e8f0); box-shadow: 0 8px 22px rgb(15 23 42 / 0.14); color: #475569; font-size: 13px; }
+	.cmp-off small { display: block; margin-top: 8px; color: #64748b; }
+	.cmp-on { padding: 14px; font-size: 12px; }
+	.cmp-on small { display: block; margin-top: 8px; color: var(--color-muted); }
+
+	.desktop-icons { display: flex; gap: 22px; max-width: 880px; margin: 0 auto 14px; color: #fff; font-size: 11px; text-align: center; }
+	.desktop-icons .di { width: 62px; }
+	.desktop-icons .di .g { width: 32px; height: 28px; margin: 0 auto 4px; background: var(--color-surface-raised);
+		border-top: 2px solid var(--bevel-light); border-left: 2px solid var(--bevel-light);
+		border-bottom: 2px solid var(--bevel-dark); border-right: 2px solid var(--bevel-dark); }
+</style>
+</head>
+<body>
+
+<!-- COVER — a teal desktop with windows on it. Zero radius, beveled chrome,
+     navy title bars. Everything is 11–13px and grid-perfect. -->
+<div class="desktop-icons">
+	<div class="di"><div class="g"></div>My Computer</div>
+	<div class="di"><div class="g"></div>Design Tokens</div>
+	<div class="di"><div class="g"></div>Recycle Bin</div>
+</div>
+
+<div class="window raised">
+	<div class="titlebar">
+		<span class="ico"></span>Design Tokens — C:\VETTA\TOKENS
+		<span class="spacer"></span>
+		<span class="tbtn">_</span><span class="tbtn">□</span><span class="tbtn">✕</span>
+	</div>
+	<div class="menubar">
+		<span><u>F</u>ile</span><span><u>E</u>dit</span><span><u>V</u>iew</span><span><u>H</u>elp</span>
+	</div>
+	<div class="toolbar">
+		<span class="tool">◀</span><span class="tool">▶</span><span class="tool">↑</span>
+		<span class="toolsep"></span>
+		<span class="tool pressed">▤</span><span class="tool">▦</span>
+		<span class="toolsep"></span>
+		<span class="tool">✂</span><span class="tool">⧉</span><span class="tool">📋</span>
+		<span class="spacer"></span>
+		<span class="input sunken" style="max-width:180px;height:22px;padding:2px 5px;display:flex;align-items:center">C:\VETTA\TOKENS</span>
+	</div>
+	<div class="content sunken">
+		<table class="filelist">
+			<thead>
+				<tr><th class="ic"></th><th>Name</th><th class="hide-sm">Size</th><th class="hide-sm">Type</th><th>Modified</th></tr>
+			</thead>
+			<tbody>
+				<tr class="selected"><td>▤</td><td>THEME.CSS</td><td class="hide-sm">2 KB</td><td class="hide-sm">Cascading Style Sheet</td><td>12/04/95 09:41</td></tr>
+				<tr><td>▤</td><td>DESIGN.MD</td><td class="hide-sm">4 KB</td><td class="hide-sm">Markdown Document</td><td>12/04/95 09:12</td></tr>
+				<tr><td>▤</td><td>DEMO.HTM</td><td class="hide-sm">18 KB</td><td class="hide-sm">HTML Document</td><td>11/04/95 17:04</td></tr>
+				<tr><td>▦</td><td>SCREENS</td><td class="hide-sm">—</td><td class="hide-sm">File Folder</td><td>09/04/95 11:20</td></tr>
+				<tr><td>▤</td><td>README.TXT</td><td class="hide-sm">1 KB</td><td class="hide-sm">Text Document</td><td>02/04/95 08:55</td></tr>
+			</tbody>
+		</table>
+	</div>
+	<div class="statusbar">
+		<span class="cell grow">5 object(s)</span>
+		<span class="cell">25.3 KB</span>
+		<span class="cell">My Computer</span>
+	</div>
+</div>
+
+<div class="window raised" style="max-width: 460px;">
+	<div class="titlebar">
+		<span class="ico"></span>Properties — THEME.CSS
+		<span class="spacer"></span>
+		<span class="tbtn">✕</span>
+	</div>
+	<div class="content">
+		<div class="row" style="gap:10px;align-items:flex-start">
+			<span class="tool" style="width:32px;height:30px;font-size:15px">▤</span>
+			<div style="flex:1">
+				<input class="input" value="THEME.CSS" style="max-width:100%">
+			</div>
+		</div>
+		<div class="fieldset">
+			<span class="legend">Attributes</span>
+			<div class="row" style="gap:16px">
+				<span class="check"><span class="box">✓</span>Read-only</span>
+				<span class="check"><span class="box"></span>Hidden</span>
+				<span class="check"><span class="box">✓</span>Archive</span>
+			</div>
+			<div class="row" style="gap:16px;margin-top:8px">
+				<span class="check"><span class="radio">●</span>Tokens only</span>
+				<span class="check"><span class="radio"></span>Full export</span>
+			</div>
+		</div>
+		<div class="fieldset">
+			<span class="legend">Copying</span>
+			<div class="progress sunken sunken-gray"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+			<p style="margin-top:6px">Copying 3 of 5 files…</p>
+		</div>
+		<div class="row" style="justify-content:flex-end;margin-top:12px">
+			<button class="btn default">OK</button>
+			<button class="btn">Cancel</button>
+			<button class="btn" disabled>Apply</button>
+		</div>
+	</div>
+</div>
+
+<div class="window raised" style="max-width: 620px;">
+	<div class="titlebar inactive">
+		<span class="ico"></span>Notepad — README.TXT
+		<span class="spacer"></span>
+		<span class="tbtn">_</span><span class="tbtn">□</span><span class="tbtn">✕</span>
+	</div>
+	<div class="menubar"><span style="background:transparent;color:#000"><u>F</u>ile</span><span><u>E</u>dit</span><span><u>S</u>earch</span><span><u>H</u>elp</span></div>
+	<div class="content sunken notepad">RETRO 95 — HOUSE RULES
+======================
+
+1. Zero border radius. Every corner is square. No exceptions.
+2. The bevel is the depth: 2px white top/left, 2px #5a5a5a
+   bottom/right. Sunken wells invert it.
+3. All type is 11-13px and plain. Window titles are 12px bold
+   white on navy. There is no display type in this system.
+4. Focus is a 1px dotted black outline, drawn inside the
+   control. There are no focus rings.
+5. Disabled text is gray with a 1px white offset underneath.</div>
+	<div class="statusbar"><span class="cell grow">Ln 1, Col 1</span><span class="cell">100%</span></div>
+</div>
+
+<!-- 01 -->
+<div class="window raised">
+	<div class="titlebar"><span class="ico"></span>01 — Chrome &amp; bevels<span class="spacer"></span><span class="tbtn">✕</span></div>
+	<div class="content">
+		<div class="section-title"><h2>Two pixels of light, two of shadow</h2></div>
+		<p class="lede">Every raised object takes a white top and left edge with a #5a5a5a bottom and
+			right; every well inverts it. That single pair does all the work that radius, shadow and color
+			do in a modern system — which is why nothing here needs any of them.</p>
+		<div class="row" style="margin-top:12px">
+			<button class="btn default">OK</button>
+			<button class="btn">Cancel</button>
+			<button class="btn">Browse…</button>
+			<button class="btn" disabled>Apply</button>
+			<span class="check"><span class="box">✓</span>Show hidden files</span>
+		</div>
+		<div class="row" style="margin-top:10px">
+			<input class="input" value="C:\VETTA\">
+			<span class="mono" style="color:var(--color-muted)">sunken well · white fill · square caret</span>
+		</div>
+		<div class="swatches">
+			<div class="sw"><div class="fill raised"></div><b>surface-raised</b><span>#c3c3c3 silver</span></div>
+			<div class="sw"><div class="fill" style="background: var(--color-primary)"></div><b>primary</b><span>#000080 navy</span></div>
+			<div class="sw"><div class="fill" style="background: var(--color-surface)"></div><b>surface</b><span>#008080 desktop</span></div>
+			<div class="sw"><div class="fill" style="background: var(--color-danger)"></div><b>danger</b><span>#aa0000 error</span></div>
+		</div>
+		<p class="note">Navy fills title bars and selection highlights, always with white text. Teal belongs to the desktop behind the windows and nowhere else.</p>
+	</div>
+</div>
+
+<!-- 02 MOBILE -->
+<div class="window raised">
+	<div class="titlebar"><span class="ico"></span>02 — Mobile<span class="spacer"></span><span class="tbtn">✕</span></div>
+	<div class="content">
+		<div class="section-title"><h2>The chrome shrinks — it never softens</h2></div>
+		<p class="lede">A 1995 interface on a 2026 phone is a genuine constraint: the bevels and hit
+			targets were drawn for a mouse. The answer is to keep every rule and change only the arithmetic —
+			one window fills the viewport, the taskbar becomes the navigation, and controls grow taller
+			without gaining a single pixel of radius.</p>
+		<div class="mobile">
+			<div class="phone">
+				<div class="phone-status"><span>9:41</span><span>LTE ▮</span></div>
+				<div class="m-window raised">
+					<div class="titlebar"><span class="ico"></span>Design Tokens<span class="spacer"></span><span class="tbtn">✕</span></div>
+					<div class="menubar"><span><u>F</u>ile</span><span><u>E</u>dit</span><span><u>V</u>iew</span></div>
+					<div class="m-content sunken">
+						<table class="m-filelist">
+							<tbody>
+								<tr class="selected"><td>▤</td><td>THEME.CSS</td><td>2 KB</td></tr>
+								<tr><td>▤</td><td>DESIGN.MD</td><td>4 KB</td></tr>
+								<tr><td>▤</td><td>DEMO.HTM</td><td>18 KB</td></tr>
+								<tr><td>▦</td><td>SCREENS</td><td>—</td></tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="statusbar"><span class="cell grow">4 object(s)</span><span class="cell">24 KB</span></div>
+				</div>
+				<div class="m-taskbar raised">
+					<span class="m-start">▤ Start</span>
+					<span class="m-task">Design Tokens</span>
+					<span class="m-clock">9:41</span>
+				</div>
+			</div>
+			<ul class="rules">
+				<li><b>One window, full width</b><span>Overlapping windows are a mouse idea. On a phone a single window fills the viewport with a 6px teal margin, so you can still see the desktop it belongs to.</span></li>
+				<li><b>The taskbar is the nav</b><span>Start button, one task button per open window, and the clock. It pins to the bottom and keeps its raised bevel and pressed task state.</span></li>
+				<li><b>Bevels stay 2px</b><span>They do not thin out, round off or turn into a hairline. At 2px they are already the smallest structural element the system has.</span></li>
+				<li><b>Targets grow, chrome doesn't</b><span>Buttons go from 24px to 36px tall and title-bar boxes from 17px to 28px. Padding grows; border width, radius and type size do not.</span></li>
+				<li><b>Columns drop</b><span>The file list keeps name and size, dropping type and modified date below 620px. It stays a table with a beveled header — never a card list.</span></li>
+				<li><b>Type floor</b><span>11px is the smallest size in the system and 13px bold is the largest. Nothing scales up on mobile; the density is historically accurate and stays.</span></li>
+				<li><b>No gestures</b><span>Swipe and long-press have no 1995 equivalent, so every action stays reachable from a menu bar or a button. Hidden gestures would be an anachronism.</span></li>
+			</ul>
+		</div>
+	</div>
+</div>
+
+<!-- 03 DON'T -->
+<div class="window raised">
+	<div class="titlebar"><span class="ico"></span>03 — Off-style, for contrast<span class="spacer"></span><span class="tbtn">✕</span></div>
+	<div class="content">
+		<div class="section-title"><h2>What breaks the museum piece</h2></div>
+		<div class="compare">
+			<div class="cmp-off">Modern soft panel
+				<small>12px radius · gradient fill · blurred drop shadow · slate-gray text. Any one of these makes the whole thing read as a costume rather than the real machine.</small></div>
+			<div class="cmp-on raised">Same content, on-style
+				<small>Square corners, flat #c3c3c3 fill, 2px bevel, black 12px text. The chrome is supposed to be visible and chunky — that is the aesthetic, not a limitation.</small></div>
+		</div>
+		<p class="note">Also out: pastels and neons, anti-historical colors of any kind, large display type, and modern minimalism that hides the chrome.</p>
+	</div>
+	<div class="statusbar"><span class="cell grow">Vetta design reference — retro-95</span><span class="cell">READY</span></div>
+</div>
+
+</body>
+</html>

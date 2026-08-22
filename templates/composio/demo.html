@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Composio — Design System</title>
+
+
+
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+
+:root{
+  --carbon-black:#0a0a0a;
+  --obsidian:#111111;
+  --graphite:#1a1a1a;
+  --slate:#262626;
+  --iron:#333333;
+  --snow-white:#ffffff;
+  --silver:#a1a1a1;
+  --steel:#666666;
+  --mist:#525252;
+  --electric-blue:#3b82f6;
+  --neon-cyan:#22d3ee;
+  --emerald:#10b981;
+  --signal-red:#ef4444;
+  --amber:#f59e0b;
+  --violet:#8b5cf6;
+
+  --r-sm:4px;--r-md:6px;--r-lg:8px;--r-xl:12px;--r-2xl:16px;--r-full:9999px;
+}
+
+::selection{background:rgba(59,130,246,.3);color:var(--snow-white)}
+html{scroll-behavior:smooth}
+
+body{
+  font-family:'Inter',system-ui,-apple-system,sans-serif;
+  background:var(--carbon-black);color:var(--snow-white);
+  font-size:14px;line-height:1.5;
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
+}
+
+.page{max-width:960px;margin:0 auto;padding:0 32px 120px}
+
+/* ── NAV ── */
+.nav{
+  display:flex;justify-content:space-between;align-items:center;
+  height:56px;padding:0 16px;position:sticky;top:0;z-index:100;
+  background:rgba(17,17,17,.92);backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--slate);
+  margin:0 -32px;
+}
+.nav-left{display:flex;align-items:center;gap:12px}
+.nav-wordmark{
+  font-family:'JetBrains Mono',monospace;
+  font-size:15px;font-weight:700;letter-spacing:-.3px;
+  color:var(--snow-white);text-decoration:none;
+}
+.nav-tag{
+  font-family:'JetBrains Mono',monospace;
+  font-size:10px;font-weight:600;color:var(--electric-blue);
+  background:rgba(59,130,246,.08);padding:3px 8px;border-radius:var(--r-full);
+  border:1px solid rgba(59,130,246,.15);letter-spacing:.06em;text-transform:uppercase;
+}
+.nav-right{display:flex;align-items:center;gap:4px}
+.nav-link{
+  font-family:'JetBrains Mono',monospace;
+  font-size:12px;font-weight:500;color:var(--steel);text-decoration:none;
+  padding:6px 10px;border-radius:var(--r-md);transition:all .2s;
+  letter-spacing:.06em;text-transform:uppercase;
+}
+.nav-link:hover{color:var(--snow-white);background:var(--graphite)}
+.nav-link--active{color:var(--snow-white)}
+.nav-url{
+  font-size:11px;font-weight:400;color:var(--steel);text-decoration:none;
+  padding:4px 10px;border-radius:var(--r-full);transition:all .2s;
+  background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);
+  letter-spacing:.02px;white-space:nowrap;
+}
+.nav-url:hover{color:var(--snow-white);background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.15)}
+
+/* ── SECTIONS ── */
+.section{
+  padding:64px 0 0;
+  border-top:1px solid var(--slate);
+  margin-top:48px;
+}
+.section:first-of-type{border-top:none;margin-top:40px}
+.section-header{margin-bottom:32px}
+.section-label{
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;font-weight:600;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--electric-blue);margin-bottom:8px;
+}
+.section-title{
+  font-size:28px;font-weight:700;letter-spacing:-.4px;line-height:1.15;
+  color:var(--snow-white);
+}
+.section-desc{
+  font-size:14px;line-height:1.6;color:var(--silver);
+  margin-top:10px;max-width:560px;
+}
+
+/* ── HERO ── */
+.hero{
+  padding:64px 0 40px;
+  border-bottom:1px solid var(--slate);
+  margin:0 -32px;padding-left:32px;padding-right:32px;
+  position:relative;overflow:hidden;
+}
+.hero::before{
+  content:'';position:absolute;
+  width:400px;height:400px;
+  background:radial-gradient(circle,rgba(59,130,246,.08),transparent 70%);
+  border-radius:50%;filter:blur(80px);
+  right:-80px;top:-120px;pointer-events:none;
+}
+.hero::after{
+  content:'';position:absolute;
+  width:300px;height:300px;
+  background:radial-gradient(circle,rgba(34,211,238,.05),transparent 70%);
+  border-radius:50%;filter:blur(60px);
+  left:20%;bottom:-80px;pointer-events:none;
+}
+.hero-label{
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;font-weight:600;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--emerald);margin-bottom:12px;
+}
+.hero-title{
+  font-size:clamp(36px,6vw,48px);font-weight:700;line-height:1;
+  letter-spacing:-.02em;color:var(--snow-white);
+}
+.hero-title em{
+  font-style:normal;
+  background:linear-gradient(135deg,var(--electric-blue),var(--violet));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.hero-subtitle{
+  font-size:15px;line-height:1.6;color:var(--silver);
+  margin-top:16px;max-width:480px;
+}
+.hero-tags{display:flex;gap:6px;margin-top:20px;flex-wrap:wrap}
+.hero-tag{
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;font-weight:500;color:var(--steel);
+  background:var(--graphite);padding:4px 10px;border-radius:var(--r-full);
+  border:1px solid var(--slate);letter-spacing:.02em;
+}
+.hero-actions{display:flex;gap:10px;margin-top:24px}
+
+/* ── BUTTONS ── */
+.btn{
+  display:inline-flex;align-items:center;gap:6px;
+  font-family:'JetBrains Mono',monospace;
+  font-size:12px;font-weight:600;line-height:1;
+  letter-spacing:.02em;padding:8px 20px;border-radius:var(--r-md);
+  cursor:pointer;text-decoration:none;white-space:nowrap;
+  transition:opacity .15s,transform .15s,background .15s,border-color .15s;
+  text-transform:uppercase;
+}
+.btn:active{transform:scale(.97)}
+.btn-primary{background:var(--snow-white);color:var(--carbon-black);border:1px solid transparent}
+.btn-primary:hover{opacity:.85}
+.btn-secondary{background:transparent;color:var(--snow-white);border:1px solid var(--slate)}
+.btn-secondary:hover{border-color:var(--iron);background:var(--graphite)}
+.btn-ghost{background:transparent;color:var(--electric-blue);border:1px solid var(--electric-blue)}
+.btn-ghost:hover{background:rgba(59,130,246,.08)}
+
+/* ── COLOR TOKENS ── */
+.color-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;
+}
+.color-token{
+  background:var(--graphite);border:1px solid var(--slate);
+  border-radius:var(--r-xl);overflow:hidden;transition:border-color .2s;
+}
+.color-token:hover{border-color:var(--iron)}
+.color-swatch{width:100%;height:72px}
+.color-info{padding:12px 14px}
+.color-name{
+  font-family:'JetBrains Mono',monospace;
+  font-size:12px;font-weight:600;letter-spacing:.01em;color:var(--snow-white);
+}
+.color-hex{
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;font-weight:500;color:var(--steel);margin-top:2px;
+  font-variant-numeric:tabular-nums;letter-spacing:.015px;
+}
+.color-role{font-size:11px;color:var(--mist);margin-top:4px;line-height:1.4}
+
+/* ── GRADIENT TOKENS ── */
+.gradient-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}
+.gradient-token{
+  border-radius:var(--r-xl);padding:20px;border:1px solid var(--slate);
+  min-height:100px;display:flex;flex-direction:column;justify-content:flex-end;
+}
+.gradient-name{
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;font-weight:500;color:var(--steel);letter-spacing:.015px;margin-bottom:4px;
+}
+.gradient-desc{font-size:12px;color:var(--mist);line-height:1.4}
+
+/* ── TYPE SCALE ── */
+.type-table{
+  display:flex;flex-direction:column;border:1px solid var(--slate);
+  border-radius:var(--r-xl);overflow:hidden;
+}
+.type-row{
+  display:grid;grid-template-columns:100px 1fr 200px;align-items:baseline;
+  padding:14px 20px;border-bottom:1px solid var(--slate);
+}
+.type-row:last-child{border-bottom:none}
+.type-row:hover{background:rgba(255,255,255,.02)}
+.type-meta{
+  font-family:'JetBrains Mono',monospace;
+  font-size:10px;font-weight:600;color:var(--electric-blue);
+  letter-spacing:.06em;text-transform:uppercase;
+}
+.type-sample{color:var(--snow-white);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.type-specs{
+  font-family:'JetBrains Mono',monospace;
+  font-size:10px;color:var(--steel);text-align:right;
+  font-variant-numeric:tabular-nums;letter-spacing:.015px;
+}
+
+/* ── SPACING ── */
+.spacing-bars{display:flex;align-items:flex-end;gap:16px;height:100px}
+.spacing-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px}
+.spacing-bar{
+  width:100%;border-radius:var(--r-sm);
+  background:linear-gradient(180deg,var(--electric-blue),var(--violet));
+  opacity:.25;transition:opacity .3s;
+}
+.spacing-col:hover .spacing-bar{opacity:.6}
+.spacing-val{
+  font-family:'JetBrains Mono',monospace;
+  font-size:10px;font-weight:600;color:var(--snow-white);letter-spacing:.015px;
+}
+.spacing-name{
+  font-family:'JetBrains Mono',monospace;
+  font-size:9px;font-weight:500;color:var(--steel);letter-spacing:.015px;
+}
+
+/* ── SHAPES ── */
+.shapes-row{display:flex;flex-wrap:wrap;gap:20px;align-items:flex-end}
+.shape-item{display:flex;flex-direction:column;align-items:center;gap:6px}
+.shape-box{
+  width:64px;height:64px;background:var(--graphite);
+  border:1.5px solid var(--slate);transition:all .3s cubic-bezier(.22,1,.36,1);
+}
+.shape-box:hover{border-color:var(--electric-blue);transform:scale(1.06)}
+.shape-label{
+  font-family:'JetBrains Mono',monospace;
+  font-size:10px;font-weight:500;color:var(--steel);letter-spacing:.015px;white-space:nowrap;
+}
+.shape-value{
+  font-family:'JetBrains Mono',monospace;
+  font-size:9px;font-weight:400;color:var(--mist);letter-spacing:.015px;
+  font-variant-numeric:tabular-nums;
+}
+
+/* ── DEPTH ── */
+.depth-row{
+  display:flex;align-items:center;gap:16px;padding:16px 0;
+  border-bottom:1px solid var(--slate);
+}
+.depth-row:last-child{border-bottom:none}
+.depth-swatch{
+  width:48px;height:48px;border-radius:var(--r-md);flex-shrink:0;
+}
+.depth-info{flex:1}
+.depth-name{
+  font-size:13px;font-weight:600;letter-spacing:.01px;color:var(--snow-white);
+}
+.depth-desc{font-size:11px;color:var(--steel);margin-top:2px;letter-spacing:.015px}
+.depth-value{
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;font-weight:500;color:var(--mist);
+  font-variant-numeric:tabular-nums;letter-spacing:.015px;
+}
+
+/* ── SURFACES ── */
+.surface-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
+.surface-item{
+  border-radius:var(--r-xl);padding:24px 16px;
+  text-align:center;border:1px solid var(--slate);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:4px;min-height:96px;transition:transform .3s;
+}
+.surface-item:hover{transform:scale(1.02)}
+.surface-name{
+  font-family:'JetBrains Mono',monospace;
+  font-size:12px;font-weight:600;letter-spacing:.01em;
+}
+.surface-val{
+  font-family:'JetBrains Mono',monospace;
+  font-size:10px;font-weight:500;color:var(--steel);
+  font-variant-numeric:tabular-nums;letter-spacing:.015px;
+}
+
+/* ── COMPONENTS ── */
+.component-card{
+  background:var(--graphite);border:1px solid var(--slate);
+  border-radius:var(--r-xl);padding:28px;margin-bottom:16px;
+  transition:border-color .2s;
+}
+.component-card:hover{border-color:var(--iron)}
+.component-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px}
+.component-name{font-size:14px;font-weight:600;letter-spacing:.01px;color:var(--snow-white)}
+.component-role{font-size:11px;color:var(--steel);margin-top:3px;letter-spacing:.015px}
+.component-class{
+  font-family:'JetBrains Mono',monospace;
+  font-size:10px;font-weight:600;color:var(--electric-blue);
+  background:rgba(59,130,246,.08);padding:3px 8px;border-radius:var(--r-full);
+  border:1px solid rgba(59,130,246,.12);letter-spacing:.06em;
+  text-transform:uppercase;
+}
+.component-preview{
+  display:flex;gap:12px;align-items:center;flex-wrap:wrap;
+  padding:16px;background:var(--carbon-black);border-radius:var(--r-lg);
+  border:1px solid var(--slate);
+}
+.component-desc{
+  font-size:11px;color:var(--mist);line-height:1.5;
+  margin-top:10px;max-width:480px;
+}
+
+/* ── DO/DON'T ── */
+.guide-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.guide-card{
+  border-radius:var(--r-xl);padding:24px;
+  border:1px solid var(--slate);
+}
+.guide-card--do{background:rgba(16,185,129,.03);border-color:rgba(16,185,129,.12)}
+.guide-card--dont{background:rgba(239,68,68,.03);border-color:rgba(239,68,68,.1)}
+.guide-label{
+  font-family:'JetBrains Mono',monospace;
+  font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;margin-bottom:14px;
+}
+.guide-card--do .guide-label{color:var(--emerald)}
+.guide-card--dont .guide-label{color:var(--signal-red)}
+.guide-list{
+  list-style:none;display:flex;flex-direction:column;gap:8px;
+}
+.guide-list li{
+  font-size:12px;line-height:1.5;padding-left:18px;position:relative;
+  color:var(--silver);
+}
+.guide-card--do .guide-list li::before{
+  content:'✓';position:absolute;left:0;color:var(--emerald);font-weight:700;font-size:11px;
+}
+.guide-card--dont .guide-list li::before{
+  content:'✕';position:absolute;left:0;color:var(--signal-red);font-weight:700;font-size:11px;
+}
+
+/* ── FOOTER ── */
+.footer{
+  margin-top:80px;padding:24px 0;
+  border-top:1px solid var(--slate);
+  display:flex;justify-content:space-between;align-items:center;
+}
+.footer-left{
+  font-family:'JetBrains Mono',monospace;
+  font-size:12px;font-weight:500;color:var(--steel);opacity:.6;
+}
+.footer-right{display:flex;gap:16px}
+.footer-link{
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;font-weight:500;color:var(--steel);text-decoration:none;
+  transition:color .2s;letter-spacing:.015px;text-transform:uppercase;
+}
+.footer-link:hover{color:var(--electric-blue)}
+
+/* ── RESPONSIVE ── */
+@media(max-width:768px){
+  .page{padding:0 20px 80px}
+  .hero{margin:0 -20px;padding-left:20px;padding-right:20px;padding-top:48px}
+  .nav{margin:0 -20px}
+  .section-title{font-size:22px}
+  .type-row{grid-template-columns:70px 1fr;gap:6px}
+  .type-specs{display:none}
+  .guide-grid{grid-template-columns:1fr}
+  .color-grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr))}
+  .hero-title{font-size:32px}
+}
+
+/* ── ENTRANCE ANIMATION ── */
+.section,.hero{opacity:1;transition:opacity .5s cubic-bezier(.22,1,.36,1),transform .5s cubic-bezier(.22,1,.36,1)}
+.section.visible,.hero.visible{opacity:1;transform:translateY(0)}
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="nav-left">
+      <a href="#" class="nav-wordmark">composio</a>
+      <span class="nav-tag">Design System</span>
+      <a href="#" class="nav-url">https://composio.dev</a>
+    </div>
+    <div class="nav-right">
+      <a href="#colors" class="nav-link nav-link--active">Colors</a>
+      <a href="#typography" class="nav-link">Type</a>
+      <a href="#spacing" class="nav-link">Spacing</a>
+      <a href="#components" class="nav-link">Components</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-label">Design System</div>
+    <h1 class="hero-title">Your agent decides<br><em>what to do.</em></h1>
+    <p class="hero-subtitle">Developer command center for AI agent tooling. Monospace labels, near-black surfaces, electric blue accents. Compact, technical, precise.</p>
+    <div class="hero-tags">
+      <span class="hero-tag">15 color tokens</span>
+      <span class="hero-tag">10 type steps</span>
+      <span class="hero-tag">4px grid</span>
+      <span class="hero-tag">4 surface levels</span>
+    </div>
+    <div class="hero-actions">
+      <a href="#" class="btn btn-primary" download>Download Spec</a>
+      <a href="#" class="btn btn-secondary" download>theme.css</a>
+      <a href="#" class="btn btn-secondary" download>tokens.json</a>
+      <a href="#" class="btn btn-secondary" download>variables.css</a>
+    </div>
+  </div>
+
+  <!-- COLORS -->
+  <section class="section" id="colors">
+    <div class="section-header">
+      <div class="section-label">Foundation</div>
+      <h2 class="section-title">Color Tokens</h2>
+      <p class="section-desc">Near-black surfaces with electric blue and neon cyan accents. 15 tokens spanning neutrals, interactive, semantic, and decorative categories.</p>
+    </div>
+    <div class="color-grid">
+      <div class="color-token">
+        <div class="color-swatch" style="background:#0a0a0a"></div>
+        <div class="color-info"><div class="color-name">Carbon Black</div><div class="color-hex">#0a0a0a</div><div class="color-role">Primary page background</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#111111"></div>
+        <div class="color-info"><div class="color-name">Obsidian</div><div class="color-hex">#111111</div><div class="color-role">Nav bar, elevated panels</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#1a1a1a"></div>
+        <div class="color-info"><div class="color-name">Graphite</div><div class="color-hex">#1a1a1a</div><div class="color-role">Code blocks, inputs</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#262626"></div>
+        <div class="color-info"><div class="color-name">Slate</div><div class="color-hex">#262626</div><div class="color-role">Borders, dividers</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#333333"></div>
+        <div class="color-info"><div class="color-name">Iron</div><div class="color-hex">#333333</div><div class="color-role">Inactive states</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#ffffff"></div>
+        <div class="color-info"><div class="color-name">Snow White</div><div class="color-hex">#ffffff</div><div class="color-role">Primary text, icons</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#a1a1a1"></div>
+        <div class="color-info"><div class="color-name">Silver</div><div class="color-hex">#a1a1a1</div><div class="color-role">Secondary text</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#666666"></div>
+        <div class="color-info"><div class="color-name">Steel</div><div class="color-hex">#666666</div><div class="color-role">Placeholders, labels</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#525252"></div>
+        <div class="color-info"><div class="color-name">Mist</div><div class="color-hex">#525252</div><div class="color-role">Helper text, captions</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#3b82f6"></div>
+        <div class="color-info"><div class="color-name">Electric Blue</div><div class="color-hex">#3b82f6</div><div class="color-role">Links, interactive accents</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#22d3ee"></div>
+        <div class="color-info"><div class="color-name">Neon Cyan</div><div class="color-hex">#22d3ee</div><div class="color-role">Highlight accents, glow</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#10b981"></div>
+        <div class="color-info"><div class="color-name">Emerald</div><div class="color-hex">#10b981</div><div class="color-role">Success states</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#ef4444"></div>
+        <div class="color-info"><div class="color-name">Signal Red</div><div class="color-hex">#ef4444</div><div class="color-role">Error states, alerts</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#f59e0b"></div>
+        <div class="color-info"><div class="color-name">Amber</div><div class="color-hex">#f59e0b</div><div class="color-role">Warning, pending status</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#8b5cf6"></div>
+        <div class="color-info"><div class="color-name">Violet</div><div class="color-hex">#8b5cf6</div><div class="color-role">Decorative accents</div></div>
+      </div>
+    </div>
+
+    <h3 style="font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:600;color:var(--snow-white);margin:32px 0 16px;letter-spacing:.01em">Gradients</h3>
+    <div class="gradient-grid">
+      <div class="gradient-token" style="background:linear-gradient(135deg,rgba(59,130,246,.12) 0%,rgba(139,92,246,.08) 100%),var(--graphite)">
+        <div class="gradient-name">blue-glow</div>
+        <div class="gradient-desc">Gradient accent for hero graphics</div>
+      </div>
+      <div class="gradient-token" style="background:radial-gradient(ellipse at 50% 50%,rgba(34,211,238,.1),transparent 70%),var(--graphite)">
+        <div class="gradient-name">cyan-pulse</div>
+        <div class="gradient-desc">Ambient glow behind feature cards</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TYPOGRAPHY -->
+  <section class="section" id="typography">
+    <div class="section-header">
+      <div class="section-label">Typography</div>
+      <h2 class="section-title">Type Scale</h2>
+      <p class="section-desc">Inter for body and headings. JetBrains Mono for code, navigation labels, and technical UI. Monospace labels create the terminal-meets-dashboard aesthetic.</p>
+    </div>
+    <div class="type-table">
+      <div class="type-row">
+        <span class="type-meta">Display-lg</span>
+        <span class="type-sample" style="font-size:28px;font-weight:700;line-height:1;letter-spacing:-.02em">Ship faster</span>
+        <span class="type-specs">48px / 1.0 / −0.02em</span>
+      </div>
+      <div class="type-row">
+        <span class="type-meta">Display</span>
+        <span class="type-sample" style="font-size:22px;font-weight:700;line-height:1.1;letter-spacing:-.02em">Build what matters</span>
+        <span class="type-specs">40px / 1.1 / −0.02em</span>
+      </div>
+      <div class="type-row">
+        <span class="type-meta">Heading-lg</span>
+        <span class="type-sample" style="font-size:18px;font-weight:700;line-height:1.2;letter-spacing:-.3px">Section heading</span>
+        <span class="type-specs">32px / 1.2 / −0.02px</span>
+      </div>
+      <div class="type-row">
+        <span class="type-meta">Heading</span>
+        <span class="type-sample" style="font-size:16px;font-weight:600;line-height:1.2;letter-spacing:-.3px">Subsection heading</span>
+        <span class="type-specs">24px / 1.2 / −0.02px</span>
+      </div>
+      <div class="type-row">
+        <span class="type-meta">Body-lg</span>
+        <span class="type-sample" style="font-size:16px;font-weight:400;line-height:1.6">Default body text for readable content blocks</span>
+        <span class="type-specs">16px / 1.6 / —</span>
+      </div>
+      <div class="type-row">
+        <span class="type-meta">Body</span>
+        <span class="type-sample" style="font-size:14px;font-weight:400;line-height:1.5">Dense data, comparison rows, UI text</span>
+        <span class="type-specs">14px / 1.5 / —</span>
+      </div>
+      <div class="type-row">
+        <span class="type-meta">Caption</span>
+        <span class="type-sample" style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:500;line-height:1.5;letter-spacing:.02em">META · LABELS · STATUS</span>
+        <span class="type-specs">12px / 1.5 / 0.02px</span>
+      </div>
+    </div>
+
+    <h3 style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;color:var(--snow-white);margin:32px 0 16px;letter-spacing:.01em">Fonts</h3>
+    <div style="display:flex;flex-direction:column;border:1px solid var(--slate);border-radius:var(--r-xl);overflow:hidden">
+      <div style="padding:16px 20px;border-bottom:1px solid var(--slate);display:flex;align-items:baseline;gap:12px">
+        <span style="font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;color:var(--electric-blue);letter-spacing:.06em;text-transform:uppercase;flex:0 0 60px">Primary</span>
+        <span style="font-size:15px;font-weight:600;color:var(--snow-white);letter-spacing:-.2px">Inter</span>
+        <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--steel);letter-spacing:.015px">400–700 · 12–48px</span>
+      </div>
+      <div style="padding:16px 20px;border-bottom:1px solid var(--slate);display:flex;align-items:baseline;gap:12px">
+        <span style="font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;color:var(--electric-blue);letter-spacing:.06em;text-transform:uppercase;flex:0 0 60px">Mono</span>
+        <span style="font-family:'JetBrains Mono',monospace;font-size:15px;font-weight:500;color:var(--snow-white);letter-spacing:-.2px">JetBrains Mono</span>
+        <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--steel);letter-spacing:.015px">400–700 · Code, nav, badges</span>
+      </div>
+      <div style="padding:16px 20px;display:flex;align-items:baseline;gap:12px">
+        <span style="font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;color:var(--electric-blue);letter-spacing:.06em;text-transform:uppercase;flex:0 0 60px">Fallback</span>
+        <span style="font-size:15px;font-weight:500;color:var(--snow-white);letter-spacing:-.2px">system-ui</span>
+        <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--steel);letter-spacing:.015px">Substitute for Inter</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- SPACING & SHAPES -->
+  <section class="section" id="spacing">
+    <div class="section-header">
+      <div class="section-label">Layout</div>
+      <h2 class="section-title">Spacing & Shapes</h2>
+      <p class="section-desc">Base unit 4px. Compact density with clear visual hierarchy. 15-step spacing scale, 6 border radius values.</p>
+    </div>
+
+    <h3 style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;color:var(--snow-white);margin-bottom:16px;letter-spacing:.01em">Spacing Scale (4px base)</h3>
+    <div class="spacing-bars">
+      <div class="spacing-col"><div class="spacing-bar" style="height:6px"></div><span class="spacing-val">4</span><span class="spacing-name">4px</span></div>
+      <div class="spacing-col"><div class="spacing-bar" style="height:10px"></div><span class="spacing-val">8</span><span class="spacing-name">8px</span></div>
+      <div class="spacing-col"><div class="spacing-bar" style="height:16px"></div><span class="spacing-val">12</span><span class="spacing-name">12px</span></div>
+      <div class="spacing-col"><div class="spacing-bar" style="height:22px"></div><span class="spacing-val">16</span><span class="spacing-name">16px</span></div>
+      <div class="spacing-col"><div class="spacing-bar" style="height:32px"></div><span class="spacing-val">24</span><span class="spacing-name">24px</span></div>
+      <div class="spacing-col"><div class="spacing-bar" style="height:44px"></div><span class="spacing-val">32</span><span class="spacing-name">32px</span></div>
+      <div class="spacing-col"><div class="spacing-bar" style="height:64px"></div><span class="spacing-val">48</span><span class="spacing-name">48px</span></div>
+      <div class="spacing-col"><div class="spacing-bar" style="height:90px"></div><span class="spacing-val">96</span><span class="spacing-name">96px</span></div>
+    </div>
+
+    <h3 style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;color:var(--snow-white);margin:32px 0 16px;letter-spacing:.01em">Border Radius</h3>
+    <div class="shapes-row">
+      <div class="shape-item">
+        <div class="shape-box" style="border-radius:4px"></div>
+        <span class="shape-label">sm</span>
+        <span class="shape-value">4px</span>
+      </div>
+      <div class="shape-item">
+        <div class="shape-box" style="border-radius:6px"></div>
+        <span class="shape-label">md</span>
+        <span class="shape-value">6px</span>
+      </div>
+      <div class="shape-item">
+        <div class="shape-box" style="border-radius:8px"></div>
+        <span class="shape-label">lg</span>
+        <span class="shape-value">8px</span>
+      </div>
+      <div class="shape-item">
+        <div class="shape-box" style="border-radius:12px"></div>
+        <span class="shape-label">xl</span>
+        <span class="shape-value">12px</span>
+      </div>
+      <div class="shape-item">
+        <div class="shape-box" style="border-radius:16px"></div>
+        <span class="shape-label">2xl</span>
+        <span class="shape-value">16px</span>
+      </div>
+      <div class="shape-item">
+        <div class="shape-box" style="border-radius:9999px"></div>
+        <span class="shape-label">pill</span>
+        <span class="shape-value">9999px</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- DEPTH & SURFACES -->
+  <section class="section" id="depth">
+    <div class="section-header">
+      <div class="section-label">Elevation</div>
+      <h2 class="section-title">Depth & Surfaces</h2>
+      <p class="section-desc">Near-black layering with subtle tonal shifts. No shadows — elevation is communicated through background brightness alone.</p>
+    </div>
+
+    <h3 style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;color:var(--snow-white);margin-bottom:12px;letter-spacing:.01em">Depth Levels</h3>
+    <div style="margin-bottom:32px">
+      <div class="depth-row">
+        <div class="depth-swatch" style="background:#0a0a0a;border:1px solid var(--slate)"></div>
+        <div class="depth-info"><div class="depth-name">Carbon Black</div><div class="depth-desc">Base page background — the canvas</div></div>
+        <div class="depth-value">Level 0</div>
+      </div>
+      <div class="depth-row">
+        <div class="depth-swatch" style="background:#111111;border:1px solid var(--slate)"></div>
+        <div class="depth-info"><div class="depth-name">Obsidian</div><div class="depth-desc">Nav bar, elevated panels, modals</div></div>
+        <div class="depth-value">Level 1</div>
+      </div>
+      <div class="depth-row">
+        <div class="depth-swatch" style="background:#1a1a1a;border:1px solid var(--slate)"></div>
+        <div class="depth-info"><div class="depth-name">Graphite</div><div class="depth-desc">Code blocks, input fields, cards</div></div>
+        <div class="depth-value">Level 2</div>
+      </div>
+      <div class="depth-row">
+        <div class="depth-swatch" style="background:#262626;border:1px solid var(--iron)"></div>
+        <div class="depth-info"><div class="depth-name">Slate</div><div class="depth-desc">Borders, dividers, containers</div></div>
+        <div class="depth-value">Level 3</div>
+      </div>
+    </div>
+
+    <h3 style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;color:var(--snow-white);margin-bottom:12px;letter-spacing:.01em">Surface System</h3>
+    <div class="surface-grid">
+      <div class="surface-item" style="background:#0a0a0a">
+        <span class="surface-name">Carbon Black</span>
+        <span class="surface-val">#0a0a0a</span>
+      </div>
+      <div class="surface-item" style="background:#111111">
+        <span class="surface-name">Obsidian</span>
+        <span class="surface-val">#111111</span>
+      </div>
+      <div class="surface-item" style="background:#1a1a1a">
+        <span class="surface-name">Graphite</span>
+        <span class="surface-val">#1a1a1a</span>
+      </div>
+      <div class="surface-item" style="background:#262626">
+        <span class="surface-name">Slate</span>
+        <span class="surface-val">#262626</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPONENTS -->
+  <section class="section" id="components">
+    <div class="section-header">
+      <div class="section-label">Components</div>
+      <h2 class="section-title">Button Variants</h2>
+      <p class="section-desc">White primary CTA, Electric Blue accent, ghost variants. Monospace labels throughout for the technical aesthetic.</p>
+    </div>
+
+    <div class="component-card">
+      <div class="component-header">
+        <div><div class="component-name">Primary CTA Button</div><div class="component-role">Main call to action — highest contrast</div></div>
+        <span class="component-class">.btn-primary</span>
+      </div>
+      <div class="component-preview">
+        <button class="btn btn-primary">Get Started</button>
+        <button class="btn btn-primary" style="opacity:.85">Hover state</button>
+      </div>
+      <div class="component-desc">White (#ffffff) background, Carbon Black text, 6px radius. Monospace 12px uppercase. Use for the single most important action.</div>
+    </div>
+
+    <div class="component-card">
+      <div class="component-header">
+        <div><div class="component-name">Blue Accent Button</div><div class="component-role">Secondary interactive actions</div></div>
+        <span class="component-class">.btn-ghost</span>
+      </div>
+      <div class="component-preview">
+        <button class="btn btn-ghost">Watch Demo</button>
+        <button class="btn btn-ghost" style="background:rgba(59,130,246,.08)">Hover state</button>
+      </div>
+      <div class="component-desc">Electric Blue text and border, transparent background. Clear interactive target without competing with primary.</div>
+    </div>
+
+    <div class="component-card">
+      <div class="component-header">
+        <div><div class="component-name">Secondary Button</div><div class="component-role">Tertiary actions, navigation</div></div>
+        <span class="component-class">.btn-secondary</span>
+      </div>
+      <div class="component-preview">
+        <button class="btn btn-secondary">Sign In</button>
+        <button class="btn btn-secondary" style="border-color:var(--iron);background:var(--graphite)">Hover state</button>
+      </div>
+      <div class="component-desc">Snow White text, Slate border. For less prominent actions that still need visual presence.</div>
+    </div>
+
+    <div class="component-card">
+      <div class="component-header">
+        <div><div class="component-name">Nav Link</div><div class="component-role">Navigation items</div></div>
+        <span class="component-class">.nav-link</span>
+      </div>
+      <div class="component-preview">
+        <a href="#" style="font-family:'JetBrains Mono',monospace;color:var(--snow-white);text-decoration:none;font-size:12px;font-weight:500;padding:6px 10px;letter-spacing:.06em;text-transform:uppercase">Products</a>
+        <a href="#" style="font-family:'JetBrains Mono',monospace;color:var(--snow-white);text-decoration:none;font-size:12px;font-weight:500;padding:6px 10px;letter-spacing:.06em;text-transform:uppercase">Solutions</a>
+        <a href="#" style="font-family:'JetBrains Mono',monospace;color:var(--snow-white);text-decoration:none;font-size:12px;font-weight:500;padding:6px 10px;letter-spacing:.06em;text-transform:uppercase">Docs</a>
+      </div>
+      <div class="component-desc">JetBrains Mono 12px, uppercase, 0.06em tracking. Steel color, Snow White on hover. Transparent background.</div>
+    </div>
+
+    <div class="component-card">
+      <div class="component-header">
+        <div><div class="component-name">Status Badge</div><div class="component-role">Connection and execution status</div></div>
+        <span class="component-class">.badge-status</span>
+      </div>
+      <div class="component-preview">
+        <span style="font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;color:var(--emerald);background:rgba(16,185,129,.08);padding:3px 8px;border-radius:var(--r-full);border:1px solid rgba(16,185,129,.15);letter-spacing:.06em;text-transform:uppercase">Connected</span>
+        <span style="font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;color:var(--amber);background:rgba(245,158,11,.08);padding:3px 8px;border-radius:var(--r-full);border:1px solid rgba(245,158,11,.15);letter-spacing:.06em;text-transform:uppercase">Pending</span>
+        <span style="font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;color:var(--signal-red);background:rgba(239,68,68,.08);padding:3px 8px;border-radius:var(--r-full);border:1px solid rgba(239,68,68,.12);letter-spacing:.06em;text-transform:uppercase">Error</span>
+      </div>
+      <div class="component-desc">Pill shape, JetBrains Mono 10px uppercase. Semantic colors: Emerald for success, Amber for pending, Signal Red for error.</div>
+    </div>
+
+    <div class="component-card">
+      <div class="component-header">
+        <div><div class="component-name">Code Block</div><div class="component-role">Code snippets and terminal output</div></div>
+        <span class="component-class">.code-block</span>
+      </div>
+      <div class="component-preview" style="flex-direction:column;align-items:stretch">
+        <div style="background:var(--graphite);border:1px solid var(--slate);border-radius:var(--r-xl);padding:16px;font-family:'JetBrains Mono',monospace;font-size:13px;line-height:1.5;color:var(--silver)">
+          <span style="color:var(--violet)">const</span> tools = session.<span style="color:var(--neon-cyan)">tools</span>();<br>
+          <span style="color:var(--violet)">const</span> agent = <span style="color:var(--emerald)">Agent</span>(&#123;<br>
+          &nbsp;&nbsp;name: <span style="color:var(--amber)">"Assistant"</span>,<br>
+          &nbsp;&nbsp;tools,<br>
+          &#125;);
+        </div>
+      </div>
+      <div class="component-desc">Graphite background, 12px radius, 1px Slate border. JetBrains Mono 14px, Silver text. Syntax highlighting with semantic accent colors.</div>
+    </div>
+  </section>
+
+  <!-- DO'S & DON'TS -->
+  <section class="section" id="guidelines">
+    <div class="section-header">
+      <div class="section-label">Guidelines</div>
+      <h2 class="section-title">Do's & Don'ts</h2>
+    </div>
+    <div class="guide-grid">
+      <div class="guide-card guide-card--do">
+        <div class="guide-label">Do — Embrace</div>
+        <ul class="guide-list">
+          <li>Carbon Black (#0a0a0a) as primary background</li>
+          <li>Snow White (#ffffff) for all primary text</li>
+          <li>JetBrains Mono for nav labels, code, badges</li>
+          <li>Electric Blue (#3b82f6) for links and accents</li>
+          <li>6px radius for buttons, 12px for cards</li>
+          <li>4px-based spacing with compact density</li>
+          <li>Semantic colors only for status (green/red/amber)</li>
+        </ul>
+      </div>
+      <div class="guide-card guide-card--dont">
+        <div class="guide-label">Don't — Avoid</div>
+        <ul class="guide-list">
+          <li>Bright or saturated background colors</li>
+          <li>Electric Blue on large surface areas</li>
+          <li>Inter for code or navigation labels</li>
+          <li>Rounded corners larger than 16px on cards</li>
+          <li>Decorative gradients on text content</li>
+          <li>Multiple accent colors per component</li>
+          <li>Heavy drop shadows — use tonal layering</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-left">Composio Design System</div>
+    <div class="footer-right">
+      <a href="#colors" class="footer-link">Colors</a>
+      <a href="#typography" class="footer-link">Typography</a>
+      <a href="#spacing" class="footer-link">Spacing</a>
+      <a href="#components" class="footer-link">Components</a>
+      <a href="#" class="footer-link" download>Download Spec</a>
+    </div>
+  </footer>
+
+</div>
+
+
+
+</body>
+</html>

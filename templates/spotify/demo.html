@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Spotify — Design System</title>
+
+
+
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+
+:root{
+  --spotify-green:#1DB954;
+  --spotify-green-light:#1ED760;
+  --bg-base:#121212;
+  --bg-elevated:#181818;
+  --bg-highlight:#282828;
+  --bg-tinted:#333333;
+  --surface:#1A1A1A;
+  --text-primary:#FFFFFF;
+  --text-secondary:#B3B3B3;
+  --text-subdued:#6A6A6A;
+  --divider:#282828;
+  --overlay:rgba(0,0,0,.7);
+  --card-hover:rgba(255,255,255,.1);
+  --green-glow:rgba(29,185,84,.15);
+
+  --r-sm:2px;--r-md:4px;--r-lg:8px;--r-pill:500px;
+}
+
+::selection{background:rgba(29,185,84,.3);color:var(--text-primary)}
+html{scroll-behavior:smooth}
+
+body{
+  font-family:'Inter',system-ui,-apple-system,sans-serif;
+  background:var(--bg-base);color:var(--text-primary);
+  font-size:14px;line-height:1.5;
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
+}
+
+.page{max-width:960px;margin:0 auto;padding:0 32px 120px}
+
+/* ── NAV ── */
+.nav{
+  display:flex;justify-content:space-between;align-items:center;
+  height:64px;padding:0 16px;position:sticky;top:0;z-index:100;
+  background:rgba(18,18,18,.92);backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--divider);
+  margin:0 -32px;
+}
+.nav-left{display:flex;align-items:center;gap:12px}
+.nav-wordmark{
+  font-size:18px;font-weight:700;letter-spacing:-.35px;
+  color:var(--spotify-green);text-decoration:none;
+}
+.nav-tag{
+  font-size:11px;font-weight:500;color:var(--text-subdued);
+  background:var(--bg-highlight);padding:3px 10px;border-radius:var(--r-pill);
+  border:1px solid var(--bg-tinted);letter-spacing:.02px;
+}
+.nav-right{display:flex;align-items:center;gap:8px}
+.nav-link{
+  font-size:13px;font-weight:500;color:var(--text-secondary);text-decoration:none;
+  padding:6px 12px;border-radius:var(--r-pill);transition:all .2s;letter-spacing:.015px;
+}
+.nav-link:hover{color:var(--text-primary);background:var(--bg-highlight)}
+.nav-link--active{color:var(--text-primary)}
+.nav-url{font-size:12px;font-weight:500;color:var(--text-secondary);text-decoration:none;padding:4px 8px;border-radius:var(--r-pill);transition:all .2s;letter-spacing:.015px}
+.nav-url:hover{color:var(--text-primary);background:var(--bg-highlight)}
+
+/* ── SECTIONS ── */
+.section{
+  padding:80px 0 0;
+  border-top:1px solid var(--divider);
+  margin-top:64px;
+}
+.section:first-of-type{border-top:none;margin-top:48px}
+.section-header{margin-bottom:40px}
+.section-label{
+  font-size:11px;font-weight:700;letter-spacing:.08px;
+  text-transform:uppercase;color:var(--spotify-green);margin-bottom:8px;
+}
+.section-title{
+  font-size:32px;font-weight:900;letter-spacing:-.5px;line-height:1.15;
+  color:var(--text-primary);
+}
+.section-desc{
+  font-size:15px;line-height:1.6;color:var(--text-secondary);
+  margin-top:12px;max-width:560px;
+}
+
+/* ── HERO ── */
+.hero{
+  padding:80px 0 48px;
+  border-bottom:1px solid var(--divider);
+  margin:0 -32px;padding-left:32px;padding-right:32px;
+  position:relative;overflow:hidden;
+}
+.hero::before{
+  content:'';position:absolute;
+  width:400px;height:400px;
+  background:radial-gradient(circle,rgba(29,185,84,.15),transparent 70%);
+  border-radius:50%;filter:blur(80px);
+  right:-80px;top:-120px;pointer-events:none;
+}
+.hero::after{
+  content:'';position:absolute;
+  width:300px;height:300px;
+  background:radial-gradient(circle,rgba(29,185,84,.08),transparent 70%);
+  border-radius:50%;filter:blur(60px);
+  left:20%;bottom:-80px;pointer-events:none;
+}
+.hero-label{
+  font-size:11px;font-weight:700;letter-spacing:.1px;
+  text-transform:uppercase;color:var(--spotify-green);margin-bottom:16px;
+}
+.hero-title{
+  font-size:clamp(40px,6vw,56px);font-weight:900;line-height:1;
+  letter-spacing:-.02em;color:var(--text-primary);
+}
+.hero-title em{
+  font-style:normal;
+  background:linear-gradient(135deg,var(--spotify-green),var(--spotify-green-light));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.hero-subtitle{
+  font-size:17px;line-height:1.6;color:var(--text-secondary);
+  margin-top:20px;max-width:480px;
+}
+.hero-tags{display:flex;gap:8px;margin-top:28px;flex-wrap:wrap}
+.hero-tag{
+  font-size:11px;font-weight:500;color:var(--text-subdued);
+  background:var(--bg-highlight);padding:5px 12px;border-radius:var(--r-pill);
+  border:1px solid var(--bg-tinted);letter-spacing:.015px;
+}
+.hero-actions{display:flex;gap:12px;margin-top:28px}
+
+/* ── BUTTONS ── */
+.btn{
+  display:inline-flex;align-items:center;gap:6px;
+  font-family:inherit;font-size:13px;font-weight:700;line-height:1;
+  letter-spacing:.01px;padding:12px 32px;border-radius:var(--r-pill);
+  cursor:pointer;text-decoration:none;white-space:nowrap;
+  transition:all .15s;
+}
+.btn:active{transform:scale(.97)}
+.btn-primary{background:var(--spotify-green);color:#fff;border:none}
+.btn-primary:hover{background:var(--spotify-green-light);transform:scale(1.04)}
+.btn-secondary{background:transparent;color:var(--text-primary);border:1px solid var(--bg-tinted)}
+.btn-secondary:hover{border-color:var(--text-secondary);background:var(--bg-highlight)}
+.btn-ghost{background:transparent;color:var(--text-secondary);border:1px solid var(--divider)}
+.btn-ghost:hover{background:var(--card-hover);color:var(--text-primary)}
+
+/* ── COLOR TOKENS ── */
+.color-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;
+}
+.color-token{
+  background:var(--bg-elevated);border:1px solid var(--divider);
+  border-radius:var(--r-lg);overflow:hidden;transition:border-color .2s;
+}
+.color-token:hover{border-color:var(--bg-tinted)}
+.color-swatch{width:100%;height:80px}
+.color-info{padding:14px 16px}
+.color-name{font-size:13px;font-weight:700;letter-spacing:.01px;color:var(--text-primary)}
+.color-hex{
+  font-size:12px;font-weight:500;color:var(--text-secondary);margin-top:2px;
+  font-variant-numeric:tabular-nums;letter-spacing:.015px;
+}
+.color-role{font-size:11px;color:var(--text-subdued);margin-top:6px;line-height:1.4}
+
+/* ── TYPE SCALE ── */
+.type-table{
+  display:flex;flex-direction:column;border:1px solid var(--divider);
+  border-radius:var(--r-lg);overflow:hidden;
+}
+.type-row{
+  display:grid;grid-template-columns:100px 1fr 200px;align-items:baseline;
+  padding:16px 24px;border-bottom:1px solid var(--divider);
+}
+.type-row:last-child{border-bottom:none}
+.type-row:hover{background:rgba(255,255,255,.02)}
+.type-meta{
+  font-size:10px;font-weight:700;color:var(--spotify-green);
+  letter-spacing:.06px;text-transform:uppercase;
+}
+.type-sample{color:var(--text-primary);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.type-specs{
+  font-size:11px;color:var(--text-secondary);text-align:right;
+  font-variant-numeric:tabular-nums;letter-spacing:.015px;
+}
+
+/* ── SPACING ── */
+.spacing-bars{display:flex;align-items:flex-end;gap:20px;height:120px}
+.spacing-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px}
+.spacing-bar{
+  width:100%;border-radius:var(--r-md);
+  background:var(--spotify-green);opacity:.3;transition:opacity .3s;
+}
+.spacing-col:hover .spacing-bar{opacity:.6}
+.spacing-val{font-size:11px;font-weight:700;color:var(--text-primary);letter-spacing:.015px}
+.spacing-name{font-size:10px;font-weight:500;color:var(--text-secondary);letter-spacing:.015px}
+
+/* ── SHAPES ── */
+.shapes-row{display:flex;flex-wrap:wrap;gap:24px;align-items:flex-end}
+.shape-item{display:flex;flex-direction:column;align-items:center;gap:8px}
+.shape-box{
+  width:72px;height:72px;background:var(--bg-elevated);
+  border:1.5px solid var(--divider);transition:all .3s cubic-bezier(.22,1,.36,1);
+}
+.shape-box:hover{border-color:var(--spotify-green);transform:scale(1.06)}
+.shape-label{font-size:11px;font-weight:500;color:var(--text-secondary);letter-spacing:.015px;white-space:nowrap}
+.shape-value{
+  font-size:10px;font-weight:400;color:var(--text-subdued);letter-spacing:.015px;
+  font-variant-numeric:tabular-nums;
+}
+
+/* ── SURFACES ── */
+.surface-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px}
+.surface-item{
+  border-radius:var(--r-lg);padding:28px 20px;
+  text-align:center;border:1px solid var(--divider);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:6px;min-height:110px;transition:transform .3s;
+}
+.surface-item:hover{transform:scale(1.02)}
+.surface-name{font-size:14px;font-weight:700;letter-spacing:.01px}
+.surface-val{
+  font-size:11px;font-weight:500;color:var(--text-secondary);
+  font-variant-numeric:tabular-nums;letter-spacing:.015px;
+}
+
+/* ── COMPONENTS ── */
+.component-card{
+  background:var(--bg-elevated);border:1px solid var(--divider);
+  border-radius:var(--r-lg);padding:32px;margin-bottom:20px;
+  transition:border-color .2s;
+}
+.component-card:hover{border-color:var(--bg-tinted)}
+.component-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px}
+.component-name{font-size:15px;font-weight:700;letter-spacing:.01px;color:var(--text-primary)}
+.component-role{font-size:12px;color:var(--text-secondary);margin-top:4px;letter-spacing:.015px}
+.component-class{
+  font-size:11px;font-weight:500;color:var(--spotify-green);
+  background:var(--green-glow);padding:3px 10px;border-radius:var(--r-pill);
+  border:1px solid rgba(29,185,84,.2);letter-spacing:.015px;
+  font-family:'SFMono-Regular',Consolas,monospace;
+}
+.component-preview{
+  display:flex;gap:16px;align-items:center;flex-wrap:wrap;
+  padding:20px;background:var(--bg-base);border-radius:var(--r-lg);
+  border:1px solid var(--divider);
+}
+.component-desc{
+  font-size:12px;color:var(--text-subdued);line-height:1.5;
+  margin-top:12px;max-width:480px;
+}
+
+/* ── ALBUM CARD ── */
+.album-card{
+  width:180px;background:var(--bg-elevated);border-radius:var(--r-lg);
+  padding:16px;transition:background .3s;cursor:pointer;position:relative;
+}
+.album-card:hover{background:var(--bg-highlight)}
+.album-cover{
+  width:100%;aspect-ratio:1;border-radius:var(--r-md);
+  background:var(--bg-highlight);margin-bottom:12px;
+  display:flex;align-items:center;justify-content:center;
+  position:relative;overflow:hidden;
+}
+.album-cover-gradient{
+  position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(29,185,84,.2),rgba(29,185,84,.05));
+}
+.album-title{font-size:14px;font-weight:700;color:var(--text-primary);margin-bottom:4px}
+.album-artist{font-size:13px;font-weight:400;color:var(--text-secondary)}
+.play-fab{
+  position:absolute;bottom:8px;right:8px;width:48px;height:48px;
+  border-radius:50%;background:var(--spotify-green);border:none;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 8px 16px rgba(0,0,0,.3);opacity:1;
+  transition:all .3s;
+}
+.album-card:hover .play-fab{opacity:1;transform:translateY(0)}
+.play-fab:hover{background:var(--spotify-green-light);transform:scale(1.06)}
+.play-fab svg{margin-left:2px}
+
+/* ── TRACK ROW ── */
+.track-row{
+  display:grid;grid-template-columns:32px 1fr 1fr 60px;gap:16px;
+  align-items:center;padding:8px 16px;border-radius:var(--r-md);
+  transition:background .15s;cursor:pointer;
+}
+.track-row:hover{background:var(--bg-highlight)}
+.track-num{font-size:14px;color:var(--text-secondary);text-align:center;font-variant-numeric:tabular-nums}
+.track-info{display:flex;flex-direction:column;gap:2px}
+.track-title{font-size:14px;font-weight:500;color:var(--text-primary)}
+.track-title--playing{color:var(--spotify-green)}
+.track-artist{font-size:12px;color:var(--text-secondary)}
+.track-album{font-size:13px;color:var(--text-secondary)}
+.track-duration{font-size:13px;color:var(--text-secondary);text-align:right;font-variant-numeric:tabular-nums}
+
+/* ── PROGRESS BAR ── */
+.progress-bar{display:flex;align-items:center;gap:8px;width:100%}
+.progress-time{font-size:11px;color:var(--text-subdued);font-variant-numeric:tabular-nums;min-width:36px}
+.progress-track{flex:1;height:4px;background:var(--bg-tinted);border-radius:2px;position:relative;cursor:pointer}
+.progress-fill{height:100%;background:var(--text-secondary);border-radius:2px;position:relative}
+.progress-track:hover .progress-fill{background:var(--spotify-green)}
+.progress-handle{
+  width:12px;height:12px;border-radius:50%;background:var(--text-primary);
+  position:absolute;right:-6px;top:-4px;opacity:1;
+  transition:opacity .15s;box-shadow:0 2px 4px rgba(0,0,0,.5);
+}
+.progress-track:hover .progress-handle{opacity:1}
+
+/* ── SIDEBAR NAV ── */
+.sidebar-demo{
+  background:var(--bg-base);border:1px solid var(--divider);border-radius:var(--r-lg);
+  padding:16px;width:240px;
+}
+.sidebar-item{
+  display:flex;align-items:center;gap:16px;padding:8px 12px;
+  border-radius:var(--r-md);cursor:pointer;transition:all .15s;
+  font-size:14px;font-weight:500;color:var(--text-secondary);
+}
+.sidebar-item:hover{color:var(--text-primary)}
+.sidebar-item--active{
+  color:var(--text-primary);background:var(--bg-highlight);
+}
+.sidebar-icon{width:24px;height:24px;display:flex;align-items:center;justify-content:center}
+
+/* ── DO/DON'T ── */
+.guide-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.guide-card{
+  border-radius:var(--r-lg);padding:28px;
+  border:1px solid var(--divider);
+}
+.guide-card--do{background:rgba(29,185,84,.04);border-color:rgba(29,185,84,.15)}
+.guide-card--dont{background:rgba(248,81,73,.04);border-color:rgba(248,81,73,.12)}
+.guide-label{font-size:11px;font-weight:700;letter-spacing:.06px;text-transform:uppercase;margin-bottom:16px}
+.guide-card--do .guide-label{color:var(--spotify-green)}
+.guide-card--dont .guide-label{color:#f85149}
+.guide-list{
+  list-style:none;display:flex;flex-direction:column;gap:10px;
+}
+.guide-list li{
+  font-size:13px;line-height:1.5;padding-left:20px;position:relative;
+  color:var(--text-primary);
+}
+.guide-card--do .guide-list li::before{
+  content:'✓';position:absolute;left:0;color:var(--spotify-green);font-weight:700;font-size:12px;
+}
+.guide-card--dont .guide-list li::before{
+  content:'✕';position:absolute;left:0;color:#f85149;font-weight:700;font-size:12px;
+}
+
+/* ── FOOTER ── */
+.footer{
+  margin-top:96px;padding:32px 0;
+  border-top:1px solid var(--divider);
+  display:flex;justify-content:space-between;align-items:center;
+}
+.footer-left{font-size:14px;font-weight:500;color:var(--text-secondary);opacity:.6}
+.footer-right{display:flex;gap:20px}
+.footer-link{
+  font-size:12px;font-weight:500;color:var(--text-secondary);text-decoration:none;
+  transition:color .2s;letter-spacing:.015px;
+}
+.footer-link:hover{color:var(--spotify-green)}
+
+/* ── RESPONSIVE ── */
+@media(max-width:768px){
+  .page{padding:0 20px 80px}
+  .hero{margin:0 -20px;padding-left:20px;padding-right:20px;padding-top:56px}
+  .nav{margin:0 -20px}
+  .section-title{font-size:24px}
+  .type-row{grid-template-columns:70px 1fr;gap:8px}
+  .type-specs{display:none}
+  .guide-grid{grid-template-columns:1fr}
+  .color-grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr))}
+  .hero-title{font-size:36px}
+  .track-row{grid-template-columns:32px 1fr 60px}
+  .track-album{display:none}
+}
+
+/* ── ENTRANCE ANIMATION ── */
+.section,.hero{opacity:1;transition:opacity .6s cubic-bezier(.22,1,.36,1),transform .6s cubic-bezier(.22,1,.36,1)}
+.section.visible,.hero.visible{opacity:1;transform:translateY(0)}
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="nav-left">
+      <a href="#" class="nav-wordmark">Spotify</a>
+      <span class="nav-tag">Design System</span>
+      <a href="#" class="nav-url" target="_blank">spotify.com</a>
+    </div>
+    <div class="nav-right">
+      <a href="#colors" class="nav-link nav-link--active">Colors</a>
+      <a href="#typography" class="nav-link">Type</a>
+      <a href="#spacing" class="nav-link">Spacing</a>
+      <a href="#components" class="nav-link">Components</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-label">Design System</div>
+    <h1 class="hero-title">Music for<br>everyone,<br><em>everywhere.</em></h1>
+    <p class="hero-subtitle">A vibrant dark canvas with green accents, rounded corners, and bold typography. Built for rhythm and discovery.</p>
+    <div class="hero-tags">
+      <span class="hero-tag">17 color tokens</span>
+      <span class="hero-tag">11 type steps</span>
+      <span class="hero-tag">4px grid</span>
+      <span class="hero-tag">4 surface levels</span>
+    </div>
+    <div class="hero-actions">
+      <a href="#" class="btn btn-primary" download>Download Spec</a>
+      <a href="#" class="btn btn-secondary" download>theme.css</a>
+      <a href="#" class="btn btn-secondary" download>tokens.json</a>
+      <a href="#" class="btn btn-secondary" download>variables.css</a>
+    </div>
+  </div>
+
+  <!-- COLORS -->
+  <section class="section" id="colors">
+    <div class="section-header">
+      <div class="section-label">Foundation</div>
+      <h2 class="section-title">Color Tokens</h2>
+      <p class="section-desc">Dark neutrals with vibrant Spotify Green accent. 17 tokens across backgrounds, text hierarchy, and interactive elements.</p>
+    </div>
+    <div class="color-grid">
+      <div class="color-token">
+        <div class="color-swatch" style="background:#1DB954"></div>
+        <div class="color-info"><div class="color-name">Spotify Green</div><div class="color-hex">#1DB954</div><div class="color-role">Primary brand, CTAs, active states</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#1ED760"></div>
+        <div class="color-info"><div class="color-name">Spotify Green Light</div><div class="color-hex">#1ED760</div><div class="color-role">Hover states, highlights</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#121212;border-bottom:1px solid #282828"></div>
+        <div class="color-info"><div class="color-name">Background Base</div><div class="color-hex">#121212</div><div class="color-role">Primary page background</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#181818"></div>
+        <div class="color-info"><div class="color-name">Background Elevated</div><div class="color-hex">#181818</div><div class="color-role">Cards, sidebars</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#282828"></div>
+        <div class="color-info"><div class="color-name">Background Highlight</div><div class="color-hex">#282828</div><div class="color-role">Hover states, active rows</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#333333"></div>
+        <div class="color-info"><div class="color-name">Background Tinted</div><div class="color-hex">#333333</div><div class="color-role">Borders, pressed states</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#1A1A1A"></div>
+        <div class="color-info"><div class="color-name">Surface</div><div class="color-hex">#1A1A1A</div><div class="color-role">Modals, dropdowns</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#FFFFFF"></div>
+        <div class="color-info"><div class="color-name">Text Primary</div><div class="color-hex">#FFFFFF</div><div class="color-role">Headings, body text, icons</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#B3B3B3"></div>
+        <div class="color-info"><div class="color-name">Text Secondary</div><div class="color-hex">#B3B3B3</div><div class="color-role">Subtitles, metadata</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#6A6A6A"></div>
+        <div class="color-info"><div class="color-name">Text Subdued</div><div class="color-hex">#6A6A6A</div><div class="color-role">Placeholders, disabled</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TYPOGRAPHY -->
+  <section class="section" id="typography">
+    <div class="section-header">
+      <div class="section-label">Typography</div>
+      <h2 class="section-title">Type Scale</h2>
+      <p class="section-desc">Circular as primary typeface (Inter substitute). Geometric, clean, with bold weights for emphasis on dark backgrounds.</p>
+    </div>
+    <div class="type-table">
+      <div class="type-row">
+        <span class="type-meta">Display</span>
+        <span class="type-sample" style="font-size:32px;font-weight:900;line-height:1;letter-spacing:-.02em">Music for everyone</span>
+        <span class="type-specs">48px / 1.0 / −0.02em</span>
+      </div>
+      <div class="type-row">
+        <span class="type-meta">Heading-xl</span>
+        <span class="type-sample" style="font-size:24px;font-weight:900;line-height:1.2;letter-spacing:-.4px">Your Library</span>
+        <span class="type-specs">32px / 1.2 / −0.02px</span>
+      </div>
+      <div class="type-row">
+        <span class="type-meta">Heading</span>
+        <span class="type-sample" style="font-size:20px;font-weight:700;line-height:1.2;letter-spacing:-.3px">Good evening</span>
+        <span class="type-specs">24px / 1.2 / −0.015px</span>
+      </div>
+      <div class="type-row">
+        <span class="type-meta">Heading-sm</span>
+        <span class="type-sample" style="font-size:18px;font-weight:700;line-height:1.33;letter-spacing:-.2px">Made for you</span>
+        <span class="type-specs">20px / 1.33 / −0.01px</span>
+      </div>
+      <div class="type-row">
+        <span class="type-meta">Subheading</span>
+        <span class="type-sample" style="font-size:16px;font-weight:500;line-height:1.43">Recently played</span>
+        <span class="type-specs">16px / 1.43 / 0</span>
+      </div>
+      <div class="type-row">
+        <span class="type-meta">Body</span>
+        <span class="type-sample" style="font-size:14px;font-weight:400;line-height:1.5">Default body text for track listings</span>
+        <span class="type-specs">14px / 1.5 / 0</span>
+      </div>
+      <div class="type-row">
+        <span class="type-meta">Caption</span>
+        <span class="type-sample" style="font-size:11px;font-weight:400;line-height:1.6;letter-spacing:.02px">3:45 · 1,234,567 plays</span>
+        <span class="type-specs">11px / 1.6 / 0.02px</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- SPACING & SHAPES -->
+  <section class="section" id="spacing">
+    <div class="section-header">
+      <div class="section-label">Layout</div>
+      <h2 class="section-title">Spacing & Shapes</h2>
+      <p class="section-desc">Base unit 4px. Comfortable density. Pill-shaped buttons, rounded cards. 14-step spacing scale.</p>
+    </div>
+
+    <h3 style="font-size:14px;font-weight:700;color:var(--text-primary);margin-bottom:20px;letter-spacing:.01px">Spacing Scale (4px base)</h3>
+    <div class="spacing-bars">
+      <div class="spacing-col"><div class="spacing-bar" style="height:8px"></div><span class="spacing-val">4</span><span class="spacing-name">4px</span></div>
+      <div class="spacing-col"><div class="spacing-bar" style="height:14px"></div><span class="spacing-val">8</span><span class="spacing-name">8px</span></div>
+      <div class="spacing-col"><div class="spacing-bar" style="height:20px"></div><span class="spacing-val">12</span><span class="spacing-name">12px</span></div>
+      <div class="spacing-col"><div class="spacing-bar" style="height:28px"></div><span class="spacing-val">16</span><span class="spacing-name">16px</span></div>
+      <div class="spacing-col"><div class="spacing-bar" style="height:36px"></div><span class="spacing-val">24</span><span class="spacing-name">24px</span></div>
+      <div class="spacing-col"><div class="spacing-bar" style="height:48px"></div><span class="spacing-val">32</span><span class="spacing-name">32px</span></div>
+      <div class="spacing-col"><div class="spacing-bar" style="height:64px"></div><span class="spacing-val">48</span><span class="spacing-name">48px</span></div>
+      <div class="spacing-col"><div class="spacing-bar" style="height:90px"></div><span class="spacing-val">96</span><span class="spacing-name">96px</span></div>
+    </div>
+
+    <h3 style="font-size:14px;font-weight:700;color:var(--text-primary);margin:40px 0 20px;letter-spacing:.01px">Border Radius</h3>
+    <div class="shapes-row">
+      <div class="shape-item">
+        <div class="shape-box" style="border-radius:2px"></div>
+        <span class="shape-label">sm</span>
+        <span class="shape-value">2px</span>
+      </div>
+      <div class="shape-item">
+        <div class="shape-box" style="border-radius:4px"></div>
+        <span class="shape-label">md</span>
+        <span class="shape-value">4px</span>
+      </div>
+      <div class="shape-item">
+        <div class="shape-box" style="border-radius:8px"></div>
+        <span class="shape-label">cards</span>
+        <span class="shape-value">8px</span>
+      </div>
+      <div class="shape-item">
+        <div class="shape-box" style="border-radius:500px"></div>
+        <span class="shape-label">pill</span>
+        <span class="shape-value">500px</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- SURFACES -->
+  <section class="section" id="surfaces">
+    <div class="section-header">
+      <div class="section-label">Elevation</div>
+      <h2 class="section-title">Surface System</h2>
+      <p class="section-desc">Four distinct surface levels for depth hierarchy. No shadows — use background shifts.</p>
+    </div>
+    <div class="surface-grid">
+      <div class="surface-item" style="background:#121212">
+        <span class="surface-name">Base</span>
+        <span class="surface-val">#121212</span>
+      </div>
+      <div class="surface-item" style="background:#181818">
+        <span class="surface-name">Elevated</span>
+        <span class="surface-val">#181818</span>
+      </div>
+      <div class="surface-item" style="background:#282828">
+        <span class="surface-name">Highlight</span>
+        <span class="surface-val">#282828</span>
+      </div>
+      <div class="surface-item" style="background:#333333">
+        <span class="surface-name">Tinted</span>
+        <span class="surface-val">#333333</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPONENTS -->
+  <section class="section" id="components">
+    <div class="section-header">
+      <div class="section-label">Components</div>
+      <h2 class="section-title">Interactive Elements</h2>
+      <p class="section-desc">Pill-shaped CTAs, rounded cards with play overlays, track rows, and progress bars.</p>
+    </div>
+
+    <div class="component-card">
+      <div class="component-header">
+        <div><div class="component-name">Green CTA Button</div><div class="component-role">Primary call to action</div></div>
+        <span class="component-class">.btn-primary</span>
+      </div>
+      <div class="component-preview">
+        <button class="btn btn-primary">Play</button>
+        <button class="btn btn-primary" style="background:var(--spotify-green-light)">Hover</button>
+      </div>
+      <div class="component-desc">Spotify Green (#1DB954) background, pill shape (500px), white text. Hover brightens to #1ED760.</div>
+    </div>
+
+    <div class="component-card">
+      <div class="component-header">
+        <div><div class="component-name">Album Card</div><div class="component-role">Content discovery</div></div>
+        <span class="component-class">.album-card</span>
+      </div>
+      <div class="component-preview">
+        <div class="album-card">
+          <div class="album-cover">
+            <div class="album-cover-gradient"></div>
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.3)" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/></svg>
+            <button class="play-fab"><svg width="20" height="20" viewBox="0 0 24 24" fill="#fff"><polygon points="5,3 19,12 5,21"/></svg></button>
+          </div>
+          <div class="album-title">Discover Weekly</div>
+          <div class="album-artist">Your weekly mixtape</div>
+        </div>
+        <div class="album-card">
+          <div class="album-cover" style="background:linear-gradient(135deg,#4338ca,#7c3aed)">
+            <button class="play-fab"><svg width="20" height="20" viewBox="0 0 24 24" fill="#fff"><polygon points="5,3 19,12 5,21"/></svg></button>
+          </div>
+          <div class="album-title">Chill Vibes</div>
+          <div class="album-artist">Spotify</div>
+        </div>
+        <div class="album-card">
+          <div class="album-cover" style="background:linear-gradient(135deg,#059669,#1DB954)">
+            <button class="play-fab"><svg width="20" height="20" viewBox="0 0 24 24" fill="#fff"><polygon points="5,3 19,12 5,21"/></svg></button>
+          </div>
+          <div class="album-title">Today's Top Hits</div>
+          <div class="album-artist">The hottest tracks</div>
+        </div>
+      </div>
+      <div class="component-desc">8px radius, #181818 background. Green play button appears on hover. Hover shifts background to #282828.</div>
+    </div>
+
+    <div class="component-card">
+      <div class="component-header">
+        <div><div class="component-name">Track Row</div><div class="component-role">Song listings</div></div>
+        <span class="component-class">.track-row</span>
+      </div>
+      <div class="component-preview" style="flex-direction:column;gap:0;padding:8px">
+        <div class="track-row">
+          <span class="track-num">1</span>
+          <div class="track-info"><span class="track-title track-title--playing">Blinding Lights</span><span class="track-artist">The Weeknd</span></div>
+          <span class="track-album">After Hours</span>
+          <span class="track-duration">3:20</span>
+        </div>
+        <div class="track-row">
+          <span class="track-num">2</span>
+          <div class="track-info"><span class="track-title">Levitating</span><span class="track-artist">Dua Lipa</span></div>
+          <span class="track-album">Future Nostalgia</span>
+          <span class="track-duration">3:23</span>
+        </div>
+        <div class="track-row">
+          <span class="track-num">3</span>
+          <div class="track-info"><span class="track-title">Stay</span><span class="track-artist">The Kid LAROI, Justin Bieber</span></div>
+          <span class="track-album">F*CK LOVE 3</span>
+          <span class="track-duration">2:21</span>
+        </div>
+      </div>
+      <div class="component-desc">Grid layout with number, title, artist, album, duration. Hover shows #282828 background. Playing track title in Spotify Green.</div>
+    </div>
+
+    <div class="component-card">
+      <div class="component-header">
+        <div><div class="component-name">Progress Bar</div><div class="component-role">Playback seek control</div></div>
+        <span class="component-class">.progress-bar</span>
+      </div>
+      <div class="component-preview">
+        <div style="width:100%;max-width:400px">
+          <div class="progress-bar">
+            <span class="progress-time">1:23</span>
+            <div class="progress-track">
+              <div class="progress-fill" style="width:40%"><div class="progress-handle"></div></div>
+            </div>
+            <span class="progress-time">3:20</span>
+          </div>
+        </div>
+      </div>
+      <div class="component-desc">4px track height, #4D4D4D track, #B3B3B3 fill (green on hover). Handle appears on hover.</div>
+    </div>
+
+    <div class="component-card">
+      <div class="component-header">
+        <div><div class="component-name">Sidebar Navigation</div><div class="component-role">Primary app navigation</div></div>
+        <span class="component-class">.sidebar</span>
+      </div>
+      <div class="component-preview">
+        <div class="sidebar-demo">
+          <div class="sidebar-item sidebar-item--active">
+            <span class="sidebar-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3L4 9v12h5v-7h6v7h5V9z"/></svg></span>
+            <span>Home</span>
+          </div>
+          <div class="sidebar-item">
+            <span class="sidebar-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></span>
+            <span>Search</span>
+          </div>
+          <div class="sidebar-item">
+            <span class="sidebar-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5v-15A2.5 2.5 0 016.5 2H20v20H6.5a2.5 2.5 0 010-5H20"/></svg></span>
+            <span>Your Library</span>
+          </div>
+        </div>
+      </div>
+      <div class="component-desc">Active: #fff text, #282828 background. Inactive: #B3B3B3 text. Hover: #fff text.</div>
+    </div>
+  </section>
+
+  <!-- DO'S & DON'TS -->
+  <section class="section" id="guidelines">
+    <div class="section-header">
+      <div class="section-label">Guidelines</div>
+      <h2 class="section-title">Do's & Don'ts</h2>
+    </div>
+    <div class="guide-grid">
+      <div class="guide-card guide-card--do">
+        <div class="guide-label">Do — Embrace</div>
+        <ul class="guide-list">
+          <li>#121212 as primary background — never pure black</li>
+          <li>Spotify Green exclusively for CTAs and active playback</li>
+          <li>Pill shapes (500px) for all buttons and chips</li>
+          <li>8px radius for cards and containers</li>
+          <li>#B3B3B3 for secondary text, never primary</li>
+          <li>16px minimum spacing between interactive elements</li>
+          <li>Let album art be the visual focal point</li>
+        </ul>
+      </div>
+      <div class="guide-card guide-card--dont">
+        <div class="guide-label">Don't — Avoid</div>
+        <ul class="guide-list">
+          <li>Pure black (#000000) as background</li>
+          <li>Spotify Green for body text on dark backgrounds</li>
+          <li>Mixing pill buttons with sharp corners</li>
+          <li>Heavy drop shadows — use background shifts</li>
+          <li>More than 2 text colors in one view</li>
+          <li>Text on album art without overlays</li>
+          <li>Decorative borders — use #282828 shifts</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-left">Spotify Design System</div>
+    <div class="footer-right">
+      <a href="#colors" class="footer-link">Colors</a>
+      <a href="#typography" class="footer-link">Typography</a>
+      <a href="#spacing" class="footer-link">Spacing</a>
+      <a href="#components" class="footer-link">Components</a>
+      <a href="#" class="footer-link" download>Download Spec</a>
+    </div>
+  </footer>
+
+</div>
+
+
+
+</body>
+</html>

@@ -1,0 +1,31 @@
+{
+	"schemaVersion": 1,
+	"kind": "design-system",
+	"slug": "bmw-m",
+	"name": "BMW-M",
+	"version": "1.0.0",
+	"order": 260,
+	"category": "premium",
+	"vibe": "dark",
+	"tags": [
+		"dark-ui",
+		"design-system"
+	],
+	"blurb": "A motorsport-engineering interface anchored on a near-black canvas with white BMW Type Next Latin display headlines in confident UPPERCASE.",
+	"tagline": {
+		"en": "Motorsport near-black stage with M tricolor signature",
+		"zh": "近黑赛道舞台，M 三色签名"
+	},
+	"license": "MIT",
+	"origin": {
+		"type": "curated",
+		"upstream": "https://github.com/ricocc/brands-design-md.git",
+		"note": "from brands-design-md (BMW-M)."
+	},
+	"assets": {
+		"spec": "DESIGN.md",
+		"theme": "theme.css",
+		"demo": "demo.html"
+	},
+	"collectedAt": "2026-08-22"
+}

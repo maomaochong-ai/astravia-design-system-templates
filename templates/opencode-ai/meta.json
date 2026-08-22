@@ -1,0 +1,33 @@
+{
+	"schemaVersion": 1,
+	"kind": "design-system",
+	"slug": "opencode-ai",
+	"name": "OpenCode",
+	"version": "1.0.0",
+	"order": 520,
+	"category": "dev",
+	"vibe": "light",
+	"tags": [
+		"light-ui",
+		"gradient",
+		"developer-focused",
+		"design-system"
+	],
+	"blurb": "A terminal-native marketing system rendered entirely in Berkeley Mono — every word on the page, from the hero headline down to the footer fine print, is monospaced.",
+	"tagline": {
+		"en": "Terminal-native, everything in Berkeley Mono",
+		"zh": "终端原生，全站 Berkeley Mono"
+	},
+	"license": "MIT",
+	"origin": {
+		"type": "curated",
+		"upstream": "https://github.com/ricocc/brands-design-md.git",
+		"note": "from brands-design-md (OpenCode)."
+	},
+	"assets": {
+		"spec": "DESIGN.md",
+		"theme": "theme.css",
+		"demo": "demo.html"
+	},
+	"collectedAt": "2026-08-22"
+}

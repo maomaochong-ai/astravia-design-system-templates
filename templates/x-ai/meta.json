@@ -1,0 +1,32 @@
+{
+	"schemaVersion": 1,
+	"kind": "design-system",
+	"slug": "x-ai",
+	"name": "xAI",
+	"version": "1.0.0",
+	"order": 790,
+	"category": "ai",
+	"vibe": "light",
+	"tags": [
+		"light-ui",
+		"monochrome",
+		"design-system"
+	],
+	"blurb": "A verified light interpretation of SpaceXAI's current web identity: white canvas, near-black typography, generous editorial spacing, monochrome pill actions, and border-led tech…",
+	"tagline": {
+		"en": "Light, verified white canvas with near-black type",
+		"zh": "明亮可信的白底 + 近黑文字"
+	},
+	"license": "MIT",
+	"origin": {
+		"type": "curated",
+		"upstream": "https://github.com/ricocc/brands-design-md.git",
+		"note": "from brands-design-md (SpaceXAI)."
+	},
+	"assets": {
+		"spec": "DESIGN.md",
+		"theme": "theme.css",
+		"demo": "demo.html"
+	},
+	"collectedAt": "2026-08-22"
+}

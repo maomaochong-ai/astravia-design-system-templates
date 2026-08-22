@@ -1,0 +1,32 @@
+{
+	"schemaVersion": 1,
+	"kind": "design-system",
+	"slug": "tesla",
+	"name": "Tesla",
+	"version": "1.0.0",
+	"order": 680,
+	"category": "premium",
+	"vibe": "light",
+	"tags": [
+		"light-ui",
+		"gradient",
+		"design-system"
+	],
+	"blurb": "Tesla's website is an exercise in radical subtraction — a digital showroom where the product is everything and the interface is almost nothing.",
+	"tagline": {
+		"en": "Radical subtraction; the product is everything",
+		"zh": "激进减法，产品即一切"
+	},
+	"license": "MIT",
+	"origin": {
+		"type": "curated",
+		"upstream": "https://github.com/ricocc/brands-design-md.git",
+		"note": "from brands-design-md (Tesla)."
+	},
+	"assets": {
+		"spec": "DESIGN.md",
+		"theme": "theme.css",
+		"demo": "demo.html"
+	},
+	"collectedAt": "2026-08-22"
+}

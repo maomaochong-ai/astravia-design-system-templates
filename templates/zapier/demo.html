@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zapier &mdash; Design System</title>
+
+
+
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+
+:root{
+  --clean-white:#ffffff;
+  --snow-gray:#f9fafb;
+  --cloud-gray:#f3f4f6;
+  --border-light:#e5e7eb;
+  --border-medium:#d1d5db;
+  --slate:#6b7280;
+  --iron:#4b5563;
+  --midnight:#1a1a2e;
+  --zapier-orange:#ff4a00;
+  --orange-hover:#e64300;
+  --orange-light:#fff4ed;
+  --orange-glow:#ff6b2b;
+  --blue-link:#2563eb;
+  --blue-light:#eff6ff;
+  --green-success:#059669;
+  --green-light:#ecfdf5;
+  --red-error:#dc2626;
+  --red-light:#fef2f2;
+
+  --r-sm:4px;--r-md:6px;--r-lg:8px;--r-xl:12px;--r-full:9999px;
+}
+
+::selection{background:rgba(255,74,0,.15);color:var(--midnight)}
+html{scroll-behavior:smooth}
+
+body{
+  font-family:'DM Sans',system-ui,-apple-system,sans-serif;
+  background:var(--clean-white);color:var(--midnight);
+  font-size:16px;line-height:1.6;letter-spacing:0;
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
+}
+
+.page{max-width:960px;margin:0 auto;padding:0 32px 120px}
+
+/* ── NAV ── */
+.nav{
+  display:flex;justify-content:space-between;align-items:center;
+  height:64px;padding:0 16px;position:sticky;top:0;z-index:100;
+  background:rgba(255,255,255,.92);backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--border-light);
+  margin:0 -32px;
+}
+.nav-left{display:flex;align-items:center;gap:12px}
+.nav-wordmark{
+  font-size:20px;font-weight:700;letter-spacing:-.5px;
+  color:var(--zapier-orange);text-decoration:none;
+}
+.nav-wordmark span{color:var(--midnight)}
+.nav-tag{
+  font-size:11px;font-weight:600;color:var(--zapier-orange);
+  background:var(--orange-light);padding:3px 10px;border-radius:var(--r-full);
+  border:1px solid rgba(255,74,0,.15);letter-spacing:.04px;
+}
+.nav-url{font-size:11px;font-weight:500;color:var(--iron);text-decoration:none;padding:3px 10px;border-radius:var(--r-pill);border:1px solid var(--mist);letter-spacing:.015px;transition:color .2s}
+.nav-url:hover{color:var(--vodafone-red)}
+.nav-right{display:flex;align-items:center;gap:8px}
+.nav-link{
+  font-size:14px;font-weight:500;color:var(--iron);text-decoration:none;
+  padding:6px 12px;border-radius:var(--r-lg);transition:all .2s;
+}
+.nav-link:hover{color:var(--zapier-orange);background:var(--orange-light)}
+.nav-link--active{color:var(--midnight);font-weight:600}
+
+/* ── SECTIONS ── */
+.section{
+  padding:80px 0 0;
+  border-top:1px solid var(--border-light);
+  margin-top:64px;
+}
+.section:first-of-type{border-top:none;margin-top:48px}
+.section-header{margin-bottom:40px}
+.section-label{
+  font-size:11px;font-weight:700;letter-spacing:.08px;
+  text-transform:uppercase;color:var(--zapier-orange);margin-bottom:8px;
+}
+.section-title{
+  font-size:32px;font-weight:700;letter-spacing:-.5px;line-height:1.15;
+  color:var(--midnight);
+}
+.section-desc{
+  font-size:16px;line-height:1.6;color:var(--iron);
+  margin-top:12px;max-width:560px;
+}
+
+/* ── HERO ── */
+.hero{
+  padding:80px 0 48px;
+  border-bottom:1px solid var(--border-light);
+  margin:0 -32px;padding-left:32px;padding-right:32px;
+  position:relative;overflow:hidden;
+}
+.hero::before{
+  content:'';position:absolute;
+  width:500px;height:500px;
+  background:radial-gradient(circle,rgba(255,74,0,.06),transparent 70%);
+  border-radius:50%;filter:blur(80px);
+  right:-100px;top:-150px;pointer-events:none;
+}
+.hero::after{
+  content:'';position:absolute;
+  width:300px;height:300px;
+  background:radial-gradient(circle,rgba(255,107,43,.04),transparent 70%);
+  border-radius:50%;filter:blur(60px);
+  left:20%;bottom:-80px;pointer-events:none;
+}
+.hero-label{
+  font-size:11px;font-weight:700;letter-spacing:.1px;
+  text-transform:uppercase;color:var(--green-success);margin-bottom:16px;
+}
+.hero-title{
+  font-size:clamp(36px,6vw,52px);font-weight:700;line-height:1;
+  letter-spacing:-.025em;color:var(--midnight);
+}
+.hero-title em{
+  font-style:normal;
+  background:linear-gradient(135deg,var(--zapier-orange),var(--orange-glow));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.hero-subtitle{
+  font-size:18px;line-height:1.6;color:var(--iron);
+  margin-top:20px;max-width:480px;
+}
+.hero-tags{display:flex;gap:8px;margin-top:28px;flex-wrap:wrap}
+.hero-tag{
+  font-size:12px;font-weight:500;color:var(--slate);
+  background:var(--cloud-gray);padding:5px 12px;border-radius:var(--r-full);
+  border:1px solid var(--border-light);
+}
+.hero-actions{display:flex;gap:12px;margin-top:28px}
+
+/* ── BUTTONS ── */
+.btn{
+  display:inline-flex;align-items:center;gap:6px;
+  font-family:inherit;font-size:14px;font-weight:600;line-height:1;
+  padding:12px 24px;border-radius:var(--r-lg);
+  cursor:pointer;text-decoration:none;white-space:nowrap;
+  transition:all .2s cubic-bezier(.22,1,.36,1);
+  border:1px solid transparent;
+}
+.btn:active{transform:scale(.97)}
+.btn-primary{
+  background:var(--zapier-orange);color:var(--clean-white);
+  border-color:var(--zapier-orange);box-shadow:0 1px 2px rgba(255,74,0,.2);
+}
+.btn-primary:hover{background:var(--orange-hover);border-color:var(--orange-hover);box-shadow:0 4px 12px rgba(255,74,0,.25)}
+.btn-secondary{
+  background:var(--clean-white);color:var(--midnight);
+  border:1px solid var(--border-medium);
+}
+.btn-secondary:hover{border-color:var(--slate);background:var(--snow-gray)}
+.btn-ghost{background:transparent;color:var(--zapier-orange);border:1px solid transparent}
+.btn-ghost:hover{background:var(--orange-light)}
+
+/* ── COLOR TOKENS ── */
+.color-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;
+}
+.color-token{
+  background:var(--clean-white);border:1px solid var(--border-light);
+  border-radius:var(--r-xl);overflow:hidden;transition:border-color .2s,box-shadow .2s;
+}
+.color-token:hover{border-color:var(--border-medium);box-shadow:0 4px 16px rgba(0,0,0,.06)}
+.color-swatch{width:100%;height:80px}
+.color-info{padding:14px 16px}
+.color-name{font-size:13px;font-weight:600;color:var(--midnight)}
+.color-hex{
+  font-size:12px;font-weight:500;color:var(--slate);margin-top:2px;
+  font-family:'DM Mono',monospace;font-variant-numeric:tabular-nums;
+}
+.color-role{font-size:11px;color:var(--slate);margin-top:6px;line-height:1.4}
+
+/* ── TYPE SCALE ── */
+.type-table{
+  display:flex;flex-direction:column;border:1px solid var(--border-light);
+  border-radius:var(--r-xl);overflow:hidden;
+}
+.type-row{
+  display:grid;grid-template-columns:100px 1fr 200px;align-items:baseline;
+  padding:16px 24px;border-bottom:1px solid var(--border-light);
+  background:var(--clean-white);
+}
+.type-row:last-child{border-bottom:none}
+.type-row:hover{background:var(--snow-gray)}
+.type-meta{
+  font-size:11px;font-weight:700;color:var(--zapier-orange);
+  letter-spacing:.06px;text-transform:uppercase;
+}
+.type-sample{color:var(--midnight);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.type-specs{
+  font-size:11px;color:var(--slate);text-align:right;
+  font-family:'DM Mono',monospace;
+}
+
+/* ── SPACING ── */
+.spacing-bars{display:flex;align-items:flex-end;gap:20px;height:120px}
+.spacing-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px}
+.spacing-bar{
+  width:100%;border-radius:var(--r-md);
+  background:linear-gradient(180deg,var(--zapier-orange),var(--orange-glow));
+  opacity:.2;transition:opacity .3s;
+}
+.spacing-col:hover .spacing-bar{opacity:.5}
+.spacing-val{font-size:11px;font-weight:600;color:var(--midnight)}
+.spacing-name{font-size:10px;font-weight:500;color:var(--slate)}
+
+/* ── SHAPES ── */
+.shapes-row{display:flex;flex-wrap:wrap;gap:24px;align-items:flex-end}
+.shape-item{display:flex;flex-direction:column;align-items:center;gap:8px}
+.shape-box{
+  width:72px;height:72px;background:var(--snow-gray);
+  border:1.5px solid var(--border-light);transition:all .3s cubic-bezier(.22,1,.36,1);
+}
+.shape-box:hover{border-color:var(--zapier-orange);transform:scale(1.06)}
+.shape-label{font-size:11px;font-weight:500;color:var(--slate);white-space:nowrap}
+.shape-value{
+  font-size:10px;font-weight:400;color:var(--slate);
+  font-family:'DM Mono',monospace;
+}
+
+/* ── SURFACES ── */
+.surface-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px}
+.surface-item{
+  border-radius:var(--r-xl);padding:28px 20px;
+  text-align:center;border:1px solid var(--border-light);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:6px;min-height:110px;transition:transform .3s,box-shadow .3s;
+}
+.surface-item:hover{transform:scale(1.02);box-shadow:0 4px 16px rgba(0,0,0,.06)}
+.surface-name{font-size:14px;font-weight:600;color:var(--midnight)}
+.surface-val{
+  font-size:11px;font-weight:500;color:var(--slate);
+  font-family:'DM Mono',monospace;
+}
+
+/* ── COMPONENTS ── */
+.component-card{
+  background:var(--clean-white);border:1px solid var(--border-light);
+  border-radius:var(--r-xl);padding:32px;margin-bottom:20px;
+  transition:border-color .2s,box-shadow .2s;
+}
+.component-card:hover{border-color:var(--border-medium);box-shadow:0 4px 16px rgba(0,0,0,.06)}
+.component-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px}
+.component-name{font-size:15px;font-weight:600;color:var(--midnight)}
+.component-role{font-size:12px;color:var(--slate);margin-top:4px}
+.component-class{
+  font-size:11px;font-weight:600;color:var(--zapier-orange);
+  background:var(--orange-light);padding:3px 10px;border-radius:var(--r-full);
+  border:1px solid rgba(255,74,0,.12);
+  font-family:'DM Mono',monospace;
+}
+.component-preview{
+  display:flex;gap:16px;align-items:center;flex-wrap:wrap;
+  padding:24px;background:var(--snow-gray);border-radius:var(--r-xl);
+  border:1px solid var(--border-light);
+}
+.component-desc{
+  font-size:12px;color:var(--slate);line-height:1.5;
+  margin-top:12px;max-width:480px;
+}
+
+/* ── DO/DON'T ── */
+.guide-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.guide-card{
+  border-radius:var(--r-xl);padding:28px;
+  border:1px solid var(--border-light);
+}
+.guide-card--do{background:var(--green-light);border-color:rgba(5,150,105,.15)}
+.guide-card--dont{background:var(--red-light);border-color:rgba(220,38,38,.12)}
+.guide-label{font-size:11px;font-weight:700;letter-spacing:.06px;text-transform:uppercase;margin-bottom:16px}
+.guide-card--do .guide-label{color:var(--green-success)}
+.guide-card--dont .guide-label{color:var(--red-error)}
+.guide-list{
+  list-style:none;display:flex;flex-direction:column;gap:10px;
+}
+.guide-list li{
+  font-size:13px;line-height:1.5;padding-left:20px;position:relative;
+  color:var(--iron);
+}
+.guide-card--do .guide-list li::before{
+  content: '\2713';position:absolute;left:0;color:var(--green-success);font-weight:700;font-size:12px;
+}
+.guide-card--dont .guide-list li::before{
+  content: '\2715';position:absolute;left:0;color:var(--red-error);font-weight:700;font-size:12px;
+}
+
+/* ── STATUS ── */
+.status-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px}
+.status-item{
+  display:flex;align-items:center;gap:12px;
+  padding:16px 20px;border-radius:var(--r-xl);
+  border:1px solid var(--border-light);background:var(--clean-white);
+}
+.status-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.status-dot--active{background:var(--green-success);box-shadow:0 0 6px rgba(5,150,105,.4)}
+.status-dot--error{background:var(--red-error);box-shadow:0 0 6px rgba(220,38,38,.4)}
+.status-dot--paused{background:var(--slate)}
+.status-label{font-size:13px;font-weight:500;color:var(--midnight)}
+.status-desc{font-size:11px;color:var(--slate);margin-top:2px}
+
+/* ── FOOTER ── */
+.footer{
+  margin-top:96px;padding:32px 0;
+  border-top:1px solid var(--border-light);
+  display:flex;justify-content:space-between;align-items:center;
+}
+.footer-left{font-size:14px;font-weight:500;color:var(--slate);opacity:.6}
+.footer-right{display:flex;gap:20px}
+.footer-link{
+  font-size:12px;font-weight:500;color:var(--slate);text-decoration:none;
+  transition:color .2s;
+}
+.footer-link:hover{color:var(--zapier-orange)}
+
+/* ── RESPONSIVE ── */
+@media(max-width:768px){
+  .page{padding:0 20px 80px}
+  .hero{margin:0 -20px;padding-left:20px;padding-right:20px;padding-top:56px}
+  .nav{margin:0 -20px}
+  .section-title{font-size:24px}
+  .type-row{grid-template-columns:70px 1fr;gap:8px}
+  .type-specs{display:none}
+  .guide-grid{grid-template-columns:1fr}
+  .color-grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr))}
+  .hero-title{font-size:32px}
+}
+
+/* ── ENTRANCE ANIMATION ── */
+.section,.hero{opacity:1;transition:opacity .6s cubic-bezier(.22,1,.36,1),transform .6s cubic-bezier(.22,1,.36,1)}
+.section.visible,.hero.visible{opacity:1;transform:translateY(0)}
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="nav-left">
+      <a href="#" class="nav-wordmark">zap<span>ier</span></a>
+      <span class="nav-tag">Design System</span>
+      <a href="#" class="nav-url" target="_blank">https://zapier.com</a>
+    </div>
+    <div class="nav-right">
+      <a href="#colors" class="nav-link nav-link--active">Colors</a>
+      <a href="#typography" class="nav-link">Type</a>
+      <a href="#spacing" class="nav-link">Spacing</a>
+      <a href="#components" class="nav-link">Components</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-label">Design System</div>
+    <h1 class="hero-title">Automate<br>anything.<br><em>No code needed.</em></h1>
+    <p class="hero-subtitle">A friendly, approachable design system with bold orange accents, clean typography, and generous whitespace that makes powerful automation feel simple.</p>
+    <div class="hero-tags">
+      <span class="hero-tag">18 color tokens</span>
+      <span class="hero-tag">9 type steps</span>
+      <span class="hero-tag">4px grid</span>
+      <span class="hero-tag">4 surface levels</span>
+    </div>
+    <div class="hero-actions">
+      <a href="#" class="btn btn-primary" download>Download Spec</a>
+      <a href="#" class="btn btn-secondary" download>theme.css</a>
+      <a href="#" class="btn btn-secondary" download>tokens.json</a>
+      <a href="#" class="btn btn-secondary" download>variables.css</a>
+    </div>
+  </div>
+
+  <!-- COLORS -->
+  <section class="section" id="colors">
+    <div class="section-header">
+      <div class="section-label">Foundation</div>
+      <h2 class="section-title">Color Tokens</h2>
+      <p class="section-desc">Clean light palette with bold Zapier Orange accents. 18 tokens across neutrals, brand, semantic states, and status indicators.</p>
+    </div>
+    <div class="color-grid">
+      <div class="color-token">
+        <div class="color-swatch" style="background:#ffffff"></div>
+        <div class="color-info"><div class="color-name">Clean White</div><div class="color-hex">#ffffff</div><div class="color-role">Primary background, cards</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#f9fafb"></div>
+        <div class="color-info"><div class="color-name">Snow Gray</div><div class="color-hex">#f9fafb</div><div class="color-role">Alternating sections</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#f3f4f6"></div>
+        <div class="color-info"><div class="color-name">Cloud Gray</div><div class="color-hex">#f3f4f6</div><div class="color-role">Disabled states, muted</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#e5e7eb"></div>
+        <div class="color-info"><div class="color-name">Border Light</div><div class="color-hex">#e5e7eb</div><div class="color-role">Borders, dividers</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#d1d5db"></div>
+        <div class="color-info"><div class="color-name">Border Medium</div><div class="color-hex">#d1d5db</div><div class="color-role">Input outlines, grids</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#6b7280"></div>
+        <div class="color-info"><div class="color-name">Slate</div><div class="color-hex">#6b7280</div><div class="color-role">Placeholders, labels</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#4b5563"></div>
+        <div class="color-info"><div class="color-name">Iron</div><div class="color-hex">#4b5563</div><div class="color-role">Secondary text</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#1a1a2e"></div>
+        <div class="color-info"><div class="color-name">Midnight</div><div class="color-hex">#1a1a2e</div><div class="color-role">Primary text, headings</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#ff4a00"></div>
+        <div class="color-info"><div class="color-name">Zapier Orange</div><div class="color-hex">#ff4a00</div><div class="color-role">Brand, CTAs, links</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#e64300"></div>
+        <div class="color-info"><div class="color-name">Orange Hover</div><div class="color-hex">#e64300</div><div class="color-role">Hover states</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#fff4ed"></div>
+        <div class="color-info"><div class="color-name">Orange Light</div><div class="color-hex">#fff4ed</div><div class="color-role">Light tint backgrounds</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#ff6b2b"></div>
+        <div class="color-info"><div class="color-name">Orange Glow</div><div class="color-hex">#ff6b2b</div><div class="color-role">Decorative highlights</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#2563eb"></div>
+        <div class="color-info"><div class="color-name">Blue Link</div><div class="color-hex">#2563eb</div><div class="color-role">Info links, help text</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#059669"></div>
+        <div class="color-info"><div class="color-name">Green Success</div><div class="color-hex">#059669</div><div class="color-role">Active, connected</div></div>
+      </div>
+      <div class="color-token">
+        <div class="color-swatch" style="background:#dc2626"></div>
+        <div class="color-info"><div class="color-name">Red Error</div><div class="color-hex">#dc2626</div><div class="color-role">Errors, disconnected</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TYPOGRAPHY -->
+  <section class="section" id="typography">
+    <div class="section-header">
+      <div class="section-label">Typography</div>
+      <h2 class="section-title">Type Scale</h2>
+      <p class="section-desc">DM Sans as primary typeface (Inter substitute). Geometric structure with friendly curves for an approachable, modern voice.</p>
+    </div>
+    <div class="type-table">
+      <div class="type-row">
+        <span class="type-meta">Display</span>
+        <span class="type-sample" style="font-size:28px;font-weight:700;line-height:1;letter-spacing:-.025em">Automate anything</span>
+        <span class="type-specs">48px / 1.0 / -0.025em</span>
+      </div>
+      <div class="type-row">
+        <span class="type-meta">Heading-xl</span>
+        <span class="type-sample" style="font-size:22px;font-weight:700;line-height:1.2;letter-spacing:-.25px">Build workflows</span>
+        <span class="type-specs">36px / 1.2 / -0.025px</span>
+      </div>
+      <div class="type-row">
+        <span class="type-meta">Heading-lg</span>
+        <span class="type-sample" style="font-size:18px;font-weight:700;line-height:1.2;letter-spacing:-.2px">Connect your apps</span>
+        <span class="type-specs">30px / 1.2 / -0.02px</span>
+      </div>
+      <div class="type-row">
+        <span class="type-meta">Heading</span>
+        <span class="type-sample" style="font-size:16px;font-weight:600;line-height:1.3;letter-spacing:-.2px">Section heading</span>
+        <span class="type-specs">24px / 1.3 / -0.02px</span>
+      </div>
+      <div class="type-row">
+        <span class="type-meta">Body</span>
+        <span class="type-sample" style="font-size:16px;font-weight:400;line-height:1.6">Default body text for readable content</span>
+        <span class="type-specs">16px / 1.6 / 0</span>
+      </div>
+      <div class="type-row">
+        <span class="type-meta">Body-sm</span>
+        <span class="type-sample" style="font-size:14px;font-weight:400;line-height:1.5">Dense data, comparison rows</span>
+        <span class="type-specs">14px / 1.5 / 0</span>
+      </div>
+      <div class="type-row">
+        <span class="type-meta">Caption</span>
+        <span class="type-sample" style="font-size:13px;font-weight:400;line-height:1.5">Meta info · Labels · Helper text</span>
+        <span class="type-specs">13px / 1.5 / 0</span>
+      </div>
+    </div>
+
+    <h3 style="font-size:14px;font-weight:600;color:var(--midnight);margin:40px 0 20px">Fonts</h3>
+    <div style="display:flex;flex-direction:column;border:1px solid var(--border-light);border-radius:var(--r-xl);overflow:hidden">
+      <div style="padding:20px 24px;border-bottom:1px solid var(--border-light);display:flex;align-items:baseline;gap:16px">
+        <span style="font-size:11px;font-weight:700;color:var(--zapier-orange);letter-spacing:.06px;text-transform:uppercase;flex:0 0 60px">Primary</span>
+        <span style="font-size:16px;font-weight:600;color:var(--midnight)">DM Sans</span>
+        <span style="font-size:11px;color:var(--slate)">400-700 · 13-18px</span>
+      </div>
+      <div style="padding:20px 24px;border-bottom:1px solid var(--border-light);display:flex;align-items:baseline;gap:16px">
+        <span style="font-size:11px;font-weight:700;color:var(--zapier-orange);letter-spacing:.06px;text-transform:uppercase;flex:0 0 60px">Body</span>
+        <span style="font-size:16px;font-weight:500;color:var(--midnight)">DM Sans Text</span>
+        <span style="font-size:11px;color:var(--slate)">400-700 · 14-18px · Longer reading</span>
+      </div>
+      <div style="padding:20px 24px;border-bottom:1px solid var(--border-light);display:flex;align-items:baseline;gap:16px">
+        <span style="font-size:11px;font-weight:700;color:var(--zapier-orange);letter-spacing:.06px;text-transform:uppercase;flex:0 0 60px">Mono</span>
+        <span style="font-size:16px;font-weight:500;color:var(--midnight)">DM Mono</span>
+        <span style="font-size:11px;color:var(--slate)">400-700 · 13-14px · Code only</span>
+      </div>
+      <div style="padding:20px 24px;display:flex;align-items:baseline;gap:16px">
+        <span style="font-size:11px;font-weight:700;color:var(--zapier-orange);letter-spacing:.06px;text-transform:uppercase;flex:0 0 60px">Fallback</span>
+        <span style="font-size:16px;font-weight:500;color:var(--midnight)">Inter</span>
+        <span style="font-size:11px;color:var(--slate)">Substitute for all above</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- SPACING & SHAPES -->
+  <section class="section" id="spacing">
+    <div class="section-header">
+      <div class="section-label">Layout</div>
+      <h2 class="section-title">Spacing & Shapes</h2>
+      <p class="section-desc">Base unit 4px. Friendly density with generous breathing room. 14-step spacing scale, 5 border radius values.</p>
+    </div>
+
+    <h3 style="font-size:14px;font-weight:600;color:var(--midnight);margin-bottom:20px">Spacing Scale (4px base)</h3>
+    <div class="spacing-bars">
+      <div class="spacing-col"><div class="spacing-bar" style="height:8px"></div><span class="spacing-val">4</span><span class="spacing-name">4px</span></div>
+      <div class="spacing-col"><div class="spacing-bar" style="height:14px"></div><span class="spacing-val">8</span><span class="spacing-name">8px</span></div>
+      <div class="spacing-col"><div class="spacing-bar" style="height:20px"></div><span class="spacing-val">12</span><span class="spacing-name">12px</span></div>
+      <div class="spacing-col"><div class="spacing-bar" style="height:28px"></div><span class="spacing-val">16</span><span class="spacing-name">16px</span></div>
+      <div class="spacing-col"><div class="spacing-bar" style="height:40px"></div><span class="spacing-val">24</span><span class="spacing-name">24px</span></div>
+      <div class="spacing-col"><div class="spacing-bar" style="height:56px"></div><span class="spacing-val">40</span><span class="spacing-name">40px</span></div>
+      <div class="spacing-col"><div class="spacing-bar" style="height:80px"></div><span class="spacing-val">64</span><span class="spacing-name">64px</span></div>
+      <div class="spacing-col"><div class="spacing-bar" style="height:100px"></div><span class="spacing-val">120</span><span class="spacing-name">120px</span></div>
+    </div>
+
+    <h3 style="font-size:14px;font-weight:600;color:var(--midnight);margin:40px 0 20px">Border Radius</h3>
+    <div class="shapes-row">
+      <div class="shape-item">
+        <div class="shape-box" style="border-radius:4px"></div>
+        <span class="shape-label">sm</span>
+        <span class="shape-value">4px</span>
+      </div>
+      <div class="shape-item">
+        <div class="shape-box" style="border-radius:6px"></div>
+        <span class="shape-label">default</span>
+        <span class="shape-value">6px</span>
+      </div>
+      <div class="shape-item">
+        <div class="shape-box" style="border-radius:8px"></div>
+        <span class="shape-label">buttons</span>
+        <span class="shape-value">8px</span>
+      </div>
+      <div class="shape-item">
+        <div class="shape-box" style="border-radius:12px"></div>
+        <span class="shape-label">cards</span>
+        <span class="shape-value">12px</span>
+      </div>
+      <div class="shape-item">
+        <div class="shape-box" style="border-radius:9999px"></div>
+        <span class="shape-label">pill</span>
+        <span class="shape-value">9999px</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- SURFACES -->
+  <section class="section" id="surfaces">
+    <div class="section-header">
+      <div class="section-label">Elevation</div>
+      <h2 class="section-title">Surfaces</h2>
+      <p class="section-desc">Clean, layered surface system with subtle shadows on hover. 4 distinct levels from white canvas to bordered containers.</p>
+    </div>
+    <div class="surface-grid">
+      <div class="surface-item" style="background:#ffffff">
+        <span class="surface-name">Clean White</span>
+        <span class="surface-val">#ffffff</span>
+      </div>
+      <div class="surface-item" style="background:#f9fafb">
+        <span class="surface-name">Snow Gray</span>
+        <span class="surface-val">#f9fafb</span>
+      </div>
+      <div class="surface-item" style="background:#f3f4f6">
+        <span class="surface-name">Cloud Gray</span>
+        <span class="surface-val">#f3f4f6</span>
+      </div>
+      <div class="surface-item" style="background:#ffffff;border-color:#d1d5db">
+        <span class="surface-name">Bordered</span>
+        <span class="surface-val">#d1d5db</span>
+      </div>
+    </div>
+
+    <h3 style="font-size:14px;font-weight:600;color:var(--midnight);margin:40px 0 16px">Status Indicators</h3>
+    <div class="status-grid">
+      <div class="status-item">
+        <div class="status-dot status-dot--active"></div>
+        <div><div class="status-label">Active</div><div class="status-desc">Zap running normally</div></div>
+      </div>
+      <div class="status-item">
+        <div class="status-dot status-dot--error"></div>
+        <div><div class="status-label">Error</div><div class="status-desc">Zap needs attention</div></div>
+      </div>
+      <div class="status-item">
+        <div class="status-dot status-dot--paused"></div>
+        <div><div class="status-label">Paused</div><div class="status-desc">Zap turned off</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPONENTS -->
+  <section class="section" id="components">
+    <div class="section-header">
+      <div class="section-label">Components</div>
+      <h2 class="section-title">Button Variants</h2>
+      <p class="section-desc">Primary CTA (Zapier Orange), secondary, and ghost variants. Clean, friendly, and accessible across all interaction states.</p>
+    </div>
+
+    <div class="component-card">
+      <div class="component-header">
+        <div><div class="component-name">Primary CTA Button</div><div class="component-role">Main call to action &mdash; highest visual weight</div></div>
+        <span class="component-class">.btn-primary</span>
+      </div>
+      <div class="component-preview">
+        <button class="btn btn-primary">Try it free</button>
+        <button class="btn btn-primary" style="background:var(--orange-hover);border-color:var(--orange-hover)">Hover state</button>
+      </div>
+      <div class="component-desc">Zapier Orange (#ff4a00) background, white text, 8px radius, subtle shadow. Use exclusively for the single most important action.</div>
+    </div>
+
+    <div class="component-card">
+      <div class="component-header">
+        <div><div class="component-name">Secondary Button</div><div class="component-role">Supporting actions, navigation</div></div>
+        <span class="component-class">.btn-secondary</span>
+      </div>
+      <div class="component-preview">
+        <button class="btn btn-secondary">Sign in</button>
+        <button class="btn btn-secondary" style="border-color:var(--slate);background:var(--snow-gray)">Hover state</button>
+      </div>
+      <div class="component-desc">White background, Midnight text, Border Medium outline. For less prominent actions that still need visual presence.</div>
+    </div>
+
+    <div class="component-card">
+      <div class="component-header">
+        <div><div class="component-name">Ghost Button</div><div class="component-role">Tertiary actions, inline links</div></div>
+        <span class="component-class">.btn-ghost</span>
+      </div>
+      <div class="component-preview">
+        <button class="btn btn-ghost">Learn more</button>
+        <button class="btn btn-ghost" style="background:var(--orange-light)">Hover state</button>
+      </div>
+      <div class="component-desc">Zapier Orange text, transparent background. For less prominent actions that maintain brand connection.</div>
+    </div>
+
+    <div class="component-card">
+      <div class="component-header">
+        <div><div class="component-name">Input Field</div><div class="component-role">User text input</div></div>
+        <span class="component-class">input</span>
+      </div>
+      <div class="component-preview">
+        <div style="display:flex;flex-direction:column;gap:12px;flex:1;max-width:360px">
+          <input type="text" placeholder="Enter your email" style="background:var(--clean-white);border:1px solid var(--border-medium);border-radius:8px;padding:12px 16px;color:var(--midnight);font-size:14px;font-family:inherit;outline:none">
+          <input type="text" value="Focused state" style="background:var(--clean-white);border:2px solid var(--zapier-orange);border-radius:8px;padding:11px 16px;color:var(--midnight);font-size:14px;font-family:inherit;outline:none;box-shadow:0 0 0 3px rgba(255,74,0,.1)">
+        </div>
+      </div>
+      <div class="component-desc">White background, Border Medium outline, 8px radius. Focus state uses Zapier Orange border with subtle glow ring.</div>
+    </div>
+
+    <div class="component-card">
+      <div class="component-header">
+        <div><div class="component-name">Feature Card</div><div class="component-role">Showcasing integrations and features</div></div>
+        <span class="component-class">.card</span>
+      </div>
+      <div class="component-preview">
+        <div style="background:var(--clean-white);border:1px solid var(--border-light);border-radius:12px;padding:24px;max-width:280px">
+          <div style="width:40px;height:40px;background:var(--orange-light);border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:12px;font-size:20px">&#9889;</div>
+          <div style="font-size:16px;font-weight:600;color:var(--midnight);margin-bottom:8px">Connect 6,000+ apps</div>
+          <div style="font-size:14px;color:var(--iron);line-height:1.5">Link your favorite tools and automate workflows without writing a single line of code.</div>
+        </div>
+      </div>
+      <div class="component-desc">Clean White background, Border Light outline, 12px radius, 24px padding. Hover adds subtle shadow for depth.</div>
+    </div>
+  </section>
+
+  <!-- DO'S & DON'TS -->
+  <section class="section" id="guidelines">
+    <div class="section-header">
+      <div class="section-label">Guidelines</div>
+      <h2 class="section-title">Do's & Don'ts</h2>
+    </div>
+    <div class="guide-grid">
+      <div class="guide-card guide-card--do">
+        <div class="guide-label">Do &mdash; Embrace</div>
+        <ul class="guide-list">
+          <li>Clean White (#ffffff) as primary background</li>
+          <li>Midnight (#1a1a2e) for all primary text</li>
+          <li>Zapier Orange (#ff4a00) for CTAs and key actions</li>
+          <li>Green Success (#059669) for active states</li>
+          <li>8px radius for buttons, 12px for cards</li>
+          <li>4px-based spacing with friendly breathing room</li>
+          <li>Subtle shadows on hover for depth</li>
+        </ul>
+      </div>
+      <div class="guide-card guide-card--dont">
+        <div class="guide-label">Don't &mdash; Avoid</div>
+        <ul class="guide-list">
+          <li>Orange for large background surfaces</li>
+          <li>More than two accent colors per view</li>
+          <li>Hard sharp corners on cards or buttons</li>
+          <li>Orange text on light orange backgrounds</li>
+          <li>Dense packing without breathing room</li>
+          <li>Font families outside DM Sans / Inter</li>
+          <li>Mono fonts for non-code content</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-left">Zapier Design System</div>
+    <div class="footer-right">
+      <a href="#colors" class="footer-link">Colors</a>
+      <a href="#typography" class="footer-link">Typography</a>
+      <a href="#spacing" class="footer-link">Spacing</a>
+      <a href="#components" class="footer-link">Components</a>
+      <a href="#" class="footer-link" download>Download Spec</a>
+    </div>
+  </footer>
+
+</div>
+
+
+
+</body>
+</html>

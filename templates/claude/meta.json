@@ -1,0 +1,33 @@
+{
+	"schemaVersion": 1,
+	"kind": "design-system",
+	"slug": "claude",
+	"name": "Claude",
+	"version": "1.0.0",
+	"order": 300,
+	"category": "ai",
+	"vibe": "light",
+	"tags": [
+		"light-ui",
+		"editorial",
+		"developer-focused",
+		"design-system"
+	],
+	"blurb": "A warm-canvas editorial interface for Anthropic's Claude product.",
+	"tagline": {
+		"en": "Warm cream canvas with coral CTAs and serif display",
+		"zh": "暖奶油画布，珊瑚 CTA 与衬线标题"
+	},
+	"license": "MIT",
+	"origin": {
+		"type": "curated",
+		"upstream": "https://github.com/ricocc/brands-design-md.git",
+		"note": "from brands-design-md (Claude)."
+	},
+	"assets": {
+		"spec": "DESIGN.md",
+		"theme": "theme.css",
+		"demo": "demo.html"
+	},
+	"collectedAt": "2026-08-22"
+}
