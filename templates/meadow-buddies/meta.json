@@ -16,7 +16,7 @@
 	"license": "MIT",
 	"origin": {
 		"type": "collected",
-		"upstream": "https://github.com/sikongyue/astravia-design-system-templates",
+		"upstream": "https://github.com/maomaochong-ai/astravia-design-system-templates",
 		"note": "Original HTML, CSS and inline SVG reconstruction from a user-provided three-screen fitness UI reference. Reference creator and source URL were not supplied. The reference image is not redistributed; MIT covers the authored implementation only."
 	},
 	"assets": {

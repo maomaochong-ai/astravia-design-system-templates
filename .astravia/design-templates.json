@@ -2,7 +2,7 @@
 	"schemaVersion": 1,
 	"name": "astravia-design-system-templates",
 	"displayName": "Astravia Design System Templates",
-	"repository": "https://github.com/sikongyue/astravia-design-system-templates",
+	"repository": "https://github.com/maomaochong-ai/astravia-design-system-templates",
 	"minPluginVersion": "0.4.0",
 	"templates": [
 		{
@@ -313,7 +313,7 @@
 			"license": "MIT",
 			"origin": {
 				"type": "collected",
-				"upstream": "https://github.com/sikongyue/astravia-design-system-templates",
+				"upstream": "https://github.com/maomaochong-ai/astravia-design-system-templates",
 				"note": "Original HTML, CSS and inline SVG reconstruction from a user-provided three-screen fitness UI reference. Reference creator and source URL were not supplied. The reference image is not redistributed; MIT covers the authored implementation only."
 			},
 			"collectedAt": "2026-08-31",
@@ -6157,5 +6157,5 @@
 			]
 		}
 	],
-	"catalogVersion": "2026.10.24-1"
+	"catalogVersion": "2026.10.24-2"
 }

@@ -315,7 +315,7 @@ function buildCatalog(entries, previous) {
 		schemaVersion: 1,
 		name: "astravia-design-system-templates",
 		displayName: "Astravia Design System Templates",
-		repository: "https://github.com/sikongyue/astravia-design-system-templates",
+		repository: "https://github.com/maomaochong-ai/astravia-design-system-templates",
 		minPluginVersion: "0.4.0",
 		templates: entries,
 	};
