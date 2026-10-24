@@ -141,16 +141,23 @@ function buildResources(slug, roles) {
 			continue;
 		}
 		const filePath = join(TEMPLATES_DIR, slug, rel);
-		const bytes = statSync(filePath).size;
+		const rawBytes = statSync(filePath).size;
 		const extension = rel.split(".").pop()?.toLowerCase() ?? "";
 		const role = roleByPath.get(rel);
-		const inline = TEXT_EXTENSIONS.has(extension) && bytes <= MAX_INLINE_BYTES;
+		// Git may check out text as CRLF on Windows. Catalog content and byte counts
+		// use canonical LF so an unchanged checkout produces the same artifact in CI.
+		const text = TEXT_EXTENSIONS.has(extension)
+			? readFileSync(filePath, "utf8").replace(/\r\n/g, "\n")
+			: undefined;
+		const textBytes = text === undefined ? undefined : Buffer.byteLength(text, "utf8");
+		const inline = textBytes !== undefined && textBytes <= MAX_INLINE_BYTES;
+		const bytes = inline ? textBytes : rawBytes;
 		resources.push({
 			path: rel,
 			...(role ? { role } : {}),
 			bytes,
 			...(inline
-				? { encoding: "text", content: readFileSync(filePath, "utf8") }
+				? { encoding: "text", content: text }
 				: { encoding: "binary", url: `templates/${slug}/${rel}` }),
 		});
 	}
@@ -365,7 +372,7 @@ function main() {
 	const serialized = `${JSON.stringify(catalog, null, "\t")}\n`;
 
 	if (checkOnly) {
-		const onDisk = existsSync(CATALOG_PATH) ? readFileSync(CATALOG_PATH, "utf8") : "";
+		const onDisk = existsSync(CATALOG_PATH) ? readFileSync(CATALOG_PATH, "utf8").replace(/\r\n/g, "\n") : "";
 		if (onDisk !== serialized) {
 			console.error("`.astravia/design-templates.json` 与 templates/ 不同步，请运行 `node scripts/build-catalog.mjs` 后提交。");
 			process.exit(1);

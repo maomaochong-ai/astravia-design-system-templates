@@ -1,596 +1,385 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Figma — Design System</title>
-    
-    
-    <style>
-      :root {
-        --ink: #000;
-        --paper: #fff;
-        --mist: #e2e2e2;
-        --gray: #595959;
-        --indigo: #4d49fc;
-        --cyan: #00b6ff;
-        --green: #24cb71;
-        --orange: #ff7237;
-        --lime: #e4ff97;
-        --lilac: #c4baff;
-        --blush: #ffc9c1;
-        --aqua: #c7f8fb;
-        --teal: #33dfdf;
-        --mustard: #b98e01;
-        --sans: figmaSans, Inter, sans-serif;
-        --mono: figmaMono, "IBM Plex Mono", monospace;
-        --shadow: rgba(0, 0, 0, 0.1) 0 24px 70px;
-      }
-      * {
-        box-sizing: border-box;
-      }
-      html {
-        scroll-behavior: smooth;
-      }
-      body {
-        margin: 0;
-        background: var(--paper);
-        color: var(--ink);
-        font: 400 16px/1.45 var(--sans);
-        letter-spacing: -0.11px;
-      }
-      a {
-        color: inherit;
-      }
-      a:focus-visible,
-      button:focus-visible {
-        outline: 2px solid var(--indigo);
-        outline-offset: 3px;
-      }
-      .page {
-        max-width: 960px;
-        margin: auto;
-        padding: 0 32px 96px;
-      }
-      .nav {
-        height: 64px;
-        margin: 0 -32px;
-        padding: 0 16px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 16px;
-        position: sticky;
-        top: 0;
-        z-index: 2;
-        background: rgba(255, 255, 255, 0.96);
-      }
-      .left,
-      .right {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-      }
-      .logo-favicon {
-        width: 30px;
-        height: 30px;
-        object-fit: contain;
-      }
-      .wordmark {
-        font-weight: 500;
-        text-decoration: none;
-      }
-      .tag {
-        padding: 3px 10px;
-        border-radius: 8px;
-        background: var(--mist);
-        font: 12px/1 var(--mono);
-        letter-spacing: 0.48px;
-      }
-      .link {
-        padding: 6px 10px;
-        color: var(--gray);
-        font-size: 14px;
-        text-decoration: none;
-      }
-      .site {
-        padding: 7px 12px;
-        border: 1px solid var(--ink);
-        border-radius: 8px;
-        color: var(--ink);
-      }
-      .hero {
-        padding: 72px 0 48px;
-      }
-      .label {
-        margin-bottom: 10px;
-        color: var(--indigo);
-        font: 12px/1 var(--mono);
-        letter-spacing: 0.48px;
-        text-transform: uppercase;
-      }
-      .hero h1 {
-        margin: 0;
-        font: 320 clamp(48px, 7vw, 72px)/1.1 var(--sans);
-        letter-spacing: -1.44px;
-      }
-      .hero p {
-        max-width: 560px;
-        margin: 16px 0 24px;
-        color: var(--gray);
-        font-size: 18px;
-      }
-      .actions {
-        display: flex;
-        gap: 10px;
-        flex-wrap: wrap;
-      }
-      .btn {
-        padding: 10px 20px;
-        border: 1px solid var(--ink);
-        border-radius: 50px;
-        background: #fff;
-        font: 400 16px/1 var(--sans);
-        text-decoration: none;
-      }
-      .btn.primary {
-        background: var(--indigo);
-        border-color: var(--indigo);
-        color: #fff;
-      }
-      .section {
-        padding-top: 80px;
-        margin-top: 56px;
-        border-top: 1px solid var(--mist);
-        scroll-margin-top: 64px;
-      }
-      .section h2 {
-        margin: 0 0 24px;
-        font: 320 32px/1.1 var(--sans);
-        letter-spacing: -0.48px;
-      }
-      .desc {
-        margin: 10px 0 32px;
-        max-width: 600px;
-        color: var(--gray);
-      }
-      .grid {
-        display: grid;
-        gap: 12px;
-      }
-      .colors {
-        grid-template-columns: repeat(4, 1fr);
-      }
-      .token {
-        min-height: 122px;
-        padding: 12px;
-        border: 1px solid var(--mist);
-        border-radius: 16px;
-        display: flex;
-        align-items: end;
-        font: 12px/1.35 var(--mono);
-      }
-      .type-list {
-        border-top: 1px solid var(--mist);
-      }
-      .type {
-        display: grid;
-        grid-template-columns: 480px 1fr;
-        gap: 12px;
-        align-items: baseline;
-        padding: 16px 0;
-        border-bottom: 1px solid var(--mist);
-      }
-      .type small {
-        color: var(--gray);
-        font: 12px/1.3 var(--mono);
-        text-align: right;
-      }
-      .display {
-        font: 320 72px/1.1 var(--sans);
-        letter-spacing: -1.44px;
-      }
-      .heading {
-        font: 320 56px/1.1 var(--sans);
-        letter-spacing: -0.84px;
-      }
-      .body {
-        font-size: 18px;
-      }
-      .metrics {
-        grid-template-columns: 1fr 1fr;
-      }
-      .panel {
-        padding: 20px;
-        border: 1px solid var(--mist);
-        border-radius: 16px;
-      }
-      .panel h3 {
-        margin: 0 0 18px;
-        font-size: 16px;
-      }
-      .space {
-        display: grid;
-        grid-template-columns: 42px 1fr 42px;
-        gap: 8px;
-        align-items: center;
-        margin: 8px 0;
-        font: 12px/1 var(--mono);
-      }
-      .bar {
-        height: 8px;
-        background: var(--indigo);
-        border-radius: 2px;
-      }
-      .radii {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 12px;
-      }
-      .radius {
-        height: 68px;
-        padding: 8px;
-        display: flex;
-        align-items: end;
-        background: var(--mist);
-        font: 11px/1 var(--mono);
-      }
-      .radius:nth-child(1) {
-        border-radius: 2px;
-      }
-      .radius:nth-child(2) {
-        border-radius: 8px;
-      }
-      .radius:nth-child(3) {
-        border-radius: 16px;
-      }
-      .radius:nth-child(4) {
-        border-radius: 50px;
-      }
-      .shadow {
-        padding: 32px 20px;
-        border-radius: 16px;
-        background: #fff;
-        box-shadow: var(--shadow);
-        font: 12px/1.4 var(--mono);
-      }
-      .components {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 12px;
-      }
-      .component {
-        padding: 24px;
-        border: 1px solid var(--mist);
-        border-radius: 16px;
-      }
-      .component h3 {
-        margin: 0 0 16px;
-        font-size: 16px;
-      }
-      .preview {
-        padding: 20px;
-        background: var(--mist);
-        border-radius: 8px;
-      }
-      .logo {
-        display: grid;
-        grid-template-columns: repeat(2, 14px);
-        gap: 2px;
-      }
-      .logo i {
-        width: 14px;
-        height: 14px;
-        border-radius: 50%;
-      }
-      .logo i:nth-child(1) {
-        background: var(--cyan);
-      }
-      .logo i:nth-child(2) {
-        background: var(--orange);
-      }
-      .logo i:nth-child(3) {
-        background: var(--green);
-      }
-      .logo i:nth-child(4) {
-        background: var(--ink);
-      }
-      .guides {
-        grid-template-columns: 1fr 1fr;
-      }
-      .guide {
-        padding: 20px;
-        border-radius: 16px;
-      }
-      .do {
-        border: 1px solid var(--mist);
-      }
-      .avoid {
-        background: var(--mist);
-      }
-      .guide h3 {
-        margin: 0 0 12px;
-        font-size: 16px;
-      }
-      .guide ul {
-        margin: 0;
-        padding-left: 18px;
-      }
-      .guide li + li {
-        margin-top: 8px;
-      }
-      .downloads {
-        display: flex;
-        gap: 8px;
-        flex-wrap: wrap;
-        margin-top: 24px;
-      }
-      .download {
-        padding: 7px 10px;
-        border: 1px solid var(--mist);
-        border-radius: 8px;
-        font: 12px/1 var(--mono);
-        text-decoration: none;
-      }
-      .footer {
-        margin-top: 80px;
-        padding-top: 24px;
-        border-top: 1px solid var(--mist);
-        color: var(--gray);
-        font: 12px/1.4 var(--mono);
-      }
-      @media (max-width: 700px) {
-        .nav .link {
-          display: none;
-        }
-        .colors {
-          grid-template-columns: repeat(2, 1fr);
-        }
-        .type {
-          grid-template-columns: 1fr;
-        }
-        .type small {
-          text-align: left;
-        }
-        .metrics,
-        .components,
-        .guides {
-          grid-template-columns: 1fr;
-        }
-        .display {
-          font-size: 52px;
-        }
-        .heading {
-          font-size: 42px;
-        }
-      }
-      @media (max-width: 460px) {
-        .page {
-          padding: 0 20px 72px;
-        }
-        .nav {
-          margin: 0 -20px;
-        }
-        .tag {
-          display: none;
-        }
-        .hero {
-          padding-top: 56px;
-        }
-        .radii {
-          grid-template-columns: repeat(2, 1fr);
-        }
-      }
-      @media (prefers-reduced-motion: reduce) {
-        html {
-          scroll-behavior: auto;
-        }
-      }
-    </style>
-  </head>
-  <body>
-    <div class="page">
-      <nav class="nav">
-        <div class="left">
-          <a class="wordmark" href="#top">Figma</a
-          ><span class="tag">Design System</span>
-        </div>
-        <div class="right">
-          <a class="link" href="#colors">Colors</a
-          ><a class="link" href="#type">Type</a
-          ><a class="link" href="#spacing">Spacing</a
-          ><a class="link" href="#components">Components</a
-          ><a
-            class="link site"
-            href="#"
-            target="_blank"
-            rel="noopener noreferrer"
-            >Site ↗</a
-          >
-        </div>
-      </nav>
-      <main id="top">
-        <header class="hero">
-          <p class="label">Design System / Light</p>
-          <h1>White gallery wall.<br />Indigo focus.</h1>
-          <p>
-            Figma keeps interface chrome black and white so the work can carry
-            the color. Electric Indigo remains the singular action signal.
-          </p>
-          <div class="actions">
-            <a class="btn primary" href="#components">Explore components</a
-            ><a class="btn" href="#" download>Download spec</a>
-          </div>
-        </header>
-        <section class="section" id="colors">
-          <p class="label">Foundation</p>
-          <h2>Color tokens</h2>
-          <p class="desc">
-            Core UI uses Ink, Paper and one Electric Indigo. Brand and pastel
-            colors are displayed-work tokens, not UI accents.
-          </p>
-          <div class="colors grid">
-            <div class="token" style="background: #000; color: #fff">
-              Ink Black<br />#000000
-            </div>
-            <div class="token" style="background: #fff">
-              Paper White<br />#ffffff
-            </div>
-            <div class="token" style="background: #e2e2e2">
-              Soft Mist<br />#e2e2e2
-            </div>
-            <div class="token" style="background: #4d49fc; color: #fff">
-              Electric Indigo<br />#4d49fc
-            </div>
-            <div class="token" style="background: #00b6ff">
-              Figma Cyan<br />#00b6ff
-            </div>
-            <div class="token" style="background: #24cb71">
-              Figma Green<br />#24cb71
-            </div>
-            <div class="token" style="background: #ff7237">
-              Figma Orange<br />#ff7237
-            </div>
-            <div class="token" style="background: #c4baff">
-              Lilac<br />#c4baff
-            </div>
-          </div>
-        </section>
-        <section class="section" id="type">
-          <p class="label">Typography</p>
-          <h2>Type scale</h2>
-          <div class="type-list">
-            <div class="type">
-              <span class="display">Figma</span
-              ><small>Display / 72 / 1.1 / 320</small>
-            </div>
-            <div class="type">
-              <span class="heading">Make it real.</span
-              ><small>Heading-lg / 56 / 1.1 / 320</small>
-            </div>
-            <div class="type">
-              <span style="font-size: 24px">Design with precision.</span
-              ><small>Heading / 24 / 1.35 / 340</small>
-            </div>
-            <div class="type">
-              <span class="body">The canvas gives the work room to speak.</span
-              ><small>Body / 18 / 1.4 / 400</small>
-            </div>
-          </div>
-        </section>
-        <section class="section" id="spacing">
-          <p class="label">Layout</p>
-          <h2>Spacing &amp; shape</h2>
-          <div class="metrics grid">
-            <article class="panel">
-              <h3>Spacing</h3>
-              <div class="space">
-                <span>4</span><i class="bar" style="width: 4px"></i
-                ><span>4px</span>
-              </div>
-              <div class="space">
-                <span>8</span><i class="bar" style="width: 8px"></i
-                ><span>8px</span>
-              </div>
-              <div class="space">
-                <span>16</span><i class="bar" style="width: 16px"></i
-                ><span>16px</span>
-              </div>
-              <div class="space">
-                <span>24</span><i class="bar" style="width: 24px"></i
-                ><span>24px</span>
-              </div>
-              <div class="space">
-                <span>48</span><i class="bar" style="width: 48px"></i
-                ><span>48px</span>
-              </div>
-              <div class="space">
-                <span>80</span><i class="bar" style="width: 80px"></i
-                ><span>80px</span>
-              </div>
-            </article>
-            <article class="panel">
-              <h3>Radius</h3>
-              <div class="radii">
-                <div class="radius">2px<br />icons</div>
-                <div class="radius">8px<br />tags</div>
-                <div class="radius">16px<br />cards</div>
-                <div class="radius">50px<br />buttons</div>
-              </div>
-            </article>
-          </div>
-        </section>
-        <section class="section">
-          <p class="label">Elevation</p>
-          <h2>Shadow</h2>
-          <p class="desc">
-            One shadow only, reserved for the hero floating card.
-          </p>
-          <div class="shadow">
-            shadow-xl<br />rgba(0, 0, 0, 0.1) 0px 24px 70px 0px
-          </div>
-        </section>
-        <section class="section" id="components">
-          <p class="label">Components</p>
-          <h2>Component library</h2>
-          <div class="components">
-            <article class="component">
-              <h3>Actions</h3>
-              <div class="preview">
-                <button class="btn primary">Get started</button>
-                <button class="btn">Sign in</button>
-              </div>
-              <p class="desc">
-                Indigo is the one primary action; the ghost action stays black
-                and white.
-              </p>
-            </article>
-            <article class="component">
-              <h3>Brand mark</h3>
-              <div class="preview">
-                <div class="logo" aria-label="Figma color mark">
-                  <i></i><i></i><i></i><i></i>
-                </div>
-              </div>
-              <p class="desc">
-                The logo is the only UI element where the four marker colors
-                appear together.
-              </p>
-            </article>
-          </div>
-        </section>
-        <section class="section">
-          <p class="label">Guidelines</p>
-          <h2>Use with restraint</h2>
-          <div class="guides grid">
-            <article class="guide do">
-              <h3>Do</h3>
-              <ul>
-                <li>Reserve Electric Indigo for one CTA per viewport.</li>
-                <li>Use weight 320 display type at 56–72px.</li>
-                <li>Apply shadow-xl only to the hero card.</li>
-              </ul>
-            </article>
-            <article class="guide avoid">
-              <h3>Avoid</h3>
-              <ul>
-                <li>Do not color ordinary UI controls with logo hues.</li>
-                <li>Do not shadow gallery cards.</li>
-                <li>
-                  Do not replace the white canvas with decorative surfaces.
-                </li>
-              </ul>
-            </article>
-          </div>
-          <div class="downloads">
-            <a class="download" href="#" download>DESIGN.md</a
-            ><a class="download" href="#" download>tokens.json</a
-            ><a class="download" href="#" download>variables.css</a
-            ><a class="download" href="#" download>theme.css</a>
-          </div>
-        </section>
-      </main>
-      <footer class="footer">FIGMA DESIGN SYSTEM · LIGHT REFERENCE</footer>
-    </div>
-  </body>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Figma — component reference</title>
+<style>
+	/* Mirrors theme.css. Plain custom properties so this file opens standalone. */
+	:root {
+		--color-primary: #0d99ff;
+		--color-primary-foreground: #ffffff;
+		--color-surface: #ffffff;
+		--color-surface-foreground: #1e1e1e;
+		--color-surface-raised: #f5f5f5;
+		--color-muted: #757575;
+		--color-accent: #a259ff;
+		--color-danger: #f24822;
+		--color-border: #e6e6e6;
+
+		--radius-sm: 4px;
+		--radius-md: 6px;
+		--radius-lg: 8px;
+		--radius-xl: 13px;
+		--radius-2xl: 16px;
+
+		--shadow-sm: 0 1px 3px rgb(0 0 0 / 0.1);
+		--shadow-md: 0 4px 14px rgb(0 0 0 / 0.15);
+		--shadow-lg: 0 10px 32px rgb(0 0 0 / 0.2);
+
+		--sans: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+		--mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+	}
+
+	*, *::before, *::after { box-sizing: border-box; }
+	body {
+		margin: 0;
+		background: var(--color-surface);
+		color: var(--color-surface-foreground);
+		font-family: var(--sans);
+		font-size: 13px;
+		line-height: 1.5;
+		-webkit-font-smoothing: antialiased;
+	}
+	h1, h2, h3 { margin: 0; font-weight: 600; letter-spacing: -0.02em; line-height: 1.25; }
+	p { margin: 0; }
+	::selection { background: rgb(13 153 255 / 0.28); }
+	.spacer { flex: 1; }
+	.mono { font-family: var(--mono); }
+
+	/* ── Instrument UI: 40px toolbars, 240px panels, 1px hairlines ── */
+	.toolbar {
+		display: flex; align-items: center; gap: 4px;
+		height: 44px; padding: 0 8px;
+		background: var(--color-surface-raised);
+		border-bottom: 1px solid var(--color-border);
+	}
+	.logo { width: 28px; height: 28px; border-radius: var(--radius-sm); background: var(--color-surface-foreground); position: relative; flex: none; }
+	.logo::after { content: ""; position: absolute; inset: 8px; border-radius: 50%; background: var(--color-primary); }
+	.tool {
+		width: 32px; height: 32px; border-radius: var(--radius-md);
+		display: grid; place-items: center; color: var(--color-muted); font-size: 13px; flex: none;
+	}
+	.tool.is-active { background: var(--color-primary); color: #fff; }
+	.tool:hover { background: rgb(0 0 0 / 0.06); }
+	.tool.is-active:hover { background: var(--color-primary); }
+	.filename { font-size: 13px; font-weight: 500; margin-left: 8px; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+	/* Drawing tools are hidden rather than shrunk below the tablet breakpoint. */
+	@media (max-width: 700px) { .tool-extra, .zoom, .faces { display: none; } }
+	.filename small { color: var(--color-muted); font-weight: 400; }
+	.zoom { font-family: var(--mono); font-size: 12px; color: var(--color-muted); padding: 0 8px; }
+	.faces { display: flex; gap: -6px; }
+	.face { width: 26px; height: 26px; border-radius: 50%; border: 2px solid var(--color-surface-raised); margin-left: -6px; }
+
+	.editor { display: grid; grid-template-columns: 1fr; border-bottom: 1px solid var(--color-border); }
+	@media (min-width: 1000px) { .editor { grid-template-columns: 240px 1fr 240px; } }
+
+	.panel { background: var(--color-surface); font-size: 12px; }
+	.panel.left { border-right: 1px solid var(--color-border); display: none; }
+	.panel.right { border-left: 1px solid var(--color-border); display: none; }
+	@media (min-width: 1000px) { .panel.left, .panel.right { display: block; } }
+	.panel-tabs { display: flex; gap: 14px; padding: 0 12px; border-bottom: 1px solid var(--color-border); }
+	.panel-tabs span { padding: 10px 0; font-size: 12px; color: var(--color-muted); }
+	.panel-tabs .is-active { color: var(--color-surface-foreground); font-weight: 600; box-shadow: inset 0 -2px 0 var(--color-primary); }
+	.panel-group { padding: 10px 8px; border-bottom: 1px solid var(--color-border); }
+	/* 11px uppercase label — the panel typography of the whole system. */
+	.panel-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--color-muted); padding: 0 4px 8px; display: flex; align-items: center; }
+
+	.layer { display: flex; align-items: center; gap: 6px; height: 28px; padding: 0 6px; border-radius: var(--radius-sm); color: var(--color-surface-foreground); }
+	.layer:hover { background: var(--color-surface-raised); }
+	.layer.is-selected { background: rgb(13 153 255 / 0.12); color: var(--color-primary); }
+	.layer .g { width: 12px; height: 12px; flex: none; border: 1.5px solid currentColor; opacity: 0.7; }
+	.layer .g.txt { border: 0; font-size: 11px; font-weight: 700; display: grid; place-items: center; }
+	.layer .g.frm { border-radius: 2px; }
+	.layer .g.ell { border-radius: 50%; }
+	.layer.indent { padding-left: 20px; }
+	.layer.indent2 { padding-left: 34px; }
+	.layer .badge-c { margin-left: auto; color: var(--color-accent); font-size: 11px; }
+
+	/* ── Canvas: gray field, one selected frame with handles ──────── */
+	.canvas { background: #e5e5e5; padding: 32px 16px; overflow: hidden; display: grid; place-items: center; min-height: 340px; }
+	.frame-wrap { position: relative; }
+	.frame-name { position: absolute; top: -18px; left: 0; font-size: 11px; color: var(--color-primary); }
+	.artboard { width: 300px; max-width: 100%; background: #fff; border-radius: var(--radius-md); box-shadow: var(--shadow-sm); padding: 18px; }
+	.artboard h4 { font-size: 15px; font-weight: 600; margin: 0 0 4px; }
+	.artboard p { font-size: 11px; color: var(--color-muted); }
+	.ab-row { display: flex; gap: 8px; margin-top: 14px; }
+	.ab-box { flex: 1; height: 44px; border-radius: var(--radius-sm); background: var(--color-surface-raised); }
+	.ab-cta { margin-top: 14px; height: 32px; border-radius: var(--radius-md); background: var(--color-primary); color: #fff; display: grid; place-items: center; font-size: 12px; font-weight: 600; }
+	/* Selection: 1px blue outline plus 6px square handles. */
+	.sel { position: absolute; inset: -1px; border: 1px solid var(--color-primary); pointer-events: none; }
+	.h { position: absolute; width: 7px; height: 7px; background: #fff; border: 1px solid var(--color-primary); border-radius: 1px; }
+	.h.tl { left: -4px; top: -4px; } .h.tr { right: -4px; top: -4px; }
+	.h.bl { left: -4px; bottom: -4px; } .h.br { right: -4px; bottom: -4px; }
+	.dim { position: absolute; left: 50%; transform: translateX(-50%); bottom: -26px; background: var(--color-primary); color: #fff; font-family: var(--mono); font-size: 11px; padding: 1px 6px; border-radius: var(--radius-sm); white-space: nowrap; }
+	.cursor { position: absolute; right: -46px; top: 46px; display: flex; align-items: flex-start; gap: 2px; }
+	/* The collaborator cursor hangs outside the frame, so it goes before it can push the page. */
+	@media (max-width: 700px) { .cursor { display: none; } }
+	.cursor .arrow { width: 0; height: 0; border-left: 8px solid var(--color-accent); border-top: 5px solid transparent; border-bottom: 9px solid transparent; transform: rotate(-20deg); }
+	.cursor .name { background: var(--color-accent); color: #fff; font-size: 10px; padding: 1px 6px; border-radius: var(--radius-sm); margin-top: 8px; }
+
+	/* ── Property rows: label left, mono value right, 32px tall ───── */
+	.prow { display: flex; align-items: center; gap: 6px; height: 32px; padding: 0 4px; }
+	.prow .pl { width: 52px; flex: none; color: var(--color-muted); font-size: 11px; }
+	.pinput {
+		flex: 1; min-width: 0; height: 24px; display: flex; align-items: center; gap: 4px;
+		border: 1px solid transparent; border-radius: var(--radius-sm);
+		padding: 0 6px; font-family: var(--mono); font-size: 12px;
+	}
+	.pinput:hover { border-color: var(--color-border); }
+	.pinput.is-focus { border-color: var(--color-primary); box-shadow: 0 0 0 2px rgb(13 153 255 / 0.2); }
+	.pinput .u { color: var(--color-muted); font-size: 11px; }
+	.seg { display: flex; background: var(--color-surface-raised); border-radius: var(--radius-md); padding: 2px; gap: 2px; }
+	.seg span { flex: 1; height: 22px; display: grid; place-items: center; border-radius: var(--radius-sm); font-size: 11px; color: var(--color-muted); }
+	.seg .is-active { background: var(--color-surface); color: var(--color-surface-foreground); box-shadow: var(--shadow-sm); }
+	.fillrow { display: flex; align-items: center; gap: 8px; height: 30px; padding: 0 4px; }
+	.chipcolor { width: 16px; height: 16px; border-radius: var(--radius-sm); border: 1px solid rgb(0 0 0 / 0.1); flex: none; }
+	.opacity { font-family: var(--mono); font-size: 12px; color: var(--color-muted); margin-left: auto; }
+
+	/* ── Reference sections ───────────────────────────────────────── */
+	.wrap { max-width: 1000px; margin: 0 auto; padding: 0 20px 80px; }
+	@media (min-width: 768px) { .wrap { padding: 0 32px 104px; } }
+	.section { padding-top: 48px; }
+	@media (min-width: 768px) { .section { padding-top: 64px; } }
+	.section-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-accent); margin-bottom: 8px; }
+	.section h2 { font-size: 22px; }
+	@media (min-width: 768px) { .section h2 { font-size: 26px; } }
+	.lede { color: var(--color-muted); margin-top: 10px; max-width: 66ch; font-size: 14px; }
+	.note { margin-top: 16px; font-size: 12px; color: var(--color-muted); }
+	.row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+
+	/* ── Buttons: 32px, tool-sized ────────────────────────────────── */
+	.btn {
+		font: inherit; font-size: 12px; font-weight: 500;
+		height: 32px; padding: 0 12px;
+		border: 1px solid transparent; border-radius: var(--radius-md);
+		background: var(--color-primary); color: var(--color-primary-foreground);
+		cursor: pointer; transition: background-color 120ms ease;
+	}
+	.btn:hover { background: #0b87e5; }
+	.btn:focus-visible { outline: none; box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--color-primary); }
+	.btn-secondary { background: var(--color-surface); color: var(--color-surface-foreground); border-color: var(--color-border); }
+	.btn-secondary:hover { background: var(--color-surface-raised); }
+	.btn-ghost { background: transparent; color: var(--color-muted); }
+	.btn-ghost:hover { background: var(--color-surface-raised); color: var(--color-surface-foreground); }
+	.btn-danger { background: var(--color-danger); }
+	.btn-accent { background: var(--color-accent); }
+	.btn[disabled] { cursor: not-allowed; background: var(--color-surface-raised); color: #b3b3b3; }
+	.badge { display: inline-block; border-radius: var(--radius-sm); padding: 1px 7px; font-size: 11px; font-weight: 500; background: rgb(162 89 255 / 0.14); color: var(--color-accent); }
+
+	.swatches { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 18px; }
+	@media (min-width: 720px) { .swatches { grid-template-columns: repeat(4, 1fr); } }
+	.sw .fill { height: 48px; border-radius: var(--radius-md); border: 1px solid var(--color-border); }
+	.sw b { display: block; font-size: 12px; font-weight: 600; margin-top: 8px; }
+	.sw span { font-size: 11px; color: var(--color-muted); }
+
+	/* ── Mobile ───────────────────────────────────────────────────── */
+	.mobile { display: grid; grid-template-columns: minmax(0, 1fr); gap: 28px; margin-top: 24px; align-items: start; }
+	@media (min-width: 860px) { .mobile { grid-template-columns: 280px 1fr; gap: 40px; } }
+	.phone {
+		width: 280px; max-width: 100%; margin: 0 auto;
+		border-radius: 22px; overflow: hidden; background: #e5e5e5;
+		box-shadow: var(--shadow-lg); border: 1px solid var(--color-border);
+	}
+	.phone-bar { display: flex; align-items: center; gap: 6px; background: var(--color-surface-raised); border-bottom: 1px solid var(--color-border); padding: 8px 10px; font-size: 11px; }
+	.phone-bar .logo { width: 20px; height: 20px; }
+	.phone-canvas { padding: 20px 14px 26px; display: grid; place-items: center; position: relative; }
+	.m-art { width: 190px; background: #fff; border-radius: var(--radius-md); box-shadow: var(--shadow-sm); padding: 12px; position: relative; }
+	.m-art h5 { margin: 0; font-size: 12px; font-weight: 600; }
+	.m-art .b { height: 26px; border-radius: 4px; background: var(--color-surface-raised); margin-top: 8px; }
+	.m-art .c { height: 24px; border-radius: 6px; background: var(--color-primary); margin-top: 8px; }
+	/* A comment pin, not an edit handle: touch is for review. */
+	.pin { position: absolute; right: -10px; top: 26px; width: 22px; height: 22px; border-radius: 50% 50% 50% 2px; background: var(--color-accent); color: #fff; font-size: 10px; display: grid; place-items: center; box-shadow: var(--shadow-sm); }
+	.sheet { background: var(--color-surface); border-top: 1px solid var(--color-border); padding: 8px 12px 14px; }
+	.sheet .grab { width: 34px; height: 4px; border-radius: 2px; background: var(--color-border); margin: 0 auto 10px; }
+	.sheet .prow { height: 30px; }
+	.m-tabs { display: flex; background: var(--color-surface); border-top: 1px solid var(--color-border); }
+	.m-tabs div { flex: 1; text-align: center; font-size: 10px; color: var(--color-muted); padding: 8px 0 12px; }
+	.m-tabs .is-active { color: var(--color-primary); font-weight: 600; }
+
+	.rules { margin: 0; padding: 0; list-style: none; }
+	.rules li { padding: 11px 0; border-bottom: 1px solid var(--color-border); font-size: 13px; color: var(--color-muted); }
+	.rules b { display: block; color: var(--color-surface-foreground); font-size: 12px; font-weight: 600; margin-bottom: 2px; }
+
+	/* ── Off-style ────────────────────────────────────────────────── */
+	.compare { display: grid; grid-template-columns: 1fr; gap: 12px; margin-top: 18px; }
+	@media (min-width: 720px) { .compare { grid-template-columns: repeat(2, 1fr); } }
+	.cmp-off { padding: 26px; border-radius: 20px; background: rgb(162 89 255 / 0.12); border: 0; box-shadow: 0 12px 30px rgb(162 89 255 / 0.3); font-size: 22px; font-weight: 700; color: var(--color-accent); }
+	.cmp-off small { display: block; font-size: 12px; font-weight: 400; color: var(--color-muted); margin-top: 10px; }
+	.cmp-on { padding: 14px; border-radius: var(--radius-md); border: 1px solid var(--color-border); background: var(--color-surface); font-size: 13px; font-weight: 600; }
+	.cmp-on small { display: block; font-size: 12px; font-weight: 400; color: var(--color-muted); margin-top: 6px; }
+</style>
+</head>
+<body>
+
+<!-- COVER — the editor itself: three zones, hairline dividers, blue selection,
+     one purple collaborator. Nothing here is marketing-sized. -->
+<div class="toolbar">
+	<span class="logo"></span>
+	<span class="tool is-active">▧</span>
+	<span class="tool tool-extra">▭</span>
+	<span class="tool tool-extra">◯</span>
+	<span class="tool tool-extra">✎</span>
+	<span class="tool tool-extra">T</span>
+	<span class="filename">Design tokens <small>/ Component audit</small></span>
+	<span class="spacer"></span>
+	<span class="zoom">128%</span>
+	<span class="faces"><span class="face" style="background:#0d99ff"></span><span class="face" style="background:#a259ff"></span><span class="face" style="background:#f24822"></span></span>
+	<button class="btn">Share</button>
+</div>
+
+<div class="editor">
+	<aside class="panel left">
+		<div class="panel-tabs"><span class="is-active">Layers</span><span>Assets</span><span>Pages</span></div>
+		<div class="panel-group" style="border-bottom:0">
+			<div class="layer"><span class="g frm"></span>Desktop / Dashboard</div>
+			<div class="layer indent"><span class="g frm"></span>Header</div>
+			<div class="layer indent2"><span class="g txt">T</span>Title</div>
+			<div class="layer indent2"><span class="g ell"></span>Avatar<span class="badge-c">◆</span></div>
+			<div class="layer is-selected indent"><span class="g frm"></span>Card / Metric<span class="badge-c">◆</span></div>
+			<div class="layer indent2"><span class="g txt">T</span>Label</div>
+			<div class="layer indent2"><span class="g txt">T</span>Value</div>
+			<div class="layer indent2"><span class="g frm"></span>Button / Primary<span class="badge-c">◆</span></div>
+			<div class="layer indent"><span class="g frm"></span>Table</div>
+			<div class="layer"><span class="g frm"></span>Mobile / Dashboard</div>
+		</div>
+	</aside>
+
+	<div class="canvas">
+		<div class="frame-wrap">
+			<span class="frame-name">Card / Metric</span>
+			<div class="artboard">
+				<h4>Gross volume</h4>
+				<p>Last 7 days</p>
+				<div class="ab-row"><span class="ab-box"></span><span class="ab-box"></span><span class="ab-box"></span></div>
+				<div class="ab-cta">View report</div>
+			</div>
+			<div class="sel">
+				<span class="h tl"></span><span class="h tr"></span><span class="h bl"></span><span class="h br"></span>
+			</div>
+			<span class="dim">300 × 186</span>
+			<span class="cursor"><span class="arrow"></span><span class="name">Ana</span></span>
+		</div>
+	</div>
+
+	<aside class="panel right">
+		<div class="panel-tabs"><span class="is-active">Design</span><span>Prototype</span><span>Inspect</span></div>
+		<div class="panel-group">
+			<div class="panel-label">Alignment</div>
+			<div class="seg"><span class="is-active">⇤</span><span>⇔</span><span>⇥</span><span>⇞</span><span>⇕</span><span>⇟</span></div>
+		</div>
+		<div class="panel-group">
+			<div class="panel-label">Position &amp; size</div>
+			<div class="prow"><span class="pl">X</span><span class="pinput">124</span><span class="pl" style="width:20px">Y</span><span class="pinput">288</span></div>
+			<div class="prow"><span class="pl">W</span><span class="pinput is-focus">300</span><span class="pl" style="width:20px">H</span><span class="pinput">186</span></div>
+			<div class="prow"><span class="pl">Angle</span><span class="pinput">0<span class="u">°</span></span><span class="pl" style="width:20px">⌐</span><span class="pinput">6</span></div>
+		</div>
+		<div class="panel-group">
+			<div class="panel-label">Auto layout</div>
+			<div class="prow"><span class="pl">Gap</span><span class="pinput">8</span><span class="pl" style="width:34px">Pad</span><span class="pinput">18</span></div>
+		</div>
+		<div class="panel-group">
+			<div class="panel-label">Fill</div>
+			<div class="fillrow"><span class="chipcolor" style="background:#ffffff"></span><span class="mono" style="font-size:12px">FFFFFF</span><span class="opacity">100%</span></div>
+			<div class="panel-label" style="padding-top:12px">Stroke</div>
+			<div class="fillrow"><span class="chipcolor" style="background:#e6e6e6"></span><span class="mono" style="font-size:12px">E6E6E6</span><span class="opacity">1</span></div>
+		</div>
+		<div class="panel-group" style="border-bottom:0">
+			<div class="panel-label">Effects</div>
+			<div class="fillrow"><span class="chipcolor" style="background:rgb(0 0 0 / 0.1)"></span><span style="font-size:12px">Drop shadow</span><span class="opacity">Y 1 · B 3</span></div>
+		</div>
+	</aside>
+</div>
+
+<div class="wrap">
+
+	<!-- 01 -->
+	<section class="section">
+		<p class="section-label">01 — Chrome</p>
+		<h2>Instrument UI, not marketing UI</h2>
+		<p class="lede">Panel labels are 11px uppercase muted; controls sit at 12–13px; the largest
+			type in the entire editor is a 16px dialog title. Every number a user can edit is monospace,
+			so a column of values stays readable while it changes.</p>
+		<div class="row" style="margin-top: 18px;">
+			<button class="btn">Primary</button>
+			<button class="btn btn-secondary">Secondary</button>
+			<button class="btn btn-ghost">Ghost</button>
+			<button class="btn btn-danger">Delete</button>
+			<button class="btn" disabled>Publishing…</button>
+			<span class="badge">Community</span>
+		</div>
+		<div class="row" style="margin-top: 14px;">
+			<span class="tool is-active">▧</span><span class="tool">▭</span><span class="tool">◯</span><span class="tool">T</span>
+			<span style="font-size:12px;color:var(--color-muted);margin-left:6px">32px icon squares · hover fills with #f5f5f5 · active fills blue</span>
+		</div>
+	</section>
+
+	<!-- 02 -->
+	<section class="section">
+		<p class="section-label">02 — Color</p>
+		<h2>Blue owns interaction, purple is a wink</h2>
+		<p class="lede">Selection outlines, active tools, focus rings, primary buttons — all blue.
+			Purple never exceeds badge size: a plan tag, a community label, a collaborator cursor.</p>
+		<div class="swatches">
+			<div class="sw"><div class="fill" style="background: var(--color-primary)"></div><b>primary</b><span>#0d99ff · selection, focus</span></div>
+			<div class="sw"><div class="fill" style="background: var(--color-accent)"></div><b>accent</b><span>#a259ff · badges only</span></div>
+			<div class="sw"><div class="fill" style="background: var(--color-surface-raised)"></div><b>raised</b><span>#f5f5f5 · panels, hover</span></div>
+			<div class="sw"><div class="fill" style="background: var(--color-danger)"></div><b>danger</b><span>#f24822 · destructive</span></div>
+		</div>
+		<p class="note">The canvas field is #e5e5e5 — one step darker than the panel fill — so a white artboard reads as an object sitting on a surface rather than as the page itself.</p>
+	</section>
+
+	<!-- 03 MOBILE -->
+	<section class="section">
+		<p class="section-label">03 — Mobile</p>
+		<h2>On a phone the tool becomes a viewer</h2>
+		<p class="lede">Three panels cannot survive a 375px viewport, and pretending otherwise produces
+			unusable 20px targets. The mobile build inverts the priority: the canvas takes the whole screen,
+			editing collapses into a bottom sheet, and the primary verb becomes commenting rather than drawing.</p>
+		<div class="mobile">
+			<div class="phone">
+				<div class="phone-bar"><span class="logo"></span><span>Design tokens</span><span class="spacer"></span><span class="mono" style="font-size:10px;color:var(--color-muted)">128%</span><span class="face" style="background:#a259ff;width:18px;height:18px;margin:0"></span></div>
+				<div class="phone-canvas">
+					<div class="m-art">
+						<h5>Gross volume</h5>
+						<div class="b"></div>
+						<div class="c"></div>
+						<span class="pin">2</span>
+					</div>
+				</div>
+				<div class="sheet">
+					<div class="grab"></div>
+					<div class="panel-label">Card / Metric</div>
+					<div class="prow"><span class="pl">W</span><span class="pinput">300</span><span class="pl" style="width:20px">H</span><span class="pinput">186</span></div>
+					<div class="fillrow"><span class="chipcolor" style="background:#fff"></span><span class="mono" style="font-size:12px">FFFFFF</span><span class="opacity">100%</span></div>
+				</div>
+				<div class="m-tabs"><div class="is-active">Canvas</div><div>Comments</div><div>Layers</div><div>Files</div></div>
+			</div>
+			<ul class="rules">
+				<li><b>&lt; 1000px — panels</b>Layers and Design panels leave the layout entirely. Layers becomes a tab; Design becomes a draggable bottom sheet showing only the selected node's properties.</li>
+				<li><b>Property rows</b>Keep the label-left / mono-value-right structure and the 11px uppercase group label. Row height grows 32px → 40px so the value is tappable, but the type sizes do not change.</li>
+				<li><b>Selection</b>The 1px blue outline stays; the four 7px handles are dropped, because a 7px target cannot be dragged with a finger. Resizing happens through the sheet's W/H fields.</li>
+				<li><b>Comment pins</b>Purple pins are the one element that grows for touch — 22px minimum, anchored to the node rather than to the viewport.</li>
+				<li><b>Toolbar</b>44px stays; the tool cluster reduces to move + comment. Drawing tools are hidden rather than shrunk.</li>
+				<li><b>Canvas field</b>Still #e5e5e5 with the artboard floating on <code class="mono">shadow-sm</code>. Pinch-zoom replaces the zoom control, which becomes a readout.</li>
+				<li><b>Hairlines</b>All dividers stay at exactly 1px. Precision chrome is the identity — thickening borders for "mobile clarity" is the wrong instinct here.</li>
+			</ul>
+		</div>
+	</section>
+
+	<!-- 04 DON'T -->
+	<section class="section">
+		<p class="section-label">04 — Off-style, for contrast</p>
+		<h2>What breaks the instrument</h2>
+		<div class="compare">
+			<div class="cmp-off">Oversized purple panel
+				<small>22px type · 20px radius · purple used as a surface · big colored shadow on inline UI. Tool chrome that shouts is tool chrome you stop seeing past.</small></div>
+			<div class="cmp-on">Same content, on-style
+				<small>13px text, 6px radius, 1px #e6e6e6 border, no shadow. Only floating panels cast; inline controls are flat and separated by hairlines.</small></div>
+		</div>
+		<p class="note">Also out: purple beyond badge size, soft shadows on inline controls, sans-serif numbers in property fields, and any heading above 16px inside the editor.</p>
+	</section>
+</div>
+
+</body>
 </html>

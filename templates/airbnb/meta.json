@@ -3,32 +3,29 @@
 	"kind": "design-system",
 	"slug": "airbnb",
 	"name": "Airbnb",
-	"version": "1.0.0",
+	"version": "1.1.0",
 	"order": 130,
 	"category": "consumer",
 	"vibe": "light",
 	"tags": [
-		"light-ui",
-		"minimal",
-		"enterprise",
-		"playful",
-		"design-system"
+		"consumer",
+		"light"
 	],
-	"blurb": "Airbnb pairs a clean white canvas with its signature Rausch pink, friendly rounded forms, generous spacing, and photography-led cards to create a warm, approachable marketplace…",
+	"blurb": "Warm white hospitality; coral CTAs, photo-led rounded cards, floating pill search.",
 	"tagline": {
-		"en": "Warm white hospitality, coral CTAs, friendly rounded forms",
-		"zh": "暖白待客之道，珊瑚色 CTA，圆润友好的形态"
+		"en": "Coral-warm hospitality",
+		"zh": "珊瑚色的温暖待客之道"
 	},
 	"license": "MIT",
 	"origin": {
 		"type": "curated",
-		"upstream": "https://github.com/ricocc/brands-design-md.git",
-		"note": "from brands-design-md (Airbnb)."
+		"upstream": "https://github.com/VoltAgent/awesome-design-md",
+		"note": "Vetta-adapted from awesome-design-md (MIT)."
 	},
 	"assets": {
 		"spec": "DESIGN.md",
 		"theme": "theme.css",
 		"demo": "demo.html"
 	},
-	"collectedAt": "2026-08-22"
+	"collectedAt": "2026-08-11"
 }

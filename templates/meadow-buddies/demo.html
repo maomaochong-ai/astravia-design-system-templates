@@ -1,0 +1,406 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>Meadow Buddies — a little movement, a little joy</title>
+<style>
+/* Mirrors theme.css so the gallery's script-free srcdoc needs no external assets. */
+:root {
+  --color-primary: #492724;
+  --color-primary-foreground: #fffdf8;
+  --color-surface: #f8f9f5;
+  --color-surface-foreground: #2d2423;
+  --color-surface-raised: #ffffff;
+  --color-muted: #6f756a;
+  --color-accent: #a5bf7d;
+  --color-danger: #a45c40;
+  --color-border: #e8ece5;
+  --color-sage-light: #dce7bf;
+  --color-sage-dark: #526b43;
+  --color-apricot: #f9cc87;
+  --color-apricot-light: #fff0d1;
+  --color-honey: #da941b;
+  --color-ochre: #856222;
+  --color-mist: #f2f6f6;
+  --color-stage-end: #cbd6cd;
+  --color-stone: #89806d;
+  --font-sans: "Avenir Next", "Trebuchet MS", Arial, sans-serif;
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 22px;
+  --radius-xl: 34px;
+  --radius-2xl: 44px;
+  --shadow-sm: 0 3px 8px rgb(65 82 46 / 0.04);
+  --shadow-md: 0 10px 24px rgb(65 82 46 / 0.06);
+  --shadow-lg: 0 28px 44px -18px rgb(65 82 46 / 0.22);
+}
+* { box-sizing: border-box; }
+body { margin: 0; color: var(--color-surface-foreground); background: var(--color-surface); font-family: var(--font-sans); -webkit-font-smoothing: antialiased; }
+h1,h2,h3,p { margin: 0; }
+a { color: inherit; text-decoration: none; }
+button,summary { font: inherit; }
+button,a,summary { -webkit-tap-highlight-color: transparent; }
+a:focus-visible,button:focus-visible,summary:focus-visible { outline: 3px solid var(--color-ochre); outline-offset: 4px; }
+button:disabled { cursor: not-allowed; opacity: .45; }
+svg { display: block; }
+.svg-library { position: absolute; width: 0; height: 0; overflow: hidden; }
+.icon { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
+.showcase { background: linear-gradient(171deg, var(--color-accent) 0%, #abc38e 38%, var(--color-stage-end) 100%); padding: 64px 40px 42px; }
+.stage { display: grid; grid-template-columns: repeat(3,320px); gap: 40px; align-items: start; width: 1040px; margin: auto; }
+.phone { width: 320px; height: 690px; position: relative; isolation: isolate; overflow: hidden; border-radius: var(--radius-2xl); background: var(--color-surface-raised); box-shadow: var(--shadow-lg); scroll-margin-top: 24px; }
+.profile { margin-top: 72px; background: #bad092; }
+.discover { margin-top: 36px; }
+.screen-title { position: relative; z-index: 2; display: flex; align-items: center; justify-content: center; height: 32px; margin: 38px 18px 0; font-size: 16px; font-weight: 500; }
+.back { position: absolute; left: -6px; display: grid; place-items: center; width: 44px; height: 44px; }
+.back .icon { width: 18px; height: 18px; }
+.profile-land { position: absolute; top: 34px; left: 0; width: 100%; height: 280px; }
+.profile-avatar { width: 112px; height: 112px; position: absolute; top: 97px; left: calc(50% - 56px); }
+.profile-stats { position: absolute; display: flex; align-items: center; justify-content: center; gap: 18px; top: 213px; left: 16px; right: 16px; height: 80px; }
+.level { width: 64px; height: 64px; flex-shrink: 0; filter: drop-shadow(0 3px 5px rgb(168 126 44 / .14)); }
+.stat { min-width: 66px; }
+.stat strong { display: flex; align-items: center; gap: 4px; font-weight: 500; font-size: 17px; line-height: 1.6; }
+.stat small { font-size: 10px; }
+.stat + .stat { border-left: 1px solid rgb(96 119 67 / .15); padding-left: 16px; }
+.coin { width: 14px; height: 14px; flex-shrink: 0; }
+.profile-sheet { position: absolute; inset: 292px 0 0; background: var(--color-surface-raised); border-radius: var(--radius-xl) var(--radius-xl) 0 0; padding: 14px 22px 64px; }
+.settings { list-style: none; margin: 0; padding: 0; }
+.settings li { display: flex; align-items: center; gap: 12px; min-height: 72px; border-bottom: 1px solid var(--color-border); font-size: 12px; }
+.setting-icon { display: grid; place-items: center; width: 41px; height: 41px; border-radius: 50%; background: var(--color-apricot-light); color: var(--color-ochre); flex-shrink: 0; }
+.setting-icon .icon { width: 19px; height: 19px; stroke-width: 1.1; }
+.bottom-nav { position: absolute; inset: auto 0 0; display: flex; justify-content: space-evenly; align-items: center; background: var(--color-mist); border-radius: 28px 28px 0 0; height: 64px; padding: 0 14px; z-index: 3; }
+.nav-link { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; color: #939f9d; transition: background 140ms, color 140ms; }
+.nav-link .icon { width: 19px; height: 19px; stroke-width: 1.2; }
+.nav-link.is-selected { background: var(--color-primary); color: var(--color-primary-foreground); }
+.nav-link.is-selected .icon { width: 23px; height: 23px; }
+.discover-content { padding: 31px 22px 80px; }
+.discover h2 { font-size: 34px; font-weight: 500; letter-spacing: -1.2px; margin-bottom: 18px; }
+.reward { display: flex; gap: 9px; align-items: center; height: 69px; padding: 8px 12px; background: var(--color-stone); border-radius: var(--radius-md); color: var(--color-primary-foreground); }
+.reward .level { width: 43px; height: 47px; }
+.reward p { font-size: 10px; line-height: 1.6; flex: 1; }
+.reward-progress { position: relative; width: 44px; height: 44px; flex-shrink: 0; }
+.reward-progress svg { width: 100%; height: 100%; }
+.reward-progress span { position: absolute; inset: 0; display: grid; place-items: center; font-size: 9px; }
+.shortcuts { display: grid; grid-template-columns: repeat(4,1fr); gap: 8px; margin-top: 21px; }
+.shortcut { display: flex; align-items: center; flex-direction: column; gap: 9px; font-size: 10px; min-height: 84px; }
+.shortcut-well { width: 56px; height: 56px; border: 1px solid var(--color-border); border-radius: 50%; display: grid; place-items: center; color: var(--color-ochre); box-shadow: inset 0 0 0 5px #fdfdfb; transition: background 140ms; }
+.shortcut-well .icon { width: 23px; height: 23px; stroke-width: 1.2; }
+.exercise-heading { display: flex; align-items: center; justify-content: space-between; margin: 21px 0 15px; }
+.exercise-heading h3 { font-size: 22px; font-weight: 600; letter-spacing: -.5px; }
+.see-more { font-size: 10px; color: var(--color-ochre); display: flex; align-items: center; gap: 5px; min-height: 32px; }
+.see-more .icon { width: 17px; height: 17px; }
+.exercise-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: 12px; }
+.exercise-card { position: relative; overflow: hidden; height: 240px; border-radius: var(--radius-lg); padding: 18px 14px; background: var(--color-apricot); }
+.exercise-card.run { background: var(--color-accent); }
+.exercise-card h4 { position: relative; z-index: 2; margin: 0 0 5px; font-size: 12px; font-weight: 600; }
+.exercise-card p { position: relative; z-index: 2; font-size: 9px; line-height: 1.4; max-width: 112px; color: #545039; }
+.pill { position: relative; z-index: 2; display: inline-flex; align-items: center; justify-content: center; min-height: 31px; padding: 8px 18px; border: 0; border-radius: 99px; background: var(--color-primary); color: var(--color-primary-foreground); font-size: 10px; line-height: 1.2; transition: background 140ms, box-shadow 140ms; cursor: pointer; }
+.exercise-card .pill { margin-top: 10px; min-height: 29px; padding: 8px 17px; font-size: 9px; }
+.exercise-art { position: absolute; bottom: 0; left: 0; width: 100%; height: 155px; }
+.ribbon { position: absolute; z-index: 3; right: 12px; top: 0; width: 32px; height: 43px; background: #ac682e; color: var(--color-primary-foreground); font-size: 12px; padding-top: 11px; text-align: center; clip-path: polygon(0 0,100% 0,100% 81%,50% 100%,0 82%); box-shadow: inset 4px 0 rgb(73 39 36 / .15); }
+.exercise-card:first-child h4 { padding-right: 14px; font-size: 11px; }
+.leaderboard { background: var(--color-apricot); }
+.leader-land { position: absolute; top: 15px; width: 100%; height: 285px; }
+.podium { position: absolute; display: flex; align-items: end; justify-content: center; gap: 16px; top: 104px; left: 35px; right: 35px; height: 188px; }
+.podium-place { width: 59px; text-align: center; position: relative; }
+.podium-avatar { width: 53px; height: 53px; margin: 0 auto 8px; }
+.podium-place.first .podium-avatar { width: 68px; height: 68px; margin-bottom: 20px; }
+.podium-block { padding-top: 14px; height: 96px; border-radius: 19px 19px 0 0; background: var(--color-danger); font-size: 24px; color: var(--color-primary-foreground); }
+.first .podium-block { height: 116px; background: #647555; }
+.third .podium-block { height: 69px; background: var(--color-honey); }
+.winner-ribbon { position: absolute; top: 57px; left: -1px; right: -1px; padding: 4px 0; font-size: 8px; background: var(--color-honey); color: var(--color-primary-foreground); clip-path: polygon(0 0,100% 0,92% 50%,100% 100%,0 100%,8% 50%); }
+.leader-sheet { position: absolute; inset: 275px 0 0; border-radius: var(--radius-xl) var(--radius-xl) 0 0; padding: 21px 22px; background: var(--color-surface-raised); }
+.ranking { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+.ranking li { display: grid; grid-template-columns: 27px 1fr; align-items: center; gap: 10px; min-height: 65px; }
+.rank-number { font-size: 17px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.rank-card { display: flex; align-items: center; gap: 10px; height: 65px; background: var(--color-mist); border: 1px solid transparent; border-radius: 18px; padding: 9px 11px; min-width: 0; }
+.rank-card.current { border-color: var(--color-primary); }
+.rank-avatar { width: 40px; height: 40px; border-radius: 50%; background: var(--color-apricot); flex-shrink: 0; }
+.rank-avatar.green { background: var(--color-sage-light); }
+.rank-avatar.stone { background: #c3b8a1; }
+.rank-info { flex: 1; min-width: 0; }
+.rank-info strong { font-size: 11px; font-weight: 600; display: block; margin-bottom: 4px; }
+.rank-info small { font-size: 10px; color: var(--color-muted); display: flex; align-items: center; gap: 3px; white-space: nowrap; }
+.rank-info .coin { width: 12px; height: 12px; }
+.rank-change { display: flex; align-items: center; gap: 4px; font-size: 10px; white-space: nowrap; }
+.triangle { width: 0; height: 0; border-left: 6px solid transparent; border-right: 6px solid transparent; border-top: 7px solid var(--color-danger); }
+.triangle.up { border-top: 0; border-bottom: 7px solid #7ba541; }
+.stage-caption { max-width: 1040px; margin: 48px auto 0; display: flex; align-items: center; justify-content: space-between; gap: 16px; color: #48603e; font-size: 11px; letter-spacing: 1.1px; text-transform: uppercase; }
+.stage-caption span { display: flex; align-items: center; gap: 9px; }
+.stage-caption i { width: 7px; height: 7px; border-radius: 50%; background: var(--color-sage-dark); }
+.manual { width: min(1040px,calc(100% - 64px)); margin: 0 auto; padding: 76px 0 36px; }
+.manual-header { display: flex; align-items: end; justify-content: space-between; gap: 40px; padding-bottom: 45px; border-bottom: 1px solid var(--color-border); }
+.eyebrow { font-size: 11px; color: var(--color-sage-dark); letter-spacing: 2px; font-weight: 600; text-transform: uppercase; margin-bottom: 14px; }
+h1 { font-size: clamp(32px,4.2vw,56px); line-height: 1.1; letter-spacing: -2px; font-weight: 500; }
+.intro { color: var(--color-muted); font-size: 14px; line-height: 1.8; max-width: 340px; }
+.reference-section { padding: 44px 0; border-bottom: 1px solid var(--color-border); scroll-margin-top: 32px; }
+.reference-section > h2 { font-size: 24px; letter-spacing: -.6px; font-weight: 500; margin-bottom: 12px; }
+.section-description { color: var(--color-muted); font-size: 14px; line-height: 1.7; max-width: 620px; margin-bottom: 26px; }
+.swatches { display: grid; grid-template-columns: repeat(5,1fr); gap: 14px; }
+.swatch { overflow: hidden; border-radius: var(--radius-md); background: var(--color-surface-raised); border: 1px solid var(--color-border); }
+.swatch-color { height: 90px; background: var(--swatch-color); }
+.swatch-label { padding: 14px; }
+.swatch-label strong { font-size: 12px; display: block; font-weight: 600; }
+.swatch-label small { color: var(--color-muted); font-size: 11px; line-height: 1.8; }
+.reference-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 24px; }
+.reference-card { min-width: 0; padding: 28px; border-radius: var(--radius-lg); background: var(--color-surface-raised); border: 1px solid var(--color-border); }
+.reference-card h3 { font-size: 16px; font-weight: 600; margin-bottom: 12px; }
+.reference-card p { font-size: 13px; line-height: 1.8; color: var(--color-muted); }
+.radius-samples { display: flex; align-items: end; gap: 20px; margin: 24px 0; }
+.radius-samples span { display: grid; place-items: center; flex: 1; min-width: 0; max-width: 72px; height: 72px; background: var(--color-sage-light); color: var(--color-sage-dark); font-size: 12px; }
+.type-large { font-size: 36px; font-weight: 500; letter-spacing: -1.2px; margin: 18px 0 6px; }
+.type-small { margin: 8px 0 22px; font-size: 14px; }
+.controls-row { display: flex; align-items: center; flex-wrap: wrap; gap: 14px; margin: 23px 0; }
+.controls-row .pill { min-height: 44px; font-size: 12px; }
+.pill.secondary { background: var(--color-apricot-light); color: var(--color-primary); }
+.pill.focus-example { outline: 3px solid var(--color-ochre); outline-offset: 4px; }
+.activity-details { border-top: 1px solid var(--color-border); margin-top: 24px; padding-top: 20px; font-size: 13px; }
+.activity-details summary { cursor: pointer; color: var(--color-sage-dark); min-height: 44px; padding: 12px 0; }
+.activity-details p { padding: 10px 0; }
+.comparison { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.cmp-off,.cmp-on { border-radius: var(--radius-lg); padding: 25px; }
+.cmp-off { background: #edeff3; }
+.cmp-on { background: var(--color-sage-light); }
+.comparison-label { display: flex; justify-content: space-between; font-size: 10px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 22px; }
+.bad-workout { min-height: 175px; padding: 24px; background: #aaff00; color: #111; border: 3px solid #111; box-shadow: 6px 6px 0 #111; }
+.bad-workout strong { display: block; font: 900 25px Arial,sans-serif; letter-spacing: -1px; }
+.bad-workout span { display: inline-block; background: #111; color: white; font-size: 11px; padding: 12px 20px; margin-top: 26px; }
+.good-workout { position: relative; min-height: 175px; overflow: hidden; padding: 24px; background: var(--color-apricot); border-radius: var(--radius-lg); }
+.good-workout strong { position: relative; z-index: 1; display: block; font-size: 18px; font-weight: 500; }
+.good-workout p { position: relative; z-index: 1; font-size: 11px; margin: 7px 0 15px; }
+.good-workout > svg { position: absolute; width: 110px; height: 145px; right: 0; bottom: -9px; }
+.comparison-note { font-size: 12px; line-height: 1.8; margin-top: 22px; color: #52594d; }
+.mobile-reference { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+.mobile-stage { background: linear-gradient(150deg,var(--color-sage-light),var(--color-stage-end)); padding: 34px; border-radius: var(--radius-xl); }
+.compact-phone { background: var(--color-surface-raised); border-radius: var(--radius-xl); max-width: 320px; margin: auto; overflow: hidden; box-shadow: var(--shadow-md); }
+.compact-content { padding: 28px 22px; }
+.compact-content h3 { font-size: 30px; font-weight: 500; letter-spacing: -.8px; margin-bottom: 20px; }
+.mobile-greeting { display: flex; align-items: center; gap: 12px; padding: 16px; background: var(--color-sage-light); border-radius: var(--radius-md); }
+.mobile-greeting svg { width: 52px; height: 52px; flex-shrink: 0; }
+.mobile-greeting p { font-size: 12px; line-height: 1.7; }
+.mobile-greeting strong { display: block; font-weight: 600; }
+.mobile-workout { position: relative; margin-top: 20px; padding: 21px; background: var(--color-apricot); border-radius: var(--radius-lg); overflow: hidden; height: 218px; }
+.mobile-workout h4 { margin: 0 0 7px; font-size: 17px; }
+.mobile-workout p { position: relative; z-index: 1; font-size: 12px; max-width: 120px; line-height: 1.6; }
+.mobile-workout .pill { margin-top: 15px; min-height: 44px; font-size: 12px; padding: 12px 20px; }
+.mobile-workout > svg { position: absolute; right: -12px; bottom: -10px; width: 140px; height: 160px; }
+.compact-nav { display: flex; justify-content: space-around; padding: 10px 12px 16px; background: var(--color-mist); border-radius: 22px 22px 0 0; }
+.responsive-notes { list-style: none; padding: 0; margin: 0; counter-reset: note; }
+.responsive-notes li { position: relative; counter-increment: note; padding: 0 0 25px 40px; color: var(--color-muted); font-size: 13px; line-height: 1.8; }
+.responsive-notes li::before { content: "0" counter(note); position: absolute; left: 0; top: 1px; font-size: 11px; color: var(--color-sage-dark); }
+.responsive-notes strong { display: block; font-size: 14px; color: var(--color-surface-foreground); font-weight: 600; margin-bottom: 4px; }
+.footer { display: flex; justify-content: space-between; gap: 20px; font-size: 11px; color: var(--color-muted); padding: 28px 0 8px; line-height: 1.7; }
+.footer a { text-decoration: underline; text-underline-offset: 4px; }
+@media (hover:hover) {
+  .nav-link:hover { background: var(--color-border); color: var(--color-primary); }
+  .nav-link.is-selected:hover { background: #613b35; color: var(--color-primary-foreground); }
+  .shortcut:hover .shortcut-well { background: var(--color-apricot-light); }
+  .pill:hover:not(:disabled) { box-shadow: 0 4px 12px rgb(73 39 36 / .2); }
+  .see-more:hover { text-decoration: underline; text-underline-offset: 3px; }
+}
+@media (max-width:1120px) {
+  .stage { width: 100%; grid-template-columns: minmax(0,320px); justify-content: center; gap: 38px; }
+  .phone { margin-top: 0; max-width: 100%; }
+  .showcase { padding: 40px 24px 28px; }
+  .stage-caption { max-width: 480px; margin-top: 32px; font-size: 9px; letter-spacing: .6px; }
+}
+@media (max-width:700px) {
+  .manual { width: calc(100% - 40px); padding-top: 42px; }
+  .manual-header { flex-direction: column; align-items: start; gap: 20px; }
+  .reference-grid,.comparison,.mobile-reference { grid-template-columns: minmax(0,1fr); }
+  .mobile-reference { gap: 30px; }
+  .swatches { grid-template-columns: repeat(2,1fr); gap: 10px; }
+  .swatch:last-child { grid-column: 1 / -1; }
+  .swatch-color { height: 70px; }
+  .reference-section { padding: 32px 0; }
+  .reference-card { padding: 22px; }
+  .footer { flex-direction: column; gap: 10px; }
+}
+@media (max-width:380px) {
+  .showcase { padding-inline: 14px; }
+  .phone { border-radius: 36px; }
+  .discover-content { padding-inline: 16px; }
+  .shortcut-well { width: 51px; height: 51px; }
+  .shortcut { font-size: 9px; }
+  .exercise-card { padding-inline: 10px; }
+  .leader-sheet { padding-inline: 14px; }
+  .rank-card { gap: 7px; padding-inline: 8px; }
+  .profile-stats { gap: 9px; }
+  .mobile-stage { padding: 20px 14px; }
+  .stage-caption { flex-direction: column; align-items: center; gap: 8px; }
+}
+@media (prefers-reduced-motion:reduce) { *,*::before,*::after { transition: none !important; } }
+</style>
+</head>
+<body>
+<svg class="svg-library" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+<defs>
+  <symbol id="i-back" viewBox="0 0 24 24"><path d="m14 5-7 7 7 7"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4 12h15m-6-6 6 6-6 6"/></symbol>
+  <symbol id="i-home" viewBox="0 0 24 24"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1Z"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="7" r="3.5"/><path d="M5 20v-2a7 7 0 0 1 14 0v2Z"/></symbol>
+  <symbol id="i-user-filled" viewBox="0 0 24 24"><circle cx="12" cy="7" r="3.3" fill="currentColor" stroke="none"/><path d="M5 20v-2a7 6 0 0 1 14 0v2Z" fill="currentColor" stroke="none"/></symbol>
+  <symbol id="i-home-filled" viewBox="0 0 24 24"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1Z" fill="currentColor" stroke="none"/></symbol>
+  <symbol id="i-chart" viewBox="0 0 24 24"><path d="M10 3a9 9 0 1 0 11 11H10Zm4-1v8h8a9 9 0 0 0-8-8Z"/></symbol>
+  <symbol id="i-bell" viewBox="0 0 24 24"><path d="M5 17h14l-2-4V9a5 5 0 0 0-10 0v4Zm5 3h4"/></symbol>
+  <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="2"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="10" cy="10" r="7"/><path d="m15 15 6 6"/></symbol>
+  <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M7 2v6m10-6v6M3 10h18M7 14h1m3 0h1m3 0h1m-9 3h1m3 0h1m3 0h1"/></symbol>
+  <symbol id="i-podium" viewBox="0 0 24 24"><path d="M3 11h5v10H3Zm5-5h7v15H8Zm7 7h6v8h-6ZM11.5 2v1m-6 1 1 1m11-1-1 1"/></symbol>
+  <symbol id="i-settings" viewBox="0 0 24 24"><path d="m10 3-1 3-3 1-2-1-2 4 2 2v3l-1 2 3 3 3-1 3 2 3-2 3 1 3-3-1-3 1-3-2-2-1-3-4-1-2-2Z" transform="translate(1 0) scale(.9)"/><circle cx="12" cy="12" r="3"/></symbol>
+  <symbol id="i-edit" viewBox="0 0 24 24"><path d="m14 5 4 4m-9 6 11-11-3-3L6 12l-1 5Zm1-10H5a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-5"/></symbol>
+  <symbol id="i-ticket" viewBox="0 0 24 24"><path d="M3 6h18v4a2 2 0 0 0 0 4v4H3v-4a2 2 0 0 0 0-4Zm9 0v3m0 2v2m0 2v3"/></symbol>
+  <symbol id="i-exit" viewBox="0 0 24 24"><path d="M12 4H5v16h7m-2-8h11m-4-4 4 4-4 4"/></symbol>
+  <symbol id="coin" viewBox="0 0 20 20"><circle cx="10" cy="10" r="9" fill="var(--color-honey)"/><circle cx="10" cy="10" r="6" fill="var(--color-apricot)"/><path d="M11 5 7 10h3l-1 5 5-6h-4Z" fill="var(--color-primary-foreground)"/></symbol>
+  <symbol id="level" viewBox="0 0 80 80"><path d="m40 2 9 17 20 1-9 17 9 18-21 1-8 18-9-17-21-2 11-18-9-17 19-1Z" fill="var(--color-apricot-light)" opacity=".7"/><path d="m40 13 23 13v28L40 67 17 54V26Z" fill="var(--color-apricot)" stroke="white" stroke-width="4"/><path d="m40 20 17 10v20L40 60 23 50V30Z" fill="var(--color-honey)" opacity=".55"/><path d="M43 29 31 45h15m-4-16v24" fill="none" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="frog" viewBox="0 0 100 100">
+    <circle cx="50" cy="50" r="45" fill="var(--color-sage-dark)"/>
+    <path d="M13 59C9 32 22 17 47 17c25-1 43 13 41 39-2 23-18 32-39 31-22 0-34-10-36-28Z" fill="#718655"/>
+    <ellipse cx="32" cy="38" rx="10" ry="11" fill="#91a16f"/><ellipse cx="67" cy="39" rx="10" ry="11" fill="#91a16f"/>
+    <circle cx="33" cy="41" r="6.2" fill="var(--color-primary-foreground)"/><circle cx="68" cy="42" r="6.2" fill="var(--color-primary-foreground)"/>
+    <circle cx="34" cy="42" r="4.3" fill="#2c3729"/><circle cx="68" cy="43" r="4.3" fill="#2c3729"/>
+    <circle cx="35" cy="40" r="1.4" fill="white"/><circle cx="69" cy="41" r="1.4" fill="white"/>
+    <path d="M44 60q6 7 12 0" fill="none" stroke="#344730" stroke-width="2.3" stroke-linecap="round"/>
+    <g fill="#465e3d"><ellipse cx="23" cy="61" rx="3" ry="5" transform="rotate(-20 23 61)"/><ellipse cx="70" cy="68" rx="3.5" ry="5" transform="rotate(20 70 68)"/><circle cx="45" cy="78" r="3"/><circle cx="28" cy="73" r="2"/><circle cx="77" cy="53" r="2.5"/></g>
+    <ellipse cx="29" cy="55" rx="5" ry="2.3" fill="#b9c591" opacity=".5"/><ellipse cx="73" cy="56" rx="5" ry="2.3" fill="#b9c591" opacity=".5"/>
+  </symbol>
+  <symbol id="fox" viewBox="0 0 100 100"><circle cx="50" cy="50" r="47" fill="#b9d6ab"/><path d="m15 22 29 17 15-2 27-15-5 47-30 23-32-24Z" fill="#f5f7e9"/><path d="m15 22 29 17-20 15Zm71 0L59 37l21 17Z" fill="#6c8c60"/><ellipse cx="34" cy="58" rx="5" ry="7" fill="#324b35"/><ellipse cx="67" cy="58" rx="5" ry="7" fill="#324b35"/><path d="m43 70 8 7 8-7Z" fill="#324b35"/></symbol>
+  <symbol id="tiger" viewBox="0 0 100 100"><circle cx="50" cy="50" r="47" fill="var(--color-apricot)"/><circle cx="24" cy="29" r="13" fill="var(--color-honey)"/><circle cx="77" cy="29" r="13" fill="var(--color-honey)"/><ellipse cx="50" cy="55" rx="35" ry="34" fill="#eba631"/><path d="m41 24 7 15 4-16m-32 22 12 5-12 5m61-10-12 5 12 5" fill="#795337"/><ellipse cx="50" cy="72" rx="21" ry="14" fill="var(--color-apricot-light)"/><ellipse cx="36" cy="54" rx="5" ry="6" fill="#382b27"/><ellipse cx="65" cy="54" rx="5" ry="6" fill="#382b27"/><circle cx="37" cy="52" r="1.7" fill="white"/><circle cx="66" cy="52" r="1.7" fill="white"/><path d="m45 66 6 6 6-6Z" fill="#492724"/><path d="M41 76q10 11 20 0" fill="none" stroke="#492724" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="bear" viewBox="0 0 100 100"><circle cx="50" cy="50" r="47" fill="#b2a78f"/><circle cx="24" cy="27" r="14" fill="#837d68"/><circle cx="76" cy="27" r="14" fill="#837d68"/><ellipse cx="50" cy="53" rx="35" ry="37" fill="#918974"/><ellipse cx="50" cy="69" rx="15" ry="14" fill="#b2a58b"/><circle cx="35" cy="47" r="4" fill="#332f28"/><circle cx="66" cy="47" r="4" fill="#332f28"/><ellipse cx="50" cy="63" rx="7" ry="5" fill="#443d30"/><path d="M50 68v7m-8 0q8 6 16 0" stroke="#443d30" stroke-width="2" fill="none"/></symbol>
+  <symbol id="bunny" viewBox="0 0 140 185">
+    <ellipse cx="71" cy="174" rx="55" ry="8" fill="#b07b39" opacity=".14"/>
+    <path d="M46 66C30 27 32 1 43 1c10 0 16 33 17 60M71 60C66 17 73-2 84 2c10 5 4 36-3 63" fill="#d99324"/>
+    <path d="M46 56c-6-19-8-37-4-40 5 0 10 25 10 41m24-4c-1-20 2-33 5-36 4 8-1 28-3 37" fill="#956329"/>
+    <path d="M37 129c4-27 57-29 65 1l5 32c-10 20-69 22-78 1Z" fill="#e7a53a"/>
+    <ellipse cx="67" cy="148" rx="22" ry="25" fill="#ffe7b7"/>
+    <path d="M37 137 18 147m82-10 19 10" stroke="#d3912b" stroke-width="15" stroke-linecap="round"/>
+    <ellipse cx="66" cy="91" rx="36" ry="34" fill="#e7a53a"/>
+    <ellipse cx="49" cy="85" rx="8" ry="10" fill="#fff7df"/><ellipse cx="78" cy="85" rx="8" ry="10" fill="#fff7df"/>
+    <ellipse cx="50" cy="87" rx="4.5" ry="6" fill="#352d26"/><ellipse cx="77" cy="87" rx="4.5" ry="6" fill="#352d26"/>
+    <ellipse cx="63" cy="105" rx="21" ry="14" fill="#ffe7b7"/><path d="m58 99 6 5 6-5Z" fill="#573e2d"/><path d="M58 111q6 6 12 0" fill="none" stroke="#573e2d" stroke-width="2" stroke-linecap="round"/>
+    <path d="M47 171 31 176m54-5 16 5" stroke="#c4862a" stroke-width="11" stroke-linecap="round"/>
+    <g transform="rotate(24 25 143)"><path d="M9 143h38" stroke="#425e49" stroke-width="5"/><rect x="6" y="131" width="7" height="24" rx="2" fill="#425e49"/><rect x="15" y="135" width="5" height="16" rx="1" fill="#718d5e"/><rect x="39" y="131" width="7" height="24" rx="2" fill="#425e49"/></g>
+  </symbol>
+  <symbol id="croc" viewBox="0 0 170 180">
+    <path d="M135 84c33 28 20 55 33 84h-58c-12-40-21-44-31-68Z" fill="#67844d"/>
+    <path d="M114 103c31 17 24 49 34 72h-26c-4-30-16-45-29-61Z" fill="var(--color-apricot)"/>
+    <path d="M96 107c-23 35-39 13-49-1 3 25 21 45 44 35l19-13Z" fill="#526b43"/>
+    <path d="M31 73 23 58l20 9 10-14 13 17 13-11 11 12 15-10 8 14 11-8 7 17Z" fill="#e1e8b4"/>
+    <path d="M28 70c17 15 51 14 79-2 14-9 24-6 30 4 19 25-20 47-59 39-30-6-48-15-50-41Z" fill="#67844d"/>
+    <circle cx="116" cy="63" r="12" fill="#67844d"/><circle cx="143" cy="64" r="12" fill="#67844d"/>
+    <circle cx="117" cy="62" r="7" fill="#fffdf0"/><circle cx="143" cy="63" r="7" fill="#fffdf0"/><circle cx="118" cy="62" r="4" fill="#263b2a"/><circle cx="144" cy="63" r="4" fill="#263b2a"/>
+    <path d="M38 90q37 18 75 0" fill="none" stroke="#425e37" stroke-width="2"/>
+    <path d="m44 93 4 8 5-6m17 5 4 8 5-7" fill="#fff8de"/><circle cx="39" cy="82" r="2" fill="#425e37"/>
+  </symbol>
+  <symbol id="tree" viewBox="0 0 42 90"><path d="M20 74C-2 76 0 50 10 43-1 27 15 22 14 14c1-19 21-16 19 4-1 8 13 17 5 28 13 17 0 31-15 28Z" fill="currentColor"/><path d="M22 88V20m0 29L12 38m10 25 10-12" fill="none" stroke="#6b833f" stroke-width="1.5"/></symbol>
+  <symbol id="fir" viewBox="0 0 45 100"><path d="M23 86 4 75l12-5L2 55l13-2L8 35l12 2-2-23q2-14 9-6l1 23 11-5-3 23 10 8-13 10 9 17Z" fill="currentColor"/><path d="M24 100 23 22m0 29-9-10m10 30 10-10" fill="none" stroke="#987340" stroke-width="1.6"/></symbol>
+  <symbol id="cloud" viewBox="0 0 90 35"><path d="M2 30c-1-8 9-10 17-10 0-21 30-24 34-5 15-4 20 2 20 8 19-2 21 5 15 8Z" fill="currentColor"/></symbol>
+</defs>
+</svg>
+<main>
+<section class="showcase" aria-label="Meadow Buddies fitness app, three-screen study">
+<div class="stage">
+  <article class="phone profile" id="profile" lang="id" aria-label="Profile screen">
+    <svg class="profile-land" viewBox="0 0 320 280" preserveAspectRatio="none" aria-hidden="true">
+      <use href="#cloud" x="57" y="21" width="57" height="23" color="#cbdea6"/><use href="#cloud" x="254" y="4" width="44" height="19" color="#cbdca4"/>
+      <path d="M0 131 78 88l44 28L264 23l56 42v215H0Z" fill="#cdddac"/>
+      <path d="m215 62 49-39 56 42-45-18 6 41-16-29-8 32-5-43-22 21 10-24Z" fill="#f4f5d7"/>
+      <path d="M0 172c59-55 102-9 149-5 61 6 99-42 171-15v128H0Z" fill="#dce7bf"/>
+      <path d="M0 204c67-24 100 10 161 0 70-12 94-1 159 18v58H0Z" fill="#e3e9c9"/>
+      <path d="m48 280 30-65h31l-11 65m28 0 23-73h28l8 73m25 0-4-67 33 12 13 55" fill="#cfddad" opacity=".6"/>
+      <use href="#tree" x="10" y="75" width="43" height="84" color="#8ab647"/><use href="#tree" x="275" y="121" width="34" height="69" color="#8ab647"/>
+    </svg>
+    <h2 class="screen-title"><a class="back" href="#discover" aria-label="Kembali ke Discover"><svg class="icon" aria-hidden="true"><use href="#i-back"/></svg></a>Profile</h2>
+    <svg class="profile-avatar" viewBox="0 0 120 120" role="img" aria-label="Avatar katak, progres level 75 persen"><circle cx="60" cy="60" r="54" fill="none" stroke="#d7e3b7" stroke-width="4"/><circle cx="60" cy="60" r="54" fill="none" stroke="var(--color-sage-dark)" stroke-width="4" stroke-dasharray="255 340" transform="rotate(-90 60 60)"/><use href="#frog" x="10" y="10" width="100" height="100"/></svg>
+    <div class="profile-stats">
+      <svg class="level" role="img" aria-label="Level 4"><use href="#level"/></svg>
+      <div class="stat"><strong><svg class="coin" aria-hidden="true"><use href="#coin"/></svg>4560</strong><small>Total Points</small></div>
+      <div class="stat"><strong>300</strong><small>Teman</small></div>
+    </div>
+    <div class="profile-sheet"><ul class="settings" aria-label="Contoh menu profil">
+      <li><span class="setting-icon"><svg class="icon" aria-hidden="true"><use href="#i-settings"/></svg></span>Pengaturan Profil</li>
+      <li><span class="setting-icon"><svg class="icon" aria-hidden="true"><use href="#i-edit"/></svg></span>Ubah Email &amp; Password</li>
+      <li><span class="setting-icon"><svg class="icon" aria-hidden="true"><use href="#i-ticket"/></svg></span>Subscription</li>
+      <li><span class="setting-icon"><svg class="icon" aria-hidden="true"><use href="#i-exit"/></svg></span>Keluar</li>
+    </ul></div>
+    <nav class="bottom-nav" aria-label="Navigasi contoh profil">
+      <a class="nav-link" href="#discover" aria-label="Discover"><svg class="icon" aria-hidden="true"><use href="#i-home"/></svg></a>
+      <a class="nav-link" href="#leaderboard" aria-label="Leader Board"><svg class="icon" aria-hidden="true"><use href="#i-chart"/></svg></a>
+      <a class="nav-link" href="#activity-detail" aria-label="Aktivitas"><svg class="icon" aria-hidden="true"><use href="#i-bell"/></svg></a>
+      <a class="nav-link is-selected" href="#profile" aria-current="location" aria-label="Profile"><svg class="icon" aria-hidden="true"><use href="#i-user-filled"/></svg></a>
+    </nav>
+  </article>
+  <article class="phone discover" id="discover" lang="id" aria-label="Discover screen">
+    <div class="discover-content">
+      <h2>Discover</h2>
+      <div class="reward"><svg class="level" role="img" aria-label="Level 4"><use href="#level"/></svg><p>Haloo Adik adik, yukk<br>lanjutkan misimu!</p><div class="reward-progress" role="img" aria-label="Misi selesai 60 persen"><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="19" fill="none" stroke="#aaa18a" stroke-width="3"/><circle cx="24" cy="24" r="19" fill="none" stroke="var(--color-honey)" stroke-width="3" stroke-linecap="round" stroke-dasharray="72 120" transform="rotate(-90 24 24)"/></svg><span>60%</span></div></div>
+      <nav class="shortcuts" aria-label="Pintasan Discover">
+        <a class="shortcut" href="#exercise"><span class="shortcut-well"><svg class="icon" aria-hidden="true"><use href="#i-grid"/></svg></span>Kategori</a>
+        <a class="shortcut" href="#activity-detail"><span class="shortcut-well"><svg class="icon" aria-hidden="true"><use href="#i-search"/></svg></span>Cari</a>
+        <a class="shortcut" href="#activity-detail"><span class="shortcut-well"><svg class="icon" aria-hidden="true"><use href="#i-calendar"/></svg></span>Acara</a>
+        <a class="shortcut" href="#leaderboard"><span class="shortcut-well"><svg class="icon" aria-hidden="true"><use href="#i-podium"/></svg></span>Leaderboard</a>
+      </nav>
+      <div class="exercise-heading" id="exercise"><h3>Exercise</h3><a class="see-more" href="#activity-detail">See More<svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a></div>
+      <div class="exercise-grid">
+        <section class="exercise-card"><span class="ribbon">01</span><h4>Angkat beban</h4><p>Latihan angkat beban,<br>untuk meningkatkan otot.</p><a class="pill" href="#activity-detail">Let's Go</a><svg class="exercise-art" viewBox="0 0 146 155" preserveAspectRatio="xMidYMax slice" aria-hidden="true"><path d="M0 121c34-22 76 21 146-6v40H0Z" fill="#ffdda3"/><use href="#fir" x="17" y="52" width="23" height="61" color="#b88346"/><use href="#fir" x="50" y="58" width="17" height="43" color="#e4b273"/><path d="M0 132c27-11 43 6 64 0" stroke="#aa7b35" stroke-width="5" fill="none"/><path d="m5 133 4-7 7 7 6-5 7 5" fill="#aa7b35"/><use href="#bunny" x="62" y="0" width="97" height="158"/></svg></section>
+        <section class="exercise-card run"><h4>Maraton</h4><p>Maraton cukup 10km<br>mengelilingi lapangan.</p><a class="pill" href="#activity-detail">Let's Go</a><svg class="exercise-art" viewBox="0 0 136 155" preserveAspectRatio="xMidYMax slice" aria-hidden="true"><path d="M0 119c62-22 71 19 136 6v30H0Z" fill="#a8bf81"/><use href="#tree" x="4" y="43" width="32" height="87" color="#85ab44"/><use href="#croc" x="-8" y="10" width="139" height="157"/></svg></section>
+      </div>
+    </div>
+    <nav class="bottom-nav" aria-label="Navigasi contoh Discover">
+      <a class="nav-link is-selected" href="#discover" aria-current="location" aria-label="Discover"><svg class="icon" aria-hidden="true"><use href="#i-home-filled"/></svg></a>
+      <a class="nav-link" href="#leaderboard" aria-label="Leader Board"><svg class="icon" aria-hidden="true"><use href="#i-chart"/></svg></a>
+      <a class="nav-link" href="#activity-detail" aria-label="Aktivitas"><svg class="icon" aria-hidden="true"><use href="#i-bell"/></svg></a>
+      <a class="nav-link" href="#profile" aria-label="Profile"><svg class="icon" aria-hidden="true"><use href="#i-user"/></svg></a>
+    </nav>
+  </article>
+  <article class="phone leaderboard" id="leaderboard" aria-label="Leader Board screen">
+    <svg class="leader-land" viewBox="0 0 320 285" preserveAspectRatio="none" aria-hidden="true"><use href="#cloud" x="243" y="18" width="58" height="24" color="#ffdaa1"/><use href="#cloud" x="63" y="57" width="47" height="20" color="#ffdaa1"/><path d="M0 145c81-15 161 13 320-2v142H0Z" fill="#ffdda6"/><path d="M0 188c102 18 223-26 320-12v109H0Z" fill="#ffe7bf"/><use href="#fir" x="13" y="78" width="31" height="72" color="#b68049"/><use href="#fir" x="204" y="67" width="45" height="121" color="#ebbb7d"/><use href="#fir" x="280" y="95" width="32" height="87" color="#aa7445"/></svg>
+    <h2 class="screen-title"><a class="back" href="#discover" aria-label="Back to Discover"><svg class="icon" aria-hidden="true"><use href="#i-back"/></svg></a>Leader Board</h2>
+    <div class="podium" aria-label="Top three: frog first, fox second, tiger third">
+      <div class="podium-place second"><svg class="podium-avatar" aria-hidden="true"><use href="#fox"/></svg><div class="podium-block">2</div></div>
+      <div class="podium-place first"><svg class="podium-avatar" aria-hidden="true"><use href="#frog"/></svg><span class="winner-ribbon">Winner</span><div class="podium-block">1</div></div>
+      <div class="podium-place third"><svg class="podium-avatar" aria-hidden="true"><use href="#tiger"/></svg><div class="podium-block">3</div></div>
+    </div>
+    <div class="leader-sheet"><ol class="ranking" start="4" aria-label="Weekly rankings">
+      <li><span class="rank-number" aria-hidden="true">04</span><div class="rank-card"><svg class="rank-avatar" aria-hidden="true"><use href="#tiger"/></svg><div class="rank-info"><strong>Jennifer</strong><small><svg class="coin" aria-hidden="true"><use href="#coin"/></svg>780 pts</small></div><span class="rank-change" aria-label="Up 3 places">+3<i class="triangle up" aria-hidden="true"></i></span></div></li>
+      <li><span class="rank-number" aria-hidden="true">05</span><div class="rank-card"><svg class="rank-avatar green" aria-hidden="true"><use href="#frog"/></svg><div class="rank-info"><strong>William</strong><small><svg class="coin" aria-hidden="true"><use href="#coin"/></svg>756 pts</small></div><span class="rank-change" aria-label="Down 1 place">-1<i class="triangle" aria-hidden="true"></i></span></div></li>
+      <li><span class="rank-number" aria-hidden="true">06</span><div class="rank-card current"><svg class="rank-avatar stone" aria-hidden="true"><use href="#bear"/></svg><div class="rank-info"><strong>Samantha<span class="sr-only">, current user</span></strong><small><svg class="coin" aria-hidden="true"><use href="#coin"/></svg>698 pts</small></div><span class="rank-change" aria-label="Down 2 places">-2<i class="triangle" aria-hidden="true"></i></span></div></li>
+      <li><span class="rank-number" aria-hidden="true">07</span><div class="rank-card"><svg class="rank-avatar" aria-hidden="true"><use href="#tiger"/></svg><div class="rank-info"><strong>Emery</strong><small><svg class="coin" aria-hidden="true"><use href="#coin"/></svg>636 pts</small></div><span class="rank-change" aria-label="Down 1 place">-1<i class="triangle" aria-hidden="true"></i></span></div></li>
+      <li><span class="rank-number" aria-hidden="true">08</span><div class="rank-card"><svg class="rank-avatar green" aria-hidden="true"><use href="#fox"/></svg><div class="rank-info"><strong>Lydia</strong><small><svg class="coin" aria-hidden="true"><use href="#coin"/></svg>580 pts</small></div><span class="rank-change" aria-label="Down 1 place">-1<i class="triangle" aria-hidden="true"></i></span></div></li>
+    </ol></div>
+  </article>
+</div>
+<div class="stage-caption"><span><i></i>Meadow Buddies</span><span>A little movement. A little joy.</span><a href="#design-reference">Explore the design ↓</a></div>
+</section>
+<div class="manual" id="design-reference">
+  <header class="manual-header"><div><p class="eyebrow">A woodland fitness companion</p><h1>Small steps.<br>Happy little worlds.</h1></div><p class="intro">Warm colors, gentle shapes and a friend for every milestone. A mobile design language that makes showing up feel good.</p></header>
+  <section class="reference-section" id="color-roles"><p class="eyebrow">01 — Color roles</p><h2>A walk through the palette.</h2><p class="section-description">Sage sets the scene. Apricot brings the sunshine. Cocoa gives every action a clear, grounded place to land.</p><div class="swatches">
+    <div class="swatch"><div class="swatch-color" style="--swatch-color:var(--color-accent)"></div><div class="swatch-label"><strong>Meadow sage</strong><small>accent · landscapes</small></div></div>
+    <div class="swatch"><div class="swatch-color" style="--swatch-color:var(--color-apricot)"></div><div class="swatch-label"><strong>Soft apricot</strong><small>apricot · activities</small></div></div>
+    <div class="swatch"><div class="swatch-color" style="--swatch-color:var(--color-primary)"></div><div class="swatch-label"><strong>Warm cocoa</strong><small>primary · actions</small></div></div>
+    <div class="swatch"><div class="swatch-color" style="--swatch-color:var(--color-surface-raised)"></div><div class="swatch-label"><strong>Cloud white</strong><small>surface-raised · sheets</small></div></div>
+    <div class="swatch"><div class="swatch-color" style="--swatch-color:var(--color-honey)"></div><div class="swatch-label"><strong>Golden honey</strong><small>honey · rewards</small></div></div>
+  </div></section>
+  <section class="reference-section"><p class="eyebrow">02 — Shape &amp; typography</p><h2>Soft edges. A clear little hierarchy.</h2><p class="section-description">Generous outer curves hold smaller, quieter shapes. Rounded humanist type stays friendly without turning every label into a headline.</p><div class="reference-grid">
+    <div class="reference-card"><h3>Roundness with a rhythm</h3><div class="radius-samples"><span style="border-radius:16px">16</span><span style="border-radius:22px">22</span><span style="border-radius:34px">34</span></div><p>16px banners, 22px activity cards, 34px sheets and 44px screen corners. Fine dividers and soft ambient shadows keep the surface light.</p></div>
+    <div class="reference-card"><h3>Friendly, never fussy</h3><div class="type-large">Discover</div><div class="type-small">A little stronger, every day.</div><p>34px screen titles · 22px section headings · 12–14px readable labels. The local font stack keeps the preview fully offline.</p></div>
+  </div></section>
+  <section class="reference-section" id="activity-detail"><p class="eyebrow">03 — Controls &amp; activity</p><h2>One small invitation to get going.</h2><p class="section-description">Cocoa pills identify the next action. Pale secondary controls stay quiet. A visible focus ring and a 44px touch target make the same invitation available to everyone.</p><div class="reference-grid">
+    <div class="reference-card"><h3>Button states</h3><div class="controls-row"><a class="pill" href="#mobile-reference">Let's Go</a><a class="pill secondary" href="#exercise">See activities</a><button class="pill" disabled>Completed</button></div><div class="controls-row"><a class="pill focus-example" href="#discover">Focus example</a></div><p>Short labels, a steady fill and gentle hover feedback. The selected navigation item repeats the same cocoa circle. Motion is removed when reduced motion is preferred.</p></div>
+    <div class="reference-card"><h3>Your next little adventure</h3><p>Strength with the rabbit. A run with the crocodile. Each activity has a clear title, one short explanation and a character below the action, never behind the text.</p><details class="activity-details"><summary>Explore the sample activities</summary><p><strong>Angkat beban</strong> — a strength-training card with an apricot field, numbered ribbon and rabbit illustration.</p><p><strong>Maraton</strong> — a running card with a sage field, a tree and a crocodile illustration.</p><p>This disclosure is an interactive component specimen. No workout, account change or network request is started.</p></details></div>
+  </div></section>
+  <section class="reference-section"><p class="eyebrow">04 — On-style / off-style</p><h2>Encouragement, not a shouting match.</h2><p class="section-description">The same activity, two very different feelings. The woodland language comes from the whole composition, not just adding a green background.</p><div class="comparison">
+    <div class="cmp-off"><div class="comparison-label"><span>Off-style</span><span>✕ Too loud</span></div><div class="bad-workout"><strong>BEAST MODE!</strong><span>CRUSH YOUR GOALS →</span></div><p class="comparison-note">Neon color, sharp corners, heavy outlines and urgent all-caps copy turn a gentle companion into a competitive sports brand.</p></div>
+    <div class="cmp-on"><div class="comparison-label"><span>On-style</span><span>✓ Just right</span></div><div class="good-workout"><strong>A little stronger.</strong><p>Your buddy is ready.</p><a class="pill" href="#activity-detail">Let's Go</a><svg aria-hidden="true"><use href="#bunny"/></svg></div><p class="comparison-note">Apricot, cocoa, a small action and a friendly illustrated companion. Soft shapes leave the content room to breathe.</p></div>
+  </div></section>
+  <section class="reference-section" id="mobile-reference"><p class="eyebrow">05 — Made for small screens</p><h2>The same world, closer to hand.</h2><p class="section-description">The three-phone board is a presentation. A real mobile surface gives one screen the full width and keeps every action within reach.</p><div class="mobile-reference">
+    <div class="mobile-stage"><article class="compact-phone" aria-label="Narrow-screen Discover example"><div class="compact-content"><h3>Discover</h3><div class="mobile-greeting"><svg aria-hidden="true"><use href="#frog"/></svg><p><strong>Hey, little explorer.</strong>Ready for a small win?</p></div><div class="mobile-workout"><h4>A little stronger.</h4><p>One activity.<br>One happy buddy.</p><a class="pill" href="#activity-detail">Let's Go</a><svg aria-hidden="true"><use href="#bunny"/></svg></div></div><nav class="compact-nav" aria-label="Mobile example navigation"><a class="nav-link is-selected" href="#discover" aria-label="Discover"><svg class="icon" aria-hidden="true"><use href="#i-home-filled"/></svg></a><a class="nav-link" href="#leaderboard" aria-label="Leader Board"><svg class="icon" aria-hidden="true"><use href="#i-chart"/></svg></a><a class="nav-link" href="#profile" aria-label="Profile"><svg class="icon" aria-hidden="true"><use href="#i-user"/></svg></a></nav></article></div>
+    <ol class="responsive-notes"><li><strong>One screen at a time</strong>Below 1120px, the presentation stacks the three screens. The reference grids become one column below 700px. No sideways page scrolling.</li><li><strong>The card stays readable</strong>A narrow product layout features one activity card, preserving the description and the illustrated lower half rather than squeezing both cards into tiny columns.</li><li><strong>Room for real fingers</strong>The mobile example uses 44px actions and navigation targets, plus body labels of at least 12px. A production bottom bar also needs device safe-area padding.</li><li><strong>Nothing is hidden behind hover</strong>Labels and selection stay visible on touch devices. Keyboard focus adds a clear outline; reduced-motion preferences remove decorative transitions.</li></ol>
+  </div></section>
+  <footer class="footer"><span>Meadow Buddies · Original HTML, CSS &amp; SVG study<br>Static sample data. No scripts, remote assets or account actions.</span><a href="#profile">Back to the little world ↑</a></footer>
+</div>
+</main>
+</body>
+</html>

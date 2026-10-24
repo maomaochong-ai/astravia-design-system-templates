@@ -1,0 +1,28 @@
+{
+	"schemaVersion": 1,
+	"kind": "design-system",
+	"slug": "meadow-buddies",
+	"name": "Meadow Buddies",
+	"version": "1.0.0",
+	"order": 45,
+	"category": "playful",
+	"vibe": "light",
+	"tags": ["playful", "mobile", "fitness", "sage", "illustrated", "light"],
+	"blurb": "A gentle, gamified fitness companion: sage landscapes, apricot activity cards, cocoa controls, rounded white sheets and hand-drawn woodland buddies.",
+	"tagline": {
+		"en": "Little steps, woodland friends",
+		"zh": "鼠尾草绿与杏黄，森林伙伴陪你运动"
+	},
+	"license": "MIT",
+	"origin": {
+		"type": "collected",
+		"upstream": "https://github.com/sikongyue/astravia-design-system-templates",
+		"note": "Original HTML, CSS and inline SVG reconstruction from a user-provided three-screen fitness UI reference. Reference creator and source URL were not supplied. The reference image is not redistributed; MIT covers the authored implementation only."
+	},
+	"assets": {
+		"spec": "DESIGN.md",
+		"theme": "theme.css",
+		"demo": "demo.html"
+	},
+	"collectedAt": "2026-08-31"
+}

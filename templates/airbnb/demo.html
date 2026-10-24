@@ -1,793 +1,397 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Airbnb — Design System</title>
-
-
-
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Airbnb — component reference</title>
 <style>
-*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+	/* Mirrors theme.css. Plain custom properties so this file opens standalone. */
+	:root {
+		--color-primary: #ff385c;
+		--color-primary-foreground: #ffffff;
+		--color-surface: #ffffff;
+		--color-surface-foreground: #222222;
+		--color-surface-raised: #f7f7f7;
+		--color-muted: #717171;
+		--color-accent: #00a699;
+		--color-danger: #c13515;
+		--color-border: #dddddd;
 
-:root{
-  --white:#ffffff;
-  --off-white:#f7f7f7;
-  --smoke:#dddddd;
-  --fog:#c4c4c4;
-  --iron:#717171;
-  --charcoal:#484848;
-  --night:#222222;
-  --rausch:#FF5A5F;
-  --rausch-dark:#D93B3F;
-  --babu:#00A699;
-  --babu-dark:#008489;
-  --archer:#FC642D;
-  --hof:#484848;
+		--radius-sm: 8px;
+		--radius-md: 10px;
+		--radius-lg: 12px;
+		--radius-xl: 16px;
+		--radius-2xl: 24px;
 
-  --r-sm:4px;--r-md:8px;--r-lg:12px;--r-xl:16px;
-  --r-2xl:24px;--r-full:9999px;
-}
+		--shadow-sm: 0 1px 2px rgb(0 0 0 / 0.08);
+		--shadow-md: 0 6px 16px rgb(0 0 0 / 0.12);
+		--shadow-lg: 0 16px 40px rgb(0 0 0 / 0.16);
 
-::selection{background:rgba(255,90,95,.2);color:var(--night)}
-html{scroll-behavior:smooth}
+		--sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+	}
 
-body{
-  font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
-  background:var(--white);color:var(--night);
-  font-size:16px;line-height:1.5;letter-spacing:0;
-  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
-}
+	*, *::before, *::after { box-sizing: border-box; }
+	body {
+		margin: 0;
+		background: var(--color-surface);
+		color: var(--color-surface-foreground);
+		font-family: var(--sans);
+		font-size: 15px;
+		line-height: 1.5;
+		-webkit-font-smoothing: antialiased;
+	}
+	h1, h2, h3 { margin: 0; font-weight: 600; letter-spacing: -0.02em; line-height: 1.25; }
+	p { margin: 0; }
+	::selection { background: rgb(255 56 92 / 0.22); }
+	.spacer { flex: 1; }
+	.muted { color: var(--color-muted); }
 
-.page{max-width:960px;margin:0 auto;padding:0 32px 120px}
+	.wrap { max-width: 1240px; margin: 0 auto; padding: 0 24px; }
+	@media (min-width: 900px) { .wrap { padding: 0 48px; } }
 
-/* NAV */
-.nav{
-  display:flex;justify-content:space-between;align-items:center;
-  height:64px;padding:0 16px;position:sticky;top:0;z-index:100;
-  background:rgba(255,255,255,.95);backdrop-filter:blur(12px);
-  -webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--smoke);
-  margin:0 -32px;
-}
-.nav-left{display:flex;align-items:center;gap:12px}
-.nav-wordmark{
-  font-size:18px;font-weight:800;letter-spacing:-.35px;
-  color:var(--rausch);text-decoration:none;
-}
-.nav-tag{
-  font-size:11px;font-weight:600;color:var(--white);
-  background:var(--rausch);padding:3px 10px;border-radius:var(--r-full);
-  letter-spacing:.02px;
-}
-.nav-right{display:flex;align-items:center;gap:8px}
-.nav-link{
-  font-size:13px;font-weight:500;color:var(--iron);text-decoration:none;
-  padding:6px 12px;border-radius:var(--r-md);transition:all .2s;letter-spacing:.015px;
-}
-.nav-link:hover{color:var(--night);background:var(--off-white)}
-.nav-link--active{color:var(--night);font-weight:600}
-.nav-url{
-  font-family:'DM Mono',monospace;
-  font-size:11px;font-weight:400;color:var(--muted-sienna);text-decoration:none;
-  padding:4px 10px;border-radius:var(--r-full);transition:all .2s;
-  background:rgba(255,107,53,.05);border:1px solid rgba(255,107,53,.1);
-  letter-spacing:.02px;white-space:nowrap;
-}
-.nav-url:hover{color:var(--citrus-orange);background:rgba(255,107,53,.1);border-color:rgba(255,107,53,.2)}
+	/* ── Sticky white header with the floating search pill ────────── */
+	.header { border-bottom: 1px solid var(--color-border); padding: 16px 0; }
+	.header-inner { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+	.logo { display: flex; align-items: center; gap: 8px; color: var(--color-primary); font-weight: 700; font-size: 19px; letter-spacing: -0.02em; }
+	.logo .mk { width: 24px; height: 24px; border-radius: 50% 50% 50% 6px; background: var(--color-primary); }
+	/* Segmented pill divided by hairlines — the signature control. */
+	.searchpill {
+		display: none; align-items: center;
+		border: 1px solid var(--color-border); border-radius: 9999px;
+		box-shadow: var(--shadow-sm); height: 48px; padding: 0 6px 0 0;
+		font-size: 14px; background: var(--color-surface);
+	}
+	@media (min-width: 820px) { .searchpill { display: flex; } }
+	.searchpill .seg { padding: 0 18px; border-right: 1px solid var(--color-border); }
+	.searchpill .seg:last-of-type { border-right: 0; }
+	.searchpill .seg b { display: block; font-size: 12px; font-weight: 600; }
+	.searchpill .seg span { font-size: 13px; color: var(--color-muted); }
+	.searchpill .go { width: 34px; height: 34px; border-radius: 50%; background: var(--color-primary); color: #fff; display: grid; place-items: center; font-size: 14px; }
+	.usermenu { display: flex; align-items: center; gap: 10px; border: 1px solid var(--color-border); border-radius: 9999px; padding: 5px 6px 5px 12px; box-shadow: none; }
+	.usermenu:hover { box-shadow: var(--shadow-sm); }
+	.usermenu .av { width: 30px; height: 30px; border-radius: 50%; background: var(--color-surface-foreground); }
 
-/* SECTIONS */
-.section{
-  padding:80px 0 0;
-  border-top:1px solid var(--smoke);
-  margin-top:64px;
-}
-.section:first-of-type{border-top:none;margin-top:48px}
-.section-header{margin-bottom:40px}
-.section-label{
-  font-size:11px;font-weight:600;letter-spacing:.08px;
-  text-transform:uppercase;color:var(--rausch);margin-bottom:8px;
-}
-.section-title{
-  font-size:32px;font-weight:800;letter-spacing:-.5px;line-height:1.15;
-  color:var(--night);
-}
-.section-desc{
-  font-size:15px;line-height:1.6;color:var(--charcoal);
-  margin-top:12px;max-width:560px;
-}
+	/* ── Filter chips ─────────────────────────────────────────────── */
+	.filters { display: flex; gap: 12px; padding: 20px 0 8px; overflow-x: auto; }
+	.chip {
+		display: inline-flex; align-items: center; gap: 8px; flex: none;
+		border: 1px solid var(--color-border); border-radius: 9999px;
+		padding: 8px 16px; font-size: 14px; background: var(--color-surface);
+		white-space: nowrap;
+	}
+	.chip.is-selected { background: var(--color-surface-foreground); color: #fff; border-color: var(--color-surface-foreground); }
+	.chip .g { width: 16px; height: 16px; border: 1.5px solid currentColor; border-radius: 4px; opacity: 0.75; }
 
-/* HERO */
-.hero{
-  padding:80px 0 48px;
-  border-bottom:1px solid var(--smoke);
-  margin:0 -32px;padding-left:32px;padding-right:32px;
-  position:relative;overflow:hidden;
-  background:linear-gradient(135deg,rgba(255,90,95,.04),rgba(0,166,153,.03));
-}
-.hero::before{
-  content:'';position:absolute;
-  width:400px;height:400px;
-  background:radial-gradient(circle,rgba(255,90,95,.08),transparent 70%);
-  border-radius:50%;filter:blur(80px);
-  right:-80px;top:-120px;pointer-events:none;
-}
-.hero::after{
-  content:'';position:absolute;
-  width:300px;height:300px;
-  background:radial-gradient(circle,rgba(0,166,153,.06),transparent 70%);
-  border-radius:50%;filter:blur(60px);
-  left:20%;bottom:-80px;pointer-events:none;
-}
-.hero-label{
-  font-size:11px;font-weight:600;letter-spacing:.1px;
-  text-transform:uppercase;color:var(--babu);margin-bottom:16px;
-}
-.hero-title{
-  font-size:clamp(40px,6vw,56px);font-weight:800;line-height:1;
-  letter-spacing:-.02em;color:var(--night);
-}
-.hero-title em{
-  font-style:normal;
-  background:linear-gradient(135deg,var(--rausch),var(--archer));
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-}
-.hero-subtitle{
-  font-size:17px;line-height:1.6;color:var(--charcoal);
-  margin-top:20px;max-width:480px;
-}
-.hero-tags{display:flex;gap:8px;margin-top:28px;flex-wrap:wrap}
-.hero-tag{
-  font-size:11px;font-weight:500;color:var(--iron);
-  background:var(--off-white);padding:5px 12px;border-radius:var(--r-full);
-  border:1px solid var(--smoke);letter-spacing:.015px;
-}
-.hero-actions{display:flex;gap:12px;margin-top:28px}
+	/* ── Listing cards: photo-led, heart on the image ─────────────── */
+	.grid { display: grid; grid-template-columns: repeat(1, 1fr); gap: 24px; padding: 20px 0 56px; }
+	@media (min-width: 560px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+	@media (min-width: 900px) { .grid { grid-template-columns: repeat(4, 1fr); } }
+	.listing { min-width: 0; }
+	.photo {
+		position: relative; aspect-ratio: 4/3; border-radius: var(--radius-lg); overflow: hidden;
+		background: linear-gradient(140deg, #e9d9c9, #cdb6a1);
+	}
+	.photo .heart {
+		position: absolute; right: 12px; top: 12px; font-size: 19px; line-height: 1;
+		color: rgb(255 255 255 / 0.9); text-shadow: 0 1px 3px rgb(0 0 0 / 0.4);
+	}
+	.photo .heart.liked { color: var(--color-primary); }
+	.photo .flag {
+		position: absolute; left: 12px; top: 12px; background: var(--color-surface);
+		border-radius: 9999px; padding: 4px 10px; font-size: 12px; font-weight: 600;
+		box-shadow: var(--shadow-sm);
+	}
+	.photo .dots { position: absolute; left: 0; right: 0; bottom: 10px; display: flex; justify-content: center; gap: 5px; }
+	.photo .dots i { width: 5px; height: 5px; border-radius: 50%; background: rgb(255 255 255 / 0.6); }
+	.photo .dots i:first-child { background: #fff; }
+	.listing .l1 { display: flex; align-items: baseline; gap: 8px; margin-top: 12px; }
+	.listing .l1 b { font-weight: 500; font-size: 15px; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+	.listing .rating { margin-left: auto; font-size: 14px; display: flex; align-items: center; gap: 4px; flex: none; }
+	.listing .meta { font-size: 14px; color: var(--color-muted); margin-top: 2px; }
+	.listing .price { margin-top: 8px; font-size: 15px; }
+	.listing .price b { font-weight: 600; }
+	.badge-teal { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; color: var(--color-accent); font-weight: 600; margin-top: 6px; }
+	.badge-teal .d { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
 
-/* BUTTONS */
-.btn{
-  display:inline-flex;align-items:center;gap:6px;
-  font-family:inherit;font-size:14px;font-weight:600;line-height:1;
-  letter-spacing:0;padding:12px 24px;border-radius:var(--r-md);
-  cursor:pointer;text-decoration:none;white-space:nowrap;
-  transition:opacity .15s,transform .15s,background .15s,border-color .15s,box-shadow .15s;
-}
-.btn:active{transform:scale(.97)}
-.btn-primary{background:var(--rausch);color:var(--white);border:1px solid transparent}
-.btn-primary:hover{background:var(--rausch-dark);box-shadow:0 4px 12px rgba(255,90,95,.3)}
-.btn-secondary{background:var(--white);color:var(--night);border:1px solid var(--smoke)}
-.btn-secondary:hover{border-color:var(--night);box-shadow:0 2px 8px rgba(0,0,0,.08)}
-.btn-ghost{background:transparent;color:var(--rausch);border:1px solid transparent;text-decoration:underline}
-.btn-ghost:hover{color:var(--rausch-dark)}
+	/* ── Reference sections ───────────────────────────────────────── */
+	.section { padding: 48px 0; border-top: 1px solid var(--color-border); }
+	@media (min-width: 768px) { .section { padding: 64px 0; } }
+	.section-label { font-size: 13px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-primary); margin-bottom: 10px; }
+	.section h2 { font-size: 26px; }
+	@media (min-width: 768px) { .section h2 { font-size: 32px; } }
+	.lede { color: var(--color-muted); margin-top: 12px; max-width: 62ch; }
+	.note { margin-top: 18px; font-size: 14px; color: var(--color-muted); }
+	.row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
 
-/* COLOR TOKENS */
-.color-grid{
-  display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;
-}
-.color-token{
-  background:var(--white);border:1px solid var(--smoke);
-  border-radius:var(--r-xl);overflow:hidden;transition:border-color .2s;
-}
-.color-token:hover{border-color:var(--iron)}
-.color-swatch{width:100%;height:80px}
-.color-info{padding:14px 16px}
-.color-name{font-size:13px;font-weight:600;letter-spacing:.01px;color:var(--night)}
-.color-hex{
-  font-size:12px;font-weight:500;color:var(--iron);margin-top:2px;
-  font-variant-numeric:tabular-nums;letter-spacing:.015px;
-}
-.color-role{font-size:11px;color:var(--fog);margin-top:6px;line-height:1.4}
+	/* ── Buttons: 44px, coral for the one ask ─────────────────────── */
+	.btn {
+		font: inherit; font-size: 15px; font-weight: 600;
+		height: 44px; padding: 0 22px;
+		border: 1px solid transparent; border-radius: var(--radius-sm);
+		background: var(--color-primary); color: var(--color-primary-foreground);
+		cursor: pointer; transition: background-color 150ms ease, transform 150ms ease;
+	}
+	.btn:hover { background: #e0304f; }
+	.btn:active { transform: scale(0.98); }
+	.btn:focus-visible { outline: none; box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--color-surface-foreground); }
+	.btn-outline { background: var(--color-surface); color: var(--color-surface-foreground); border-color: var(--color-surface-foreground); }
+	.btn-outline:hover { background: var(--color-surface-raised); }
+	.btn-link { background: transparent; color: var(--color-surface-foreground); text-decoration: underline; padding: 0 8px; }
+	.btn-link:hover { background: var(--color-surface-raised); }
+	.btn[disabled] { cursor: not-allowed; background: #ebebeb; color: #b0b0b0; }
+	.btn-pill { border-radius: 9999px; }
 
-/* TYPE SCALE */
-.type-table{
-  display:flex;flex-direction:column;border:1px solid var(--smoke);
-  border-radius:var(--r-xl);overflow:hidden;
-}
-.type-row{
-  display:grid;grid-template-columns:100px 1fr 200px;align-items:baseline;
-  padding:16px 24px;border-bottom:1px solid var(--off-white);
-}
-.type-row:last-child{border-bottom:none}
-.type-row:hover{background:var(--off-white)}
-.type-meta{
-  font-size:10px;font-weight:600;color:var(--rausch);
-  letter-spacing:.06px;text-transform:uppercase;
-}
-.type-sample{color:var(--night);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.type-specs{
-  font-size:11px;color:var(--iron);text-align:right;
-  font-variant-numeric:tabular-nums;letter-spacing:.015px;
-}
+	.input {
+		font: inherit; font-size: 15px; width: 100%; max-width: 340px; height: 52px; padding: 0 16px;
+		border: 1px solid var(--color-border); border-radius: var(--radius-sm);
+		background: var(--color-surface); color: var(--color-surface-foreground);
+	}
+	.input::placeholder { color: var(--color-muted); }
+	.input:focus { outline: none; border-color: var(--color-surface-foreground); box-shadow: 0 0 0 1px var(--color-surface-foreground); }
 
-/* SPACING */
-.spacing-bars{display:flex;align-items:flex-end;gap:20px;height:120px}
-.spacing-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px}
-.spacing-bar{
-  width:100%;border-radius:var(--r-md);
-  background:linear-gradient(180deg,var(--rausch),var(--archer));
-  opacity:.25;transition:opacity .3s;
-}
-.spacing-col:hover .spacing-bar{opacity:.6}
-.spacing-val{font-size:11px;font-weight:600;color:var(--night);letter-spacing:.015px}
-.spacing-name{font-size:10px;font-weight:500;color:var(--iron);letter-spacing:.015px}
+	/* Booking panel: the one heavily shadowed object on a listing page. */
+	.bookcard { border: 1px solid var(--color-border); border-radius: var(--radius-lg); box-shadow: var(--shadow-md); padding: 22px; max-width: 370px; }
+	.bookcard .top { display: flex; align-items: baseline; gap: 6px; }
+	.bookcard .top b { font-size: 21px; font-weight: 600; }
+	.datebox { border: 1px solid var(--color-border); border-radius: var(--radius-sm); margin-top: 16px; overflow: hidden; }
+	.datebox .r { display: flex; }
+	.datebox .c { flex: 1; padding: 9px 12px; border-right: 1px solid var(--color-border); }
+	.datebox .c:last-child { border-right: 0; }
+	.datebox .c b { display: block; font-size: 10px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; }
+	.datebox .c span { font-size: 14px; }
+	.datebox .r + .r .c { border-top: 1px solid var(--color-border); }
+	.bookrow { display: flex; justify-content: space-between; font-size: 15px; padding: 10px 0; }
+	.bookrow.total { border-top: 1px solid var(--color-border); font-weight: 600; margin-top: 6px; padding-top: 16px; }
 
-/* SHAPES */
-.shapes-row{display:flex;flex-wrap:wrap;gap:24px;align-items:flex-end}
-.shape-item{display:flex;flex-direction:column;align-items:center;gap:8px}
-.shape-box{
-  width:72px;height:72px;background:var(--off-white);
-  border:1.5px solid var(--smoke);transition:all .3s cubic-bezier(.22,1,.36,1);
-}
-.shape-box:hover{border-color:var(--rausch);transform:scale(1.06)}
-.shape-label{font-size:11px;font-weight:500;color:var(--iron);letter-spacing:.015px;white-space:nowrap}
-.shape-value{
-  font-size:10px;font-weight:400;color:var(--fog);letter-spacing:.015px;
-  font-variant-numeric:tabular-nums;
-}
+	.swatches { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-top: 24px; }
+	@media (min-width: 720px) { .swatches { grid-template-columns: repeat(4, 1fr); } }
+	.sw .fill { height: 62px; border-radius: var(--radius-lg); border: 1px solid var(--color-border); }
+	.sw b { display: block; font-size: 13px; font-weight: 600; margin-top: 8px; }
+	.sw span { font-size: 12px; color: var(--color-muted); }
 
-/* DEPTH */
-.depth-row{
-  display:flex;align-items:center;gap:20px;padding:20px 0;
-  border-bottom:1px solid var(--off-white);
-}
-.depth-row:last-child{border-bottom:none}
-.depth-swatch{
-  width:56px;height:56px;border-radius:var(--r-md);flex-shrink:0;
-}
-.depth-info{flex:1}
-.depth-name{font-size:14px;font-weight:600;letter-spacing:.01px;color:var(--night)}
-.depth-desc{font-size:12px;color:var(--iron);margin-top:2px;letter-spacing:.015px}
-.depth-value{
-  font-size:12px;font-weight:500;color:var(--fog);
-  font-variant-numeric:tabular-nums;letter-spacing:.015px;
-}
+	/* ── Mobile ───────────────────────────────────────────────────── */
+	.mobile { display: grid; grid-template-columns: minmax(0, 1fr); gap: 32px; margin-top: 28px; align-items: start; }
+	@media (min-width: 860px) { .mobile { grid-template-columns: 288px 1fr; gap: 44px; } }
+	.phone {
+		width: 288px; max-width: 100%; margin: 0 auto;
+		border: 1px solid var(--color-border); border-radius: 30px;
+		overflow: hidden; background: var(--color-surface); box-shadow: var(--shadow-md);
+	}
+	.phone-status { display: flex; justify-content: space-between; padding: 11px 18px 6px; font-size: 10px; color: var(--color-muted); }
+	/* The search pill collapses to one line but keeps its shadow and radius. */
+	.m-search { margin: 4px 14px 10px; border: 1px solid var(--color-border); border-radius: 9999px; box-shadow: var(--shadow-sm); padding: 9px 14px; display: flex; align-items: center; gap: 8px; font-size: 12px; }
+	.m-search b { font-weight: 600; }
+	.m-chips { display: flex; gap: 8px; padding: 0 14px 10px; overflow: hidden; }
+	.m-chips .chip { font-size: 11px; padding: 5px 11px; }
+	.m-listing { padding: 0 14px 12px; }
+	.m-listing .photo { aspect-ratio: 1; border-radius: var(--radius-lg); }
+	.m-listing .l1 { margin-top: 8px; }
+	.m-listing .l1 b { font-size: 13px; }
+	.m-listing .rating { font-size: 12px; }
+	.m-listing .meta, .m-listing .price { font-size: 12px; }
+	.m-tabs { display: flex; border-top: 1px solid var(--color-border); }
+	.m-tabs div { flex: 1; text-align: center; font-size: 10px; color: var(--color-muted); padding: 8px 0 13px; }
+	.m-tabs .is-active { color: var(--color-primary); font-weight: 600; }
+	.m-tabs .g { display: block; width: 17px; height: 17px; border: 1.6px solid currentColor; border-radius: 5px; margin: 0 auto 4px; }
 
-/* SURFACES */
-.surface-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px}
-.surface-item{
-  border-radius:var(--r-xl);padding:28px 20px;
-  text-align:center;border:1px solid var(--smoke);
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  gap:6px;min-height:110px;transition:transform .3s;
-}
-.surface-item:hover{transform:scale(1.02)}
-.surface-name{font-size:14px;font-weight:600;letter-spacing:.01px}
-.surface-val{
-  font-size:11px;font-weight:500;color:var(--iron);
-  font-variant-numeric:tabular-nums;letter-spacing:.015px;
-}
+	.rules { margin: 0; padding: 0; list-style: none; }
+	.rules li { padding: 14px 0; border-bottom: 1px solid var(--color-border); font-size: 15px; color: var(--color-muted); }
+	.rules b { display: block; color: var(--color-surface-foreground); font-size: 15px; font-weight: 600; margin-bottom: 2px; }
 
-/* COMPONENTS */
-.component-card{
-  background:var(--white);border:1px solid var(--smoke);
-  border-radius:var(--r-xl);padding:32px;margin-bottom:20px;
-  transition:border-color .2s;box-shadow:0 2px 16px rgba(0,0,0,.04);
-}
-.component-card:hover{border-color:var(--iron)}
-.component-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px}
-.component-name{font-size:15px;font-weight:600;letter-spacing:.01px;color:var(--night)}
-.component-role{font-size:12px;color:var(--iron);margin-top:4px;letter-spacing:.015px}
-.component-class{
-  font-size:11px;font-weight:500;color:var(--rausch);
-  background:rgba(255,90,95,.06);padding:3px 10px;border-radius:var(--r-full);
-  border:1px solid rgba(255,90,95,.12);letter-spacing:.015px;
-  font-family:'SFMono-Regular',Consolas,monospace;
-}
-.component-preview{
-  display:flex;gap:16px;align-items:center;flex-wrap:wrap;
-  padding:24px;background:var(--off-white);border-radius:var(--r-lg);
-  border:1px solid var(--smoke);
-}
-.component-desc{
-  font-size:12px;color:var(--fog);line-height:1.5;
-  margin-top:12px;max-width:480px;
-}
+	/* ── Off-style ────────────────────────────────────────────────── */
+	.compare { display: grid; grid-template-columns: 1fr; gap: 16px; margin-top: 24px; }
+	@media (min-width: 720px) { .compare { grid-template-columns: repeat(2, 1fr); } }
+	.cmp-off { padding: 22px; border-radius: 4px; background: var(--color-primary); color: #fff; font-size: 16px; font-weight: 600; box-shadow: 0 10px 26px rgb(0 0 0 / 0.35); }
+	.cmp-off small { display: block; font-weight: 400; font-size: 13px; opacity: 0.92; margin-top: 8px; line-height: 1.6; }
+	.cmp-on { padding: 22px; border-radius: var(--radius-lg); background: var(--color-surface); border: 1px solid var(--color-border); box-shadow: var(--shadow-sm); font-size: 16px; font-weight: 600; }
+	.cmp-on small { display: block; font-weight: 400; font-size: 13px; color: var(--color-muted); margin-top: 8px; line-height: 1.6; }
 
-/* DO/DON'T */
-.guide-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-.guide-card{
-  border-radius:var(--r-xl);padding:28px;
-  border:1px solid var(--smoke);
-}
-.guide-card--do{background:rgba(0,166,153,.04);border-color:rgba(0,166,153,.15)}
-.guide-card--dont{background:rgba(255,90,95,.04);border-color:rgba(255,90,95,.12)}
-.guide-label{font-size:11px;font-weight:600;letter-spacing:.06px;text-transform:uppercase;margin-bottom:16px}
-.guide-card--do .guide-label{color:var(--babu)}
-.guide-card--dont .guide-label{color:var(--rausch)}
-.guide-list{
-  list-style:none;display:flex;flex-direction:column;gap:10px;
-}
-.guide-list li{
-  font-size:13px;line-height:1.5;padding-left:20px;position:relative;
-  color:var(--charcoal);
-}
-.guide-card--do .guide-list li::before{
-  content:'✓';position:absolute;left:0;color:var(--babu);font-weight:700;font-size:12px;
-}
-.guide-card--dont .guide-list li::before{
-  content:'✕';position:absolute;left:0;color:var(--rausch);font-weight:700;font-size:12px;
-}
-
-/* FOOTER */
-.footer{
-  margin-top:96px;padding:32px 0;
-  border-top:1px solid var(--smoke);
-  display:flex;justify-content:space-between;align-items:center;
-}
-.footer-left{font-size:14px;font-weight:500;color:var(--iron);opacity:.6}
-.footer-right{display:flex;gap:20px}
-.footer-link{
-  font-size:12px;font-weight:500;color:var(--iron);text-decoration:none;
-  transition:color .2s;letter-spacing:.015px;
-}
-.footer-link:hover{color:var(--rausch)}
-
-/* RESPONSIVE */
-@media(max-width:768px){
-  .page{padding:0 20px 80px}
-  .hero{margin:0 -20px;padding-left:20px;padding-right:20px;padding-top:56px}
-  .nav{margin:0 -20px}
-  .section-title{font-size:24px}
-  .type-row{grid-template-columns:70px 1fr;gap:8px}
-  .type-specs{display:none}
-  .guide-grid{grid-template-columns:1fr}
-  .color-grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr))}
-  .hero-title{font-size:36px}
-}
-
-/* ENTRANCE ANIMATION */
-.section,.hero{opacity:1;transition:opacity .6s cubic-bezier(.22,1,.36,1),transform .6s cubic-bezier(.22,1,.36,1)}
-.section.visible,.hero.visible{opacity:1;transform:translateY(0)}
+	footer { background: var(--color-surface-raised); border-top: 1px solid var(--color-border); padding: 28px 0 48px; font-size: 13px; color: var(--color-muted); }
 </style>
 </head>
 <body>
 
-<div class="page">
+<!-- COVER — the search results page. Photography leads, chrome is a hairline,
+     and there is exactly one coral moment on screen. -->
+<header class="header">
+	<div class="wrap header-inner">
+		<span class="logo"><span class="mk"></span>vetta</span>
+		<span class="spacer"></span>
+		<span class="searchpill">
+			<span class="seg"><b>Anywhere</b></span>
+			<span class="seg"><b>Any week</b></span>
+			<span class="seg"><span>Add guests</span></span>
+			<span class="go">⌕</span>
+		</span>
+		<span class="spacer"></span>
+		<button class="btn btn-link">Vetta your home</button>
+		<span class="usermenu"><span>☰</span><span class="av"></span></span>
+	</div>
+</header>
 
-  <!-- NAV -->
-  <nav class="nav">
-    <div class="nav-left">
-      
-      <a href="#" class="nav-wordmark" target="_blank">airbnb</a>
-      <span class="nav-tag">Design System</span>
-      <a href="#" class="nav-url" target="_blank">https://www.airbnb.com</a>
-    </div>
-    <div class="nav-right">
-      <a href="#colors" class="nav-link nav-link--active">Colors</a>
-      <a href="#typography" class="nav-link">Type</a>
-      <a href="#spacing" class="nav-link">Spacing</a>
-      <a href="#components" class="nav-link">Components</a>
-    </div>
-  </nav>
+<div class="wrap">
+	<div class="filters">
+		<span class="chip is-selected"><span class="g"></span>All</span>
+		<span class="chip"><span class="g"></span>Cabins</span>
+		<span class="chip"><span class="g"></span>Design</span>
+		<span class="chip"><span class="g"></span>Lakefront</span>
+		<span class="chip"><span class="g"></span>Tiny homes</span>
+		<span class="chip"><span class="g"></span>Countryside</span>
+		<span class="chip"><span class="g"></span>Amazing views</span>
+	</div>
 
-  <!-- HERO -->
-  <div class="hero">
-    <div class="hero-label">Design System</div>
-    <h1 class="hero-title">Belong<br>anywhere,<br><em>design everywhere.</em></h1>
-    <p class="hero-subtitle">A warm, welcoming light theme with vibrant coral-red accents, calming teal, and generous spacing that lets imagery breathe.</p>
-    <div class="hero-tags">
-      <span class="hero-tag">13 color tokens</span>
-      <span class="hero-tag">18+ type steps</span>
-      <span class="hero-tag">8px grid</span>
-      <span class="hero-tag">4 surface levels</span>
-    </div>
-    <div class="hero-actions">
-      <a href="#" class="btn btn-primary" download>Download Spec</a>
-      <a href="#" class="btn btn-secondary" download>theme.css</a>
-      <a href="#" class="btn btn-secondary" download>tokens.json</a>
-      <a href="#" class="btn btn-secondary" download>variables.css</a>
-    </div>
-  </div>
+	<div class="grid">
+		<div class="listing">
+			<div class="photo" style="background:linear-gradient(140deg,#e9d9c9,#b99f86)">
+				<span class="flag">Guest favourite</span><span class="heart liked">♥</span>
+				<span class="dots"><i></i><i></i><i></i><i></i><i></i></span>
+			</div>
+			<div class="l1"><b>Cabin in Hakone</b><span class="rating">★ 4.94</span></div>
+			<div class="meta">Mountain and forest views</div>
+			<div class="meta">18–23 Apr</div>
+			<div class="price"><b>¥24,800</b> night</div>
+			<div class="badge-teal"><span class="d"></span>Superhost</div>
+		</div>
 
-  <!-- COLORS -->
-  <section class="section" id="colors">
-    <div class="section-header">
-      <div class="section-label">Foundation</div>
-      <h2 class="section-title">Color Tokens</h2>
-      <p class="section-desc">Clean white canvas with warm grays for text hierarchy. Vibrant Rausch coral-red for primary actions and Babu teal for secondary accents.</p>
-    </div>
-    <div class="color-grid">
-      <div class="color-token">
-        <div class="color-swatch" style="background:#ffffff;border-bottom:1px solid #eee"></div>
-        <div class="color-info"><div class="color-name">White</div><div class="color-hex">#ffffff</div><div class="color-role">Primary background, card surfaces</div></div>
-      </div>
-      <div class="color-token">
-        <div class="color-swatch" style="background:#f7f7f7"></div>
-        <div class="color-info"><div class="color-name">Off-White</div><div class="color-hex">#f7f7f7</div><div class="color-role">Secondary sections, alternating rows</div></div>
-      </div>
-      <div class="color-token">
-        <div class="color-swatch" style="background:#dddddd"></div>
-        <div class="color-info"><div class="color-name">Smoke</div><div class="color-hex">#dddddd</div><div class="color-role">Borders, dividers</div></div>
-      </div>
-      <div class="color-token">
-        <div class="color-swatch" style="background:#c4c4c4"></div>
-        <div class="color-info"><div class="color-name">Fog</div><div class="color-hex">#c4c4c4</div><div class="color-role">Disabled states, inactive icons</div></div>
-      </div>
-      <div class="color-token">
-        <div class="color-swatch" style="background:#717171"></div>
-        <div class="color-info"><div class="color-name">Iron</div><div class="color-hex">#717171</div><div class="color-role">Secondary text, captions</div></div>
-      </div>
-      <div class="color-token">
-        <div class="color-swatch" style="background:#484848"></div>
-        <div class="color-info"><div class="color-name">Charcoal</div><div class="color-hex">#484848</div><div class="color-role">Body text, descriptions</div></div>
-      </div>
-      <div class="color-token">
-        <div class="color-swatch" style="background:#222222"></div>
-        <div class="color-info"><div class="color-name">Night</div><div class="color-hex">#222222</div><div class="color-role">Headings, high-emphasis text</div></div>
-      </div>
-      <div class="color-token">
-        <div class="color-swatch" style="background:#FF5A5F"></div>
-        <div class="color-info"><div class="color-name">Rausch</div><div class="color-hex">#FF5A5F</div><div class="color-role">Primary brand — CTAs, links</div></div>
-      </div>
-      <div class="color-token">
-        <div class="color-swatch" style="background:#D93B3F"></div>
-        <div class="color-info"><div class="color-name">Rausch Dark</div><div class="color-hex">#D93B3F</div><div class="color-role">Hover state for primary buttons</div></div>
-      </div>
-      <div class="color-token">
-        <div class="color-swatch" style="background:#00A699"></div>
-        <div class="color-info"><div class="color-name">Babu</div><div class="color-hex">#00A699</div><div class="color-role">Secondary accent, success states</div></div>
-      </div>
-      <div class="color-token">
-        <div class="color-swatch" style="background:#008489"></div>
-        <div class="color-info"><div class="color-name">Babu Dark</div><div class="color-hex">#008489</div><div class="color-role">Hover for secondary accent</div></div>
-      </div>
-      <div class="color-token">
-        <div class="color-swatch" style="background:#FC642D"></div>
-        <div class="color-info"><div class="color-name">Archer</div><div class="color-hex">#FC642D</div><div class="color-role">Warm accent, badges</div></div>
-      </div>
-    </div>
-  </section>
+		<div class="listing">
+			<div class="photo" style="background:linear-gradient(140deg,#cfd9e3,#94a7bd)">
+				<span class="heart">♡</span>
+				<span class="dots"><i></i><i></i><i></i><i></i><i></i></span>
+			</div>
+			<div class="l1"><b>Loft in Lisbon</b><span class="rating">★ 4.87</span></div>
+			<div class="meta">City skyline view</div>
+			<div class="meta">2–7 May</div>
+			<div class="price"><b>€142</b> night</div>
+		</div>
 
-  <!-- TYPOGRAPHY -->
-  <section class="section" id="typography">
-    <div class="section-header">
-      <div class="section-label">Typography</div>
-      <h2 class="section-title">Type Scale</h2>
-      <p class="section-desc">Circular as primary typeface (Inter substitute). Rounded, geometric letterforms with friendly weight range for warm, approachable UI.</p>
-    </div>
-    <div class="type-table">
-      <div class="type-row">
-        <span class="type-meta">Display</span>
-        <span class="type-sample" style="font-size:28px;font-weight:800;line-height:1;letter-spacing:-.02em">Belong anywhere</span>
-        <span class="type-specs">48px / 1.0 / −0.02em</span>
-      </div>
-      <div class="type-row">
-        <span class="type-meta">Heading-lg</span>
-        <span class="type-sample" style="font-size:22px;font-weight:700;line-height:1.15;letter-spacing:-.4px">Find your next adventure</span>
-        <span class="type-specs">32px / 1.15 / −0.02px</span>
-      </div>
-      <div class="type-row">
-        <span class="type-meta">Heading</span>
-        <span class="type-sample" style="font-size:18px;font-weight:600;line-height:1.25;letter-spacing:-.2px">Featured destinations</span>
-        <span class="type-specs">24px / 1.25 / −0.01px</span>
-      </div>
-      <div class="type-row">
-        <span class="type-meta">Heading-sm</span>
-        <span class="type-sample" style="font-size:16px;font-weight:600;line-height:1.25;letter-spacing:-.2px">Cozy mountain cabin</span>
-        <span class="type-specs">22px / 1.25 / −0.01px</span>
-      </div>
-      <div class="type-row">
-        <span class="type-meta">Body</span>
-        <span class="type-sample" style="font-size:16px;font-weight:400;line-height:1.5;letter-spacing:0">Default body text for readable content</span>
-        <span class="type-specs">16px / 1.5 / 0</span>
-      </div>
-      <div class="type-row">
-        <span class="type-meta">Body-sm</span>
-        <span class="type-sample" style="font-size:14px;font-weight:400;line-height:1.43;letter-spacing:.01px">Hosted by Maria · Superhost</span>
-        <span class="type-specs">14px / 1.43 / 0.01px</span>
-      </div>
-      <div class="type-row">
-        <span class="type-meta">Caption</span>
-        <span class="type-sample" style="font-size:12px;font-weight:400;line-height:1.43;letter-spacing:.02px">4.92 · 128 reviews · Verified</span>
-        <span class="type-specs">12px / 1.43 / 0.02px</span>
-      </div>
-    </div>
+		<div class="listing">
+			<div class="photo" style="background:linear-gradient(140deg,#dfe6d5,#a5b592)">
+				<span class="flag">New</span><span class="heart">♡</span>
+				<span class="dots"><i></i><i></i><i></i><i></i><i></i></span>
+			</div>
+			<div class="l1"><b>Farmhouse in Umbria</b><span class="rating">★ 5.0</span></div>
+			<div class="meta">Olive grove and pool</div>
+			<div class="meta">9–14 Jun</div>
+			<div class="price"><b>€210</b> night</div>
+			<div class="badge-teal"><span class="d"></span>Superhost</div>
+		</div>
 
-    <h3 style="font-size:14px;font-weight:600;color:var(--night);margin:40px 0 20px;letter-spacing:.01px">Fonts</h3>
-    <div style="display:flex;flex-direction:column;border:1px solid var(--smoke);border-radius:var(--r-xl);overflow:hidden">
-      <div style="padding:20px 24px;border-bottom:1px solid var(--off-white);display:flex;align-items:baseline;gap:16px">
-        <span style="font-size:10px;font-weight:600;color:var(--rausch);letter-spacing:.06px;text-transform:uppercase;flex:0 0 60px">Primary</span>
-        <span style="font-size:16px;font-weight:700;color:var(--night);letter-spacing:-.2px">Circular</span>
-        <span style="font-size:11px;color:var(--iron);letter-spacing:.015px">400–800 · 12–48px</span>
-      </div>
-      <div style="padding:20px 24px;border-bottom:1px solid var(--off-white);display:flex;align-items:baseline;gap:16px">
-        <span style="font-size:10px;font-weight:600;color:var(--rausch);letter-spacing:.06px;text-transform:uppercase;flex:0 0 60px">Mono</span>
-        <span style="font-size:16px;font-weight:500;color:var(--night);letter-spacing:-.2px">Circular Mono</span>
-        <span style="font-size:11px;color:var(--iron);letter-spacing:.015px">400–500 · Prices, data</span>
-      </div>
-      <div style="padding:20px 24px;display:flex;align-items:baseline;gap:16px">
-        <span style="font-size:10px;font-weight:600;color:var(--rausch);letter-spacing:.06px;text-transform:uppercase;flex:0 0 60px">Fallback</span>
-        <span style="font-size:16px;font-weight:500;color:var(--night);letter-spacing:-.2px">Inter</span>
-        <span style="font-size:11px;color:var(--iron);letter-spacing:.015px">Substitute for all above</span>
-      </div>
-    </div>
-  </section>
+		<div class="listing">
+			<div class="photo" style="background:linear-gradient(140deg,#e6dbe9,#b39ec0)">
+				<span class="heart">♡</span>
+				<span class="dots"><i></i><i></i><i></i><i></i><i></i></span>
+			</div>
+			<div class="l1"><b>Studio in Copenhagen</b><span class="rating">★ 4.78</span></div>
+			<div class="meta">Canal-side, walk everywhere</div>
+			<div class="meta">21–26 May</div>
+			<div class="price"><b>kr 1,180</b> night</div>
+		</div>
+	</div>
 
-  <!-- SPACING & SHAPES -->
-  <section class="section" id="spacing">
-    <div class="section-header">
-      <div class="section-label">Layout</div>
-      <h2 class="section-title">Spacing & Shapes</h2>
-      <p class="section-desc">Base unit 8px. Generous density with ample breathing room. 13-step spacing scale, 6 border radius values for warm, rounded UI.</p>
-    </div>
+	<!-- 01 -->
+	<section class="section">
+		<p class="section-label">01 — Photography first</p>
+		<h2>The card is a photo with words under it</h2>
+		<p class="lede">A 4:3 image at 12px radius, then title and rating on one line, two muted meta
+			lines, and a bold price. No box, no border, no background — the card is defined by the
+			photograph and the whitespace around it.</p>
+		<div class="swatches">
+			<div class="sw"><div class="fill" style="background: var(--color-primary)"></div><b>primary</b><span>#ff385c · one moment</span></div>
+			<div class="sw"><div class="fill" style="background: var(--color-accent)"></div><b>accent</b><span>#00a699 · superhost only</span></div>
+			<div class="sw"><div class="fill" style="background: var(--color-surface-raised)"></div><b>raised</b><span>#f7f7f7 · chips, footer</span></div>
+			<div class="sw"><div class="fill" style="background: var(--color-surface-foreground)"></div><b>ink</b><span>#222 · selected chips</span></div>
+		</div>
+		<p class="note">Selected filter chips fill with ink, not coral. Coral is spent on the search button, the liked heart and the reserve CTA — one per view, never as a background.</p>
+	</section>
 
-    <h3 style="font-size:14px;font-weight:600;color:var(--night);margin-bottom:20px;letter-spacing:.01px">Spacing Scale (8px base)</h3>
-    <div class="spacing-bars">
-      <div class="spacing-col"><div class="spacing-bar" style="height:8px"></div><span class="spacing-val">4</span><span class="spacing-name">4px</span></div>
-      <div class="spacing-col"><div class="spacing-bar" style="height:14px"></div><span class="spacing-val">8</span><span class="spacing-name">8px</span></div>
-      <div class="spacing-col"><div class="spacing-bar" style="height:22px"></div><span class="spacing-val">16</span><span class="spacing-name">16px</span></div>
-      <div class="spacing-col"><div class="spacing-bar" style="height:34px"></div><span class="spacing-val">24</span><span class="spacing-name">24px</span></div>
-      <div class="spacing-col"><div class="spacing-bar" style="height:46px"></div><span class="spacing-val">32</span><span class="spacing-name">32px</span></div>
-      <div class="spacing-col"><div class="spacing-bar" style="height:60px"></div><span class="spacing-val">48</span><span class="spacing-name">48px</span></div>
-      <div class="spacing-col"><div class="spacing-bar" style="height:80px"></div><span class="spacing-val">64</span><span class="spacing-name">64px</span></div>
-      <div class="spacing-col"><div class="spacing-bar" style="height:96px"></div><span class="spacing-val">96</span><span class="spacing-name">96px</span></div>
-    </div>
+	<!-- 02 -->
+	<section class="section">
+		<p class="section-label">02 — Controls</p>
+		<h2>Rounded, roomy, unhurried</h2>
+		<div class="row" style="margin-top: 24px;">
+			<button class="btn">Reserve</button>
+			<button class="btn btn-outline">Save</button>
+			<button class="btn btn-link">Show all 240 photos</button>
+			<button class="btn" disabled>Unavailable</button>
+		</div>
+		<div class="row" style="margin-top: 20px; align-items: flex-start;">
+			<input class="input" placeholder="Where are you going?">
+			<div class="bookcard">
+				<div class="top"><b>¥24,800</b><span class="muted">night</span><span class="spacer"></span><span style="font-size:14px">★ 4.94 · <span class="muted">128 reviews</span></span></div>
+				<div class="datebox">
+					<div class="r">
+						<div class="c"><b>Check-in</b><span>18/04/2026</span></div>
+						<div class="c"><b>Checkout</b><span>23/04/2026</span></div>
+					</div>
+					<div class="r"><div class="c"><b>Guests</b><span>2 guests</span></div></div>
+				</div>
+				<button class="btn btn-pill" style="width:100%;margin-top:16px;height:48px">Reserve</button>
+				<p class="muted" style="text-align:center;font-size:13px;margin-top:10px">You won't be charged yet</p>
+				<div class="bookrow"><span style="text-decoration:underline">¥24,800 × 5 nights</span><span>¥124,000</span></div>
+				<div class="bookrow"><span style="text-decoration:underline">Cleaning fee</span><span>¥6,400</span></div>
+				<div class="bookrow total"><span>Total before taxes</span><span>¥130,400</span></div>
+			</div>
+		</div>
+		<p class="note">The booking panel is the only element on a listing page carrying <code>shadow-md</code>. Everything else rests on hairlines.</p>
+	</section>
 
-    <h3 style="font-size:14px;font-weight:600;color:var(--night);margin:40px 0 20px;letter-spacing:.01px">Border Radius</h3>
-    <div class="shapes-row">
-      <div class="shape-item">
-        <div class="shape-box" style="border-radius:4px"></div>
-        <span class="shape-label">default</span>
-        <span class="shape-value">4px</span>
-      </div>
-      <div class="shape-item">
-        <div class="shape-box" style="border-radius:8px"></div>
-        <span class="shape-label">buttons</span>
-        <span class="shape-value">8px</span>
-      </div>
-      <div class="shape-item">
-        <div class="shape-box" style="border-radius:12px"></div>
-        <span class="shape-label">lg</span>
-        <span class="shape-value">12px</span>
-      </div>
-      <div class="shape-item">
-        <div class="shape-box" style="border-radius:16px"></div>
-        <span class="shape-label">cards</span>
-        <span class="shape-value">16px</span>
-      </div>
-      <div class="shape-item">
-        <div class="shape-box" style="border-radius:24px"></div>
-        <span class="shape-label">chips</span>
-        <span class="shape-value">24px</span>
-      </div>
-      <div class="shape-item">
-        <div class="shape-box" style="border-radius:9999px"></div>
-        <span class="shape-label">pill</span>
-        <span class="shape-value">9999px</span>
-      </div>
-    </div>
+	<!-- 03 MOBILE -->
+	<section class="section">
+		<p class="section-label">03 — Mobile</p>
+		<h2>One photo at a time</h2>
+		<p class="lede">The four-column grid becomes a single column of square photos, and the segmented
+			search pill collapses into one tappable line that still carries its shadow and full radius.
+			Booking moves to a bar pinned above the home indicator.</p>
+		<div class="mobile">
+			<div class="phone">
+				<div class="phone-status"><span>9:41</span><span>LTE ▮</span></div>
+				<div class="m-search"><span>⌕</span><b>Hakone</b><span class="muted">· 18–23 Apr · 2 guests</span></div>
+				<div class="m-chips">
+					<span class="chip is-selected">All</span><span class="chip">Cabins</span><span class="chip">Design</span><span class="chip">Lake</span>
+				</div>
+				<div class="m-listing">
+					<div class="photo" style="background:linear-gradient(140deg,#e9d9c9,#b99f86)">
+						<span class="flag" style="font-size:10px;padding:3px 8px">Guest favourite</span>
+						<span class="heart liked">♥</span>
+						<span class="dots"><i></i><i></i><i></i><i></i><i></i></span>
+					</div>
+					<div class="l1"><b>Cabin in Hakone</b><span class="rating">★ 4.94</span></div>
+					<div class="meta">Mountain and forest views</div>
+					<div class="price"><b>¥24,800</b> night</div>
+				</div>
+				<div class="m-tabs">
+					<div class="is-active"><span class="g"></span>Explore</div>
+					<div><span class="g"></span>Wishlists</div>
+					<div><span class="g"></span>Trips</div>
+					<div><span class="g"></span>Profile</div>
+				</div>
+			</div>
+			<ul class="rules">
+				<li><b>Grid</b>4 columns → 2 → 1, gaps staying at 24px. Photos go 4:3 → 1:1 on the phone, because a square gives the image more of a tall screen.</li>
+				<li><b>Search pill</b>Collapses from three segments to one summary line — destination bold, dates and guests muted — but keeps the full pill radius, the hairline and <code>shadow-sm</code>. It stays sticky at the top.</li>
+				<li><b>Filter chips</b>Scroll horizontally with no scrollbar and no fade. Selected still fills with ink, so the coral budget is untouched.</li>
+				<li><b>Photo carousel</b>The dot indicator stays on the image at the same size — it is the affordance for swiping, and it is one of the few controls that is genuinely better on touch.</li>
+				<li><b>Booking</b>The shadowed side panel becomes a bar pinned to the bottom: price and rating left, a full-radius coral Reserve button right.</li>
+				<li><b>Type</b>Headings 32px → 26px, card titles 15px → 13px, body stays 14–15px. Prices never shrink — they are what the row is for.</li>
+				<li><b>Targets</b>Buttons stay 44px+, the heart gets a 44px hit area even though the glyph is 19px, and chips grow their vertical padding rather than their text.</li>
+			</ul>
+		</div>
+	</section>
 
-    <h3 style="font-size:14px;font-weight:600;color:var(--night);margin:40px 0 20px;letter-spacing:.01px">Shadows</h3>
-    <div style="display:flex;flex-wrap:wrap;gap:16px">
-      <div style="width:140px;height:90px;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:var(--r-lg);background:var(--white);box-shadow:0 1px 2px rgba(0,0,0,.08)">
-        <span style="font-size:11px;font-weight:500;color:var(--iron);letter-spacing:.015px;margin-bottom:4px">Subtle</span>
-        <span style="font-size:10px;color:var(--fog);font-variant-numeric:tabular-nums;letter-spacing:.015px">search bar</span>
-      </div>
-      <div style="width:140px;height:90px;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:var(--r-lg);background:var(--white);box-shadow:0 2px 8px rgba(0,0,0,.08)">
-        <span style="font-size:11px;font-weight:500;color:var(--iron);letter-spacing:.015px;margin-bottom:4px">Medium</span>
-        <span style="font-size:10px;color:var(--fog);font-variant-numeric:tabular-nums;letter-spacing:.015px">dropdowns</span>
-      </div>
-      <div style="width:140px;height:90px;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:var(--r-lg);background:var(--white);box-shadow:0 2px 16px rgba(0,0,0,.08)">
-        <span style="font-size:11px;font-weight:500;color:var(--iron);letter-spacing:.015px;margin-bottom:4px">Large</span>
-        <span style="font-size:10px;color:var(--fog);font-variant-numeric:tabular-nums;letter-spacing:.015px">listing cards</span>
-      </div>
-      <div style="width:140px;height:90px;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:var(--r-lg);background:var(--white);box-shadow:0 6px 20px rgba(0,0,0,.12)">
-        <span style="font-size:11px;font-weight:500;color:var(--iron);letter-spacing:.015px;margin-bottom:4px">Elevated</span>
-        <span style="font-size:10px;color:var(--fog);font-variant-numeric:tabular-nums;letter-spacing:.015px">modals</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- DEPTH & SURFACES -->
-  <section class="section" id="depth">
-    <div class="section-header">
-      <div class="section-label">Elevation</div>
-      <h2 class="section-title">Depth & Surfaces</h2>
-      <p class="section-desc">Soft shadows over hard edges. Clean white surfaces with subtle off-white alternation. 4 distinct surface levels.</p>
-    </div>
-
-    <h3 style="font-size:14px;font-weight:600;color:var(--night);margin-bottom:16px;letter-spacing:.01px">Depth Levels</h3>
-    <div style="margin-bottom:40px">
-      <div class="depth-row">
-        <div class="depth-swatch" style="background:#ffffff;border:1px solid var(--smoke)"></div>
-        <div class="depth-info"><div class="depth-name">White</div><div class="depth-desc">Base page background — the canvas</div></div>
-        <div class="depth-value">Level 0</div>
-      </div>
-      <div class="depth-row">
-        <div class="depth-swatch" style="background:#f7f7f7;border:1px solid var(--smoke)"></div>
-        <div class="depth-info"><div class="depth-name">Off-White</div><div class="depth-desc">Secondary sections, alternating rows</div></div>
-        <div class="depth-value">Level 1</div>
-      </div>
-      <div class="depth-row">
-        <div class="depth-swatch" style="background:#ffffff;border:1px solid var(--smoke);box-shadow:0 2px 16px rgba(0,0,0,.08);border-radius:16px"></div>
-        <div class="depth-info"><div class="depth-name">Card White</div><div class="depth-desc">Elevated cards with soft shadow</div></div>
-        <div class="depth-value">Level 2</div>
-      </div>
-      <div class="depth-row">
-        <div class="depth-swatch" style="background:rgba(0,0,0,.5);border-radius:8px"></div>
-        <div class="depth-info"><div class="depth-name">Overlay</div><div class="depth-desc">Modal overlays, lightboxes</div></div>
-        <div class="depth-value">Level 3</div>
-      </div>
-    </div>
-
-    <h3 style="font-size:14px;font-weight:600;color:var(--night);margin-bottom:16px;letter-spacing:.01px">Surface System</h3>
-    <div class="surface-grid">
-      <div class="surface-item" style="background:#ffffff">
-        <span class="surface-name">White</span>
-        <span class="surface-val">#ffffff</span>
-      </div>
-      <div class="surface-item" style="background:#f7f7f7">
-        <span class="surface-name">Off-White</span>
-        <span class="surface-val">#f7f7f7</span>
-      </div>
-      <div class="surface-item" style="background:#ffffff;box-shadow:0 2px 16px rgba(0,0,0,.08)">
-        <span class="surface-name">Card White</span>
-        <span class="surface-val">shadow + #fff</span>
-      </div>
-      <div class="surface-item" style="background:rgba(0,0,0,.5)">
-        <span class="surface-name" style="color:#fff">Overlay</span>
-        <span class="surface-val" style="color:rgba(255,255,255,.7)">rgba(0,0,0,.5)</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- COMPONENTS -->
-  <section class="section" id="components">
-    <div class="section-header">
-      <div class="section-label">Components</div>
-      <h2 class="section-title">Button Variants</h2>
-      <p class="section-desc">Primary CTA (Rausch coral-red), secondary (outlined), and ghost link variants for clear interaction hierarchy.</p>
-    </div>
-
-    <div class="component-card">
-      <div class="component-header">
-        <div><div class="component-name">Primary CTA Button</div><div class="component-role">Main call to action — highest visual weight</div></div>
-        <span class="component-class">.btn-primary</span>
-      </div>
-      <div class="component-preview">
-        <button class="btn btn-primary">Reserve</button>
-        <button class="btn btn-primary" style="background:var(--rausch-dark)">Hover state</button>
-      </div>
-      <div class="component-desc">Rausch (#FF5A5F) background, White text, 8px radius, 12px/24px padding. Use for booking, search, and key conversions.</div>
-    </div>
-
-    <div class="component-card">
-      <div class="component-header">
-        <div><div class="component-name">Secondary Button</div><div class="component-role">Secondary interactive actions</div></div>
-        <span class="component-class">.btn-secondary</span>
-      </div>
-      <div class="component-preview">
-        <button class="btn btn-secondary">Show all</button>
-        <button class="btn btn-secondary" style="border-color:var(--night)">Hover state</button>
-      </div>
-      <div class="component-desc">White background, Night text, Smoke border, 8px radius. For secondary navigation and filter actions.</div>
-    </div>
-
-    <div class="component-card">
-      <div class="component-header">
-        <div><div class="component-name">Ghost Link Button</div><div class="component-role">Tertiary actions, inline links</div></div>
-        <span class="component-class">.btn-ghost</span>
-      </div>
-      <div class="component-preview">
-        <button class="btn btn-ghost">Learn more</button>
-        <button class="btn btn-ghost" style="color:var(--rausch-dark)">Hover state</button>
-      </div>
-      <div class="component-desc">Rausch text, transparent background, underlined. For inline text links and low-emphasis actions.</div>
-    </div>
-
-    <div class="component-card">
-      <div class="component-header">
-        <div><div class="component-name">Filter Chip</div><div class="component-role">Category filters, tags</div></div>
-        <span class="component-class">.chip</span>
-      </div>
-      <div class="component-preview">
-        <span style="color:var(--charcoal);font-size:13px;font-weight:500;padding:12px 16px;border-radius:var(--r-full);background:var(--white);border:1px solid var(--smoke);cursor:pointer">Amazing pools</span>
-        <span style="color:var(--white);font-size:13px;font-weight:500;padding:12px 16px;border-radius:var(--r-full);background:var(--night);border:1px solid var(--night);cursor:pointer">Beachfront</span>
-        <span style="color:var(--charcoal);font-size:13px;font-weight:500;padding:12px 16px;border-radius:var(--r-full);background:var(--white);border:1px solid var(--smoke);cursor:pointer">Cabins</span>
-      </div>
-      <div class="component-desc">24px radius pill, Smoke border. Active state uses Night background with White text. Scrollable row on mobile.</div>
-    </div>
-
-    <div class="component-card">
-      <div class="component-header">
-        <div><div class="component-name">Search Bar</div><div class="component-role">Primary search interface</div></div>
-        <span class="component-class">.search-bar</span>
-      </div>
-      <div class="component-preview">
-        <div style="display:flex;align-items:center;background:var(--white);border-radius:var(--r-full);box-shadow:0 1px 2px rgba(0,0,0,.08),0 4px 12px rgba(0,0,0,.06);padding:8px 8px 8px 24px;gap:4px;max-width:480px;width:100%">
-          <div style="flex:1;padding:8px 16px;border-right:1px solid var(--smoke)">
-            <div style="font-size:10px;font-weight:600;color:var(--night);letter-spacing:.04px;text-transform:uppercase">Where</div>
-            <div style="font-size:13px;color:var(--iron);margin-top:2px">Search destinations</div>
-          </div>
-          <div style="padding:8px 16px;border-right:1px solid var(--smoke)">
-            <div style="font-size:10px;font-weight:600;color:var(--night);letter-spacing:.04px;text-transform:uppercase">Check in</div>
-            <div style="font-size:13px;color:var(--iron);margin-top:2px">Add dates</div>
-          </div>
-          <div style="padding:8px 16px">
-            <div style="font-size:10px;font-weight:600;color:var(--night);letter-spacing:.04px;text-transform:uppercase">Guests</div>
-            <div style="font-size:13px;color:var(--iron);margin-top:2px">Add guests</div>
-          </div>
-          <div style="width:36px;height:36px;border-radius:50%;background:var(--rausch);display:flex;align-items:center;justify-content:center;flex-shrink:0">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-          </div>
-        </div>
-      </div>
-      <div class="component-desc">9999px radius pill, White background with soft shadow. Divided sections with Smoke dividers. Rausch search icon.</div>
-    </div>
-
-    <div class="component-card">
-      <div class="component-header">
-        <div><div class="component-name">Listing Card</div><div class="component-role">Property display, content cards</div></div>
-        <span class="component-class">.listing-card</span>
-      </div>
-      <div class="component-preview">
-        <div style="width:240px;background:var(--white);border-radius:var(--r-xl);overflow:hidden;box-shadow:0 2px 16px rgba(0,0,0,.06)">
-          <div style="height:160px;background:linear-gradient(135deg,#fce4ec,#f3e5f5);position:relative;display:flex;align-items:center;justify-content:center">
-            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--rausch)" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-            <div style="position:absolute;top:12px;right:12px"><svg width="20" height="20" viewBox="0 0 24 24" fill="rgba(0,0,0,.5)" stroke="white" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></div>
-          </div>
-          <div style="padding:12px 16px">
-            <div style="display:flex;justify-content:space-between;align-items:baseline">
-              <span style="font-size:14px;font-weight:600;color:var(--night)">Cozy mountain cabin</span>
-              <span style="font-size:12px;color:var(--iron)">&#9733; 4.92</span>
-            </div>
-            <div style="font-size:13px;color:var(--iron);margin-top:4px">Hosted by Maria</div>
-            <div style="font-size:13px;color:var(--charcoal);margin-top:4px"><strong style="font-weight:600">$120</strong> / night</div>
-          </div>
-        </div>
-      </div>
-      <div class="component-desc">16px radius, soft shadow. Image with rounded top corners. Heart icon overlay. Price prominently displayed.</div>
-    </div>
-  </section>
-
-  <!-- DO'S & DON'TS -->
-  <section class="section" id="guidelines">
-    <div class="section-header">
-      <div class="section-label">Guidelines</div>
-      <h2 class="section-title">Do's & Don'ts</h2>
-    </div>
-    <div class="guide-grid">
-      <div class="guide-card guide-card--do">
-        <div class="guide-label">Do — Embrace</div>
-        <ul class="guide-list">
-          <li>White (#ffffff) as primary canvas for content areas</li>
-          <li>Rausch (#FF5A5F) for primary CTAs and key interactive accents</li>
-          <li>Babu (#00A699) for secondary highlights and success states</li>
-          <li>Generous spacing — multiples of 8px, at least 24px card padding</li>
-          <li>16px radius on cards, 8px on buttons for warm rounded feel</li>
-          <li>Large photography with breathing room — let images speak</li>
-          <li>Soft, diffused shadows (0 2px 16px rgba(0,0,0,.08))</li>
-        </ul>
-      </div>
-      <div class="guide-card guide-card--dont">
-        <div class="guide-label">Don't — Avoid</div>
-        <ul class="guide-list">
-          <li>Rausch for backgrounds or large filled areas — accent only</li>
-          <li>Hard, sharp corners on any interactive element</li>
-          <li>Heavy, dark shadows — keep elevation subtle and airy</li>
-          <li>Crowded content — maintain generous whitespace</li>
-          <li>More than two accent colors (Rausch + Babu) per view</li>
-          <li>Monospace fonts for non-data content</li>
-          <li>Bright saturated colors that compete with Rausch</li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer class="footer">
-    <div class="footer-left">Airbnb Design System</div>
-    <div class="footer-right">
-      <a href="#colors" class="footer-link">Colors</a>
-      <a href="#typography" class="footer-link">Typography</a>
-      <a href="#spacing" class="footer-link">Spacing</a>
-      <a href="#components" class="footer-link">Components</a>
-      <a href="#" class="footer-link" download>Download Spec</a>
-    </div>
-  </footer>
-
+	<!-- 04 DON'T -->
+	<section class="section">
+		<p class="section-label">04 — Off-style, for contrast</p>
+		<h2>What breaks the welcome</h2>
+		<div class="compare">
+			<div class="cmp-off">Coral as a background
+				<small>Full coral panel · 4px corners · heavy black shadow. Coral is a heartbeat, not a wallpaper; spread across a surface it stops meaning "this is the action".</small></div>
+			<div class="cmp-on">Same content, on-style
+				<small>White surface, 12px radius, hairline border, soft shadow, ink text. Coral waits on the one button that books something.</small></div>
+		</div>
+		<p class="note">Also out: a dark theme, sharp corners, heavy black shadows, and crowding cards until the photography has no room to breathe.</p>
+	</section>
 </div>
 
-
-
+<footer><div class="wrap">Vetta design reference — airbnb · warm white, one coral, photography first.</div></footer>
 </body>
 </html>

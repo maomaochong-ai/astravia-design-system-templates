@@ -3,30 +3,29 @@
 	"kind": "design-system",
 	"slug": "apple",
 	"name": "Apple",
-	"version": "1.0.0",
+	"version": "1.1.0",
 	"order": 90,
-	"category": "media",
+	"category": "consumer",
 	"vibe": "light",
 	"tags": [
-		"light-ui",
-		"gradient",
-		"design-system"
+		"consumer",
+		"light"
 	],
-	"blurb": "A photography-first interface that turns marketing into a museum gallery.",
+	"blurb": "Airy premium light neutrals; huge type, pill controls, generous curves and silence.",
 	"tagline": {
-		"en": "Photography-first museum gallery, one Action Blue accent",
-		"zh": "摄影优先的展厅，单一 Action Blue 强调色"
+		"en": "Big type, big air, premium calm",
+		"zh": "留白与大字，高级感的呼吸"
 	},
 	"license": "MIT",
 	"origin": {
 		"type": "curated",
-		"upstream": "https://github.com/ricocc/brands-design-md.git",
-		"note": "from brands-design-md (Apple)."
+		"upstream": "https://github.com/VoltAgent/awesome-design-md",
+		"note": "Vetta-adapted from awesome-design-md (MIT)."
 	},
 	"assets": {
 		"spec": "DESIGN.md",
 		"theme": "theme.css",
 		"demo": "demo.html"
 	},
-	"collectedAt": "2026-08-22"
+	"collectedAt": "2026-08-11"
 }

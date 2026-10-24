@@ -3,33 +3,29 @@
 	"kind": "design-system",
 	"slug": "figma",
 	"name": "Figma",
-	"version": "1.0.0",
+	"version": "1.1.0",
 	"order": 150,
 	"category": "creative",
 	"vibe": "light",
 	"tags": [
-		"light-ui",
-		"editorial",
-		"minimal",
-		"developer-focused",
-		"playful",
-		"design-system"
+		"creative",
+		"light"
 	],
-	"blurb": "A confident black-and-white editorial frame interrupted by oversized, hand-cut pastel color blocks.",
+	"blurb": "Crisp light tool chrome; blue selection, purple spark, compact 1px-precision panels.",
 	"tagline": {
-		"en": "Black-white editorial frame with pastel color blocks",
-		"zh": "黑白编辑框架 + 马卡龙色块"
+		"en": "Tool white, blue select, purple spark",
+		"zh": "工具白，蓝色选中紫色灵感"
 	},
 	"license": "MIT",
 	"origin": {
 		"type": "curated",
-		"upstream": "https://github.com/ricocc/brands-design-md.git",
-		"note": "from brands-design-md (Figma)."
+		"upstream": "https://github.com/VoltAgent/awesome-design-md",
+		"note": "Vetta-adapted from awesome-design-md (MIT)."
 	},
 	"assets": {
 		"spec": "DESIGN.md",
 		"theme": "theme.css",
 		"demo": "demo.html"
 	},
-	"collectedAt": "2026-08-22"
+	"collectedAt": "2026-08-11"
 }

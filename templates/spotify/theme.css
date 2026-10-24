@@ -1,50 +1,22 @@
-/* templates — light design system, converted from brands-design-md. */
+/* Spotify — near-black stage, one electric green, pill everything. Palette derived from awesome-design-md (MIT). */
 @theme {
-	--color-primary: #121212;
-	--color-primary-foreground: #ffffff;
-	--color-surface: #ffffff;
-	--color-surface-foreground: #111111;
-	--color-surface-raised: #f7f7f7;
-	--color-muted: #6a6a6a;
-	--color-accent: #ffa42b;
-	--color-danger: #dc2626;
-	--color-border: #e5e5e5;
+	--color-primary: #1db954;
+	--color-primary-foreground: #000000;
+	--color-surface: #121212;
+	--color-surface-foreground: #ffffff;
+	--color-surface-raised: #1f1f1f;
+	--color-muted: #a7a7a7;
+	--color-accent: #1ed760;
+	--color-danger: #f15e6c;
+	--color-border: #2a2a2a;
 
-/* 品牌 token（来自 brands-design-md） */
---color-color-1: #121212;
-  --color-color-2: #181818;
-  --color-color-3: #1f1f1f;
-  --color-color-4: #1ed760;
-  --color-white: #ffffff;
-  --color-silver: #b3b3b3;
-  --color-near-white: #cbcbcb;
-  --color-light: #fdfdfd;
-  --color-negative-red: #f3727f;
-  --color-warning-orange: #ffa42b;
-  --color-announcement-blue: #539df5;
-  --color-dark-card: #252525;
-  --color-mid-card: #272727;
-  --color-border-gray: #4d4d4d;
-  --color-light-border: #7c7c7c;
-  --color-light-surface: #eeeeee;
-  --color-spotify-green-border: #1db954;
-  --color-color-18: #000000;
-  --font-primary: 'SpotifyMixUI', system-ui, sans-serif;
-  --text-button: 0.14px;
-  --leading-button: 1.5;
-  --tracking-button: 0;
-  --spacing-4: 4px;
-  --spacing-8: 8px;
-  --spacing-12: 12px;
-  --spacing-16: 16px;
-  --spacing-20: 20px;
-  --spacing-24: 24px;
-  --spacing-48: 48px;
-  --spacing-96: 96px;
-  --radius-sm: 0px;
-  --radius-md: 9px;
-  --radius-lg: 8px;
-  --radius-xl: 4px;
-  --radius-pill: 2px;
-  --radius-r6: 1px;
+	--radius-sm: 4px;
+	--radius-md: 6px;
+	--radius-lg: 8px;
+	--radius-xl: 12px;
+	--radius-2xl: 16px;
+
+	--shadow-sm: 0 2px 4px rgb(0 0 0 / 0.4);
+	--shadow-md: 0 8px 24px rgb(0 0 0 / 0.5);
+	--shadow-lg: 0 16px 56px rgb(0 0 0 / 0.7);
 }

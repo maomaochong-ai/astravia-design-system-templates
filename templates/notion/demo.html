@@ -1,1759 +1,392 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      name="description"
-      content="A visual reference for Notion's warm-paper light design system."
-    />
-    <title>Notion — Design System</title>
-    <style>
-      *,
-      *::before,
-      *::after {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-      }
-
-      :root {
-        --notion-blue: #0075de;
-        --paper-warmth: #f6f5f4;
-        --pure-white: #ffffff;
-        --ink-black: #000000;
-        --charcoal: #111111;
-        --stone: #757575;
-        --graphite: #615d59;
-        --slate: #696969;
-        --sky-tint: #e6f3fe;
-        --marigold: #ffb110;
-        --coral: #f64932;
-        --saffron: #e89d01;
-        --vermillion: #e32d14;
-        --mocha: #b18164;
-        --signal-blue: #097fe8;
-        --sky-wash: #62aef0;
-        --midnight-ink: #02093a;
-        --hairline: rgba(0, 0, 0, 0.08);
-        --hero-pill: #f6d5b8;
-
-        --font-sans:
-          "NotionInter", "Inter", ui-sans-serif, system-ui, -apple-system,
-          BlinkMacSystemFont, "Segoe UI", sans-serif;
-        --font-serif: "Lyon Text", "Source Serif Pro", Georgia, serif;
-
-        --radius-small: 4px;
-        --radius-buttons: 8px;
-        --radius-cards: 12px;
-        --radius-pills: 9999px;
-        --shadow-nav:
-          0px 0.7px 1.462px 0px rgb(0% 0% 0% / 0.015),
-          0px 3px 9px 0px rgb(0% 0% 0% / 0.03);
-        --shadow-product-ui: 0px 4px 12px rgba(0, 0, 0, 0.1);
-      }
-
-      ::selection {
-        color: var(--pure-white);
-        background: var(--notion-blue);
-      }
-
-      html {
-        scroll-behavior: smooth;
-        scroll-padding-top: 80px;
-      }
-
-      body {
-        color: var(--ink-black);
-        background: var(--paper-warmth);
-        font-family: var(--font-sans);
-        font-size: 16px;
-        font-feature-settings:
-          "lnum",
-          "locl" 0;
-        line-height: 1.5;
-        -webkit-font-smoothing: antialiased;
-        text-rendering: optimizeLegibility;
-      }
-
-      a,
-      button,
-      input {
-        font: inherit;
-      }
-
-      a:focus-visible,
-      button:focus-visible,
-      input:focus-visible {
-        outline: 3px solid var(--notion-blue);
-        outline-offset: 3px;
-      }
-
-      .dark-stage {
-        color: var(--ink-black);
-        background: var(--paper-warmth);
-      }
-
-      .page {
-        max-width: 960px;
-        margin: 0 auto;
-        padding: 0 32px 120px;
-      }
-
-      .nav {
-        position: sticky;
-        top: 0;
-        z-index: 100;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        height: 64px;
-        margin: 0 -32px;
-        padding: 0 16px;
-        overflow: hidden;
-        background: rgba(255, 255, 255, 0.94);
-        box-shadow: var(--shadow-nav);
-        backdrop-filter: blur(16px);
-      }
-
-      .nav-left,
-      .nav-right {
-        display: flex;
-        align-items: center;
-      }
-
-      .nav-left {
-        flex: 0 0 auto;
-        gap: 8px;
-        padding-right: 12px;
-      }
-
-      .nav-right {
-        min-width: 0;
-        justify-content: flex-end;
-        gap: 4px;
-        overflow-x: auto;
-        scrollbar-width: none;
-      }
-
-      .nav-right::-webkit-scrollbar {
-        display: none;
-      }
-
-      .logo-favicon {
-        width: 30px;
-        height: 30px;
-        flex: 0 0 30px;
-        padding: 3px;
-        object-fit: contain;
-        background: transparent;
-        border-radius: var(--radius-small);
-      }
-
-      .nav-wordmark {
-        color: var(--ink-black);
-        font-size: 18px;
-        font-weight: 600;
-        letter-spacing: -0.35px;
-        text-decoration: none;
-      }
-
-      .nav-tag {
-        padding: 3px 8px;
-        color: var(--graphite);
-        background: var(--paper-warmth);
-        border: 1px solid var(--hairline);
-        border-radius: var(--radius-small);
-        font-size: 11px;
-        font-weight: 500;
-        white-space: nowrap;
-      }
-
-      .nav-link {
-        flex: 0 0 auto;
-        padding: 6px 10px;
-        color: var(--graphite);
-        border-radius: var(--radius-buttons);
-        font-size: 13px;
-        font-weight: 500;
-        text-decoration: none;
-        white-space: nowrap;
-        transition:
-          color 200ms ease,
-          background 200ms ease;
-      }
-
-      .nav-link:hover {
-        color: var(--ink-black);
-        background: var(--paper-warmth);
-      }
-
-      .nav-link--active {
-        color: var(--notion-blue);
-      }
-
-      .hero {
-        position: relative;
-        overflow: hidden;
-        margin: 0 -32px;
-        padding: 80px 32px 64px;
-        text-align: center;
-      }
-
-      .hero::before,
-      .hero::after {
-        display: none;
-      }
-
-      .hero > * {
-        position: relative;
-      }
-
-      .section-label {
-        color: var(--notion-blue);
-        font-size: 11px;
-        font-weight: 600;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-      }
-
-      .hero-title {
-        max-width: 830px;
-        margin: 0 auto;
-        color: var(--ink-black);
-        font-size: clamp(52px, 7vw, 72px);
-        font-weight: 500;
-        letter-spacing: -2.016px;
-        line-height: 1.21;
-        text-wrap: balance;
-      }
-
-      .hero-emphasis {
-        display: inline-flex;
-        align-items: center;
-        padding: 0 24px 5px;
-        background: var(--hero-pill);
-        border-radius: var(--radius-pills);
-        white-space: nowrap;
-      }
-
-      .hero-subtitle {
-        max-width: 640px;
-        margin: 24px auto 0;
-        color: var(--graphite);
-        font-family: var(--font-serif);
-        font-size: 18px;
-        line-height: 1.56;
-        text-wrap: balance;
-      }
-
-      .hero-actions {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-      }
-
-      .hero-actions {
-        gap: 8px;
-        margin-top: 24px;
-      }
-
-      .btn {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        min-height: 40px;
-        padding: 8px 16px;
-        border: 1px solid transparent;
-        border-radius: var(--radius-buttons);
-        cursor: pointer;
-        font-size: 14px;
-        font-weight: 500;
-        line-height: 1.3;
-        text-decoration: none;
-        white-space: nowrap;
-        transition:
-          background 200ms ease,
-          border-color 200ms ease,
-          color 200ms ease,
-          transform 200ms ease;
-      }
-
-      .btn:active {
-        transform: scale(0.98);
-      }
-
-      .btn-primary {
-        color: var(--pure-white);
-        background: var(--notion-blue);
-      }
-
-      .btn-primary:hover {
-        background: var(--signal-blue);
-      }
-
-      .btn-secondary {
-        color: var(--notion-blue);
-        background: var(--sky-tint);
-        border-color: transparent;
-      }
-
-      .btn-secondary:hover {
-        color: var(--ink-black);
-        background: var(--paper-warmth);
-      }
-
-      .hero-visual {
-        width: min(900px, 100%);
-        aspect-ratio: 16 / 7;
-        margin: 48px auto 0;
-        overflow: hidden;
-        background: var(--pure-white);
-        border: 1px solid var(--hairline);
-        border-radius: var(--radius-cards);
-        box-shadow: var(--shadow-product-ui);
-      }
-
-      .hero-visual img {
-        width: 100%;
-        height: 100%;
-        display: block;
-        object-fit: cover;
-        object-position: center bottom;
-      }
-
-      .paper {
-        color: var(--ink-black);
-        background: var(--paper-warmth);
-      }
-
-      .section {
-        margin-top: 64px;
-        padding-top: 80px;
-        border-top: 1px solid var(--hairline);
-      }
-
-      .section:first-of-type {
-        margin-top: 48px;
-        border-top: 0;
-      }
-
-      .section-header {
-        margin-bottom: 40px;
-      }
-
-      .section-label {
-        margin-bottom: 8px;
-      }
-
-      .section-title {
-        font-size: 40px;
-        font-weight: 600;
-        letter-spacing: -0.88px;
-        line-height: 1.2;
-      }
-
-      .section-desc {
-        max-width: 620px;
-        margin-top: 12px;
-        color: var(--graphite);
-        font-size: 15px;
-        line-height: 1.6;
-      }
-
-      .subheading {
-        margin: 40px 0 20px;
-        font-size: 16px;
-        font-weight: 600;
-      }
-
-      .subheading:first-child {
-        margin-top: 0;
-      }
-
-      .color-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(164px, 1fr));
-        gap: 12px;
-      }
-
-      .color-token {
-        overflow: hidden;
-        background: var(--pure-white);
-        border: 1px solid var(--hairline);
-        border-radius: var(--radius-cards);
-        transition:
-          border-color 200ms ease,
-          transform 200ms ease;
-      }
-
-      .color-token:hover {
-        border-color: var(--stone);
-        transform: translateY(-2px);
-      }
-
-      .color-swatch {
-        height: 78px;
-        border-bottom: 1px solid var(--hairline);
-      }
-
-      .color-info {
-        padding: 14px 16px;
-      }
-
-      .color-name {
-        font-size: 13px;
-        font-weight: 600;
-      }
-
-      .color-hex,
-      .surface-value,
-      .type-spec {
-        color: var(--graphite);
-        font-family: ui-monospace, "SFMono-Regular", Consolas, monospace;
-        font-size: 11px;
-        font-variant-numeric: tabular-nums;
-      }
-
-      .color-hex {
-        margin-top: 2px;
-      }
-
-      .color-role {
-        margin-top: 6px;
-        color: var(--graphite);
-        font-size: 11px;
-        line-height: 1.4;
-      }
-
-      .font-table,
-      .type-table {
-        overflow: hidden;
-        background: var(--pure-white);
-        border: 1px solid var(--hairline);
-        border-radius: var(--radius-cards);
-      }
-
-      .font-row,
-      .type-row {
-        display: grid;
-        align-items: baseline;
-        gap: 16px;
-        padding: 18px 24px;
-        border-bottom: 1px solid var(--hairline);
-      }
-
-      .font-row:last-child,
-      .type-row:last-child {
-        border-bottom: 0;
-      }
-
-      .font-row {
-        grid-template-columns: 94px minmax(150px, 1fr) minmax(220px, 1.6fr);
-      }
-
-      .type-row {
-        grid-template-columns: 106px minmax(0, 1fr) 190px;
-      }
-
-      .font-role,
-      .type-role {
-        color: var(--notion-blue);
-        font-size: 10px;
-        font-weight: 600;
-        letter-spacing: 0.06em;
-        text-transform: uppercase;
-      }
-
-      .font-name {
-        font-size: 16px;
-        font-weight: 600;
-      }
-
-      .font-meta {
-        color: var(--graphite);
-        font-size: 12px;
-      }
-
-      .type-sample {
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-      }
-
-      .type-spec {
-        text-align: right;
-      }
-
-      .spacing-grid {
-        display: grid;
-        grid-template-columns: repeat(11, minmax(34px, 1fr));
-        align-items: end;
-        gap: 12px;
-        min-height: 196px;
-      }
-
-      .spacing-item {
-        display: flex;
-        min-width: 0;
-        flex-direction: column;
-        align-items: center;
-        gap: 7px;
-      }
-
-      .spacing-bar {
-        width: 100%;
-        min-height: 4px;
-        max-height: 180px;
-        background: var(--notion-blue);
-        border-radius: var(--radius-small);
-        opacity:1;
-        transition: opacity 200ms ease;
-      }
-
-      .spacing-item:hover .spacing-bar {
-        opacity: 1;
-      }
-
-      .spacing-value {
-        font-size: 10px;
-        font-weight: 600;
-      }
-
-      .radius-row {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: flex-end;
-        gap: 24px;
-      }
-
-      .radius-item {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 8px;
-      }
-
-      .radius-sample {
-        width: 76px;
-        height: 76px;
-        background: var(--pure-white);
-        border: 1px solid var(--stone);
-      }
-
-      .radius-name {
-        font-size: 11px;
-        font-weight: 500;
-      }
-
-      .radius-value {
-        color: var(--graphite);
-        font-family: ui-monospace, "SFMono-Regular", Consolas, monospace;
-        font-size: 10px;
-      }
-
-      .shadow-demo {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 24px;
-        min-height: 230px;
-        align-items: center;
-        padding: 32px;
-        background: var(--paper-warmth);
-        border: 1px solid var(--hairline);
-        border-radius: var(--radius-cards);
-      }
-
-      .shadow-card {
-        width: 100%;
-        padding: 28px;
-        background: var(--pure-white);
-        border-radius: var(--radius-cards);
-        box-shadow: var(--shadow-product-ui);
-      }
-
-      .shadow-name {
-        font-size: 14px;
-        font-weight: 600;
-      }
-
-      .shadow-role {
-        margin-top: 6px;
-        color: var(--graphite);
-        font-size: 12px;
-      }
-
-      .shadow-value {
-        display: block;
-        margin-top: 16px;
-        color: var(--graphite);
-        font-family: ui-monospace, "SFMono-Regular", Consolas, monospace;
-        font-size: 10px;
-        line-height: 1.55;
-      }
-
-      .surface-stack {
-        border-top: 1px solid var(--hairline);
-      }
-
-      .surface-row {
-        display: grid;
-        grid-template-columns: 56px minmax(0, 1fr) auto;
-        align-items: center;
-        gap: 20px;
-        padding: 20px 0;
-        border-bottom: 1px solid var(--hairline);
-      }
-
-      .surface-swatch {
-        width: 56px;
-        height: 56px;
-        border: 1px solid var(--stone);
-        border-radius: var(--radius-buttons);
-      }
-
-      .surface-name {
-        font-size: 14px;
-        font-weight: 600;
-      }
-
-      .surface-role {
-        margin-top: 2px;
-        color: var(--graphite);
-        font-size: 12px;
-      }
-
-      .component-card {
-        margin-bottom: 16px;
-        padding: 32px;
-        background: var(--pure-white);
-        border: 1px solid var(--hairline);
-        border-radius: var(--radius-cards);
-      }
-
-      .component-header {
-        display: flex;
-        align-items: flex-start;
-        justify-content: space-between;
-        gap: 16px;
-        margin-bottom: 20px;
-      }
-
-      .component-name {
-        font-size: 15px;
-        font-weight: 600;
-      }
-
-      .component-role {
-        margin-top: 4px;
-        color: var(--graphite);
-        font-size: 12px;
-      }
-
-      .component-class {
-        padding: 3px 10px;
-        color: var(--notion-blue);
-        background: #f2f9ff;
-        border-radius: var(--radius-pills);
-        font-size: 10px;
-        font-weight: 500;
-        white-space: nowrap;
-      }
-
-      .component-preview {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        gap: 12px;
-        padding: 24px;
-        background: var(--paper-warmth);
-        border: 1px solid var(--hairline);
-        border-radius: var(--radius-cards);
-      }
-
-      .btn-outline {
-        color: var(--ink-black);
-        background: transparent;
-        border-color: var(--ink-black);
-      }
-
-      .btn-outline:hover {
-        background: var(--hairline);
-      }
-
-      .pill-badge {
-        padding: 4px 10px;
-        color: var(--notion-blue);
-        background: var(--sky-tint);
-        border-radius: var(--radius-pills);
-        font-size: 12px;
-        font-weight: 500;
-      }
-
-      .form-stack {
-        display: grid;
-        width: min(100%, 420px);
-        gap: 8px;
-      }
-
-      .form-label {
-        font-size: 14px;
-        font-weight: 500;
-      }
-
-      .form-input {
-        width: 100%;
-        min-height: 44px;
-        padding: 10px 12px;
-        color: var(--ink-black);
-        background: var(--pure-white);
-        border: 1px solid var(--hairline);
-        border-radius: var(--radius-buttons);
-        outline: none;
-      }
-
-      .form-input:focus-visible {
-        border-color: var(--notion-blue);
-      }
-
-      .product-card {
-        display: grid;
-        grid-template-columns: 170px 1fr;
-        width: 100%;
-        overflow: hidden;
-        background: var(--pure-white);
-        border: 1px solid var(--hairline);
-        border-radius: var(--radius-cards);
-        box-shadow: var(--shadow-product-ui);
-      }
-
-      .product-sidebar {
-        padding: 20px;
-        background: var(--paper-warmth);
-        border-right: 1px solid var(--hairline);
-      }
-
-      .product-sidebar strong {
-        font-size: 14px;
-        font-weight: 500;
-      }
-
-      .product-lines {
-        display: grid;
-        gap: 10px;
-        margin-top: 20px;
-      }
-
-      .product-line {
-        height: 7px;
-        background: var(--hairline);
-        border-radius: var(--radius-small);
-      }
-
-      .product-main {
-        padding: 24px;
-      }
-
-      .product-main h3 {
-        font-size: 22px;
-        font-weight: 700;
-        line-height: 1.27;
-        letter-spacing: -0.242px;
-      }
-
-      .product-main p {
-        margin-top: 8px;
-        color: var(--graphite);
-        font-size: 14px;
-      }
-
-      .feature-samples {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        width: 100%;
-        gap: 8px;
-      }
-
-      .feature-sample {
-        min-height: 132px;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-end;
-        padding: 24px;
-        border-radius: var(--radius-cards);
-      }
-
-      .feature-sample strong {
-        font-size: 22px;
-        line-height: 1.27;
-        letter-spacing: -0.242px;
-      }
-
-      .feature-sample span {
-        margin-top: 5px;
-        font-size: 12px;
-        opacity: 0.68;
-      }
-
-      .guide-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 16px;
-      }
-
-      .guide-card {
-        padding: 28px;
-        background: var(--pure-white);
-        border: 1px solid var(--hairline);
-        border-radius: var(--radius-cards);
-      }
-
-      .guide-label {
-        margin-bottom: 16px;
-        color: var(--notion-blue);
-        font-size: 12px;
-        font-weight: 600;
-      }
-
-      .guide-card--dont .guide-label {
-        color: var(--ink-black);
-      }
-
-      .guide-list {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-        list-style: none;
-      }
-
-      .guide-list li {
-        position: relative;
-        padding-left: 18px;
-        color: var(--graphite);
-        font-size: 13px;
-        line-height: 1.5;
-      }
-
-      .guide-list li::before {
-        position: absolute;
-        top: 0.62em;
-        left: 0;
-        width: 6px;
-        height: 6px;
-        content: "";
-        background: var(--notion-blue);
-        border-radius: 50%;
-      }
-
-      .guide-card--dont .guide-list li::before {
-        background: var(--ink-black);
-      }
-
-      .footer {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 24px;
-        margin-top: 96px;
-        padding: 32px 0;
-        border-top: 1px solid var(--hairline);
-      }
-
-      .footer-left {
-        color: var(--graphite);
-        font-size: 13px;
-        font-weight: 500;
-      }
-
-      .footer-right {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: flex-end;
-        gap: 16px;
-      }
-
-      .footer-link {
-        color: var(--graphite);
-        font-size: 12px;
-        font-weight: 500;
-        text-decoration: none;
-        transition: color 200ms ease;
-      }
-
-      .footer-link:hover {
-        color: var(--notion-blue);
-      }
-
-      @media (max-width: 820px) {
-        .page {
-          padding: 0 20px 80px;
-        }
-
-        .nav,
-        .hero {
-          margin-right: -20px;
-          margin-left: -20px;
-        }
-
-        .nav-tag {
-          display: none;
-        }
-
-        .hero {
-          padding: 64px 20px 56px;
-        }
-
-        .section-title {
-          font-size: 32px;
-        }
-
-        .type-row {
-          grid-template-columns: 88px minmax(0, 1fr);
-        }
-
-        .type-spec {
-          display: none;
-        }
-
-        .spacing-grid {
-          grid-template-columns: repeat(7, 1fr);
-          row-gap: 24px;
-        }
-
-        .guide-grid {
-          grid-template-columns: 1fr;
-        }
-
-        .shadow-demo,
-        .feature-samples {
-          grid-template-columns: 1fr;
-        }
-
-        .footer {
-          align-items: flex-start;
-          flex-direction: column;
-        }
-
-        .footer-right {
-          justify-content: flex-start;
-        }
-      }
-
-      @media (max-width: 560px) {
-        .nav-left {
-          padding-left: 4px;
-        }
-
-        .nav-wordmark {
-          display: none;
-        }
-
-        .hero-title {
-          font-size: 42px;
-          letter-spacing: -1.4px;
-        }
-
-        .hero-emphasis {
-          padding: 0 14px 3px;
-        }
-
-        .hero-actions {
-          align-items: stretch;
-          flex-direction: column;
-        }
-
-        .hero-actions .btn {
-          width: 100%;
-        }
-
-        .hero-visual {
-          aspect-ratio: 4 / 3;
-          margin-top: 36px;
-        }
-
-        .color-grid {
-          grid-template-columns: 1fr;
-        }
-
-        .font-row {
-          grid-template-columns: 78px 1fr;
-        }
-
-        .font-meta {
-          grid-column: 2;
-        }
-
-        .surface-row {
-          grid-template-columns: 48px minmax(0, 1fr);
-          gap: 14px;
-        }
-
-        .surface-swatch {
-          width: 48px;
-          height: 48px;
-        }
-
-        .surface-value {
-          grid-column: 2;
-          margin-top: -12px;
-        }
-
-        .component-card {
-          padding: 20px;
-        }
-
-        .component-header {
-          flex-direction: column;
-        }
-
-        .component-preview {
-          padding: 18px;
-        }
-
-        .product-card {
-          grid-template-columns: 1fr;
-        }
-
-        .product-sidebar {
-          display: none;
-        }
-      }
-
-      @media (prefers-reduced-motion: reduce) {
-        html {
-          scroll-behavior: auto;
-        }
-
-        *,
-        *::before,
-        *::after {
-          animation-duration: 0.01ms !important;
-          animation-iteration-count: 1 !important;
-          scroll-behavior: auto !important;
-          transition-duration: 0.01ms !important;
-        }
-      }
-
-      .motion-ready .reveal {
-        opacity:1;
-        
-        transition:
-          opacity 520ms cubic-bezier(0.22, 1, 0.36, 1),
-          transform 520ms cubic-bezier(0.22, 1, 0.36, 1);
-      }
-
-      .motion-ready .reveal.visible {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    </style>
-  </head>
-  <body>
-    <div class="dark-stage">
-      <div class="page" style="padding-bottom: 0">
-        <nav class="nav" aria-label="Design system sections">
-          <div class="nav-left">
-            
-            <a href="#top" class="nav-wordmark">Notion</a>
-            <span class="nav-tag">Design System</span>
-          </div>
-          <div class="nav-right">
-            <a href="#colors" class="nav-link">Colors</a>
-            <a href="#typography" class="nav-link">Type</a>
-            <a href="#spacing" class="nav-link">Spacing</a>
-            <a href="#shadows" class="nav-link">Shadows</a>
-            <a href="#surfaces" class="nav-link">Surfaces</a>
-            <a href="#components" class="nav-link">Components</a>
-            <a
-              href="#"
-              class="nav-link nav-link--active"
-              target="_blank"
-              rel="noopener noreferrer"
-              >Site &nearr;</a
-            >
-          </div>
-        </nav>
-
-        <header class="hero reveal" id="top">
-          <h1 class="hero-title">
-            Where teams and agents
-            <span class="hero-emphasis">Create</span> together.
-          </h1>
-          <p class="hero-subtitle">
-            Warm paper, bold editorial type, playful flat color, and the
-            workspace itself as the main visual expression.
-          </p>
-          <div class="hero-actions" aria-label="Reference downloads">
-            <a href="#" class="btn btn-primary" download
-              >Download DESIGN.md</a
-            >
-            <a href="#" class="btn btn-secondary" download
-              >View tokens.json</a
-            >
-          </div>
-          <figure class="hero-visual">
-            <img
-              src="./cover_notion_com.webp"
-              alt="Notion homepage showing bold typography, character illustrations, and a product workspace"
-              width="1600"
-              height="900"
-              loading="eager"
-              decoding="async"
-            />
-          </figure>
-        </header>
-      </div>
-    </div>
-
-    <div class="paper">
-      <div class="page">
-        <main>
-          <section class="section reveal" id="colors">
-            <div class="section-header">
-              <div class="section-label">Foundation</div>
-              <h2 class="section-title">Color Tokens</h2>
-              <p class="section-desc">
-                Paper Warmth carries the page, Pure White lifts cards, and
-                Notion Blue is reserved for the primary action. Flat accent
-                colors paint feature panels like sticky notes.
-              </p>
-            </div>
-            <div class="color-grid">
-              <article class="color-token">
-                <div class="color-swatch" style="background: #0075de"></div>
-                <div class="color-info">
-                  <div class="color-name">Notion Blue</div>
-                  <div class="color-hex">#0075de</div>
-                  <div class="color-role">Primary CTA and active links</div>
-                </div>
-              </article>
-              <article class="color-token">
-                <div class="color-swatch" style="background: #f6f5f4"></div>
-                <div class="color-info">
-                  <div class="color-name">Paper Warmth</div>
-                  <div class="color-hex">#f6f5f4</div>
-                  <div class="color-role">Warm page canvas</div>
-                </div>
-              </article>
-              <article class="color-token">
-                <div class="color-swatch" style="background: #ffffff"></div>
-                <div class="color-info">
-                  <div class="color-name">Pure White</div>
-                  <div class="color-hex">#ffffff</div>
-                  <div class="color-role">Card and elevated surfaces</div>
-                </div>
-              </article>
-              <article class="color-token">
-                <div class="color-swatch" style="background: #000000"></div>
-                <div class="color-info">
-                  <div class="color-name">Ink Black</div>
-                  <div class="color-hex">#000000</div>
-                  <div class="color-role">Primary text and headings</div>
-                </div>
-              </article>
-              <article class="color-token">
-                <div class="color-swatch" style="background: #111111"></div>
-                <div class="color-info">
-                  <div class="color-name">Charcoal</div>
-                  <div class="color-hex">#111111</div>
-                  <div class="color-role">Softer dark UI text</div>
-                </div>
-              </article>
-              <article class="color-token">
-                <div class="color-swatch" style="background: #757575"></div>
-                <div class="color-info">
-                  <div class="color-name">Stone</div>
-                  <div class="color-hex">#757575</div>
-                  <div class="color-role">Muted navigation and helper text</div>
-                </div>
-              </article>
-              <article class="color-token">
-                <div class="color-swatch" style="background: #615d59"></div>
-                <div class="color-info">
-                  <div class="color-name">Graphite</div>
-                  <div class="color-hex">#615d59</div>
-                  <div class="color-role">Warm-cast body copy</div>
-                </div>
-              </article>
-              <article class="color-token">
-                <div class="color-swatch" style="background: #696969"></div>
-                <div class="color-info">
-                  <div class="color-name">Slate</div>
-                  <div class="color-hex">#696969</div>
-                  <div class="color-role">Secondary card copy</div>
-                </div>
-              </article>
-              <article class="color-token">
-                <div class="color-swatch" style="background: #e6f3fe"></div>
-                <div class="color-info">
-                  <div class="color-name">Sky Tint</div>
-                  <div class="color-hex">#e6f3fe</div>
-                  <div class="color-role">Ghost actions and tinted states</div>
-                </div>
-              </article>
-              <article class="color-token">
-                <div class="color-swatch" style="background: #ffb110"></div>
-                <div class="color-info">
-                  <div class="color-name">Marigold</div>
-                  <div class="color-hex">#ffb110</div>
-                  <div class="color-role">Hero pills and accent cards</div>
-                </div>
-              </article>
-              <article class="color-token">
-                <div class="color-swatch" style="background: #f64932"></div>
-                <div class="color-info">
-                  <div class="color-name">Coral</div>
-                  <div class="color-hex">#f64932</div>
-                  <div class="color-role">Hot accent panels</div>
-                </div>
-              </article>
-              <article class="color-token">
-                <div class="color-swatch" style="background: #e89d01"></div>
-                <div class="color-info">
-                  <div class="color-name">Saffron</div>
-                  <div class="color-hex">#e89d01</div>
-                  <div class="color-role">Warm background washes</div>
-                </div>
-              </article>
-              <article class="color-token">
-                <div class="color-swatch" style="background: #e32d14"></div>
-                <div class="color-info">
-                  <div class="color-name">Vermillion</div>
-                  <div class="color-hex">#e32d14</div>
-                  <div class="color-role">Deep warm signal panels</div>
-                </div>
-              </article>
-              <article class="color-token">
-                <div class="color-swatch" style="background: #b18164"></div>
-                <div class="color-info">
-                  <div class="color-name">Mocha</div>
-                  <div class="color-hex">#b18164</div>
-                  <div class="color-role">Earthy accent panels</div>
-                </div>
-              </article>
-              <article class="color-token">
-                <div class="color-swatch" style="background: #097fe8"></div>
-                <div class="color-info">
-                  <div class="color-name">Signal Blue</div>
-                  <div class="color-hex">#097fe8</div>
-                  <div class="color-role">Decorative blue panels</div>
-                </div>
-              </article>
-              <article class="color-token">
-                <div class="color-swatch" style="background: #62aef0"></div>
-                <div class="color-info">
-                  <div class="color-name">Sky Wash</div>
-                  <div class="color-hex">#62aef0</div>
-                  <div class="color-role">Airy feature backgrounds</div>
-                </div>
-              </article>
-              <article class="color-token">
-                <div class="color-swatch" style="background: #02093a"></div>
-                <div class="color-info">
-                  <div class="color-name">Midnight Ink</div>
-                  <div class="color-hex">#02093a</div>
-                  <div class="color-role">Sparse dark-card island</div>
-                </div>
-              </article>
-            </div>
-          </section>
-
-          <section class="section reveal" id="typography">
-            <div class="section-header">
-              <div class="section-label">Typography</div>
-              <h2 class="section-title">Families &amp; Type Scale</h2>
-              <p class="section-desc">
-                NotionInter carries product UI and large display copy. Lyon Text
-                appears only at 18px and 32px as an editorial accent; Inter and
-                Source Serif Pro are the open substitutes.
-              </p>
-            </div>
-            <h3 class="subheading">Font Families</h3>
-            <div class="font-table">
-              <div class="font-row">
-                <span class="font-role">Workhorse</span
-                ><span class="font-name">NotionInter</span
-                ><span class="font-meta"
-                  >Inter substitute · UI, body, navigation, headings</span
-                >
-              </div>
-              <div class="font-row">
-                <span class="font-role">Editorial</span
-                ><span
-                  class="font-name"
-                  style="font-family: var(--font-serif); font-weight: 400"
-                  >Lyon Text</span
-                ><span class="font-meta"
-                  >Source Serif Pro substitute · 18px and 32px editorial
-                  accents</span
-                >
-              </div>
-            </div>
-            <h3 class="subheading">Live Type Scale</h3>
-            <div class="type-table">
-              <div class="type-row">
-                <span class="type-role">Display-lg</span
-                ><span
-                  class="type-sample"
-                  style="
-                    font-size: 44px;
-                    font-weight: 600;
-                    line-height: 1.04;
-                    letter-spacing: -2.112px;
-                  "
-                  >Work, clearly composed</span
-                ><span class="type-spec">96px / 1.04 / −4.608px</span>
-              </div>
-              <div class="type-row">
-                <span class="type-role">Display</span
-                ><span
-                  class="type-sample"
-                  style="
-                    font-size: 40px;
-                    font-weight: 500;
-                    line-height: 1.21;
-                    letter-spacing: -1.12px;
-                  "
-                  >Where teams create together</span
-                ><span class="type-spec">72px / 1.21 / −2.016px</span>
-              </div>
-              <div class="type-row">
-                <span class="type-role">Display-sm</span
-                ><span
-                  class="type-sample"
-                  style="
-                    font-size: 36px;
-                    font-weight: 600;
-                    line-height: 1.04;
-                    letter-spacing: -1.26px;
-                  "
-                  >Keep work moving</span
-                ><span class="type-spec">54px / 1.04 / −1.89px</span>
-              </div>
-              <div class="type-row">
-                <span class="type-role">Heading-lg</span
-                ><span
-                  class="type-sample"
-                  style="font-size: 32px; font-weight: 600; line-height: 1.5"
-                  >A warm editorial rhythm</span
-                ><span class="type-spec">48px / 1.5</span>
-              </div>
-              <div class="type-row">
-                <span class="type-role">Heading</span
-                ><span
-                  class="type-sample"
-                  style="font-size: 30px; font-weight: 500; line-height: 1.5"
-                  >Everything in one place</span
-                ><span class="type-spec">40px / 1.5</span>
-              </div>
-              <div class="type-row">
-                <span class="type-role">Heading-sm</span
-                ><span
-                  class="type-sample"
-                  style="
-                    font-size: 22px;
-                    font-weight: 700;
-                    line-height: 1.27;
-                    letter-spacing: -0.242px;
-                  "
-                  >Product workspace</span
-                ><span class="type-spec">22px / 1.27 / −0.242px</span>
-              </div>
-              <div class="type-row">
-                <span class="type-role">Subheading</span
-                ><span
-                  class="type-sample"
-                  style="font-size: 20px; font-weight: 500; line-height: 1"
-                  >One place for the team</span
-                ><span class="type-spec">20px / 1</span>
-              </div>
-              <div class="type-row">
-                <span class="type-role">Body</span
-                ><span
-                  class="type-sample"
-                  style="font-size: 16px; font-weight: 400; line-height: 1.5"
-                  >Write, plan, and organize with room to think.</span
-                ><span class="type-spec">16px / 1.5</span>
-              </div>
-              <div class="type-row">
-                <span class="type-role">Body-sm</span
-                ><span
-                  class="type-sample"
-                  style="font-size: 14px; font-weight: 400; line-height: 1.43"
-                  >Updated workspace details</span
-                ><span class="type-spec">14px / 1.43</span>
-              </div>
-              <div class="type-row">
-                <span class="type-role">Caption</span
-                ><span
-                  class="type-sample"
-                  style="
-                    font-size: 12px;
-                    font-weight: 500;
-                    line-height: 1.33;
-                    letter-spacing: 0.12px;
-                  "
-                  >MONDAY · 4 AUGUST</span
-                ><span class="type-spec">12px / 1.33 / 0.12px</span>
-              </div>
-            </div>
-          </section>
-
-          <section class="section reveal" id="spacing">
-            <div class="section-header">
-              <div class="section-label">Layout</div>
-              <h2 class="section-title">Spacing &amp; Shapes</h2>
-              <p class="section-desc">
-                A 4px base supports comfortable density. Major sections separate
-                by 80px, cards carry 24px padding, and related elements use an
-                8px gap.
-              </p>
-            </div>
-            <h3 class="subheading">Spacing Scale</h3>
-            <div
-              class="spacing-grid"
-              aria-label="Spacing scale from 4 to 80 pixels"
-            >
-              <div class="spacing-item">
-                <div class="spacing-bar" style="height: 4px"></div>
-                <span class="spacing-value">4</span>
-              </div>
-              <div class="spacing-item">
-                <div class="spacing-bar" style="height: 8px"></div>
-                <span class="spacing-value">8</span>
-              </div>
-              <div class="spacing-item">
-                <div class="spacing-bar" style="height: 12px"></div>
-                <span class="spacing-value">12</span>
-              </div>
-              <div class="spacing-item">
-                <div class="spacing-bar" style="height: 16px"></div>
-                <span class="spacing-value">16</span>
-              </div>
-              <div class="spacing-item">
-                <div class="spacing-bar" style="height: 20px"></div>
-                <span class="spacing-value">20</span>
-              </div>
-              <div class="spacing-item">
-                <div class="spacing-bar" style="height: 24px"></div>
-                <span class="spacing-value">24</span>
-              </div>
-              <div class="spacing-item">
-                <div class="spacing-bar" style="height: 28px"></div>
-                <span class="spacing-value">28</span>
-              </div>
-              <div class="spacing-item">
-                <div class="spacing-bar" style="height: 32px"></div>
-                <span class="spacing-value">32</span>
-              </div>
-              <div class="spacing-item">
-                <div class="spacing-bar" style="height: 36px"></div>
-                <span class="spacing-value">36</span>
-              </div>
-              <div class="spacing-item">
-                <div class="spacing-bar" style="height: 64px"></div>
-                <span class="spacing-value">64</span>
-              </div>
-              <div class="spacing-item">
-                <div class="spacing-bar" style="height: 80px"></div>
-                <span class="spacing-value">80</span>
-              </div>
-            </div>
-            <h3 class="subheading">Radius Treatments</h3>
-            <div class="radius-row">
-              <div class="radius-item">
-                <div class="radius-sample" style="border-radius: 4px"></div>
-                <span class="radius-name">Small</span
-                ><span class="radius-value">4px</span>
-              </div>
-              <div class="radius-item">
-                <div class="radius-sample" style="border-radius: 8px"></div>
-                <span class="radius-name">Button</span
-                ><span class="radius-value">8px</span>
-              </div>
-              <div class="radius-item">
-                <div class="radius-sample" style="border-radius: 12px"></div>
-                <span class="radius-name">Card</span
-                ><span class="radius-value">12px</span>
-              </div>
-              <div class="radius-item">
-                <div class="radius-sample" style="border-radius: 9999px"></div>
-                <span class="radius-name">Pill</span
-                ><span class="radius-value">9999px</span>
-              </div>
-            </div>
-          </section>
-
-          <section class="section reveal" id="shadows">
-            <div class="section-header">
-              <div class="section-label">Elevation</div>
-              <h2 class="section-title">Shadow Tokens</h2>
-              <p class="section-desc">
-                Elevation is limited to the sticky navigation and the large
-                product UI mockup. Content cards use hairline borders.
-              </p>
-            </div>
-            <div class="shadow-demo">
-              <article
-                class="shadow-card"
-                style="box-shadow: var(--shadow-nav)"
-              >
-                <div class="shadow-name">Nav</div>
-                <div class="shadow-role">Sticky navigation</div>
-                <code class="shadow-value"
-                  >0 .7px 1.462px rgb(0% 0% 0%/.015), 0 3px 9px rgb(0% 0%
-                  0%/.03)</code
-                >
-              </article>
-              <article
-                class="shadow-card"
-                style="box-shadow: var(--shadow-product-ui)"
-              >
-                <div class="shadow-name">Product UI</div>
-                <div class="shadow-role">Hero mockup</div>
-                <code class="shadow-value">0 4px 12px rgba(0,0,0,.1)</code>
-              </article>
-            </div>
-          </section>
-
-          <section class="section reveal" id="surfaces">
-            <div class="section-header">
-              <div class="section-label">Depth</div>
-              <h2 class="section-title">Surface System</h2>
-              <p class="section-desc">
-                Warm paper is the base, white cards sit above it, and flat
-                accent or midnight panels punctuate the light page.
-              </p>
-            </div>
-            <div class="surface-stack">
-              <article class="surface-row">
-                <div class="surface-swatch" style="background: #f6f5f4"></div>
-                <div>
-                  <div class="surface-name">Page Canvas</div>
-                  <div class="surface-role">Level 0 · warm off-white base</div>
-                </div>
-                <div class="surface-value">#f6f5f4</div>
-              </article>
-              <article class="surface-row">
-                <div class="surface-swatch" style="background: #ffffff"></div>
-                <div>
-                  <div class="surface-name">Card Surface</div>
-                  <div class="surface-role">
-                    Level 1 · white card above paper
-                  </div>
-                </div>
-                <div class="surface-value">#ffffff</div>
-              </article>
-              <article class="surface-row">
-                <div class="surface-swatch" style="background: #ffb110"></div>
-                <div>
-                  <div class="surface-name">Accent Card Surface</div>
-                  <div class="surface-role">
-                    Level 2 · representative flat accent
-                  </div>
-                </div>
-                <div class="surface-value">#ffb110</div>
-              </article>
-              <article class="surface-row">
-                <div class="surface-swatch" style="background: #02093a"></div>
-                <div>
-                  <div class="surface-name">Dark Card Surface</div>
-                  <div class="surface-role">
-                    Level 3 · sparse inverted island
-                  </div>
-                </div>
-                <div class="surface-value">#02093a</div>
-              </article>
-            </div>
-          </section>
-
-          <section class="section reveal" id="components">
-            <div class="section-header">
-              <div class="section-label">Components</div>
-              <h2 class="section-title">Live Component Examples</h2>
-              <p class="section-desc">
-                Compact controls sit on warm paper and white cards. Notion Blue
-                marks the main action; color variety belongs to feature panels
-                and status pills.
-              </p>
-            </div>
-            <article class="component-card">
-              <div class="component-header">
-                <div>
-                  <div class="component-name">Action Buttons</div>
-                  <div class="component-role">
-                    One filled primary action, one tinted secondary action, and
-                    one compact outline
-                  </div>
-                </div>
-                <span class="component-class">button</span>
-              </div>
-              <div class="component-preview">
-                <button class="btn btn-primary" type="button">
-                  Get Notion free</button
-                ><button class="btn btn-secondary" type="button">
-                  Request a demo</button
-                ><button class="btn btn-outline" type="button">View all</button>
-              </div>
-            </article>
-            <article class="component-card">
-              <div class="component-header">
-                <div>
-                  <div class="component-name">Input &amp; Status</div>
-                  <div class="component-role">
-                    Pure White field and compact colored pill
-                  </div>
-                </div>
-                <span class="component-class">input / pill</span>
-              </div>
-              <div class="component-preview">
-                <div class="form-stack">
-                  <label class="form-label" for="workspace"
-                    >Workspace name</label
-                  ><input
-                    class="form-input"
-                    id="workspace"
-                    value="Product design"
-                  />
-                </div>
-                <span class="pill-badge">In progress</span>
-              </div>
-            </article>
-            <article class="component-card">
-              <div class="component-header">
-                <div>
-                  <div class="component-name">Feature Surfaces</div>
-                  <div class="component-role">
-                    Flat color paints the canvas; rectangular cards stop at 12px
-                    radius
-                  </div>
-                </div>
-                <span class="component-class">feature-card</span>
-              </div>
-              <div class="component-preview">
-                <div class="feature-samples">
-                  <div class="feature-sample" style="background: #ffb110">
-                    <strong>Custom agents</strong><span>Marigold accent</span>
-                  </div>
-                  <div class="feature-sample" style="background: #62aef0">
-                    <strong>Team knowledge</strong><span>Sky Wash accent</span>
-                  </div>
-                  <div
-                    class="feature-sample"
-                    style="background: #02093a; color: #fff"
-                  >
-                    <strong>Focused work</strong><span>Midnight island</span>
-                  </div>
-                </div>
-              </div>
-            </article>
-            <article class="component-card">
-              <div class="component-header">
-                <div>
-                  <div class="component-name">Product UI Mockup</div>
-                  <div class="component-role">
-                    The only content surface using the product shadow token
-                  </div>
-                </div>
-                <span class="component-class">product-ui</span>
-              </div>
-              <div class="component-preview">
-                <div class="product-card">
-                  <aside class="product-sidebar">
-                    <strong>Design team</strong>
-                    <div class="product-lines">
-                      <span class="product-line"></span
-                      ><span class="product-line"></span
-                      ><span class="product-line" style="width: 72%"></span>
-                    </div>
-                  </aside>
-                  <div class="product-main">
-                    <h3>Product workspace</h3>
-                    <p>
-                      A white Notion interface with an 8px task-card rhythm,
-                      warm dividers, and one restrained elevation.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </article>
-          </section>
-
-          <section class="section reveal" id="guidelines">
-            <div class="section-header">
-              <div class="section-label">Guidance</div>
-              <h2 class="section-title">Do’s &amp; Don’ts</h2>
-            </div>
-            <div class="guide-grid">
-              <article class="guide-card">
-                <h3 class="guide-label">Do · Preserve</h3>
-                <ul class="guide-list">
-                  <li>
-                    Use Paper Warmth (#f6f5f4) for the page and Pure White for
-                    cards.
-                  </li>
-                  <li>
-                    Reserve Notion Blue (#0075de) for one primary action per
-                    view.
-                  </li>
-                  <li>Use 1px rgba(0,0,0,.08) borders on content cards.</li>
-                  <li>
-                    Set cards at 12px, buttons at 8px, and pills at 9999px.
-                  </li>
-                  <li>
-                    Apply tight tracking to the 54px, 72px, and 96px display
-                    steps.
-                  </li>
-                  <li>
-                    Rotate marigold, coral, sky, and midnight across flat
-                    feature panels.
-                  </li>
-                </ul>
-              </article>
-              <article class="guide-card guide-card--dont">
-                <h3 class="guide-label">Don’t · Dilute</h3>
-                <ul class="guide-list">
-                  <li>
-                    Do not replace the warm canvas with a pure-white page.
-                  </li>
-                  <li>Do not add shadows to ordinary content cards.</li>
-                  <li>
-                    Do not introduce another chromatic filled-button color.
-                  </li>
-                  <li>Do not render every text role at full black.</li>
-                  <li>Do not use Lyon Text for navigation or product UI.</li>
-                  <li>Do not use gradients or oversized rectangular radii.</li>
-                </ul>
-              </article>
-            </div>
-          </section>
-        </main>
-
-        <footer class="footer">
-          <div class="footer-left">Notion warm-paper light reference</div>
-          <div class="footer-right">
-            <a href="#colors" class="footer-link">Colors</a>
-            <a href="#typography" class="footer-link">Type</a>
-            <a href="#surfaces" class="footer-link">Surfaces</a>
-            <a href="#components" class="footer-link">Components</a>
-            <a href="#" class="footer-link" download>DESIGN.md</a>
-            <a href="#" class="footer-link" download>tokens.json</a>
-            <a href="#" class="footer-link" download
-              >variables.css</a
-            >
-            <a href="#" class="footer-link" download>theme.css</a>
-            <a
-              href="#"
-              class="footer-link"
-              target="_blank"
-              rel="noopener noreferrer"
-              >notion.com &nearr;</a
-            >
-          </div>
-        </footer>
-      </div>
-    </div>
-
-    
-  </body>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Notion — component reference</title>
+<style>
+	/* Mirrors theme.css. Plain custom properties so this file opens standalone. */
+	:root {
+		--color-primary: #2383e2;
+		--color-primary-foreground: #ffffff;
+		--color-surface: #ffffff;
+		--color-surface-foreground: #37352f;
+		--color-surface-raised: #f7f6f3;
+		--color-muted: #787774;
+		--color-accent: #d9730d;
+		--color-danger: #eb5757;
+		--color-border: #e9e9e7;
+
+		--radius-sm: 3px;
+		--radius-md: 4px;
+		--radius-lg: 6px;
+		--radius-xl: 8px;
+		--radius-2xl: 12px;
+
+		--shadow-sm: 0 1px 2px rgb(15 15 15 / 0.06);
+		--shadow-md: 0 2px 6px rgb(15 15 15 / 0.08), 0 0 0 1px rgb(15 15 15 / 0.03);
+		--shadow-lg: 0 8px 24px rgb(15 15 15 / 0.12), 0 0 0 1px rgb(15 15 15 / 0.04);
+
+		--sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+		--mono: "SFMono-Regular", ui-monospace, Menlo, Consolas, monospace;
+	}
+
+	*, *::before, *::after { box-sizing: border-box; }
+	body {
+		margin: 0;
+		background: var(--color-surface);
+		color: var(--color-surface-foreground);
+		font-family: var(--sans);
+		font-size: 16px;
+		line-height: 1.65;
+		-webkit-font-smoothing: antialiased;
+	}
+	h1, h2, h3 { margin: 0; line-height: 1.3; }
+	p { margin: 0; }
+	::selection { background: rgb(35 131 226 / 0.2); }
+	code { font-family: var(--mono); font-size: 0.88em; background: var(--color-surface-raised); color: #eb5757; padding: 1px 5px; border-radius: var(--radius-sm); }
+
+	/* ── Workspace: 240px sidebar, then a 700px reading column ─────── */
+	.app { display: grid; grid-template-columns: 1fr; min-height: 100vh; }
+	@media (min-width: 900px) { .app { grid-template-columns: 240px 1fr; } }
+
+	.side { display: none; background: var(--color-surface-raised); padding: 12px 8px; border-right: 1px solid var(--color-border); }
+	@media (min-width: 900px) { .side { display: block; } }
+	.side-user { display: flex; align-items: center; gap: 8px; padding: 6px 8px 14px; font-size: 14px; font-weight: 600; }
+	.side-user .ws { width: 20px; height: 20px; border-radius: var(--radius-md); background: var(--color-surface-foreground); color: #fff; font-size: 11px; display: grid; place-items: center; font-weight: 500; }
+	/* 24px rows, 12–13px text, chevrons — the sidebar is a list, not a nav bar. */
+	.s-item { display: flex; align-items: center; gap: 6px; height: 27px; padding: 0 8px; border-radius: var(--radius-md); font-size: 14px; color: var(--color-muted); }
+	.s-item .ico { width: 16px; text-align: center; font-size: 13px; opacity: 0.7; }
+	.s-item.is-active { background: rgb(0 0 0 / 0.05); color: var(--color-surface-foreground); font-weight: 500; }
+	.s-item.child { padding-left: 24px; }
+	.s-group { font-size: 12px; color: var(--color-muted); padding: 16px 8px 4px; }
+
+	.doc { min-width: 0; }
+	.doc-bar { display: flex; align-items: center; gap: 10px; height: 45px; padding: 0 16px; font-size: 14px; color: var(--color-muted); border-bottom: 1px solid transparent; }
+	@media (min-width: 768px) { .doc-bar { padding: 0 40px; } }
+	.spacer { flex: 1; }
+	.page { max-width: 708px; margin: 0 auto; padding: 8px 16px 64px; }
+	@media (min-width: 768px) { .page { padding: 24px 24px 96px; } }
+
+	.page-icon { font-size: 44px; line-height: 1; margin-bottom: 8px; }
+	.page h1 { font-size: 32px; font-weight: 700; letter-spacing: -0.01em; }
+	@media (min-width: 768px) { .page h1 { font-size: 40px; } }
+	.page-props { margin-top: 14px; font-size: 14px; }
+	.prop { display: flex; gap: 8px; align-items: center; padding: 3px 0; color: var(--color-muted); }
+	.prop .name { width: 120px; flex: none; display: flex; gap: 6px; align-items: center; }
+	.prop .val { color: var(--color-surface-foreground); }
+
+	/* ── Blocks: the whole vocabulary ─────────────────────────────── */
+	.block { padding: 3px 2px; margin-top: 2px; }
+	.h2 { font-size: 22px; font-weight: 600; margin-top: 28px; padding-bottom: 2px; }
+	.h3 { font-size: 18px; font-weight: 600; margin-top: 20px; }
+	.text { font-size: 16px; }
+	.muted { color: var(--color-muted); }
+	.hl { background: #fdecc8; border-radius: 2px; padding: 0 2px; }
+	.hl-orange { color: var(--color-accent); font-weight: 500; }
+	.link { color: var(--color-primary); border-bottom: 1px solid rgb(35 131 226 / 0.3); text-decoration: none; }
+
+	.todo { display: flex; gap: 10px; align-items: flex-start; padding: 3px 2px; }
+	.box { width: 16px; height: 16px; border: 1.5px solid #b1b0ad; border-radius: var(--radius-sm); flex: none; margin-top: 4px; }
+	.box.on { background: var(--color-primary); border-color: var(--color-primary); position: relative; }
+	.box.on::after { content: ""; position: absolute; left: 4px; top: 1px; width: 4px; height: 8px; border: solid #fff; border-width: 0 2px 2px 0; transform: rotate(42deg); }
+	.todo.done span { color: var(--color-muted); text-decoration: line-through; }
+
+	.toggle { display: flex; gap: 8px; align-items: flex-start; padding: 3px 2px; }
+	.chev { flex: none; margin-top: 6px; width: 0; height: 0; border-left: 5px solid var(--color-muted); border-top: 4px solid transparent; border-bottom: 4px solid transparent; }
+	.chev.open { transform: rotate(90deg); }
+
+	.quote { border-left: 3px solid var(--color-surface-foreground); padding: 2px 0 2px 14px; margin: 8px 0; font-size: 16px; }
+	.callout {
+		display: flex; gap: 10px; align-items: flex-start;
+		background: var(--color-surface-raised);
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-md);
+		padding: 16px; margin: 12px 0; font-size: 15px;
+	}
+	.callout .emoji { font-size: 18px; line-height: 1.3; }
+	.callout.warn { background: #fdf3e6; border-color: #f3e0c4; }
+	.codeblock {
+		background: var(--color-surface-raised); border-radius: var(--radius-md);
+		padding: 16px 18px; font-family: var(--mono); font-size: 13.5px; line-height: 1.6;
+		color: var(--color-surface-foreground); overflow-x: auto; margin: 12px 0;
+	}
+	.codeblock .c { color: var(--color-muted); }
+	.divider { border: 0; border-top: 1px solid var(--color-border); margin: 24px 0; }
+
+	/* Database table: hairline grid, 33px rows, gray headers. */
+	.db { width: 100%; border-collapse: collapse; font-size: 14px; margin-top: 8px; }
+	.db th { text-align: left; font-weight: 400; font-size: 12px; color: var(--color-muted); padding: 6px 8px; border-bottom: 1px solid var(--color-border); }
+	.db td { padding: 7px 8px; border-bottom: 1px solid var(--color-border); height: 33px; }
+	.db td:first-child, .db th:first-child { padding-left: 0; }
+	.tag { display: inline-block; border-radius: var(--radius-sm); padding: 1px 7px; font-size: 12px; background: var(--color-surface-raised); color: var(--color-muted); }
+	.tag.blue { background: #e7f3f8; color: #183347; }
+	.tag.orange { background: #fbecdd; color: #5c3b23; }
+	.tag.green { background: #edf3ec; color: #1c3829; }
+	.tag.red { background: #fdebec; color: #5d1715; }
+	@media (max-width: 620px) { .db .hide-sm { display: none; } }
+
+	/* ── Buttons: text until hover ─────────────────────────────────── */
+	.btn {
+		font: inherit; font-size: 14px; font-weight: 500;
+		height: 32px; padding: 0 10px;
+		border: 0; border-radius: var(--radius-md);
+		background: transparent; color: var(--color-muted);
+		cursor: pointer; transition: background-color 20ms ease-in;
+	}
+	.btn:hover { background: rgb(55 53 47 / 0.08); color: var(--color-surface-foreground); }
+	.btn:focus-visible { outline: none; box-shadow: 0 0 0 2px rgb(35 131 226 / 0.5); }
+	.btn-primary { background: var(--color-primary); color: var(--color-primary-foreground); }
+	.btn-primary:hover { background: #0b6fca; color: #fff; }
+	.btn-outline { border: 1px solid var(--color-border); color: var(--color-surface-foreground); }
+	.btn-outline:hover { background: var(--color-surface-raised); }
+	.btn[disabled] { cursor: not-allowed; color: #c5c4c1; background: transparent; }
+	.row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+
+	.input {
+		font: inherit; font-size: 14px; width: 100%; max-width: 340px; height: 32px; padding: 0 10px;
+		border: 1px solid var(--color-border); border-radius: var(--radius-md);
+		background: var(--color-surface-raised); color: var(--color-surface-foreground);
+	}
+	.input:focus { outline: none; background: var(--color-surface); border-color: var(--color-primary); box-shadow: 0 0 0 2px rgb(35 131 226 / 0.2); }
+
+	/* Popover: the one place a shadow appears, always with its hairline ring. */
+	.menu {
+		max-width: 300px; background: var(--color-surface);
+		border-radius: var(--radius-lg); box-shadow: var(--shadow-lg);
+		padding: 6px; margin-top: 12px;
+	}
+	.menu .g { font-size: 11px; color: var(--color-muted); padding: 6px 10px 4px; }
+	.menu .i { display: flex; gap: 10px; align-items: center; padding: 6px 10px; border-radius: var(--radius-md); font-size: 14px; }
+	.menu .i:first-of-type { background: rgb(55 53 47 / 0.06); }
+	.menu .i small { display: block; font-size: 12px; color: var(--color-muted); }
+	.menu .i .g2 { width: 26px; height: 26px; border: 1px solid var(--color-border); border-radius: var(--radius-sm); flex: none; display: grid; place-items: center; font-size: 13px; }
+
+	/* ── Reference sections below the document ────────────────────── */
+	.ref { max-width: 708px; margin: 0 auto; padding: 0 16px 96px; }
+	@media (min-width: 768px) { .ref { padding: 0 24px 128px; } }
+	.section { padding-top: 48px; }
+	.section-label { font-size: 12px; color: var(--color-accent); letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 6px; }
+	.section h2 { font-size: 22px; font-weight: 600; }
+	.lede { color: var(--color-muted); margin-top: 8px; font-size: 15px; }
+	.note { margin-top: 14px; font-size: 13px; color: var(--color-muted); }
+
+	.swatches { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 18px; }
+	@media (min-width: 620px) { .swatches { grid-template-columns: repeat(4, 1fr); } }
+	.sw .fill { height: 48px; border-radius: var(--radius-md); border: 1px solid var(--color-border); }
+	.sw b { display: block; font-size: 13px; font-weight: 500; margin-top: 6px; }
+	.sw span { font-size: 12px; color: var(--color-muted); }
+
+	/* ── Mobile ───────────────────────────────────────────────────── */
+	.mobile { display: grid; grid-template-columns: minmax(0, 1fr); gap: 28px; margin-top: 22px; align-items: start; }
+	@media (min-width: 820px) { .mobile { grid-template-columns: 272px 1fr; gap: 36px; } }
+	.phone {
+		width: 272px; max-width: 100%; margin: 0 auto;
+		border: 1px solid var(--color-border); border-radius: 22px;
+		background: var(--color-surface); box-shadow: var(--shadow-lg); overflow: hidden;
+	}
+	.phone-status { display: flex; justify-content: space-between; padding: 9px 16px 4px; font-size: 10px; color: var(--color-muted); }
+	.phone-bar { display: flex; align-items: center; gap: 8px; padding: 6px 14px 10px; font-size: 12px; color: var(--color-muted); }
+	.phone-page { padding: 4px 16px 14px; }
+	.phone-page .pi { font-size: 26px; }
+	.phone-page h4 { margin: 4px 0 10px; font-size: 21px; font-weight: 700; letter-spacing: -0.01em; }
+	.phone-page .text { font-size: 14px; }
+	.phone-page .todo { font-size: 14px; }
+	.phone-page .callout { padding: 10px; font-size: 12.5px; margin: 10px 0; }
+	/* The block toolbar replaces the slash menu on touch: same items, docked. */
+	.blocktool { display: flex; gap: 4px; border-top: 1px solid var(--color-border); background: var(--color-surface-raised); padding: 8px 10px 14px; }
+	.blocktool span { flex: 1; height: 30px; border-radius: var(--radius-md); background: var(--color-surface); border: 1px solid var(--color-border); display: grid; place-items: center; font-size: 13px; color: var(--color-muted); }
+
+	.rules { margin: 0; padding: 0; list-style: none; }
+	.rules li { padding: 11px 0; border-bottom: 1px solid var(--color-border); font-size: 14px; color: var(--color-muted); }
+	.rules b { display: block; color: var(--color-surface-foreground); font-weight: 600; font-size: 13px; margin-bottom: 2px; }
+
+	/* ── Off-style ────────────────────────────────────────────────── */
+	.compare { display: grid; grid-template-columns: 1fr; gap: 12px; margin-top: 18px; }
+	@media (min-width: 620px) { .compare { grid-template-columns: repeat(2, 1fr); } }
+	.cmp-off {
+		padding: 22px; border-radius: 18px; color: #fff;
+		background: linear-gradient(135deg, #6366f1, #a855f7);
+		box-shadow: 0 14px 34px rgb(99 102 241 / 0.4);
+		font-size: 15px; font-weight: 600;
+	}
+	.cmp-off small { display: block; font-weight: 400; font-size: 13px; opacity: 0.9; margin-top: 8px; }
+	.cmp-on { padding: 22px; border: 1px solid var(--color-border); border-radius: var(--radius-md); background: var(--color-surface-raised); font-size: 15px; font-weight: 600; }
+	.cmp-on small { display: block; font-weight: 400; font-size: 13px; color: var(--color-muted); margin-top: 8px; }
+</style>
+</head>
+<body>
+
+<!-- COVER — a page in a workspace. The document is the interface; there is no
+     product chrome to speak of, and nothing on screen is a colored card. -->
+<div class="app">
+	<aside class="side">
+		<div class="side-user"><span class="ws">V</span>Vetta Design<span class="spacer"></span><span style="color:var(--color-muted);font-weight:400">⌄</span></div>
+		<div class="s-item"><span class="ico">⌕</span>Search</div>
+		<div class="s-item"><span class="ico">⏱</span>Updates</div>
+		<div class="s-item"><span class="ico">⚙</span>Settings</div>
+		<div class="s-group">Workspace</div>
+		<div class="s-item"><span class="ico">📘</span>Handbook</div>
+		<div class="s-item is-active"><span class="ico">🎛</span>Design tokens</div>
+		<div class="s-item child"><span class="ico">·</span>Color roles</div>
+		<div class="s-item child"><span class="ico">·</span>Type scale</div>
+		<div class="s-item"><span class="ico">🗂</span>Component audit</div>
+		<div class="s-item"><span class="ico">📅</span>Release calendar</div>
+		<div class="s-group">Private</div>
+		<div class="s-item"><span class="ico">📝</span>Scratchpad</div>
+		<div class="s-item"><span class="ico">＋</span>New page</div>
+	</aside>
+
+	<main class="doc">
+		<div class="doc-bar">
+			<span>Workspace</span><span>/</span><span style="color:var(--color-surface-foreground)">Design tokens</span>
+			<span class="spacer"></span>
+			<button class="btn">Share</button><button class="btn">···</button>
+		</div>
+
+		<article class="page">
+			<div class="page-icon">🎛</div>
+			<h1>Design tokens</h1>
+
+			<div class="page-props">
+				<div class="prop"><span class="name">📌 Status</span><span class="val"><span class="tag green">In review</span></span></div>
+				<div class="prop"><span class="name">👤 Owner</span><span class="val">Kaori M.</span></div>
+				<div class="prop"><span class="name">🏷 Tags</span><span class="val"><span class="tag blue">system</span> <span class="tag orange">v1.4</span></span></div>
+				<div class="prop"><span class="name">🗓 Updated</span><span class="val">April 12</span></div>
+			</div>
+
+			<hr class="divider">
+
+			<div class="block text">Everything visual in this workspace resolves to a token. If a value is worth
+				repeating twice, it belongs here first and in a component second. <span class="hl">Highlight is the
+				only fill a sentence ever gets</span> — the page never turns into a colored card.</div>
+
+			<div class="h2">Working agreements</div>
+			<div class="todo done"><span class="box on"></span><span>Freeze the seven base color roles</span></div>
+			<div class="todo"><span class="box"></span><span>Audit radius usage across the component library</span></div>
+			<div class="todo"><span class="box"></span><span>Write the <code>surface-raised</code> hover rule into the linter</span></div>
+
+			<div class="toggle"><span class="chev open"></span><span><b>Why hover fills instead of shadows</b></span></div>
+			<div class="block text muted" style="padding-left: 21px;">A shadow implies the element left the page. Nothing here
+				leaves the page except a menu, so state is expressed by a 6% ink wash instead.</div>
+
+			<blockquote class="quote">A page that needs decoration to feel finished is a page that hasn't found its
+				hierarchy yet.</blockquote>
+
+			<div class="callout"><span class="emoji">💡</span><span>Callouts sit on <code>surface-raised</code> with a hairline
+				border and an icon. They are the loudest object allowed inside prose — and they still have no shadow.</span></div>
+
+			<div class="callout warn"><span class="emoji">⚠️</span><span>Ink is <span class="hl-orange">#37352f</span>, never
+				pure black. Pure black on white is the fastest way to make this system look like something else.</span></div>
+
+			<div class="h3">Token snapshot</div>
+			<div class="codeblock"><span class="c">/* the seven that never change name */</span>
+--color-primary: #2383e2;
+--color-surface: #ffffff;
+--color-surface-foreground: #37352f;  <span class="c">/* warm ink */</span>
+--color-muted: #787774;
+--color-accent: #d9730d;              <span class="c">/* highlighter */</span></div>
+
+			<div class="h2">Component audit</div>
+			<table class="db">
+				<thead><tr><th>Name</th><th>Status</th><th class="hide-sm">Owner</th><th class="hide-sm">Updated</th></tr></thead>
+				<tbody>
+					<tr><td>Sidebar item</td><td><span class="tag green">Shipped</span></td><td class="hide-sm">Kaori M.</td><td class="hide-sm muted">Apr 12</td></tr>
+					<tr><td>Callout</td><td><span class="tag blue">In review</span></td><td class="hide-sm">Ana R.</td><td class="hide-sm muted">Apr 09</td></tr>
+					<tr><td>Database table</td><td><span class="tag orange">Drafting</span></td><td class="hide-sm">Jun S.</td><td class="hide-sm muted">Apr 07</td></tr>
+					<tr><td>Slash menu</td><td><span class="tag red">Blocked</span></td><td class="hide-sm">Mo O.</td><td class="hide-sm muted">Apr 02</td></tr>
+				</tbody>
+			</table>
+		</article>
+	</main>
+</div>
+
+<div class="ref">
+	<!-- 01 -->
+	<section class="section">
+		<p class="section-label">01 — Chrome</p>
+		<h2>Buttons look like text until you hover</h2>
+		<p class="lede">Every control starts as plain ink and gains a 6% wash on hover. A filled blue
+			button is rare enough that one per page is usually one too many.</p>
+		<div class="row" style="margin-top: 16px;">
+			<button class="btn">Share</button>
+			<button class="btn">Comment</button>
+			<button class="btn btn-outline">Duplicate</button>
+			<button class="btn btn-primary">New page</button>
+			<button class="btn" disabled>Syncing…</button>
+		</div>
+		<div class="row" style="margin-top: 14px;"><input class="input" placeholder="Search pages…"></div>
+		<div class="menu">
+			<div class="g">Basic blocks</div>
+			<div class="i"><span class="g2">T</span><span>Text<small>Just start writing</small></span></div>
+			<div class="i"><span class="g2">H</span><span>Heading 2<small>Medium section heading</small></span></div>
+			<div class="i"><span class="g2">☑</span><span>To-do list<small>Track tasks with a checkbox</small></span></div>
+			<div class="i"><span class="g2">💡</span><span>Callout<small>Make writing stand out</small></span></div>
+		</div>
+		<p class="note">The slash menu is the only floating surface, and it carries <code>shadow-lg</code> plus a hairline ring so it still reads as paper.</p>
+	</section>
+
+	<!-- 02 -->
+	<section class="section">
+		<p class="section-label">02 — Color</p>
+		<h2>Color arrives as text and highlight, never as a fill</h2>
+		<div class="swatches">
+			<div class="sw"><div class="fill" style="background: var(--color-surface-raised)"></div><b>surface-raised</b><span>#f7f6f3 · sidebar, hover, code</span></div>
+			<div class="sw"><div class="fill" style="background: var(--color-surface-foreground)"></div><b>ink</b><span>#37352f · warm, never #000</span></div>
+			<div class="sw"><div class="fill" style="background: var(--color-primary)"></div><b>primary</b><span>#2383e2 · links, rare button</span></div>
+			<div class="sw"><div class="fill" style="background: var(--color-accent)"></div><b>accent</b><span>#d9730d · highlighter</span></div>
+		</div>
+		<p class="note">Tags are the one saturated object, and even those are pastel washes with dark matching text. Radii stop at 4–6px; nothing in this system is bubbly.</p>
+	</section>
+
+	<!-- 03 MOBILE -->
+	<section class="section">
+		<p class="section-label">03 — Mobile</p>
+		<h2>The reading column was already the mobile layout</h2>
+		<p class="lede">Because the page is a single 700px column of text blocks, the phone build barely
+			changes: the sidebar becomes a drawer, the slash menu becomes a docked block toolbar, and the
+			line length finally matches what the column was designed for.</p>
+		<div class="mobile">
+			<div class="phone">
+				<div class="phone-status"><span>9:41</span><span>LTE ▮</span></div>
+				<div class="phone-bar"><span>☰</span><span>Design tokens</span><span class="spacer"></span><span>···</span></div>
+				<div class="phone-page">
+					<div class="pi">🎛</div>
+					<h4>Design tokens</h4>
+					<div class="prop" style="font-size:12px"><span class="name" style="width:78px">📌 Status</span><span class="tag green">In review</span></div>
+					<hr class="divider" style="margin:12px 0">
+					<div class="text">Everything visual resolves to a token. <span class="hl">Highlight is the only fill a sentence gets.</span></div>
+					<div class="todo done" style="margin-top:8px"><span class="box on"></span><span>Freeze the color roles</span></div>
+					<div class="todo"><span class="box"></span><span>Audit radius usage</span></div>
+					<div class="callout"><span class="emoji">💡</span><span>Ink is warm, never pure black.</span></div>
+				</div>
+				<div class="blocktool"><span>T</span><span>H</span><span>☑</span><span>💡</span><span>＋</span></div>
+			</div>
+			<ul class="rules">
+				<li><b>&lt; 900px — sidebar</b>The 240px page tree slides out as a full-height drawer over a light scrim. It keeps its 27px rows and 14px labels; it does not turn into an icon rail.</li>
+				<li><b>Reading column</b>708px max-width becomes the viewport with 16px gutters. Page padding drops from 24px to 16px; the text itself keeps 16px/1.65 leading at every width.</li>
+				<li><b>Page title</b>40px → 32px → 21px inside the phone frame. Body text never scales down — long-form reading is the point of the system.</li>
+				<li><b>Slash menu → toolbar</b>Typing <code>/</code> has no touch equivalent, so the same block list docks above the keyboard as a row of tappable glyphs in the same order.</li>
+				<li><b>Hover states</b>The 6% ink wash maps to <code>:active</code>. Block handles and drag grips only appear after a long press, so prose stays clean.</li>
+				<li><b>Databases</b>Below 620px the table sheds owner and date columns; the title and its status tag stay. Rows keep the 33px height and hairline grid — no card view.</li>
+				<li><b>Targets</b>32px controls grow to 40px, but the visual weight stays ghost — a bigger tap area, not a heavier button.</li>
+			</ul>
+		</div>
+	</section>
+
+	<!-- 04 DON'T -->
+	<section class="section">
+		<p class="section-label">04 — Off-style, for contrast</p>
+		<h2>What breaks the quiet</h2>
+		<div class="compare">
+			<div class="cmp-off">Saturated gradient card
+				<small>18px radius · indigo→purple fill · colored shadow · white text. Colorful cards are the fastest way out of this system.</small></div>
+			<div class="cmp-on">Same content, on-style
+				<small>4px radius, warm #f7f6f3 fill, hairline border, warm ink text, no shadow. Hierarchy comes from type size and spacing, not from boxes.</small></div>
+		</div>
+		<p class="note">Also out: pure black text, <code>rounded-2xl</code> anything, glassmorphism, and big drop shadows on elements that never left the page.</p>
+	</section>
+</div>
+
+</body>
 </html>

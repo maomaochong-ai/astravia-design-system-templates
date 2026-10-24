@@ -3,30 +3,29 @@
 	"kind": "design-system",
 	"slug": "notion",
 	"name": "Notion",
-	"version": "1.0.0",
+	"version": "1.1.0",
 	"order": 50,
 	"category": "productivity",
 	"vibe": "light",
 	"tags": [
-		"light-ui",
-		"enterprise",
-		"design-system"
+		"productivity",
+		"light"
 	],
-	"blurb": "Notion presents itself as the all-in-one workspace through a confident, illustration-rich brand voice — anchored by a deep navy hero band ({colors.brand-navy}) decorated with br…",
+	"blurb": "Quiet warm-gray document UI; tiny radii, almost no chrome, typography does the hierarchy.",
 	"tagline": {
-		"en": "Confident all-in-one workspace, illustration-rich",
-		"zh": "自信的 All-in-one 工作台，插画丰富"
+		"en": "Warm-gray paper, text is the UI",
+		"zh": "暖灰纸面，文字即界面"
 	},
 	"license": "MIT",
 	"origin": {
 		"type": "curated",
-		"upstream": "https://github.com/ricocc/brands-design-md.git",
-		"note": "from brands-design-md (Notion)."
+		"upstream": "https://github.com/VoltAgent/awesome-design-md",
+		"note": "Vetta-adapted from awesome-design-md (MIT)."
 	},
 	"assets": {
 		"spec": "DESIGN.md",
 		"theme": "theme.css",
 		"demo": "demo.html"
 	},
-	"collectedAt": "2026-08-22"
+	"collectedAt": "2026-08-11"
 }

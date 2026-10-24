@@ -1,570 +1,417 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Linear — Design System</title>
-    
-    
-    <style>
-      :root {
-        --void: #08090a;
-        --carbon: #0f1011;
-        --obsidian: #161718;
-        --graphite: #23252a;
-        --smoke: #383b3f;
-        --ash: #62666d;
-        --fog: #8a8f98;
-        --mist: #d0d6e0;
-        --paper: #fff;
-        --lime: #e4f222;
-        --green: #27a644;
-        --red: #eb5757;
-        --violet: #6366f1;
-        --sans: Inter, sans-serif;
-        --mono: "JetBrains Mono", monospace;
-      }
-      * {
-        box-sizing: border-box;
-      }
-      html {
-        scroll-behavior: smooth;
-      }
-      body {
-        margin: 0;
-        background: var(--void);
-        color: var(--paper);
-        font: 400 15px/1.6 var(--sans);
-        letter-spacing: -0.011em;
-      }
-      a {
-        color: inherit;
-      }
-      a:focus-visible,
-      button:focus-visible {
-        outline: 2px solid var(--lime);
-        outline-offset: 3px;
-      }
-      .page {
-        max-width: 1200px;
-        margin: auto;
-        padding: 0 32px 96px;
-      }
-      .nav {
-        height: 68px;
-        margin: 0 -32px;
-        padding: 0 16px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 16px;
-        position: sticky;
-        top: 0;
-        z-index: 2;
-        background: rgba(8, 9, 10, 0.96);
-        border-bottom: 0.5px solid var(--graphite);
-      }
-      .left,
-      .right {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-      }
-      .logo-favicon {
-        width: 30px;
-        height: 30px;
-        object-fit: contain;
-      }
-      .wordmark {
-        font: 510 16px/1 var(--sans);
-        text-decoration: none;
-      }
-      .tag,
-      .chip {
-        padding: 4px 8px;
-        border-radius: 4px;
-        background: rgba(255, 255, 255, 0.05);
-        color: var(--fog);
-        font: 12px/1.2 var(--mono);
-      }
-      .link {
-        padding: 8px 10px;
-        color: var(--mist);
-        font-size: 13px;
-        text-decoration: none;
-      }
-      .site {
-        border: 1px solid var(--graphite);
-        border-radius: 9999px;
-      }
-      .hero {
-        padding: 96px 0 64px;
-        border-bottom: 0.5px solid var(--graphite);
-      }
-      .eyebrow {
-        color: var(--lime);
-        font: 12px/1 var(--mono);
-        letter-spacing: 0.1em;
-        text-transform: uppercase;
-      }
-      .hero h1 {
-        margin: 20px 0 0;
-        max-width: 800px;
-        font: 510 clamp(56px, 8vw, 72px)/1 var(--sans);
-        letter-spacing: -0.022em;
-      }
-      .hero p {
-        max-width: 560px;
-        color: var(--fog);
-        font-size: 17px;
-      }
-      .actions {
-        display: flex;
-        gap: 10px;
-        margin-top: 28px;
-        flex-wrap: wrap;
-      }
-      .btn {
-        padding: 10px 16px;
-        border: 1px solid var(--graphite);
-        border-radius: 6px;
-        background: transparent;
-        color: var(--mist);
-        font: 400 14px/1 var(--sans);
-        text-decoration: none;
-      }
-      .primary {
-        background: var(--lime);
-        border-color: var(--lime);
-        color: var(--void);
-        font-weight: 510;
-      }
-      .section {
-        padding-top: 96px;
-        margin-top: 64px;
-        border-top: 0.5px solid var(--graphite);
-        scroll-margin-top: 68px;
-      }
-      .section h2 {
-        margin: 0 0 32px;
-        font: 510 48px/1 var(--sans);
-        letter-spacing: -0.022em;
-      }
-      .desc {
-        max-width: 620px;
-        color: var(--fog);
-      }
-      .grid {
-        display: grid;
-        gap: 12px;
-      }
-      .colors {
-        grid-template-columns: repeat(4, 1fr);
-      }
-      .swatch {
-        min-height: 120px;
-        padding: 12px;
-        border: 1px solid var(--graphite);
-        border-radius: 6px;
-        display: flex;
-        align-items: end;
-        font: 11px/1.4 var(--mono);
-      }
-      .type {
-        display: grid;
-        grid-template-columns: 360px 1fr 10px;
-        gap: 12px;
-        align-items: baseline;
-        padding: 18px 0;
-        border-bottom: 0.5px solid var(--graphite);
-      }
-      .type small {
-        color: var(--fog);
-        font: 11px/1 var(--mono);
-        text-align: right;
-      }
-      .display {
-        font: 510 72px/1 var(--sans);
-        letter-spacing: -0.022em;
-      }
-      .heading {
-        font: 510 48px/1 var(--sans);
-        letter-spacing: -0.022em;
-      }
-      .metrics {
-        grid-template-columns: 1fr 1fr;
-      }
-      .panel {
-        padding: 24px;
-        border: 1px solid var(--graphite);
-        border-radius: 12px;
-        background: var(--carbon);
-      }
-      .panel h3 {
-        margin: 0 0 20px;
-        font-size: 16px;
-      }
-      .space {
-        display: grid;
-        grid-template-columns: 45px 1fr 44px;
-        gap: 8px;
-        align-items: center;
-        margin: 8px 0;
-        font: 11px/1 var(--mono);
-      }
-      .bar {
-        height: 6px;
-        background: var(--lime);
-        border-radius: 2px;
-      }
-      .radii {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 12px;
-      }
-      .radius {
-        height: 68px;
-        padding: 8px;
-        display: flex;
-        align-items: end;
-        background: var(--obsidian);
-        font: 11px/1 var(--mono);
-      }
-      .radius:nth-child(1) {
-        border-radius: 2px;
-      }
-      .radius:nth-child(2) {
-        border-radius: 6px;
-      }
-      .radius:nth-child(3) {
-        border-radius: 12px;
-      }
-      .shadows {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 12px;
-      }
-      .shadow {
-        min-height: 110px;
-        padding: 16px;
-        border-radius: 6px;
-        background: var(--carbon);
-        font: 11px/1.4 var(--mono);
-      }
-      .shadow:nth-child(1) {
-        box-shadow: rgba(0, 0, 0, 0.4) 0 2px 4px;
-      }
-      .shadow:nth-child(2) {
-        box-shadow: rgb(35, 37, 42) 0 0 0 1px inset;
-      }
-      .shadow:nth-child(3) {
-        box-shadow: rgba(8, 9, 10, 0.6) 0 4px 32px;
-      }
-      .components {
-        grid-template-columns: 1fr 1fr;
-      }
-      .component {
-        padding: 24px;
-        border: 1px solid var(--graphite);
-        border-radius: 12px;
-        background: var(--carbon);
-      }
-      .component h3 {
-        margin: 0 0 18px;
-        font-size: 16px;
-      }
-      .stage {
-        padding: 22px;
-        background: var(--void);
-        border-radius: 6px;
-      }
-      .issue {
-        padding: 16px;
-        border: 1px solid var(--graphite);
-        border-radius: 6px;
-        background: rgba(255, 255, 255, 0.02);
-      }
-      .issue b {
-        display: block;
-        margin-top: 8px;
-      }
-      .issue p {
-        margin: 8px 0 0;
-        color: var(--fog);
-        font-size: 13px;
-      }
-      .guides {
-        grid-template-columns: 1fr 1fr;
-      }
-      .guide {
-        padding: 24px;
-        border-radius: 12px;
-        border: 1px solid var(--graphite);
-      }
-      .guide h3 {
-        margin: 0 0 14px;
-      }
-      .guide ul {
-        margin: 0;
-        padding-left: 18px;
-      }
-      .guide li + li {
-        margin-top: 8px;
-      }
-      .footer {
-        margin-top: 96px;
-        padding-top: 24px;
-        border-top: 0.5px solid var(--graphite);
-        color: var(--fog);
-        font: 11px/1.4 var(--mono);
-      }
-      @media (max-width: 720px) {
-        .nav .link {
-          display: none;
-        }
-        .colors {
-          grid-template-columns: repeat(2, 1fr);
-        }
-        .type {
-          grid-template-columns: 1fr;
-        }
-        .type small {
-          text-align: left;
-        }
-        .metrics,
-        .components,
-        .guides {
-          grid-template-columns: 1fr;
-        }
-        .shadows {
-          grid-template-columns: 1fr;
-        }
-        .display {
-          font-size: 54px;
-        }
-        .heading {
-          font-size: 40px;
-        }
-      }
-      @media (max-width: 460px) {
-        .page {
-          padding: 0 20px 72px;
-        }
-        .nav {
-          margin: 0 -20px;
-        }
-        .tag {
-          display: none;
-        }
-        .hero {
-          padding-top: 64px;
-        }
-        .section {
-          padding-top: 72px;
-        }
-      }
-      @media (prefers-reduced-motion: reduce) {
-        html {
-          scroll-behavior: auto;
-        }
-      }
-    </style>
-  </head>
-  <body>
-    <div class="page">
-      <nav class="nav">
-        <div class="left">
-          <a class="wordmark" href="#top">Linear</a
-          ><span class="tag">Design System</span>
-        </div>
-        <div class="right">
-          <a class="link" href="#colors">Colors</a
-          ><a class="link" href="#type">Type</a
-          ><a class="link" href="#spacing">Spacing</a
-          ><a class="link" href="#components">Components</a
-          ><a
-            class="link site"
-            href="#"
-            target="_blank"
-            rel="noopener noreferrer"
-            >Site ↗</a
-          >
-        </div>
-      </nav>
-      <main id="top">
-        <header class="hero">
-          <p class="eyebrow">Design System / Dark</p>
-          <h1>Midnight precision, made actionable.</h1>
-          <p>
-            Near-black surfaces, hairline geometry and one acid-lime signal keep
-            product work clear without visual noise.
-          </p>
-          <div class="actions">
-            <a class="btn primary" href="#components">Explore components</a
-            ><a class="btn" href="#" download>Download spec</a>
-          </div>
-        </header>
-        <section class="section" id="colors">
-          <p class="eyebrow">Foundation</p>
-          <h2>Color tokens</h2>
-          <p class="desc">
-            Void and neutral grays carry the interface. Acid Lime is the sole
-            chromatic action.
-          </p>
-          <div class="colors grid">
-            <div class="swatch" style="background: #08090a">
-              Void<br />#08090a
-            </div>
-            <div class="swatch" style="background: #0f1011">
-              Carbon<br />#0f1011
-            </div>
-            <div class="swatch" style="background: #23252a">
-              Graphite<br />#23252a
-            </div>
-            <div class="swatch" style="background: #d0d6e0; color: #08090a">
-              Mist<br />#d0d6e0
-            </div>
-            <div class="swatch" style="background: #fff; color: #08090a">
-              Paper<br />#ffffff
-            </div>
-            <div class="swatch" style="background: #e4f222; color: #08090a">
-              Acid Lime<br />#e4f222
-            </div>
-            <div class="swatch" style="background: #27a644">
-              Pulse Green<br />#27a644
-            </div>
-            <div class="swatch" style="background: #6366f1">
-              Iris Violet<br />#6366f1
-            </div>
-          </div>
-        </section>
-        <section class="section" id="type">
-          <p class="eyebrow">Typography</p>
-          <h2>Type scale</h2>
-          <div class="type">
-            <span class="display">Linear</span><small>Display / 72 / 510</small>
-          </div>
-          <div class="type">
-            <span class="heading">Built for focus.</span
-            ><small>Heading / 48 / 510</small>
-          </div>
-          <div class="type">
-            <span style="font-size: 24px">The smallest clear next step.</span
-            ><small>Subheading / 24 / 400</small>
-          </div>
-          <div class="type">
-            <span>Product decisions should be easy to scan.</span
-            ><small>Body / 15 / 400</small>
-          </div>
-        </section>
-        <section class="section" id="spacing">
-          <p class="eyebrow">Metrics</p>
-          <h2>Spacing &amp; shape</h2>
-          <div class="metrics grid">
-            <article class="panel">
-              <h3>Spacing</h3>
-              <div class="space">
-                <span>4</span><i class="bar" style="width: 4px"></i
-                ><span>4px</span>
-              </div>
-              <div class="space">
-                <span>8</span><i class="bar" style="width: 8px"></i
-                ><span>8px</span>
-              </div>
-              <div class="space">
-                <span>16</span><i class="bar" style="width: 16px"></i
-                ><span>16px</span>
-              </div>
-              <div class="space">
-                <span>24</span><i class="bar" style="width: 24px"></i
-                ><span>24px</span>
-              </div>
-              <div class="space">
-                <span>48</span><i class="bar" style="width: 48px"></i
-                ><span>48px</span>
-              </div>
-              <div class="space">
-                <span>96</span><i class="bar" style="width: 96px"></i
-                ><span>96px</span>
-              </div>
-            </article>
-            <article class="panel">
-              <h3>Radius</h3>
-              <div class="radii">
-                <div class="radius">2px<br />small</div>
-                <div class="radius">6px<br />controls</div>
-                <div class="radius">12px<br />cards</div>
-              </div>
-            </article>
-          </div>
-        </section>
-        <section class="section">
-          <p class="eyebrow">Elevation</p>
-          <h2>Shadows</h2>
-          <div class="shadows">
-            <div class="shadow">sm<br />0 2px 4px</div>
-            <div class="shadow">subtle<br />1px inset</div>
-            <div class="shadow">xl<br />0 4px 32px</div>
-          </div>
-        </section>
-        <section class="section" id="components">
-          <p class="eyebrow">Components</p>
-          <h2>Component library</h2>
-          <div class="components grid">
-            <article class="component">
-              <h3>Actions</h3>
-              <div class="stage">
-                <button class="btn primary">Create issue</button>
-                <button class="btn">View roadmap</button>
-              </div>
-              <p class="desc">Only the primary action receives Acid Lime.</p>
-            </article>
-            <article class="component">
-              <h3>Product frame</h3>
-              <div class="stage">
-                <article class="issue">
-                  <span class="chip">ENG-2703</span
-                  ><b>Refine onboarding sequence</b>
-                  <p>
-                    Product screenshot frames stay Carbon with a subtle inset
-                    edge.
-                  </p>
-                </article>
-              </div>
-            </article>
-          </div>
-        </section>
-        <section class="section">
-          <p class="eyebrow">Guidelines</p>
-          <h2>Use with restraint</h2>
-          <div class="guides grid">
-            <article class="guide">
-              <h3>Do</h3>
-              <ul>
-                <li>Use Acid Lime once per view.</li>
-                <li>Separate surfaces with Graphite hairlines.</li>
-                <li>Reserve Berkeley Mono for technical metadata.</li>
-              </ul>
-            </article>
-            <article class="guide">
-              <h3>Avoid</h3>
-              <ul>
-                <li>Do not use display weights above 590.</li>
-                <li>Do not add chromatic actions beyond Acid Lime.</li>
-                <li>Do not use outer shadows as general card elevation.</li>
-              </ul>
-            </article>
-          </div>
-          <div class="actions" style="margin-top: 24px">
-            <a class="btn" href="#" download>tokens.json</a
-            ><a class="btn" href="#" download>variables.css</a
-            ><a class="btn" href="#" download>theme.css</a>
-          </div>
-        </section>
-      </main>
-      <footer class="footer">
-        LINEAR DESIGN SYSTEM · MIDNIGHT PRECISION INSTRUMENT
-      </footer>
-    </div>
-  </body>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Linear — component reference</title>
+<style>
+	/* Mirrors theme.css. Plain custom properties so this file opens standalone. */
+	:root {
+		--color-primary: #5e6ad2;
+		--color-primary-foreground: #ffffff;
+		--color-surface: #08090a;
+		--color-surface-foreground: #f7f8f8;
+		--color-surface-raised: #131416;
+		--color-muted: #8a8f98;
+		--color-accent: #26b5ce;
+		--color-danger: #eb5757;
+		--color-border: #26282d;
+
+		--radius-sm: 4px;
+		--radius-md: 6px;
+		--radius-lg: 8px;
+		--radius-xl: 12px;
+		--radius-2xl: 16px;
+
+		--shadow-sm: 0 1px 2px rgb(0 0 0 / 0.5);
+		--shadow-md: 0 4px 16px rgb(0 0 0 / 0.5);
+		--shadow-lg: 0 16px 48px rgb(0 0 0 / 0.6);
+
+		--sans: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+		--mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+	}
+
+	*, *::before, *::after { box-sizing: border-box; }
+	body {
+		margin: 0;
+		background: var(--color-surface);
+		color: var(--color-surface-foreground);
+		font-family: var(--sans);
+		font-size: 14px;
+		line-height: 1.55;
+		-webkit-font-smoothing: antialiased;
+	}
+	h1, h2, h3 { margin: 0; font-weight: 600; letter-spacing: -0.02em; line-height: 1.25; }
+	p { margin: 0; }
+	::selection { background: rgb(94 106 210 / 0.4); }
+
+	.wrap { max-width: 1080px; margin: 0 auto; padding: 0 20px 80px; }
+	@media (min-width: 768px) { .wrap { padding: 0 32px 112px; } }
+
+	/* ── Section scaffold: nothing is oversized, ever ─────────────── */
+	.section { padding-top: 48px; }
+	@media (min-width: 768px) { .section { padding-top: 72px; } }
+	.section-label {
+		font-family: var(--mono);
+		font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
+		color: var(--color-accent);
+		margin-bottom: 10px;
+	}
+	.section h2 { font-size: 20px; }
+	@media (min-width: 768px) { .section h2 { font-size: 24px; } }
+	.lede { color: var(--color-muted); max-width: 62ch; margin-top: 8px; font-size: 13px; }
+	.note { margin-top: 16px; font-size: 12px; color: var(--color-muted); }
+	.row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+
+	/* ── The product surface: this IS the demo, not a hero banner ─── */
+	.app {
+		border-bottom: 1px solid var(--color-border);
+		display: grid;
+		grid-template-columns: 1fr;
+	}
+	@media (min-width: 900px) { .app { grid-template-columns: 232px 1fr; } }
+
+	.side { display: none; border-right: 1px solid var(--color-border); background: var(--color-surface); padding: 12px 8px; }
+	@media (min-width: 900px) { .side { display: block; } }
+	.side-head { display: flex; align-items: center; gap: 8px; padding: 6px 8px 14px; }
+	.logomark {
+		width: 20px; height: 20px; border-radius: var(--radius-sm);
+		background: linear-gradient(140deg, #5e6ad2, #26b5ce);
+	}
+	.side-head b { font-size: 13px; font-weight: 600; }
+	.side-group { font-size: 11px; color: var(--color-muted); padding: 14px 8px 6px; letter-spacing: 0.04em; }
+	.nav {
+		display: flex; align-items: center; gap: 8px;
+		padding: 6px 8px; border-radius: var(--radius-md);
+		font-size: 13px; color: var(--color-muted);
+	}
+	.nav .dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; opacity: 0.6; }
+	.nav .count { margin-left: auto; font-family: var(--mono); font-size: 11px; }
+	.nav.is-active { background: var(--color-surface-raised); color: var(--color-surface-foreground); }
+
+	.main { min-width: 0; }
+	.toolbar {
+		display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+		min-height: 44px; padding: 6px 12px;
+		border-bottom: 1px solid var(--color-border);
+	}
+	@media (min-width: 768px) { .toolbar { padding: 0 20px; } }
+	.toolbar h1 { font-size: 14px; font-weight: 600; }
+	.spacer { flex: 1; }
+
+	/* Rows are the heart of the system: 38px, hairline dividers, no cards. */
+	.issue {
+		display: flex; align-items: center; gap: 10px;
+		height: 38px; padding: 0 12px;
+		border-bottom: 1px solid var(--color-border);
+		font-size: 13px;
+	}
+	@media (min-width: 768px) { .issue { padding: 0 20px; } }
+	.issue:hover { background: var(--color-surface-raised); }
+	.pri { width: 12px; display: flex; align-items: flex-end; gap: 1px; height: 10px; flex: none; }
+	.pri i { width: 3px; background: var(--color-muted); border-radius: 1px; display: block; }
+	.pri i:nth-child(1) { height: 4px; } .pri i:nth-child(2) { height: 7px; } .pri i:nth-child(3) { height: 10px; }
+	.pri.low i:nth-child(2), .pri.low i:nth-child(3) { opacity: 0.25; }
+	.pri.mid i:nth-child(3) { opacity: 0.25; }
+	.st { width: 12px; height: 12px; border-radius: 50%; border: 2px solid var(--color-muted); flex: none; }
+	.st.started { border-color: #f2c94c; background: conic-gradient(#f2c94c 50%, transparent 0); }
+	.st.done { border-color: var(--color-primary); background: var(--color-primary); }
+	.st.blocked { border-color: var(--color-danger); }
+	.id { font-family: var(--mono); font-size: 12px; color: var(--color-muted); flex: none; width: 62px; }
+	.title { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+	.tag {
+		flex: none; font-size: 11px; padding: 1px 8px; border-radius: 9999px;
+		border: 1px solid var(--color-border); color: var(--color-muted);
+	}
+	.tag.live { color: var(--color-accent); border-color: rgb(38 181 206 / 0.4); }
+	.when { flex: none; font-family: var(--mono); font-size: 11px; color: var(--color-muted); }
+	.who {
+		flex: none; width: 20px; height: 20px; border-radius: 50%;
+		background: var(--color-surface-raised); border: 1px solid var(--color-border);
+		font-size: 10px; display: grid; place-items: center; color: var(--color-muted);
+	}
+	@media (max-width: 640px) { .issue .tag, .issue .when { display: none; } }
+
+	/* ── Controls ─────────────────────────────────────────────────── */
+	.btn {
+		font: inherit; font-size: 13px; font-weight: 500;
+		height: 32px; padding: 0 12px;
+		border-radius: var(--radius-md);
+		border: 1px solid var(--color-border);
+		background: transparent; color: var(--color-surface-foreground);
+		cursor: pointer;
+		transition: background-color 120ms ease, border-color 120ms ease;
+	}
+	.btn:hover { background: var(--color-surface-raised); }
+	.btn:focus-visible { outline: none; border-color: var(--color-primary); box-shadow: 0 0 0 3px rgb(94 106 210 / 0.35); }
+	.btn-primary { background: var(--color-primary); border-color: var(--color-primary); color: var(--color-primary-foreground); }
+	.btn-primary:hover { background: #6b76d8; }
+	.btn-ghost { border-color: transparent; color: var(--color-muted); }
+	.btn-ghost:hover { color: var(--color-surface-foreground); }
+	.btn-sm { height: 26px; padding: 0 9px; font-size: 12px; }
+	.btn[disabled] { cursor: not-allowed; color: #4b4f57; border-color: #1c1e22; background: transparent; }
+
+	kbd {
+		font-family: var(--mono); font-size: 11px; line-height: 18px;
+		min-width: 20px; height: 20px; padding: 0 5px; display: inline-block; text-align: center;
+		border: 1px solid var(--color-border); border-bottom-width: 2px;
+		border-radius: var(--radius-sm);
+		background: var(--color-surface-raised); color: var(--color-muted);
+	}
+
+	.input {
+		font: inherit; font-size: 13px; width: 100%; max-width: 380px;
+		height: 32px; padding: 0 10px;
+		border-radius: var(--radius-md);
+		border: 1px solid var(--color-border);
+		background: var(--color-surface-raised); color: var(--color-surface-foreground);
+	}
+	.input::placeholder { color: #5c6068; }
+	.input:focus { outline: none; border-color: var(--color-primary); box-shadow: 0 0 0 3px rgb(94 106 210 / 0.3); }
+
+	/* ── Panels: raised fill + hairline, never a soft floating card ─ */
+	.panels { display: grid; grid-template-columns: 1fr; gap: 12px; margin-top: 20px; }
+	@media (min-width: 768px) { .panels { grid-template-columns: repeat(3, 1fr); } }
+	.panel {
+		background: var(--color-surface-raised);
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-lg);
+		padding: 14px 16px;
+	}
+	.panel h3 { font-size: 13px; }
+	.panel p { margin-top: 6px; font-size: 12px; color: var(--color-muted); }
+	.metric { font-family: var(--mono); font-size: 22px; letter-spacing: -0.02em; }
+
+	/* Popover is the ONLY place a big shadow is allowed. */
+	.canvas {
+		margin-top: 20px; padding: 32px 16px;
+		border: 1px solid var(--color-border); border-radius: var(--radius-lg);
+		background: repeating-linear-gradient(45deg, #0a0b0c 0 10px, #0c0d0f 10px 20px);
+	}
+	.popover {
+		max-width: 420px; margin: 0 auto;
+		background: var(--color-surface-raised);
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-xl);
+		box-shadow: var(--shadow-lg);
+		overflow: hidden;
+	}
+	.popover .q { display: flex; align-items: center; gap: 8px; padding: 12px 14px; border-bottom: 1px solid var(--color-border); color: var(--color-muted); font-size: 13px; }
+	.opt { display: flex; align-items: center; gap: 10px; padding: 8px 14px; font-size: 13px; color: var(--color-muted); }
+	.opt.is-active { background: rgb(94 106 210 / 0.16); color: var(--color-surface-foreground); }
+	.opt .k { margin-left: auto; }
+
+	/* ── Swatches ─────────────────────────────────────────────────── */
+	.swatches { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 20px; }
+	@media (min-width: 720px) { .swatches { grid-template-columns: repeat(4, 1fr); } }
+	.sw { border: 1px solid var(--color-border); border-radius: var(--radius-md); overflow: hidden; }
+	.sw .fill { height: 52px; }
+	.sw .meta { padding: 8px 10px; background: var(--color-surface-raised); }
+	.sw b { font-family: var(--mono); font-size: 11px; font-weight: 500; display: block; }
+	.sw span { font-size: 11px; color: var(--color-muted); }
+
+	/* ── Mobile: the same density, re-stacked ─────────────────────── */
+	.mobile { display: grid; grid-template-columns: minmax(0, 1fr); gap: 28px; margin-top: 24px; align-items: start; }
+	@media (min-width: 860px) { .mobile { grid-template-columns: 300px 1fr; gap: 40px; } }
+	.phone {
+		width: 300px; max-width: 100%; margin: 0 auto;
+		border: 1px solid var(--color-border);
+		border-radius: 28px;
+		background: var(--color-surface);
+		box-shadow: var(--shadow-lg);
+		overflow: hidden;
+	}
+	.phone-status {
+		display: flex; align-items: center; justify-content: space-between;
+		padding: 8px 16px 4px; font-family: var(--mono); font-size: 10px; color: var(--color-muted);
+	}
+	.phone-head { display: flex; align-items: center; gap: 8px; padding: 6px 14px 10px; border-bottom: 1px solid var(--color-border); }
+	.phone-head b { font-size: 13px; font-weight: 600; }
+	/* Rows keep their 38px desktop height but drop meta columns — density is
+	   the brand, so it survives the breakpoint; only the extras leave. */
+	.m-issue { display: flex; align-items: center; gap: 8px; height: 44px; padding: 0 14px; border-bottom: 1px solid var(--color-border); font-size: 13px; }
+	.m-issue .title { font-size: 13px; }
+	.m-sub { font-family: var(--mono); font-size: 10px; color: var(--color-muted); }
+	.tabbar { display: flex; border-top: 1px solid var(--color-border); background: var(--color-surface-raised); }
+	.tabbar div { flex: 1; text-align: center; padding: 10px 0 14px; font-size: 10px; color: var(--color-muted); }
+	.tabbar div.is-active { color: var(--color-surface-foreground); box-shadow: inset 0 1px 0 var(--color-primary); }
+	.tabbar .glyph { display: block; width: 14px; height: 14px; margin: 0 auto 4px; border: 1.5px solid currentColor; border-radius: 3px; }
+	.tabbar div.is-active .glyph { border-color: var(--color-primary); }
+
+	.rules { margin: 0; padding: 0; list-style: none; }
+	.rules li { padding: 10px 0; border-bottom: 1px solid var(--color-border); font-size: 13px; color: var(--color-muted); display: flex; gap: 12px; }
+	.rules b { color: var(--color-surface-foreground); font-weight: 500; flex: none; width: 116px; font-size: 12px; font-family: var(--mono); }
+	@media (max-width: 520px) { .rules li { display: block; } .rules b { width: auto; margin-bottom: 2px; } }
+
+	/* ── Off-style comparison ─────────────────────────────────────── */
+	.compare { display: grid; grid-template-columns: 1fr; gap: 12px; margin-top: 20px; }
+	@media (min-width: 720px) { .compare { grid-template-columns: repeat(2, 1fr); } }
+	.cmp-off {
+		padding: 24px; border-radius: 20px;
+		background: linear-gradient(140deg, #2b2f6b, #6c3fa6);
+		box-shadow: 0 18px 40px rgb(94 106 210 / 0.4);
+		color: #fff; font-size: 20px; font-weight: 700;
+	}
+	.cmp-off small { display: block; font-size: 12px; font-weight: 400; opacity: 0.75; margin-top: 8px; }
+	.cmp-on { padding: 14px 16px; border-radius: var(--radius-lg); background: var(--color-surface-raised); border: 1px solid var(--color-border); font-size: 13px; }
+	.cmp-on small { display: block; font-size: 12px; color: var(--color-muted); margin-top: 6px; }
+</style>
+</head>
+<body>
+
+<!-- COVER — the hover preview lands on the product itself: sidebar, dense rows,
+     one indigo action. No marketing hero exists in this system. -->
+<div class="app">
+	<aside class="side">
+		<div class="side-head"><span class="logomark"></span><b>Vetta</b><span class="spacer"></span><kbd>⌘K</kbd></div>
+		<div class="nav is-active"><span class="dot" style="background:var(--color-accent)"></span>Inbox<span class="count">12</span></div>
+		<div class="nav"><span class="dot"></span>My issues<span class="count">7</span></div>
+		<div class="nav"><span class="dot"></span>Views</div>
+		<div class="side-group">Workspace</div>
+		<div class="nav"><span class="dot"></span>Core<span class="count">48</span></div>
+		<div class="nav"><span class="dot"></span>Platform<span class="count">31</span></div>
+		<div class="nav"><span class="dot"></span>Design<span class="count">9</span></div>
+		<div class="side-group">Cycle 24</div>
+		<div class="nav"><span class="dot" style="background:#f2c94c"></span>In progress<span class="count">5</span></div>
+		<div class="nav"><span class="dot" style="background:var(--color-danger)"></span>Blocked<span class="count">1</span></div>
+	</aside>
+
+	<main class="main">
+		<div class="toolbar">
+			<h1>Cycle 24</h1>
+			<span class="tag live">Live</span>
+			<span class="spacer"></span>
+			<button class="btn btn-ghost btn-sm">Filter</button>
+			<button class="btn btn-ghost btn-sm">Group</button>
+			<button class="btn btn-primary btn-sm">New issue</button>
+		</div>
+		<div class="issue"><span class="pri"><i></i><i></i><i></i></span><span class="st started"></span><span class="id">VET-482</span><span class="title">Command palette should keep focus after a nested action</span><span class="tag">Core</span><span class="when">2h</span><span class="who">KM</span></div>
+		<div class="issue"><span class="pri mid"><i></i><i></i><i></i></span><span class="st"></span><span class="id">VET-479</span><span class="title">Virtualize the issue list above 500 rows</span><span class="tag">Platform</span><span class="when">5h</span><span class="who">AR</span></div>
+		<div class="issue"><span class="pri"><i></i><i></i><i></i></span><span class="st blocked"></span><span class="id">VET-476</span><span class="title">Sync conflict when two clients edit the same title</span><span class="tag">Core</span><span class="when">1d</span><span class="who">JS</span></div>
+		<div class="issue"><span class="pri low"><i></i><i></i><i></i></span><span class="st done"></span><span class="id">VET-471</span><span class="title">Hairline dividers render at 0.5px on retina</span><span class="tag">Design</span><span class="when">2d</span><span class="who">MO</span></div>
+		<div class="issue"><span class="pri mid"><i></i><i></i><i></i></span><span class="st started"></span><span class="id">VET-468</span><span class="title">Keyboard shortcut sheet is missing the cycle switcher</span><span class="tag">Design</span><span class="when">3d</span><span class="who">KM</span></div>
+		<div class="issue"><span class="pri low"><i></i><i></i><i></i></span><span class="st"></span><span class="id">VET-465</span><span class="title">Reduce first paint of the inbox to under 200ms</span><span class="tag">Platform</span><span class="when">4d</span><span class="who">AR</span></div>
+	</main>
+</div>
+
+<div class="wrap">
+
+	<!-- 01 DENSITY -->
+	<section class="section">
+		<p class="section-label">01 — Density</p>
+		<h2>The list is the interface</h2>
+		<p class="lede">Rows are 38px with hairline dividers and no card around them. Every
+			column has a fixed job: priority bars, status ring, mono id, title, team, age, assignee.
+			Nothing floats, nothing is centered, and there is no hero whitespace anywhere.</p>
+		<div class="panels">
+			<div class="panel"><div class="metric">38px</div><p>Row height. Comfortable is 40px, compact is 32px — those are the only three.</p></div>
+			<div class="panel"><div class="metric">4 / 8 / 12</div><p>The whole spacing rhythm. Section gaps stop at 24px.</p></div>
+			<div class="panel"><div class="metric">1px</div><p>Border weight. Structure comes from borders, not shadows.</p></div>
+		</div>
+	</section>
+
+	<!-- 02 COLOR -->
+	<section class="section">
+		<p class="section-label">02 — Color roles</p>
+		<h2>One indigo, one cyan, everything else is gray</h2>
+		<p class="lede">Indigo marks the single primary action and active state. Cyan appears at
+			most once per view — a live indicator or a link. Red is reserved for a real failure.</p>
+		<div class="swatches">
+			<div class="sw"><div class="fill" style="background: var(--color-primary)"></div><div class="meta"><b>primary</b><span>#5e6ad2 · one action</span></div></div>
+			<div class="sw"><div class="fill" style="background: var(--color-accent)"></div><div class="meta"><b>accent</b><span>#26b5ce · live, links</span></div></div>
+			<div class="sw"><div class="fill" style="background: var(--color-surface-raised)"></div><div class="meta"><b>surface-raised</b><span>#131416 · panels</span></div></div>
+			<div class="sw"><div class="fill" style="background: var(--color-danger)"></div><div class="meta"><b>danger</b><span>#eb5757 · blocked</span></div></div>
+		</div>
+		<p class="note">The brightest value in the system is #f7f8f8. Pure white never appears — not in text, not in a fill, not in an icon.</p>
+	</section>
+
+	<!-- 03 CONTROLS -->
+	<section class="section">
+		<p class="section-label">03 — Controls &amp; keys</p>
+		<h2>32px tall, quiet until you need them</h2>
+		<div class="row" style="margin-top: 20px;">
+			<button class="btn btn-primary">Create issue</button>
+			<button class="btn">Assign</button>
+			<button class="btn btn-ghost">Cancel</button>
+			<button class="btn" disabled>Merged</button>
+		</div>
+		<div class="row" style="margin-top: 16px;">
+			<input class="input" placeholder="Filter issues…">
+			<span style="font-size:12px;color:var(--color-muted)">or press <kbd>/</kbd></span>
+		</div>
+		<div class="row" style="margin-top: 20px; gap: 16px; font-size: 12px; color: var(--color-muted);">
+			<span><kbd>C</kbd> new issue</span>
+			<span><kbd>⌘</kbd><kbd>K</kbd> palette</span>
+			<span><kbd>G</kbd><kbd>I</kbd> go to inbox</span>
+			<span><kbd>⇧</kbd><kbd>?</kbd> shortcuts</span>
+		</div>
+		<p class="note">Keycaps are bordered mono with a 2px bottom edge. Every action shown in a menu carries its shortcut — the mouse is the fallback path, not the primary one.</p>
+	</section>
+
+	<!-- 04 OVERLAY -->
+	<section class="section">
+		<p class="section-label">04 — Overlay</p>
+		<h2>Shadows exist for exactly one thing</h2>
+		<p class="lede">Popovers, menus and dialogs float above the canvas with <code style="font-family:var(--mono);font-size:12px">shadow-lg</code>.
+			Anything that lives inside the page uses a border instead.</p>
+		<div class="canvas">
+			<div class="popover">
+				<div class="q">Change status…<span class="spacer"></span><kbd>esc</kbd></div>
+				<div class="opt is-active"><span class="st started"></span>In progress<span class="k"><kbd>2</kbd></span></div>
+				<div class="opt"><span class="st"></span>Todo<span class="k"><kbd>1</kbd></span></div>
+				<div class="opt"><span class="st done"></span>Done<span class="k"><kbd>3</kbd></span></div>
+				<div class="opt"><span class="st blocked"></span>Blocked<span class="k"><kbd>4</kbd></span></div>
+			</div>
+		</div>
+	</section>
+
+	<!-- 05 MOBILE -->
+	<section class="section">
+		<p class="section-label">05 — Mobile</p>
+		<h2>Density survives the breakpoint</h2>
+		<p class="lede">The phone build is not a softer version of the app. The row keeps its
+			structure and only sheds columns; the sidebar becomes a tab bar; the keyboard layer
+			becomes a long-press menu. Nothing grows rounder or more colorful on a small screen.</p>
+		<div class="mobile">
+			<div class="phone">
+				<div class="phone-status"><span>9:41</span><span>LTE ▮</span></div>
+				<div class="phone-head"><span class="logomark"></span><b>Cycle 24</b><span class="spacer"></span><span class="tag live">Live</span></div>
+				<div class="m-issue"><span class="st started"></span><span class="title">Command palette focus<br><span class="m-sub">VET-482 · Core · 2h</span></span></div>
+				<div class="m-issue"><span class="st"></span><span class="title">Virtualize issue list<br><span class="m-sub">VET-479 · Platform · 5h</span></span></div>
+				<div class="m-issue"><span class="st blocked"></span><span class="title">Sync conflict on title<br><span class="m-sub">VET-476 · Core · 1d</span></span></div>
+				<div class="m-issue"><span class="st done"></span><span class="title">Hairline at 0.5px<br><span class="m-sub">VET-471 · Design · 2d</span></span></div>
+				<div class="m-issue"><span class="st started"></span><span class="title">Shortcut sheet gap<br><span class="m-sub">VET-468 · Design · 3d</span></span></div>
+				<div class="tabbar">
+					<div class="is-active"><span class="glyph"></span>Inbox</div>
+					<div><span class="glyph"></span>Issues</div>
+					<div><span class="glyph"></span>Cycles</div>
+					<div><span class="glyph"></span>You</div>
+				</div>
+			</div>
+			<ul class="rules">
+				<li><b>&lt; 900px</b><span>Sidebar collapses into a four-item bottom tab bar. The workspace switcher moves into the header.</span></li>
+				<li><b>&lt; 640px</b><span>Team tag and age column drop out of the row; both move under the title as one mono metadata line.</span></li>
+				<li><b>Row height</b><span>38px → 44px. The only concession to touch: the target grows, the type size does not.</span></li>
+				<li><b>Gutters</b><span>20px page padding instead of 32px. Rows still run edge to edge — no inset cards on mobile.</span></li>
+				<li><b>Actions</b><span>Hover affordances have no equivalent, so status and assignee move to a long-press sheet with the same option order as the desktop popover.</span></li>
+				<li><b>Type floor</b><span>13px body, 10px mono metadata. Nothing scales up to "mobile friendly" sizes.</span></li>
+			</ul>
+		</div>
+	</section>
+
+	<!-- 06 DON'T -->
+	<section class="section">
+		<p class="section-label">06 — Off-style, for contrast</p>
+		<h2>What breaks the calm</h2>
+		<div class="compare">
+			<div class="cmp-off">Big gradient card
+				<small>20px radius · purple-to-indigo gradient · glowing colored shadow · 20px bold heading in a marketing voice. All four are out.</small></div>
+			<div class="cmp-on">Same content, on-style
+				<small>8px radius, flat raised fill, 1px border, 13px text. If it groups content inside the page, it gets a border — never a glow.</small></div>
+		</div>
+		<p class="note">Also out: pure white, a second accent hue, pill-shaped buttons, and any animation longer than 150ms.</p>
+	</section>
+
+</div>
+</body>
 </html>

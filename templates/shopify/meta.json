@@ -3,29 +3,29 @@
 	"kind": "design-system",
 	"slug": "shopify",
 	"name": "Shopify",
-	"version": "1.0.0",
+	"version": "1.1.0",
 	"order": 190,
 	"category": "commerce",
 	"vibe": "light",
 	"tags": [
-		"light-ui",
-		"design-system"
+		"commerce",
+		"light"
 	],
-	"blurb": "An inspired interpretation of Shopifi's design language — a cinematic commerce platform that runs two parallel design tracks.",
+	"blurb": "Merchant back-office; cool gray floor, white bordered cards, commerce green actions.",
 	"tagline": {
-		"en": "Cinematic commerce on two parallel surfaces",
-		"zh": "双平行表面的电影感电商"
+		"en": "Merchant back office, commerce green",
+		"zh": "商家后台，商业绿行动色"
 	},
 	"license": "MIT",
 	"origin": {
 		"type": "curated",
-		"upstream": "https://github.com/ricocc/brands-design-md.git",
-		"note": "from brands-design-md (Shopifi-Inspired); unofficial inspired variant."
+		"upstream": "https://github.com/VoltAgent/awesome-design-md",
+		"note": "Vetta-adapted from awesome-design-md (MIT)."
 	},
 	"assets": {
 		"spec": "DESIGN.md",
 		"theme": "theme.css",
 		"demo": "demo.html"
 	},
-	"collectedAt": "2026-08-22"
+	"collectedAt": "2026-08-11"
 }

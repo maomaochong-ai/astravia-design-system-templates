@@ -1,710 +1,347 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Apple — Design System</title>
-
-
-
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Apple — component reference</title>
 <style>
-*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+	/* Mirrors theme.css. Plain custom properties so this file opens standalone. */
+	:root {
+		--color-primary: #0071e3;
+		--color-primary-foreground: #ffffff;
+		--color-surface: #f5f5f7;
+		--color-surface-foreground: #1d1d1f;
+		--color-surface-raised: #ffffff;
+		--color-muted: #6e6e73;
+		--color-accent: #34c759;
+		--color-danger: #ff3b30;
+		--color-border: #d2d2d7;
 
-:root{
-  --pure-white:#ffffff;
-  --snow:#fbfbfd;
-  --whisper-gray:#f5f5f7;
-  --silver:#e8e8ed;
-  --platinum:#d2d2d7;
-  --graphite:#86868b;
-  --charcoal:#6e6e73;
-  --jet-black:#1d1d1f;
-  --true-black:#000000;
-  --apple-blue:#0071e3;
-  --apple-blue-hover:#0077ed;
-  --success-green:#34c759;
-  --alert-red:#ff3b30;
+		--radius-sm: 8px;
+		--radius-md: 12px;
+		--radius-lg: 18px;
+		--radius-xl: 24px;
+		--radius-2xl: 32px;
 
-  --r-md:12px;--r-xl:16px;--r-2xl:20px;
-  --r-full:980px;--r-pill:980px;
-}
+		--shadow-sm: 0 2px 8px rgb(0 0 0 / 0.04);
+		--shadow-md: 0 8px 24px rgb(0 0 0 / 0.08);
+		--shadow-lg: 0 24px 64px rgb(0 0 0 / 0.12);
 
-::selection{background:rgba(0,113,227,.15);color:var(--jet-black)}
-html{scroll-behavior:smooth}
+		--sans: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+	}
 
-body{
-  font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
-  background:var(--pure-white);color:var(--jet-black);
-  font-size:17px;line-height:1.47;letter-spacing:-.01px;
-  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
-}
+	*, *::before, *::after { box-sizing: border-box; }
+	body {
+		margin: 0;
+		background: var(--color-surface);
+		color: var(--color-surface-foreground);
+		font-family: var(--sans);
+		font-size: 17px;
+		line-height: 1.62;
+		-webkit-font-smoothing: antialiased;
+	}
+	/* Size contrast does the hierarchy — weight stays between 400 and 600. */
+	h1, h2, h3 { margin: 0; font-weight: 600; letter-spacing: -0.03em; line-height: 1.06; }
+	p { margin: 0; }
+	::selection { background: rgb(0 113 227 / 0.2); }
+	.spacer { flex: 1; }
+	.muted { color: var(--color-muted); }
+	a { color: var(--color-primary); text-decoration: none; }
 
-.page{max-width:980px;margin:0 auto;padding:0 32px 120px}
+	.wrap { max-width: 980px; margin: 0 auto; padding: 0 22px; }
+	@media (min-width: 768px) { .wrap { padding: 0 32px; } }
 
-/* ── NAV ── */
-.nav{
-  display:flex;justify-content:space-between;align-items:center;
-  height:48px;padding:0 16px;position:sticky;top:0;z-index:100;
-  background:rgba(251,251,253,.92);backdrop-filter:blur(20px);
-  -webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--silver);
-  margin:0 -32px;
-}
-.nav-left{display:flex;align-items:center;gap:12px}
-.nav-wordmark{
-  font-size:18px;font-weight:600;letter-spacing:-.35px;
-  color:var(--jet-black);text-decoration:none;
-}
-.nav-tag{
-  font-size:11px;font-weight:500;color:var(--apple-blue);
-  background:rgba(0,113,227,.06);padding:3px 10px;border-radius:var(--r-pill);
-  border:1px solid rgba(0,113,227,.1);letter-spacing:.02px;
-}
-.nav-right{display:flex;align-items:center;gap:8px}
-.nav-link{
-  font-size:12px;font-weight:400;color:var(--jet-black);text-decoration:none;
-  padding:6px 12px;border-radius:var(--r-md);transition:all .2s;letter-spacing:0;
-}
-.nav-link:hover{color:var(--apple-blue)}
-.nav-link--active{color:var(--apple-blue)}
-.nav-url{
-  font-size:11px;font-weight:400;color:var(--jet-black);text-decoration:none;
-  padding:4px 10px;border-radius:9999px;transition:all .2s;
-  background:rgba(0,0,0,.03);border:1px solid rgba(0,0,0,.08);
-  letter-spacing:.02px;white-space:nowrap;
-}
-.nav-url:hover{color:var(--apple-blue);background:rgba(0,125,250,.06);border-color:rgba(0,125,250,.12)}
+	/* ── Nav: 44px, hairline, nothing but words ──────────────────── */
+	.nav { background: rgb(245 245 247 / 0.86); border-bottom: 1px solid var(--color-border); }
+	.nav-inner { display: flex; align-items: center; gap: 30px; flex-wrap: wrap; min-height: 46px; font-size: 13px; color: var(--color-surface-foreground); }
+	.nav .mk { width: 15px; height: 18px; border-radius: 50% 50% 46% 46% / 62% 62% 38% 38%; background: var(--color-surface-foreground); flex: none; }
+	.nav .links { display: none; gap: 30px; }
+	@media (min-width: 780px) { .nav .links { display: flex; } }
 
-/* ── SECTIONS ── */
-.section{
-  padding:80px 0 0;
-  border-top:1px solid var(--silver);
-  margin-top:64px;
-}
-.section:first-of-type{border-top:none;margin-top:48px}
-.section-header{margin-bottom:40px;text-align:center}
-.section-label{
-  font-size:12px;font-weight:500;letter-spacing:.02px;
-  color:var(--graphite);margin-bottom:8px;
-}
-.section-title{
-  font-size:40px;font-weight:700;letter-spacing:-.022em;line-height:1.15;
-  color:var(--jet-black);
-}
-.section-desc{
-  font-size:17px;line-height:1.47;color:var(--graphite);
-  margin-top:12px;max-width:560px;margin-left:auto;margin-right:auto;
-}
+	/* ── Hero: enormous type, enormous silence ───────────────────── */
+	.hero { text-align: center; padding: 72px 0 24px; }
+	@media (min-width: 768px) { .hero { padding: 104px 0 40px; } }
+	.hero .eyebrow { color: var(--color-primary); font-size: 19px; font-weight: 600; letter-spacing: -0.01em; }
+	.hero h1 { font-size: 46px; margin-top: 8px; }
+	@media (min-width: 768px) { .hero h1 { font-size: 80px; } }
+	.hero .sub { font-size: 21px; margin-top: 18px; color: var(--color-surface-foreground); }
+	@media (min-width: 768px) { .hero .sub { font-size: 28px; } }
+	.hero .links { display: flex; justify-content: center; gap: 26px; margin-top: 26px; font-size: 19px; }
+	/* The quiet secondary: a blue text link with a chevron. */
+	.textlink { color: var(--color-primary); display: inline-flex; align-items: center; gap: 5px; }
+	.textlink::after { content: "›"; font-size: 19px; line-height: 1; }
 
-/* ── HERO ── */
-.hero{
-  padding:120px 0 80px;text-align:center;
-  border-bottom:1px solid var(--silver);
-  margin:0 -32px;padding-left:32px;padding-right:32px;
-  position:relative;overflow:hidden;
-  background:var(--pure-white);
-}
-.hero::before{
-  content:'';position:absolute;
-  width:600px;height:600px;
-  background:radial-gradient(circle,rgba(0,113,227,.04),transparent 70%);
-  border-radius:50%;filter:blur(80px);
-  left:50%;top:-200px;transform:translateX(-50%);pointer-events:none;
-}
-.hero-label{
-  font-size:12px;font-weight:500;letter-spacing:.02px;
-  color:var(--graphite);margin-bottom:16px;
-}
-.hero-title{
-  font-size:clamp(48px,7vw,64px);font-weight:700;line-height:1.08;
-  letter-spacing:-.025em;color:var(--jet-black);
-}
-.hero-title em{
-  font-style:normal;
-  background:linear-gradient(135deg,var(--apple-blue),#5ac8fa);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-}
-.hero-subtitle{
-  font-size:19px;line-height:1.38;color:var(--graphite);
-  margin-top:16px;max-width:480px;margin-left:auto;margin-right:auto;
-}
-.hero-tags{display:flex;gap:8px;margin-top:28px;flex-wrap:wrap;justify-content:center}
-.hero-tag{
-  font-size:12px;font-weight:500;color:var(--graphite);
-  background:var(--whisper-gray);padding:5px 14px;border-radius:var(--r-pill);
-  border:1px solid var(--silver);letter-spacing:.015px;
-}
-.hero-actions{display:flex;gap:12px;margin-top:32px;justify-content:center}
+	/* The product stage: a big soft object floating on the gray. */
+	.stage { padding: 32px 0 88px; display: grid; place-items: center; }
+	.device {
+		width: min(430px, 84vw); aspect-ratio: 3/2;
+		border-radius: var(--radius-2xl);
+		background: linear-gradient(150deg, #ffffff 0%, #e9e9ec 55%, #d8d8dd 100%);
+		box-shadow: var(--shadow-lg);
+		display: grid; place-items: center; position: relative; overflow: hidden;
+	}
+	.device .screen {
+		width: 74%; aspect-ratio: 16/10; border-radius: var(--radius-lg);
+		background: linear-gradient(140deg, #1d1d1f, #3a3a3f);
+		box-shadow: inset 0 0 0 3px rgb(255 255 255 / 0.5);
+		display: grid; place-items: center; color: #f5f5f7; font-size: 15px; letter-spacing: -0.01em;
+	}
 
-/* ── BUTTONS ── */
-.btn{
-  display:inline-flex;align-items:center;gap:6px;
-  font-family:inherit;font-size:14px;font-weight:400;line-height:1;
-  letter-spacing:0;padding:12px 28px;border-radius:var(--r-pill);
-  cursor:pointer;text-decoration:none;white-space:nowrap;
-  transition:all .2s ease;
-}
-.btn:active{transform:scale(.98)}
-.btn-primary{background:var(--apple-blue);color:var(--pure-white);border:1px solid transparent}
-.btn-primary:hover{background:var(--apple-blue-hover)}
-.btn-secondary{background:transparent;color:var(--apple-blue);border:1px solid var(--apple-blue)}
-.btn-secondary:hover{background:var(--apple-blue);color:var(--pure-white)}
-.btn-ghost{background:transparent;color:var(--apple-blue);border:none;padding:12px 16px}
-.btn-ghost:hover{text-decoration:underline}
+	/* ── Sections ─────────────────────────────────────────────────── */
+	.section { padding: 64px 0; }
+	@media (min-width: 768px) { .section { padding: 88px 0; } }
+	.section + .section { border-top: 1px solid var(--color-border); }
+	.section-label { font-size: 15px; font-weight: 600; color: var(--color-primary); margin-bottom: 12px; }
+	.section h2 { font-size: 32px; }
+	@media (min-width: 768px) { .section h2 { font-size: 44px; } }
+	.lede { color: var(--color-muted); margin-top: 18px; max-width: 58ch; font-size: 19px; }
+	.note { margin-top: 22px; font-size: 14px; color: var(--color-muted); }
+	.row { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
 
-/* ── COLOR TOKENS ── */
-.color-grid{
-  display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;
-}
-.color-token{
-  background:var(--pure-white);border:1px solid var(--silver);
-  border-radius:var(--r-2xl);overflow:hidden;transition:border-color .2s;
-}
-.color-token:hover{border-color:var(--platinum)}
-.color-swatch{width:100%;height:80px;border-bottom:1px solid var(--silver)}
-.color-info{padding:14px 16px}
-.color-name{font-size:13px;font-weight:600;letter-spacing:.01px;color:var(--jet-black)}
-.color-hex{
-  font-size:12px;font-weight:500;color:var(--graphite);margin-top:2px;
-  font-variant-numeric:tabular-nums;letter-spacing:.015px;
-}
-.color-role{font-size:11px;color:var(--charcoal);margin-top:6px;line-height:1.4}
+	/* ── Cards: white, huge radius, image-led, lots of padding ───── */
+	.cards { display: grid; grid-template-columns: 1fr; gap: 20px; margin-top: 36px; }
+	@media (min-width: 700px) { .cards { grid-template-columns: repeat(2, 1fr); } }
+	.card {
+		background: var(--color-surface-raised); border-radius: var(--radius-2xl);
+		padding: 30px; box-shadow: var(--shadow-sm);
+		transition: box-shadow 260ms ease, transform 260ms ease;
+	}
+	.card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+	@media (min-width: 768px) { .card { padding: 38px; } }
+	.card .art { height: 128px; border-radius: var(--radius-lg); margin-bottom: 24px; }
+	.card h3 { font-size: 24px; }
+	.card p { font-size: 16px; color: var(--color-muted); margin-top: 10px; line-height: 1.55; }
+	.card .more { margin-top: 16px; font-size: 16px; }
 
-/* ── TYPE SCALE ── */
-.type-table{
-  display:flex;flex-direction:column;border:1px solid var(--silver);
-  border-radius:var(--r-2xl);overflow:hidden;
-}
-.type-row{
-  display:grid;grid-template-columns:100px 1fr 220px;align-items:baseline;
-  padding:20px 24px;border-bottom:1px solid var(--silver);
-}
-.type-row:last-child{border-bottom:none}
-.type-row:hover{background:rgba(0,0,0,.01)}
-.type-meta{
-  font-size:10px;font-weight:600;color:var(--apple-blue);
-  letter-spacing:.06px;text-transform:uppercase;
-}
-.type-sample{color:var(--jet-black);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.type-specs{
-  font-size:11px;color:var(--graphite);text-align:right;
-  font-variant-numeric:tabular-nums;letter-spacing:.015px;
-}
+	/* ── Controls: pills, segmented, toggles ─────────────────────── */
+	.btn {
+		font: inherit; font-size: 16px; font-weight: 400;
+		height: 44px; padding: 0 24px;
+		border: 1px solid transparent; border-radius: 9999px;
+		background: var(--color-primary); color: var(--color-primary-foreground);
+		cursor: pointer; transition: background-color 180ms ease;
+	}
+	.btn:hover { background: #0077ed; }
+	.btn:focus-visible { outline: none; box-shadow: 0 0 0 4px rgb(0 113 227 / 0.3); }
+	.btn-secondary { background: transparent; color: var(--color-primary); border-color: var(--color-primary); }
+	.btn-secondary:hover { background: rgb(0 113 227 / 0.06); }
+	.btn-neutral { background: var(--color-surface-raised); color: var(--color-surface-foreground); border-color: var(--color-border); }
+	.btn-neutral:hover { background: #fbfbfd; }
+	.btn-danger { background: var(--color-danger); }
+	.btn[disabled] { cursor: not-allowed; background: #e8e8ed; color: #aeaeb2; }
 
-/* ── SPACING ── */
-.spacing-bars{display:flex;align-items:flex-end;gap:20px;height:120px}
-.spacing-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px}
-.spacing-bar{
-  width:100%;border-radius:var(--r-md);
-  background:linear-gradient(180deg,var(--apple-blue),#5ac8fa);
-  opacity:.2;transition:opacity .3s;
-}
-.spacing-col:hover .spacing-bar{opacity:.5}
-.spacing-val{font-size:11px;font-weight:600;color:var(--jet-black);letter-spacing:.015px}
-.spacing-name{font-size:10px;font-weight:500;color:var(--graphite);letter-spacing:.015px}
+	.segmented { display: inline-flex; background: rgb(120 120 128 / 0.12); border-radius: 10px; padding: 2px; }
+	.segmented span { padding: 7px 20px; border-radius: 8px; font-size: 15px; color: var(--color-surface-foreground); }
+	.segmented .is-active { background: var(--color-surface-raised); box-shadow: 0 1px 3px rgb(0 0 0 / 0.1); font-weight: 500; }
+	@media (max-width: 400px) { .segmented span { padding: 7px 11px; font-size: 14px; } }
 
-/* ── SHAPES ── */
-.shapes-row{display:flex;flex-wrap:wrap;gap:24px;align-items:flex-end}
-.shape-item{display:flex;flex-direction:column;align-items:center;gap:8px}
-.shape-box{
-  width:72px;height:72px;background:var(--whisper-gray);
-  border:1.5px solid var(--silver);transition:all .3s cubic-bezier(.22,1,.36,1);
-}
-.shape-box:hover{border-color:var(--apple-blue);transform:scale(1.06)}
-.shape-label{font-size:11px;font-weight:500;color:var(--graphite);letter-spacing:.015px;white-space:nowrap}
-.shape-value{
-  font-size:10px;font-weight:400;color:var(--charcoal);letter-spacing:.015px;
-  font-variant-numeric:tabular-nums;
-}
+	.switch { display: inline-flex; align-items: center; gap: 12px; font-size: 16px; }
+	.track { width: 52px; height: 32px; border-radius: 9999px; background: var(--color-accent); padding: 2px; display: flex; justify-content: flex-end; }
+	.track.off { background: rgb(120 120 128 / 0.32); justify-content: flex-start; }
+	.knob { width: 28px; height: 28px; border-radius: 50%; background: #fff; box-shadow: 0 2px 5px rgb(0 0 0 / 0.15); }
 
-/* ── SURFACES ── */
-.surface-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px}
-.surface-item{
-  border-radius:var(--r-2xl);padding:28px 20px;
-  text-align:center;border:1px solid var(--silver);
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  gap:6px;min-height:110px;transition:transform .3s;
-}
-.surface-item:hover{transform:scale(1.02)}
-.surface-name{font-size:14px;font-weight:600;letter-spacing:.01px}
-.surface-val{
-  font-size:11px;font-weight:500;color:var(--graphite);
-  font-variant-numeric:tabular-nums;letter-spacing:.015px;
-}
+	.input {
+		font: inherit; font-size: 17px; width: 100%; max-width: 380px; height: 48px; padding: 0 16px;
+		border: 1px solid var(--color-border); border-radius: var(--radius-md);
+		background: var(--color-surface-raised); color: var(--color-surface-foreground);
+	}
+	.input::placeholder { color: #aeaeb2; }
+	.input:focus { outline: none; border-color: var(--color-primary); box-shadow: 0 0 0 4px rgb(0 113 227 / 0.25); }
 
-/* ── COMPONENTS ── */
-.component-card{
-  background:var(--whisper-gray);border:1px solid var(--silver);
-  border-radius:var(--r-2xl);padding:32px;margin-bottom:20px;
-  transition:border-color .2s;
-}
-.component-card:hover{border-color:var(--platinum)}
-.component-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px}
-.component-name{font-size:15px;font-weight:600;letter-spacing:.01px;color:var(--jet-black)}
-.component-role{font-size:12px;color:var(--graphite);margin-top:4px;letter-spacing:.015px}
-.component-class{
-  font-size:11px;font-weight:500;color:var(--apple-blue);
-  background:rgba(0,113,227,.06);padding:3px 10px;border-radius:var(--r-pill);
-  border:1px solid rgba(0,113,227,.1);letter-spacing:.015px;
-  font-family:'SFMono-Regular',Consolas,monospace;
-}
-.component-preview{
-  display:flex;gap:16px;align-items:center;flex-wrap:wrap;
-  padding:24px;background:var(--pure-white);border-radius:var(--r-2xl);
-  border:1px solid var(--silver);
-}
-.component-desc{
-  font-size:12px;color:var(--charcoal);line-height:1.5;
-  margin-top:12px;max-width:480px;
-}
+	.swatches { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; margin-top: 30px; }
+	@media (min-width: 700px) { .swatches { grid-template-columns: repeat(4, 1fr); } }
+	.sw .fill { height: 78px; border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); }
+	.sw b { display: block; font-size: 15px; font-weight: 500; margin-top: 12px; }
+	.sw span { font-size: 13px; color: var(--color-muted); }
 
-/* ── DO/DON'T ── */
-.guide-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-.guide-card{
-  border-radius:var(--r-2xl);padding:28px;
-  border:1px solid var(--silver);
-}
-.guide-card--do{background:rgba(52,199,89,.04);border-color:rgba(52,199,89,.15)}
-.guide-card--dont{background:rgba(255,59,48,.04);border-color:rgba(255,59,48,.1)}
-.guide-label{font-size:11px;font-weight:600;letter-spacing:.06px;text-transform:uppercase;margin-bottom:16px}
-.guide-card--do .guide-label{color:var(--success-green)}
-.guide-card--dont .guide-label{color:var(--alert-red)}
-.guide-list{
-  list-style:none;display:flex;flex-direction:column;gap:10px;
-}
-.guide-list li{
-  font-size:13px;line-height:1.5;padding-left:20px;position:relative;
-  color:var(--jet-black);
-}
-.guide-card--do .guide-list li::before{
-  content:'✓';position:absolute;left:0;color:var(--success-green);font-weight:700;font-size:12px;
-}
-.guide-card--dont .guide-list li::before{
-  content:'✕';position:absolute;left:0;color:var(--alert-red);font-weight:700;font-size:12px;
-}
+	/* ── Mobile ───────────────────────────────────────────────────── */
+	.mobile { display: grid; grid-template-columns: minmax(0, 1fr); gap: 36px; margin-top: 36px; align-items: start; }
+	@media (min-width: 860px) { .mobile { grid-template-columns: 286px 1fr; gap: 48px; } }
+	.phone {
+		width: 286px; max-width: 100%; margin: 0 auto;
+		border-radius: 40px; padding: 8px; overflow: hidden;
+		background: linear-gradient(150deg, #e6e6ea, #cfcfd6);
+		box-shadow: var(--shadow-lg);
+	}
+	.phone-inner { background: var(--color-surface); border-radius: 33px; overflow: hidden; min-width: 0; }
+	.phone-status { display: flex; justify-content: space-between; padding: 12px 20px 6px; font-size: 11px; font-weight: 600; }
+	.phone-nav { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 4px 16px 10px; border-bottom: 1px solid var(--color-border); font-size: 11px; color: var(--color-muted); }
+	.phone-body { padding: 24px 20px 18px; text-align: center; }
+	.phone-body .eyebrow { color: var(--color-primary); font-size: 12px; font-weight: 600; }
+	.phone-body h4 { font-size: 30px; font-weight: 600; letter-spacing: -0.03em; line-height: 1.05; margin: 4px 0 8px; }
+	.phone-body .sub { font-size: 14px; }
+	.phone-body .links { display: flex; justify-content: center; gap: 16px; margin-top: 12px; font-size: 13px; }
+	.m-device { width: 78%; aspect-ratio: 3/2; margin: 20px auto 0; border-radius: var(--radius-xl); background: linear-gradient(150deg, #fff, #dedee3); box-shadow: var(--shadow-md); }
+	.m-card { background: #fff; border-radius: var(--radius-xl); box-shadow: var(--shadow-sm); padding: 16px; margin: 14px 16px 0; text-align: left; }
+	.m-card .art { height: 52px; border-radius: var(--radius-md); margin-bottom: 10px; }
+	.m-card b { font-size: 15px; font-weight: 600; letter-spacing: -0.02em; }
+	.m-card p { font-size: 12px; color: var(--color-muted); margin-top: 4px; line-height: 1.45; }
+	.m-tabs { display: flex; border-top: 1px solid var(--color-border); background: rgb(255 255 255 / 0.8); margin-top: 16px; }
+	.m-tabs div { flex: 1; text-align: center; font-size: 10px; color: var(--color-muted); padding: 8px 0 14px; }
+	.m-tabs .is-active { color: var(--color-primary); }
+	.m-tabs .g { display: block; width: 17px; height: 17px; border: 1.6px solid currentColor; border-radius: 6px; margin: 0 auto 4px; }
 
-/* ── FOOTER ── */
-.footer{
-  margin-top:96px;padding:32px 0;
-  border-top:1px solid var(--silver);
-  display:flex;justify-content:space-between;align-items:center;
-}
-.footer-left{font-size:14px;font-weight:500;color:var(--graphite);opacity:.6}
-.footer-right{display:flex;gap:20px}
-.footer-link{
-  font-size:12px;font-weight:500;color:var(--graphite);text-decoration:none;
-  transition:color .2s;letter-spacing:.015px;
-}
-.footer-link:hover{color:var(--apple-blue)}
+	.rules { margin: 0; padding: 0; list-style: none; }
+	.rules li { padding: 16px 0; border-bottom: 1px solid var(--color-border); font-size: 16px; color: var(--color-muted); }
+	.rules b { display: block; color: var(--color-surface-foreground); font-size: 17px; font-weight: 600; letter-spacing: -0.01em; margin-bottom: 3px; }
 
-/* ── RESPONSIVE ── */
-@media(max-width:768px){
-  .page{padding:0 20px 80px}
-  .hero{margin:0 -20px;padding-left:20px;padding-right:20px;padding-top:80px}
-  .nav{margin:0 -20px}
-  .section-title{font-size:28px}
-  .type-row{grid-template-columns:70px 1fr;gap:8px}
-  .type-specs{display:none}
-  .guide-grid{grid-template-columns:1fr}
-  .color-grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr))}
-  .hero-title{font-size:40px}
-  .section-header{text-align:left}
-}
+	/* ── Off-style ────────────────────────────────────────────────── */
+	.compare { display: grid; grid-template-columns: 1fr; gap: 18px; margin-top: 30px; }
+	@media (min-width: 700px) { .compare { grid-template-columns: repeat(2, 1fr); } }
+	.cmp-off { padding: 22px; border-radius: 4px; background: var(--color-surface-raised); border: 2px solid var(--color-surface-foreground); box-shadow: 4px 4px 0 var(--color-surface-foreground); font-size: 17px; font-weight: 800; }
+	.cmp-off small { display: block; font-weight: 400; font-size: 14px; color: var(--color-muted); margin-top: 10px; line-height: 1.55; }
+	.cmp-on { padding: 30px; border-radius: var(--radius-2xl); background: var(--color-surface-raised); box-shadow: var(--shadow-sm); font-size: 22px; font-weight: 600; letter-spacing: -0.02em; }
+	.cmp-on small { display: block; font-weight: 400; font-size: 14px; color: var(--color-muted); margin-top: 10px; line-height: 1.55; }
 
-/* ── ENTRANCE ANIMATION ── */
-.section,.hero{opacity:1;transition:opacity .6s cubic-bezier(.22,1,.36,1),transform .6s cubic-bezier(.22,1,.36,1)}
-.section.visible,.hero.visible{opacity:1;transform:translateY(0)}
+	footer { border-top: 1px solid var(--color-border); padding: 26px 0 56px; font-size: 12px; color: var(--color-muted); }
 </style>
 </head>
 <body>
 
-<div class="page">
+<!-- COVER — the showcase page. Enormous type, one blue link, and a machined
+     white object floating in a great deal of quiet. -->
+<nav class="nav">
+	<div class="wrap nav-inner">
+		<span class="mk"></span>
+		<span class="links"><span>Store</span><span>Design</span><span>System</span><span>Tokens</span><span>Support</span></span>
+		<span class="spacer"></span>
+		<span>⌕</span><span>▤</span>
+	</div>
+</nav>
 
-  <!-- NAV -->
-  <nav class="nav">
-    <div class="nav-left">
-      <a href="#" class="nav-wordmark">Apple</a>
-      <span class="nav-tag">Design System</span>
-      <a href="#" class="nav-url">https://www.apple.com</a>
-    </div>
-    <div class="nav-right">
-      <a href="#colors" class="nav-link nav-link--active">Colors</a>
-      <a href="#typography" class="nav-link">Type</a>
-      <a href="#spacing" class="nav-link">Spacing</a>
-      <a href="#components" class="nav-link">Components</a>
-    </div>
-  </nav>
+<div class="wrap">
+	<header class="hero">
+		<p class="eyebrow">Vetta Design System</p>
+		<h1>Silence, machined.</h1>
+		<p class="sub">Enormous type. One blue. Curves that never break.</p>
+		<div class="links">
+			<a class="textlink" href="#">Learn more</a>
+			<a class="textlink" href="#">Browse components</a>
+		</div>
+	</header>
 
-  <!-- HERO -->
-  <div class="hero">
-    <div class="hero-label">Design System</div>
-    <h1 class="hero-title">Designed by Apple<br>in <em>California.</em></h1>
-    <p class="hero-subtitle">Minimal elegance with precision-crafted clarity. Clean lines, generous whitespace, and a disciplined palette where content takes center stage.</p>
-    <div class="hero-tags">
-      <span class="hero-tag">13 color tokens</span>
-      <span class="hero-tag">10 type steps</span>
-      <span class="hero-tag">4px grid</span>
-      <span class="hero-tag">4 surface levels</span>
-    </div>
-    <div class="hero-actions">
-      <a href="#" class="btn btn-primary" download>Download Spec</a>
-      <a href="#" class="btn btn-secondary" download>theme.css</a>
-      <a href="#" class="btn btn-secondary" download>tokens.json</a>
-      <a href="#" class="btn btn-secondary" download>variables.css</a>
-    </div>
-  </div>
-
-  <!-- COLORS -->
-  <section class="section" id="colors">
-    <div class="section-header">
-      <div class="section-label">Foundation</div>
-      <h2 class="section-title">Color Tokens</h2>
-      <p class="section-desc">Light neutrals with a single blue accent for all interactive elements. 13 tokens spanning surfaces, text hierarchy, and semantic states.</p>
-    </div>
-    <div class="color-grid">
-      <div class="color-token">
-        <div class="color-swatch" style="background:#ffffff"></div>
-        <div class="color-info"><div class="color-name">Pure White</div><div class="color-hex">#ffffff</div><div class="color-role">Primary page background</div></div>
-      </div>
-      <div class="color-token">
-        <div class="color-swatch" style="background:#fbfbfd"></div>
-        <div class="color-info"><div class="color-name">Snow</div><div class="color-hex">#fbfbfd</div><div class="color-role">Alternate sections</div></div>
-      </div>
-      <div class="color-token">
-        <div class="color-swatch" style="background:#f5f5f7"></div>
-        <div class="color-info"><div class="color-name">Whisper Gray</div><div class="color-hex">#f5f5f7</div><div class="color-role">Section backgrounds</div></div>
-      </div>
-      <div class="color-token">
-        <div class="color-swatch" style="background:#e8e8ed"></div>
-        <div class="color-info"><div class="color-name">Silver</div><div class="color-hex">#e8e8ed</div><div class="color-role">Borders, dividers</div></div>
-      </div>
-      <div class="color-token">
-        <div class="color-swatch" style="background:#d2d2d7"></div>
-        <div class="color-info"><div class="color-name">Platinum</div><div class="color-hex">#d2d2d7</div><div class="color-role">Inactive states</div></div>
-      </div>
-      <div class="color-token">
-        <div class="color-swatch" style="background:#86868b"></div>
-        <div class="color-info"><div class="color-name">Graphite</div><div class="color-hex">#86868b</div><div class="color-role">Secondary text</div></div>
-      </div>
-      <div class="color-token">
-        <div class="color-swatch" style="background:#6e6e73"></div>
-        <div class="color-info"><div class="color-name">Charcoal</div><div class="color-hex">#6e6e73</div><div class="color-role">Tertiary text</div></div>
-      </div>
-      <div class="color-token">
-        <div class="color-swatch" style="background:#1d1d1f"></div>
-        <div class="color-info"><div class="color-name">Jet Black</div><div class="color-hex">#1d1d1f</div><div class="color-role">Primary text</div></div>
-      </div>
-      <div class="color-token">
-        <div class="color-swatch" style="background:#000000"></div>
-        <div class="color-info"><div class="color-name">True Black</div><div class="color-hex">#000000</div><div class="color-role">Maximum emphasis</div></div>
-      </div>
-      <div class="color-token">
-        <div class="color-swatch" style="background:#0071e3"></div>
-        <div class="color-info"><div class="color-name">Apple Blue</div><div class="color-hex">#0071e3</div><div class="color-role">Links, primary buttons</div></div>
-      </div>
-      <div class="color-token">
-        <div class="color-swatch" style="background:#34c759"></div>
-        <div class="color-info"><div class="color-name">Success Green</div><div class="color-hex">#34c759</div><div class="color-role">Confirmation states</div></div>
-      </div>
-      <div class="color-token">
-        <div class="color-swatch" style="background:#ff3b30"></div>
-        <div class="color-info"><div class="color-name">Alert Red</div><div class="color-hex">#ff3b30</div><div class="color-role">Error states</div></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- TYPOGRAPHY -->
-  <section class="section" id="typography">
-    <div class="section-header">
-      <div class="section-label">Typography</div>
-      <h2 class="section-title">Type Scale</h2>
-      <p class="section-desc">SF Pro as primary typeface (Inter substitute). Precise optical sizing with tight tracking on display sizes and generous leading on body text.</p>
-    </div>
-    <div class="type-table">
-      <div class="type-row">
-        <span class="type-meta">Hero</span>
-        <span class="type-sample" style="font-size:28px;font-weight:700;line-height:1.08;letter-spacing:-.025em">Think different</span>
-        <span class="type-specs">64px / 1.08 / −0.025em</span>
-      </div>
-      <div class="type-row">
-        <span class="type-meta">Display</span>
-        <span class="type-sample" style="font-size:24px;font-weight:700;line-height:1.10;letter-spacing:-.025em">Designed by Apple</span>
-        <span class="type-specs">48px / 1.10 / −0.025em</span>
-      </div>
-      <div class="type-row">
-        <span class="type-meta">Heading-lg</span>
-        <span class="type-sample" style="font-size:22px;font-weight:700;line-height:1.15;letter-spacing:-.022em">Pro. Beyond.</span>
-        <span class="type-specs">40px / 1.15 / −0.022em</span>
-      </div>
-      <div class="type-row">
-        <span class="type-meta">Heading</span>
-        <span class="type-sample" style="font-size:18px;font-weight:600;line-height:1.29;letter-spacing:-.016em">MacBook Pro</span>
-        <span class="type-specs">28px / 1.29 / −0.016em</span>
-      </div>
-      <div class="type-row">
-        <span class="type-meta">Heading-sm</span>
-        <span class="type-sample" style="font-size:16px;font-weight:600;line-height:1.33;letter-spacing:-.012em">Get the highlights</span>
-        <span class="type-specs">24px / 1.33 / −0.012em</span>
-      </div>
-      <div class="type-row">
-        <span class="type-meta">Body</span>
-        <span class="type-sample" style="font-size:17px;font-weight:400;line-height:1.47;letter-spacing:-.01em">The most powerful MacBook Pro ever</span>
-        <span class="type-specs">17px / 1.47 / −0.01em</span>
-      </div>
-      <div class="type-row">
-        <span class="type-meta">Footnote</span>
-        <span class="type-sample" style="font-size:14px;font-weight:400;line-height:1.43">Trade-in values will vary</span>
-        <span class="type-specs">14px / 1.43 / —</span>
-      </div>
-      <div class="type-row">
-        <span class="type-meta">Caption</span>
-        <span class="type-sample" style="font-size:12px;font-weight:400;line-height:1.33;letter-spacing:.007px">Legal · Fine print · Labels</span>
-        <span class="type-specs">12px / 1.33 / 0.007px</span>
-      </div>
-    </div>
-
-    <h3 style="font-size:14px;font-weight:600;color:var(--jet-black);margin:40px 0 20px;letter-spacing:.01px">Fonts</h3>
-    <div style="display:flex;flex-direction:column;border:1px solid var(--silver);border-radius:var(--r-2xl);overflow:hidden">
-      <div style="padding:20px 24px;border-bottom:1px solid var(--silver);display:flex;align-items:baseline;gap:16px">
-        <span style="font-size:10px;font-weight:600;color:var(--apple-blue);letter-spacing:.06px;text-transform:uppercase;flex:0 0 60px">Display</span>
-        <span style="font-size:16px;font-weight:600;color:var(--jet-black);letter-spacing:-.2px">SF Pro Display</span>
-        <span style="font-size:11px;color:var(--graphite);letter-spacing:.015px">400–700 · 28–64px</span>
-      </div>
-      <div style="padding:20px 24px;border-bottom:1px solid var(--silver);display:flex;align-items:baseline;gap:16px">
-        <span style="font-size:10px;font-weight:600;color:var(--apple-blue);letter-spacing:.06px;text-transform:uppercase;flex:0 0 60px">Text</span>
-        <span style="font-size:16px;font-weight:500;color:var(--jet-black);letter-spacing:-.2px">SF Pro Text</span>
-        <span style="font-size:11px;color:var(--graphite);letter-spacing:.015px">400–600 · 12–24px</span>
-      </div>
-      <div style="padding:20px 24px;border-bottom:1px solid var(--silver);display:flex;align-items:baseline;gap:16px">
-        <span style="font-size:10px;font-weight:600;color:var(--apple-blue);letter-spacing:.06px;text-transform:uppercase;flex:0 0 60px">Mono</span>
-        <span style="font-size:16px;font-weight:500;color:var(--jet-black);letter-spacing:-.2px">SF Mono</span>
-        <span style="font-size:11px;color:var(--graphite);letter-spacing:.015px">400, 600 · Code only</span>
-      </div>
-      <div style="padding:20px 24px;display:flex;align-items:baseline;gap:16px">
-        <span style="font-size:10px;font-weight:600;color:var(--apple-blue);letter-spacing:.06px;text-transform:uppercase;flex:0 0 60px">Fallback</span>
-        <span style="font-size:16px;font-weight:500;color:var(--jet-black);letter-spacing:-.2px">Inter</span>
-        <span style="font-size:11px;color:var(--graphite);letter-spacing:.015px">Substitute for all above</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- SPACING & SHAPES -->
-  <section class="section" id="spacing">
-    <div class="section-header">
-      <div class="section-label">Layout</div>
-      <h2 class="section-title">Spacing & Shapes</h2>
-      <p class="section-desc">Base unit 4px. Spacious density with generous breathing room. 15-step spacing scale, fully rounded buttons and pill elements.</p>
-    </div>
-
-    <h3 style="font-size:14px;font-weight:600;color:var(--jet-black);margin-bottom:20px;letter-spacing:.01px">Spacing Scale (4px base)</h3>
-    <div class="spacing-bars">
-      <div class="spacing-col"><div class="spacing-bar" style="height:8px"></div><span class="spacing-val">4</span><span class="spacing-name">4px</span></div>
-      <div class="spacing-col"><div class="spacing-bar" style="height:14px"></div><span class="spacing-val">8</span><span class="spacing-name">8px</span></div>
-      <div class="spacing-col"><div class="spacing-bar" style="height:20px"></div><span class="spacing-val">12</span><span class="spacing-name">12px</span></div>
-      <div class="spacing-col"><div class="spacing-bar" style="height:28px"></div><span class="spacing-val">16</span><span class="spacing-name">16px</span></div>
-      <div class="spacing-col"><div class="spacing-bar" style="height:36px"></div><span class="spacing-val">24</span><span class="spacing-name">24px</span></div>
-      <div class="spacing-col"><div class="spacing-bar" style="height:48px"></div><span class="spacing-val">32</span><span class="spacing-name">32px</span></div>
-      <div class="spacing-col"><div class="spacing-bar" style="height:64px"></div><span class="spacing-val">48</span><span class="spacing-name">48px</span></div>
-      <div class="spacing-col"><div class="spacing-bar" style="height:90px"></div><span class="spacing-val">96</span><span class="spacing-name">96px</span></div>
-    </div>
-
-    <h3 style="font-size:14px;font-weight:600;color:var(--jet-black);margin:40px 0 20px;letter-spacing:.01px">Border Radius</h3>
-    <div class="shapes-row">
-      <div class="shape-item">
-        <div class="shape-box" style="border-radius:12px"></div>
-        <span class="shape-label">default</span>
-        <span class="shape-value">12px</span>
-      </div>
-      <div class="shape-item">
-        <div class="shape-box" style="border-radius:16px"></div>
-        <span class="shape-label">xl</span>
-        <span class="shape-value">16px</span>
-      </div>
-      <div class="shape-item">
-        <div class="shape-box" style="border-radius:20px"></div>
-        <span class="shape-label">cards</span>
-        <span class="shape-value">20px</span>
-      </div>
-      <div class="shape-item">
-        <div class="shape-box" style="border-radius:36px"></div>
-        <span class="shape-label">pill</span>
-        <span class="shape-value">980px</span>
-      </div>
-    </div>
-
-    <h3 style="font-size:14px;font-weight:600;color:var(--jet-black);margin:40px 0 20px;letter-spacing:.01px">Shadows</h3>
-    <div style="display:flex;flex-wrap:wrap;gap:16px">
-      <div style="width:140px;height:90px;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:var(--r-2xl);background:var(--pure-white);box-shadow:0 0 0 1px var(--silver)">
-        <span style="font-size:11px;font-weight:500;color:var(--graphite);letter-spacing:.015px;margin-bottom:4px">Border</span>
-        <span style="font-size:10px;color:var(--charcoal);font-variant-numeric:tabular-nums;letter-spacing:.015px">1px silver ring</span>
-      </div>
-      <div style="width:140px;height:90px;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:var(--r-2xl);background:var(--pure-white);box-shadow:0 2px 12px rgba(0,0,0,.08)">
-        <span style="font-size:11px;font-weight:500;color:var(--graphite);letter-spacing:.015px;margin-bottom:4px">Subtle</span>
-        <span style="font-size:10px;color:var(--charcoal);font-variant-numeric:tabular-nums;letter-spacing:.015px">cards, elevation</span>
-      </div>
-      <div style="width:140px;height:90px;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:var(--r-2xl);background:var(--pure-white);box-shadow:0 8px 30px rgba(0,0,0,.12)">
-        <span style="font-size:11px;font-weight:500;color:var(--graphite);letter-spacing:.015px;margin-bottom:4px">Medium</span>
-        <span style="font-size:10px;color:var(--charcoal);font-variant-numeric:tabular-nums;letter-spacing:.015px">modals, popovers</span>
-      </div>
-      <div style="width:140px;height:90px;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:var(--r-2xl);background:var(--pure-white);box-shadow:0 20px 60px rgba(0,0,0,.15)">
-        <span style="font-size:11px;font-weight:500;color:var(--graphite);letter-spacing:.015px;margin-bottom:4px">Heavy</span>
-        <span style="font-size:10px;color:var(--charcoal);font-variant-numeric:tabular-nums;letter-spacing:.015px">dialogs, sheets</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- SURFACES -->
-  <section class="section" id="surfaces">
-    <div class="section-header">
-      <div class="section-label">Elevation</div>
-      <h2 class="section-title">Surface System</h2>
-      <p class="section-desc">Shadows over borders. Subtle elevation through diffused light. 4 distinct surface levels on a light canvas.</p>
-    </div>
-
-    <div class="surface-grid">
-      <div class="surface-item" style="background:#ffffff;border:1px solid var(--silver)">
-        <span class="surface-name">Pure White</span>
-        <span class="surface-val">#ffffff — Level 0</span>
-      </div>
-      <div class="surface-item" style="background:#fbfbfd">
-        <span class="surface-name">Snow</span>
-        <span class="surface-val">#fbfbfd — Level 1</span>
-      </div>
-      <div class="surface-item" style="background:#f5f5f7">
-        <span class="surface-name">Whisper Gray</span>
-        <span class="surface-val">#f5f5f7 — Level 2</span>
-      </div>
-      <div class="surface-item" style="background:#ffffff;box-shadow:0 2px 12px rgba(0,0,0,.08)">
-        <span class="surface-name">Card + Shadow</span>
-        <span class="surface-val">#ffffff — Level 3</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- COMPONENTS -->
-  <section class="section" id="components">
-    <div class="section-header">
-      <div class="section-label">Components</div>
-      <h2 class="section-title">Button Variants</h2>
-      <p class="section-desc">Primary action (Apple Blue), secondary outline, and ghost text link. Fully rounded pill buttons are the default.</p>
-    </div>
-
-    <div class="component-card">
-      <div class="component-header">
-        <div><div class="component-name">Primary Action Button</div><div class="component-role">Main call to action — highest visual weight</div></div>
-        <span class="component-class">.btn-primary</span>
-      </div>
-      <div class="component-preview">
-        <button class="btn btn-primary">Buy</button>
-        <button class="btn btn-primary" style="background:var(--apple-blue-hover)">Hover state</button>
-      </div>
-      <div class="component-desc">Apple Blue (#0071e3) background, white text, fully rounded pill shape. Use for the single most important action on the page.</div>
-    </div>
-
-    <div class="component-card">
-      <div class="component-header">
-        <div><div class="component-name">Secondary Action Button</div><div class="component-role">Supporting actions</div></div>
-        <span class="component-class">.btn-secondary</span>
-      </div>
-      <div class="component-preview">
-        <button class="btn btn-secondary">Learn more</button>
-        <button class="btn btn-secondary" style="background:var(--apple-blue);color:var(--pure-white)">Hover state</button>
-      </div>
-      <div class="component-desc">Apple Blue text with blue border, fully rounded. Fills to solid blue on hover for clear feedback.</div>
-    </div>
-
-    <div class="component-card">
-      <div class="component-header">
-        <div><div class="component-name">Ghost Text Link</div><div class="component-role">Inline links, tertiary actions</div></div>
-        <span class="component-class">.btn-ghost</span>
-      </div>
-      <div class="component-preview">
-        <a href="#" class="btn btn-ghost">Watch the film</a>
-        <a href="#" class="btn btn-ghost" style="text-decoration:underline">Hover state</a>
-      </div>
-      <div class="component-desc">Apple Blue text, no border, no background. Underline appears on hover. The lightest interactive treatment.</div>
-    </div>
-
-    <div class="component-card">
-      <div class="component-header">
-        <div><div class="component-name">Card Surface</div><div class="component-role">Content containers, product showcases</div></div>
-        <span class="component-class">.card</span>
-      </div>
-      <div class="component-preview">
-        <div style="background:var(--pure-white);border-radius:var(--r-2xl);box-shadow:0 2px 12px rgba(0,0,0,.08);padding:24px;flex:1;max-width:320px">
-          <div style="font-size:28px;font-weight:700;letter-spacing:-.016em;color:var(--jet-black);line-height:1.15">MacBook Pro</div>
-          <div style="font-size:14px;color:var(--graphite);margin-top:8px;line-height:1.43">Pro. Beyond.</div>
-          <div style="font-size:17px;color:var(--apple-blue);margin-top:12px;cursor:pointer">Buy &gt;</div>
-        </div>
-      </div>
-      <div class="component-desc">White background, 20px radius, subtle shadow (0 2px 12px rgba(0,0,0,0.08)). Content bleeds to edges — no internal padding.</div>
-    </div>
-
-    <div class="component-card">
-      <div class="component-header">
-        <div><div class="component-name">Input Field</div><div class="component-role">User text input</div></div>
-        <span class="component-class">input</span>
-      </div>
-      <div class="component-preview">
-        <div style="display:flex;flex-direction:column;gap:12px;flex:1;max-width:360px">
-          <input type="text" placeholder="Apple ID" style="background:var(--pure-white);border:1px solid var(--platinum);border-radius:var(--r-md);padding:14px 16px;color:var(--jet-black);font-size:17px;font-family:inherit;outline:none">
-          <input type="text" value="Focused state" style="background:var(--pure-white);border:1px solid var(--apple-blue);border-radius:var(--r-md);padding:14px 16px;color:var(--jet-black);font-size:17px;font-family:inherit;outline:none">
-        </div>
-      </div>
-      <div class="component-desc">White background, Platinum border, 12px radius. Focus state transitions border to Apple Blue (#0071e3).</div>
-    </div>
-  </section>
-
-  <!-- DO'S & DON'TS -->
-  <section class="section" id="guidelines">
-    <div class="section-header">
-      <div class="section-label">Guidelines</div>
-      <h2 class="section-title">Do's & Don'ts</h2>
-    </div>
-    <div class="guide-grid">
-      <div class="guide-card guide-card--do">
-        <div class="guide-label">Do — Embrace</div>
-        <ul class="guide-list">
-          <li>Pure White (#ffffff) as the primary canvas</li>
-          <li>Jet Black (#1d1d1f) for all primary text</li>
-          <li>Apple Blue (#0071e3) exclusively for interactive elements</li>
-          <li>Whisper Gray (#f5f5f7) for section separation</li>
-          <li>Fully rounded (980px) pill buttons</li>
-          <li>20px radius for cards and containers</li>
-          <li>Generous whitespace — 64px minimum between sections</li>
-          <li>Subtle shadows over hard borders</li>
-        </ul>
-      </div>
-      <div class="guide-card guide-card--dont">
-        <div class="guide-label">Don't — Avoid</div>
-        <ul class="guide-list">
-          <li>Apple Blue for non-interactive decorative elements</li>
-          <li>Heavy drop shadows — keep them diffused and light</li>
-          <li>More than two text colors in a single block</li>
-          <li>Tight, cramped spacing without breathing room</li>
-          <li>Colored button backgrounds except Apple Blue for CTAs</li>
-          <li>Decorative or ornamental fonts</li>
-          <li>Hard-edged borders — prefer shadows or whitespace</li>
-          <li>Mono fonts for non-code content</li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer class="footer">
-    <div class="footer-left">Apple Design System</div>
-    <div class="footer-right">
-      <a href="#colors" class="footer-link">Colors</a>
-      <a href="#typography" class="footer-link">Typography</a>
-      <a href="#spacing" class="footer-link">Spacing</a>
-      <a href="#components" class="footer-link">Components</a>
-      <a href="#" class="footer-link" download>Download Spec</a>
-    </div>
-  </footer>
-
+	<div class="stage">
+		<div class="device">
+			<div class="screen">32px corners · one accent</div>
+		</div>
+	</div>
 </div>
 
+<div class="wrap">
 
+	<!-- 01 -->
+	<section class="section">
+		<p class="section-label">01 — Scale</p>
+		<h2>Size does the hierarchy</h2>
+		<p class="lede">Display headings run 44–80px, section titles 24–32px, body 17px. Weight barely
+			moves — everything sits between 400 and 600 — because contrast comes from size and space, not
+			from bolding things until they shout.</p>
+		<div class="cards">
+			<div class="card">
+				<div class="art" style="background: linear-gradient(140deg, #f5f5f7, #dfdfe4)"></div>
+				<h3>Curves that never break</h3>
+				<p>Cards take 32px corners, controls curve fully into pills, and nothing in the system has a
+					corner sharper than 8px.</p>
+				<div class="more"><a class="textlink" href="#">See the radius scale</a></div>
+			</div>
+			<div class="card">
+				<div class="art" style="background: linear-gradient(140deg, #eaf3fd, #cfe4fb)"></div>
+				<h3>Depth you can barely see</h3>
+				<p>Shadows are wide, soft and almost transparent. Borders appear only where two surfaces
+					genuinely touch.</p>
+				<div class="more"><a class="textlink" href="#">See the elevation scale</a></div>
+			</div>
+		</div>
+	</section>
 
+	<!-- 02 -->
+	<section class="section">
+		<p class="section-label">02 — Controls</p>
+		<h2>Pills, segments, switches</h2>
+		<p class="lede">A filled blue pill is the single call to action on a view. Everything else is a
+			blue text link with a chevron — the quiet secondary that carries most of the navigation.</p>
+		<div class="row" style="margin-top: 30px;">
+			<button class="btn">Buy</button>
+			<button class="btn btn-secondary">Compare</button>
+			<button class="btn btn-neutral">Learn more</button>
+			<button class="btn" disabled>Sold out</button>
+			<a class="textlink" href="#">Or watch the film</a>
+		</div>
+		<div class="row" style="margin-top: 26px; gap: 32px;">
+			<span class="segmented"><span class="is-active">Overview</span><span>Specs</span><span>Compare</span></span>
+			<span class="switch"><span class="track"><span class="knob"></span></span>Auto sync</span>
+			<span class="switch"><span class="track off"><span class="knob"></span></span>Beta features</span>
+		</div>
+		<div class="row" style="margin-top: 26px;">
+			<input class="input" placeholder="Search the system">
+		</div>
+		<p class="note">Segmented controls replace tabs and switches replace checkboxes. Both keep the interface reading as a set of physical objects rather than a form.</p>
+		<div class="swatches">
+			<div class="sw"><div class="fill" style="background: var(--color-surface)"></div><b>surface</b><span>#f5f5f7 · the stage</span></div>
+			<div class="sw"><div class="fill" style="background: var(--color-surface-raised)"></div><b>raised</b><span>#ffffff · cards</span></div>
+			<div class="sw"><div class="fill" style="background: var(--color-primary)"></div><b>primary</b><span>#0071e3 · one CTA</span></div>
+			<div class="sw"><div class="fill" style="background: var(--color-accent)"></div><b>accent</b><span>#34c759 · success only</span></div>
+		</div>
+	</section>
+
+	<!-- 03 MOBILE -->
+	<section class="section">
+		<p class="section-label">03 — Mobile</p>
+		<h2>The same air, at a smaller radius</h2>
+		<p class="lede">Nothing about the language changes on a phone. Type steps down, cards go to one
+			column, and the radii ease slightly so a 32px corner does not swallow a 300px card — the
+			proportion between the box and its corner is what has to stay constant.</p>
+		<div class="mobile">
+			<div class="phone">
+				<div class="phone-inner">
+					<div class="phone-status"><span>9:41</span><span>▮▮ ▮</span></div>
+					<div class="phone-nav"><span></span>Vetta<span class="spacer"></span><span>⌕ ▤</span></div>
+					<div class="phone-body">
+						<p class="eyebrow">Vetta Design System</p>
+						<h4>Silence, machined.</h4>
+						<p class="sub muted">One blue. Curves that never break.</p>
+						<div class="links"><a class="textlink" href="#">Learn more</a><a class="textlink" href="#">Buy</a></div>
+						<div class="m-device"></div>
+					</div>
+					<div class="m-card">
+						<div class="art" style="background:linear-gradient(140deg,#f5f5f7,#dfdfe4)"></div>
+						<b>Curves that never break</b>
+						<p>32px corners on desktop, 24px here — the ratio is what stays fixed.</p>
+					</div>
+					<div class="m-tabs">
+						<div class="is-active"><span class="g"></span>Store</div>
+						<div><span class="g"></span>Design</div>
+						<div><span class="g"></span>Search</div>
+						<div><span class="g"></span>Bag</div>
+					</div>
+				</div>
+			</div>
+			<ul class="rules">
+				<li><b>Type</b>Hero 80px → 46px → 30px, section titles 44px → 32px, body stays 17px with the same relaxed leading. Weight never rises above 600 to compensate.</li>
+				<li><b>Radius</b>Cards ease 32px → 24px and inner art 18px → 12px. A corner has to stay proportional to its box; keeping 32px on a narrow card makes it look inflated.</li>
+				<li><b>Grid</b>Two- and three-column card grids become one column at 20px gaps. Section spacing 88px → 64px — still the most generous thing on the screen.</li>
+				<li><b>Edges</b>Nothing touches the edge. Page padding never drops below 20px, even at 320px wide.</li>
+				<li><b>The quiet secondary</b>Blue text links with chevrons stay exactly as they are. They are already touch-friendly at 19px and they keep the screen free of button clutter.</li>
+				<li><b>Segmented controls</b>Stay segmented rather than becoming a dropdown, as long as there are three options or fewer. Four or more moves to a sheet.</li>
+				<li><b>Depth</b>Shadow tokens are unchanged. The diffuse, nearly invisible elevation is a signature, and hardening it for small screens is the most common way this language gets lost.</li>
+			</ul>
+		</div>
+	</section>
+
+	<!-- 04 DON'T -->
+	<section class="section">
+		<p class="section-label">04 — Off-style, for contrast</p>
+		<h2>What breaks the machining</h2>
+		<div class="compare">
+			<div class="cmp-off">Hard edges, hard shadow
+				<small>4px corners · 2px black border · an offset shadow with no blur · weight 800. Every one of those is a deliberate rejection of this system's softness.</small></div>
+			<div class="cmp-on">Same content, on-style
+				<small>32px radius, white card, no border, a wide shadow at 4% opacity, weight 600. If you can point at the shadow's edge, it is wrong.</small></div>
+		</div>
+		<p class="note">Also out: dense tables, cramped rows, a second accent hue in one view, and gradients anywhere except product artwork.</p>
+	</section>
+</div>
+
+<footer><div class="wrap">Vetta design reference — apple · one blue, and a great deal of quiet.</div></footer>
 </body>
 </html>

@@ -1,43 +1,22 @@
-/* templates — light design system, converted from brands-design-md. */
+/* Slack — friendly workspace white, aubergine anchor, candy accents. Palette derived from awesome-design-md (MIT). */
 @theme {
 	--color-primary: #4a154b;
 	--color-primary-foreground: #ffffff;
-	--color-surface: #fefbff;
+	--color-surface: #ffffff;
 	--color-surface-foreground: #1d1c1d;
-	--color-surface-raised: #f7f7f7;
-	--color-muted: #6a6a6a;
-	--color-accent: #fefbff;
-	--color-danger: #dc2626;
-	--color-border: #e5e5e5;
+	--color-surface-raised: #f8f8f8;
+	--color-muted: #616061;
+	--color-accent: #36c5f0;
+	--color-danger: #e01e5a;
+	--color-border: #dddddd;
 
-/* 品牌 token（来自 brands-design-md） */
---color-slack-aubergine: #611f69;
-  --color-slack-deep-plum: #481a54;
-  --color-slack-purple-haze: #f9f0ff;
-  --color-slack-lavender-mist: #eac8fe;
-  --color-slack-carbon: #1d1c1d;
-  --color-slack-charcoal: #454245;
-  --color-slack-channel-blue: #1264a3;
-  --color-slack-soft-white: #fefbff;
-  --background-image-slack-vivid-violet: linear-gradient(
-    104deg,
-    rgb(0, 0, 0) 9.56%,
-    rgb(186, 1, 255) 102.66%
-  );
-  --font-sans: "Salesforce-Sans", Inter, "IBM Plex Sans", sans-serif;
-  --font-display: "Salesforce-Avant-Garde", "Inter Tight", "DM Sans", sans-serif;
-  --text-slack-eyebrow: 12px;
-  --text-slack-caption: 14px;
-  --text-slack-body-sm: 16px;
-  --text-slack-body: 18px;
-  --text-slack-subheading: 32px;
-  --text-slack-heading-sm: 50px;
-  --text-slack-heading: 64px;
-  --text-slack-heading-lg: 76px;
-  --text-slack-display: 96px;
-  --radius-slack-button: 4px;
-  --radius-slack-card: 16px;
-  --radius-slack-pill: 999px;
-  --shadow-slack-xl: rgba(0, 0, 0, 0.1) 0 0 32px 0;
-  --shadow-slack-nav: rgba(0, 0, 0, 0.08) 0 1px 3px 0;
+	--radius-sm: 4px;
+	--radius-md: 6px;
+	--radius-lg: 8px;
+	--radius-xl: 12px;
+	--radius-2xl: 16px;
+
+	--shadow-sm: 0 1px 2px rgb(0 0 0 / 0.08);
+	--shadow-md: 0 4px 12px rgb(0 0 0 / 0.12);
+	--shadow-lg: 0 12px 36px rgb(0 0 0 / 0.16);
 }

@@ -3,29 +3,29 @@
 	"kind": "design-system",
 	"slug": "duolingo",
 	"name": "Duolingo",
-	"version": "1.0.0",
+	"version": "1.1.0",
 	"order": 140,
 	"category": "playful",
 	"vibe": "light",
 	"tags": [
-		"light-ui",
-		"design-system"
+		"playful",
+		"light"
 	],
-	"blurb": "Duolingo's interface treats the page like a children's storybook: white paper canvas, chubby rounded display type, and a single saturated green that reads as 'correct answer' th…",
+	"blurb": "Chunky playful game UI; vivid green, 3D-press buttons, extra-bold uppercase labels.",
 	"tagline": {
-		"en": "Playful storybook white paper with chubby rounded type",
-		"zh": "童话书般的白纸，圆润童趣字体"
+		"en": "Vivid green, buttons that press down",
+		"zh": "鲜绿游戏感，按钮会下沉"
 	},
 	"license": "MIT",
 	"origin": {
 		"type": "curated",
-		"upstream": "https://github.com/ricocc/brands-design-md.git",
-		"note": "from brands-design-md (Duolingo)."
+		"upstream": "https://github.com/VoltAgent/awesome-design-md",
+		"note": "Vetta-adapted from awesome-design-md (MIT)."
 	},
 	"assets": {
 		"spec": "DESIGN.md",
 		"theme": "theme.css",
 		"demo": "demo.html"
 	},
-	"collectedAt": "2026-08-22"
+	"collectedAt": "2026-08-11"
 }

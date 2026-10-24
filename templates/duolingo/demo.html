@@ -1,866 +1,394 @@
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Duolingo — Design System</title>
-
-
-
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Duolingo — component reference</title>
 <style>
-*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+	/* Mirrors theme.css. Plain custom properties so this file opens standalone. */
+	:root {
+		--color-primary: #58cc02;
+		--color-primary-foreground: #ffffff;
+		--color-surface: #ffffff;
+		--color-surface-foreground: #4b4b4b;
+		--color-surface-raised: #f7f7f7;
+		--color-muted: #777777;
+		--color-accent: #1cb0f6;
+		--color-danger: #ff4b4b;
+		--color-border: #e5e5e5;
 
-:root{
-  --white:#FFFFFF;
-  --snow:#F7F7F7;
-  --eel:#3C3C3C;
-  --eel-light:#4B4B4B;
-  --slug:#777777;
-  --swan:#E5E5E5;
-  --green:#58CC02;
-  --green-hover:#4CAF00;
-  --green-dark:#46A302;
-  --bee:#FFC800;
-  --fox:#FF9600;
-  --cardinal:#FF4B4B;
-  --macaw:#1CB0F6;
-  --regalia:#CE82FF;
-  --basil:#1899D6;
+		--radius-sm: 8px;
+		--radius-md: 12px;
+		--radius-lg: 16px;
+		--radius-xl: 20px;
+		--radius-2xl: 28px;
 
-  --r-sm:8px;--r-md:12px;--r-lg:16px;--r-xl:20px;--r-2xl:24px;--r-pill:9999px;
+		--shadow-sm: 0 2px 0 rgb(0 0 0 / 0.12);
+		--shadow-md: 0 4px 0 rgb(0 0 0 / 0.15);
+		--shadow-lg: 0 8px 24px rgb(0 0 0 / 0.15);
 
-  --shadow-sm:0 1px 2px rgba(0,0,0,.05);
-  --shadow-md:0 4px 12px rgba(0,0,0,.08);
-  --shadow-lg:0 8px 24px rgba(0,0,0,.1);
-  --shadow-button:0 4px 0 var(--green-dark);
-}
+		/* The darker edges that make the 3D press work. */
+		--green-edge: #46a302;
+		--blue-edge: #1899d6;
+		--red-edge: #ea2b2b;
+		--gray-edge: #b7b7b7;
 
-::selection{background:rgba(88,204,2,.2);color:var(--eel)}
-html{scroll-behavior:smooth}
+		--sans: -apple-system, BlinkMacSystemFont, "Segoe UI Variable", "Segoe UI", Nunito, Roboto, "Helvetica Neue", Arial, sans-serif;
+	}
 
-body{
-  font-family:'Nunito',system-ui,-apple-system,sans-serif;
-  background:var(--white);color:var(--eel);
-  font-size:16px;line-height:1.5;letter-spacing:-.01em;
-  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
-}
+	*, *::before, *::after { box-sizing: border-box; }
+	body {
+		margin: 0;
+		background: var(--color-surface);
+		color: var(--color-surface-foreground);
+		font-family: var(--sans);
+		font-size: 16px;
+		font-weight: 500;
+		line-height: 1.5;
+		-webkit-font-smoothing: antialiased;
+	}
+	/* Everything is slightly bolder than feels reasonable. That's the voice. */
+	h1, h2, h3 { margin: 0; font-weight: 800; line-height: 1.2; }
+	p { margin: 0; }
+	::selection { background: rgb(88 204 2 / 0.3); }
+	.spacer { flex: 1; }
+	.muted { color: var(--color-muted); }
 
-.page{max-width:960px;margin:0 auto;padding:0 32px 120px}
+	.wrap { max-width: 1000px; margin: 0 auto; padding: 0 16px; }
+	@media (min-width: 768px) { .wrap { padding: 0 24px; } }
 
-/* ── NAV ── */
-.nav{
-  display:flex;justify-content:space-between;align-items:center;
-  height:64px;padding:0 16px;position:sticky;top:0;z-index:100;
-  background:rgba(255,255,255,.95);backdrop-filter:blur(16px);
-  -webkit-backdrop-filter:blur(16px);
-  box-shadow:0 1px 0 rgba(0,0,0,.08);
-  margin:0 -32px;
-}
-.nav-left{display:flex;align-items:center;gap:12px}
-.nav-wordmark{
-  font-size:18px;font-weight:800;letter-spacing:-.35px;
-  color:var(--green);text-decoration:none;
-}
-.nav-tag{
-  font-size:11px;font-weight:700;color:var(--macaw);
-  background:rgba(28,176,246,.08);padding:3px 10px;border-radius:var(--r-pill);
-  border:1px solid rgba(28,176,246,.15);letter-spacing:.02px;
-}
-.nav-right{display:flex;align-items:center;gap:8px}
-.nav-link{
-  font-size:14px;font-weight:600;color:var(--slug);text-decoration:none;
-  padding:6px 12px;border-radius:var(--r-sm);transition:all .2s;
-}
-.nav-link:hover{color:var(--eel);background:var(--snow)}
-.nav-link--active{color:var(--green)}
+	/* ── Top bar: chunky counters, 2px borders ────────────────────── */
+	.topbar { border-bottom: 2px solid var(--color-border); }
+	.topbar-inner { display: flex; align-items: center; gap: 14px; padding: 14px 0; }
+	.brand { display: flex; align-items: center; gap: 10px; color: var(--color-primary); font-weight: 800; font-size: 21px; }
+	.brand .owl { width: 30px; height: 30px; border-radius: 50% 50% 46% 46%; background: var(--color-primary); }
+	.counter { display: inline-flex; align-items: center; gap: 6px; font-weight: 800; font-size: 16px; }
+	.counter.fire { color: #ff9600; }
+	.counter.gem { color: var(--color-accent); }
+	.counter.heart { color: var(--color-danger); }
 
-/* ── SECTIONS ── */
-.section{
-  padding:80px 0 0;
-  margin-top:64px;
-}
-.section:first-of-type{margin-top:48px}
-.section-header{margin-bottom:40px}
-.section-label{
-  font-size:11px;font-weight:700;letter-spacing:.08px;
-  text-transform:uppercase;color:var(--green);margin-bottom:8px;
-}
-.section-title{
-  font-size:32px;font-weight:800;letter-spacing:-.02em;line-height:1.17;
-  color:var(--eel);
-}
-.section-desc{
-  font-size:15px;line-height:1.6;color:var(--slug);
-  margin-top:12px;max-width:560px;
-}
+	/* ── Play column + stats rail ─────────────────────────────────── */
+	.play { display: grid; grid-template-columns: 1fr; gap: 24px; padding: 24px 0 40px; }
+	@media (min-width: 900px) { .play { grid-template-columns: 1fr 320px; gap: 32px; } }
 
-/* ── HERO ── */
-.hero{
-  padding:80px 0 48px;
-  margin:0 -32px;padding-left:32px;padding-right:32px;
-  position:relative;overflow:hidden;
-  background:linear-gradient(180deg,rgba(88,204,2,.04) 0%,transparent 100%);
-}
-.hero::before{
-  content:'';position:absolute;
-  width:400px;height:400px;
-  background:radial-gradient(circle,rgba(88,204,2,.1),transparent 70%);
-  border-radius:50%;filter:blur(80px);
-  right:-80px;top:-120px;pointer-events:none;
-}
-.hero-label{
-  font-size:11px;font-weight:700;letter-spacing:.1px;
-  text-transform:uppercase;color:var(--green);margin-bottom:16px;
-}
-.hero-title{
-  font-size:clamp(36px,6vw,48px);font-weight:800;line-height:1.1;
-  letter-spacing:-.02em;color:var(--eel);
-}
-.hero-title em{
-  font-style:normal;
-  background:linear-gradient(135deg,var(--green),var(--macaw));
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-}
-.hero-subtitle{
-  font-size:17px;line-height:1.6;color:var(--slug);
-  margin-top:20px;max-width:480px;
-}
-.hero-tags{display:flex;gap:8px;margin-top:28px;flex-wrap:wrap}
-.hero-tag{
-  font-size:12px;font-weight:700;color:var(--slug);
-  background:var(--snow);padding:5px 12px;border-radius:var(--r-pill);
-  border:1px solid var(--swan);
-}
-.hero-actions{display:flex;gap:12px;margin-top:28px;flex-wrap:wrap}
+	.unit {
+		background: var(--color-primary); color: #fff;
+		border-radius: var(--radius-lg);
+		box-shadow: 0 4px 0 var(--green-edge);
+		padding: 18px 22px; display: flex; align-items: center; gap: 16px;
+	}
+	.unit .k { font-size: 13px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; opacity: 0.9; }
+	.unit h2 { font-size: 22px; margin-top: 2px; }
+	.unit .guide { margin-left: auto; }
 
-/* ── BUTTONS ── */
-.btn{
-  display:inline-flex;align-items:center;gap:6px;
-  font-family:inherit;font-size:16px;font-weight:700;line-height:1.5;
-  letter-spacing:-.01em;padding:13px 24px;border-radius:var(--r-pill);
-  cursor:pointer;text-decoration:none;white-space:nowrap;
-  transition:all .15s;border:none;
-}
-.btn:active{transform:translateY(2px)}
-.btn-primary{background:var(--green);color:var(--white);box-shadow:var(--shadow-button)}
-.btn-primary:hover{background:var(--green-hover)}
-.btn-primary:active{box-shadow:0 2px 0 var(--green-dark)}
-.btn-secondary{background:transparent;color:var(--green);border:2px solid var(--green);padding:11px 24px}
-.btn-secondary:hover{background:rgba(88,204,2,.08)}
-.btn-ghost{background:transparent;color:var(--macaw);padding:8px 12px;border:none}
-.btn-ghost:hover{text-decoration:underline}
+	/* Lesson path: big circular nodes you cannot possibly mis-tap. */
+	.path { display: flex; flex-direction: column; align-items: center; gap: 22px; padding: 34px 0; }
+	.node {
+		width: 74px; height: 74px; border-radius: 50%;
+		display: grid; place-items: center; font-size: 26px; color: #fff;
+		background: var(--color-primary); box-shadow: 0 6px 0 var(--green-edge);
+		position: relative;
+	}
+	.node.locked { background: var(--color-surface-raised); box-shadow: 0 6px 0 var(--color-border); color: #afafaf; }
+	.node.active { background: var(--color-primary); box-shadow: 0 6px 0 var(--green-edge), 0 0 0 8px rgb(88 204 2 / 0.2); }
+	.node.chest { background: #ffc800; box-shadow: 0 6px 0 #e5a600; }
+	.node .start {
+		position: absolute; top: -34px; left: 50%; transform: translateX(-50%);
+		background: var(--color-surface-raised); color: var(--color-primary);
+		border: 2px solid var(--color-border); border-radius: var(--radius-sm);
+		padding: 3px 12px; font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em;
+		white-space: nowrap;
+	}
+	.node.off-l { transform: translateX(-64px); }
+	.node.off-r { transform: translateX(64px); }
+	.node.off-l2 { transform: translateX(-38px); }
 
-/* ── COLOR TOKENS ── */
-.color-grid{
-  display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;
-}
-.color-token{
-  background:var(--white);border:1px solid var(--swan);
-  border-radius:var(--r-lg);overflow:hidden;transition:border-color .2s;
-  box-shadow:var(--shadow-sm);
-}
-.color-token:hover{border-color:var(--slug);box-shadow:var(--shadow-md)}
-.color-swatch{width:100%;height:80px}
-.color-info{padding:14px 16px}
-.color-name{font-size:13px;font-weight:700;color:var(--eel)}
-.color-hex{
-  font-size:12px;font-weight:600;color:var(--slug);margin-top:2px;
-  font-variant-numeric:tabular-nums;
-}
-.color-role{font-size:11px;color:var(--slug);margin-top:6px;line-height:1.4}
+	/* Exercise card: the thing the whole system is built to hold. */
+	.exercise { border: 2px solid var(--color-border); border-radius: var(--radius-lg); padding: 20px; }
+	.exercise h3 { font-size: 20px; }
+	.choices { display: grid; grid-template-columns: 1fr; gap: 12px; margin-top: 16px; }
+	@media (min-width: 560px) { .choices { grid-template-columns: repeat(2, 1fr); } }
+	.choice {
+		border: 2px solid var(--color-border); border-bottom-width: 4px;
+		border-radius: var(--radius-md); padding: 14px 16px;
+		font-weight: 700; font-size: 16px; display: flex; align-items: center; gap: 12px;
+	}
+	.choice .n { width: 22px; height: 22px; border: 2px solid var(--color-border); border-radius: var(--radius-sm); display: grid; place-items: center; font-size: 12px; color: var(--color-muted); }
+	.choice.is-selected { border-color: var(--color-accent); background: rgb(28 176 246 / 0.12); color: #1899d6; }
+	.choice.is-selected .n { border-color: var(--color-accent); color: #1899d6; }
+	.choice.is-correct { border-color: var(--color-primary); background: rgb(88 204 2 / 0.14); color: #58a700; }
+	.choice.is-wrong { border-color: var(--color-danger); background: rgb(255 75 75 / 0.12); color: #ea2b2b; }
 
-/* ── GRADIENT TOKENS ── */
-.gradient-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
-.gradient-token{
-  border-radius:var(--r-lg);padding:24px;
-  min-height:120px;display:flex;flex-direction:column;justify-content:flex-end;
-  box-shadow:var(--shadow-sm);border:1px solid var(--swan);
-}
-.gradient-name{font-size:12px;font-weight:700;color:var(--eel);margin-bottom:4px}
-.gradient-desc{font-size:12px;color:var(--slug);line-height:1.4}
+	/* Fat progress bar. */
+	.bar { height: 16px; border-radius: 9999px; background: var(--color-border); overflow: hidden; }
+	.bar .fill { display: block; height: 100%; border-radius: 9999px; background: var(--color-primary); width: 64%; position: relative; }
+	.bar .fill::after { content: ""; position: absolute; left: 8px; right: 8px; top: 3px; height: 4px; border-radius: 9999px; background: rgb(255 255 255 / 0.3); }
 
-/* ── TYPE SCALE ── */
-.type-table{
-  display:flex;flex-direction:column;border:1px solid var(--swan);
-  border-radius:var(--r-lg);overflow:hidden;
-  box-shadow:var(--shadow-sm);
-}
-.type-row{
-  display:grid;grid-template-columns:100px 1fr 240px;align-items:baseline;
-  padding:16px 24px;border-bottom:1px solid var(--swan);
-  background:var(--white);
-}
-.type-row:last-child{border-bottom:none}
-.type-row:hover{background:var(--snow)}
-.type-meta{
-  font-size:10px;font-weight:700;color:var(--green);
-  letter-spacing:.06px;text-transform:uppercase;
-}
-.type-sample{color:var(--eel);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.type-specs{
-  font-size:11px;color:var(--slug);text-align:right;
-  font-variant-numeric:tabular-nums;
-}
+	/* Stats rail */
+	.rail { display: flex; flex-direction: column; gap: 16px; }
+	.railcard { border: 2px solid var(--color-border); border-radius: var(--radius-lg); padding: 16px 18px; }
+	.railcard h3 { font-size: 16px; margin-bottom: 10px; }
+	.rr { display: flex; align-items: center; gap: 10px; padding: 8px 0; font-size: 15px; font-weight: 700; }
+	.rr .ic { width: 30px; height: 30px; border-radius: var(--radius-sm); display: grid; place-items: center; font-size: 15px; }
+	.tint-green { background: rgb(88 204 2 / 0.15); }
+	.tint-blue { background: rgb(28 176 246 / 0.15); }
+	.tint-red { background: rgb(255 75 75 / 0.15); }
+	.tint-gold { background: rgb(255 200 0 / 0.2); }
 
-/* ── SPACING ── */
-.spacing-bars{display:flex;align-items:flex-end;gap:20px;height:120px;flex-wrap:wrap}
-.spacing-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;min-width:40px}
-.spacing-bar{
-  width:100%;border-radius:4px;
-  background:var(--green);
-  opacity:.25;transition:opacity .3s;
-}
-.spacing-col:hover .spacing-bar{opacity:.6}
-.spacing-val{font-size:11px;font-weight:700;color:var(--eel)}
-.spacing-name{font-size:10px;font-weight:600;color:var(--slug)}
+	/* ── Buttons: the 3D press ────────────────────────────────────── */
+	.btn {
+		font: inherit; font-size: 15px; font-weight: 800;
+		text-transform: uppercase; letter-spacing: 0.06em;
+		height: 50px; padding: 0 24px;
+		border: 0; border-radius: var(--radius-md);
+		background: var(--color-primary); color: var(--color-primary-foreground);
+		box-shadow: 0 4px 0 var(--green-edge);
+		cursor: pointer;
+		transition: transform 60ms ease, box-shadow 60ms ease, filter 120ms ease;
+	}
+	.btn:hover { filter: brightness(1.06); }
+	/* Press: the shadow disappears and the button drops into it. */
+	.btn:active { transform: translateY(4px); box-shadow: none; }
+	.btn:focus-visible { outline: none; box-shadow: 0 4px 0 var(--green-edge), 0 0 0 4px rgb(88 204 2 / 0.35); }
+	.btn-blue { background: var(--color-accent); box-shadow: 0 4px 0 var(--blue-edge); }
+	.btn-blue:active { box-shadow: none; }
+	.btn-danger { background: var(--color-danger); box-shadow: 0 4px 0 var(--red-edge); }
+	.btn-danger:active { box-shadow: none; }
+	.btn-secondary {
+		background: var(--color-surface); color: var(--color-muted);
+		border: 2px solid var(--color-border); box-shadow: 0 4px 0 var(--color-border);
+	}
+	.btn-secondary:active { box-shadow: none; }
+	.btn[disabled] { cursor: not-allowed; background: var(--color-border); color: #afafaf; box-shadow: 0 4px 0 var(--gray-edge); transform: none; }
+	.btn-lg { height: 58px; font-size: 17px; padding: 0 34px; }
+	.row { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
 
-/* ── SHAPES ── */
-.shapes-row{display:flex;flex-wrap:wrap;gap:24px;align-items:flex-end}
-.shape-item{display:flex;flex-direction:column;align-items:center;gap:8px}
-.shape-box{
-  width:72px;height:72px;background:var(--snow);
-  border:1.5px solid var(--swan);transition:all .3s cubic-bezier(.22,1,.36,1);
-}
-.shape-box:hover{border-color:var(--green);transform:scale(1.06)}
-.shape-label{font-size:11px;font-weight:600;color:var(--slug);white-space:nowrap}
-.shape-value{
-  font-size:10px;font-weight:600;color:var(--slug);
-  font-variant-numeric:tabular-nums;
-}
+	.input {
+		font: inherit; font-size: 16px; font-weight: 500; width: 100%; max-width: 340px; height: 50px; padding: 0 16px;
+		border: 2px solid var(--color-border); border-radius: var(--radius-md);
+		background: var(--color-surface); color: var(--color-surface-foreground);
+	}
+	.input::placeholder { color: #afafaf; }
+	.input:focus { outline: none; border-color: var(--color-accent); }
 
-/* ── SHADOWS ── */
-.shadow-row{display:flex;flex-wrap:wrap;gap:16px}
-.shadow-item{
-  width:140px;height:90px;display:flex;flex-direction:column;align-items:center;
-  justify-content:center;border-radius:var(--r-md);background:var(--white);
-  border:1px solid var(--swan);
-}
-.shadow-name{font-size:11px;font-weight:600;color:var(--slug);margin-bottom:4px}
-.shadow-val{font-size:10px;color:var(--slug);font-variant-numeric:tabular-nums;text-align:center;padding:0 8px}
+	/* ── Reference sections ───────────────────────────────────────── */
+	.section { padding: 40px 0; border-top: 2px solid var(--color-border); }
+	.section-label { font-size: 13px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-primary); margin-bottom: 8px; }
+	.section h2 { font-size: 26px; }
+	@media (min-width: 768px) { .section h2 { font-size: 32px; } }
+	.lede { color: var(--color-muted); margin-top: 12px; max-width: 60ch; }
+	.note { margin-top: 18px; font-size: 14px; color: var(--color-muted); }
 
-/* ── DEPTH ── */
-.depth-row{
-  display:flex;align-items:center;gap:20px;padding:20px 0;
-  border-bottom:1px solid var(--swan);
-}
-.depth-row:last-child{border-bottom:none}
-.depth-swatch{
-  width:56px;height:56px;border-radius:var(--r-md);flex-shrink:0;
-}
-.depth-info{flex:1}
-.depth-name{font-size:14px;font-weight:700;color:var(--eel)}
-.depth-desc{font-size:12px;color:var(--slug);margin-top:2px}
-.depth-value{
-  font-size:12px;font-weight:600;color:var(--slug);
-  font-variant-numeric:tabular-nums;
-}
+	.swatches { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-top: 24px; }
+	@media (min-width: 700px) { .swatches { grid-template-columns: repeat(4, 1fr); } }
+	.sw .fill2 { height: 68px; border-radius: var(--radius-lg); }
+	.sw b { display: block; font-size: 14px; font-weight: 800; margin-top: 10px; }
+	.sw span { font-size: 13px; color: var(--color-muted); }
 
-/* ── SURFACES ── */
-.surface-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px}
-.surface-item{
-  border-radius:var(--r-lg);padding:28px 20px;
-  text-align:center;border:1px solid var(--swan);
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  gap:6px;min-height:110px;transition:transform .3s;
-  box-shadow:var(--shadow-sm);
-}
-.surface-item:hover{transform:scale(1.02)}
-.surface-name{font-size:14px;font-weight:700}
-.surface-val{
-  font-size:11px;font-weight:600;color:var(--slug);
-  font-variant-numeric:tabular-nums;
-}
+	/* ── Mobile ───────────────────────────────────────────────────── */
+	.mobile { display: grid; grid-template-columns: minmax(0, 1fr); gap: 32px; margin-top: 26px; align-items: start; }
+	@media (min-width: 860px) { .mobile { grid-template-columns: 286px 1fr; gap: 44px; } }
+	.phone {
+		width: 286px; max-width: 100%; margin: 0 auto;
+		border: 2px solid var(--color-border); border-radius: 30px;
+		overflow: hidden; background: var(--color-surface); box-shadow: var(--shadow-lg);
+	}
+	.phone-status { display: flex; justify-content: space-between; padding: 12px 18px 4px; font-size: 10px; color: var(--color-muted); font-weight: 700; }
+	.phone-top { display: flex; align-items: center; gap: 10px; padding: 4px 16px 12px; border-bottom: 2px solid var(--color-border); font-size: 13px; }
+	.phone-top .counter { font-size: 13px; }
+	.phone-body { padding: 14px 16px 10px; }
+	.m-unit { background: var(--color-primary); color: #fff; border-radius: var(--radius-md); box-shadow: 0 4px 0 var(--green-edge); padding: 10px 14px; }
+	.m-unit .k { font-size: 9px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.9; }
+	.m-unit b { font-size: 15px; }
+	.m-path { display: flex; flex-direction: column; align-items: center; gap: 14px; padding: 18px 0 6px; }
+	.m-path .node { width: 56px; height: 56px; font-size: 20px; box-shadow: 0 5px 0 var(--green-edge); }
+	.m-path .node.locked { box-shadow: 0 5px 0 var(--color-border); }
+	.m-path .node.chest { box-shadow: 0 5px 0 #e5a600; }
+	.m-path .node .start { font-size: 10px; padding: 2px 9px; top: -28px; }
+	.m-tabs { display: flex; border-top: 2px solid var(--color-border); }
+	.m-tabs div { flex: 1; text-align: center; font-size: 10px; font-weight: 800; color: var(--color-muted); padding: 9px 0 14px; text-transform: uppercase; letter-spacing: 0.04em; }
+	.m-tabs .is-active { color: var(--color-primary); }
+	.m-tabs .g { display: block; width: 20px; height: 20px; border: 2.5px solid currentColor; border-radius: 6px; margin: 0 auto 4px; }
 
-/* ── COMPONENTS ── */
-.component-card{
-  background:var(--white);border:1px solid var(--swan);
-  border-radius:var(--r-lg);padding:32px;margin-bottom:20px;
-  transition:border-color .2s;box-shadow:var(--shadow-sm);
-}
-.component-card:hover{border-color:var(--slug);box-shadow:var(--shadow-md)}
-.component-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px}
-.component-name{font-size:15px;font-weight:700;color:var(--eel)}
-.component-role{font-size:12px;color:var(--slug);margin-top:4px}
-.component-class{
-  font-size:11px;font-weight:700;color:var(--green);
-  background:rgba(88,204,2,.08);padding:3px 10px;border-radius:var(--r-pill);
-  border:1px solid rgba(88,204,2,.15);
-  font-family:'Source Code Pro',monospace;
-}
-.component-preview{
-  display:flex;gap:16px;align-items:center;flex-wrap:wrap;
-  padding:24px;background:var(--snow);border-radius:var(--r-md);
-  border:1px solid var(--swan);
-}
-.component-desc{
-  font-size:12px;color:var(--slug);line-height:1.5;
-  margin-top:12px;max-width:480px;
-}
+	.rules { margin: 0; padding: 0; list-style: none; }
+	.rules li { padding: 14px 0; border-bottom: 2px solid var(--color-border); font-size: 15px; color: var(--color-muted); }
+	.rules b { display: block; color: var(--color-surface-foreground); font-size: 16px; font-weight: 800; margin-bottom: 2px; }
 
-/* ── FORM INPUT ── */
-.form-input{
-  background:var(--white);border:2px solid var(--swan);border-radius:var(--r-md);
-  padding:14px 16px;color:var(--eel);font-size:16px;font-family:inherit;
-  outline:none;width:100%;max-width:360px;transition:all .2s;
-}
-.form-input::placeholder{color:var(--slug)}
-.form-input:focus{border-color:var(--green);box-shadow:0 0 0 2px rgba(88,204,2,.2)}
-
-/* ── PROGRESS BAR ── */
-.progress-track{
-  width:100%;max-width:300px;height:8px;background:var(--swan);
-  border-radius:var(--r-pill);overflow:hidden;
-}
-.progress-fill{height:100%;background:var(--green);border-radius:var(--r-pill);transition:width .6s ease}
-
-/* ── DO/DON'T ── */
-.guide-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-.guide-card{
-  border-radius:var(--r-lg);padding:28px;
-  border:1px solid var(--swan);box-shadow:var(--shadow-sm);
-}
-.guide-card--do{background:rgba(88,204,2,.04);border-color:rgba(88,204,2,.2)}
-.guide-card--dont{background:rgba(255,75,75,.04);border-color:rgba(255,75,75,.15)}
-.guide-label{font-size:11px;font-weight:700;letter-spacing:.06px;text-transform:uppercase;margin-bottom:16px}
-.guide-card--do .guide-label{color:var(--green)}
-.guide-card--dont .guide-label{color:var(--cardinal)}
-.guide-list{
-  list-style:none;display:flex;flex-direction:column;gap:10px;
-}
-.guide-list li{
-  font-size:13px;line-height:1.5;padding-left:20px;position:relative;
-  color:var(--eel);
-}
-.guide-card--do .guide-list li::before{
-  content:'✓';position:absolute;left:0;color:var(--green);font-weight:700;font-size:12px;
-}
-.guide-card--dont .guide-list li::before{
-  content:'✕';position:absolute;left:0;color:var(--cardinal);font-weight:700;font-size:12px;
-}
-
-/* ── FONT LIST ── */
-.font-table{
-  display:flex;flex-direction:column;border:1px solid var(--swan);
-  border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--shadow-sm);
-}
-.font-row{
-  padding:20px 24px;border-bottom:1px solid var(--swan);
-  display:flex;align-items:baseline;gap:16px;background:var(--white);
-}
-.font-row:last-child{border-bottom:none}
-.font-role-tag{
-  font-size:10px;font-weight:700;color:var(--green);letter-spacing:.06px;
-  text-transform:uppercase;flex:0 0 70px;
-}
-.font-name{font-size:16px;font-weight:700;color:var(--eel);letter-spacing:-.2px}
-.font-meta{font-size:11px;color:var(--slug)}
-
-/* ── FOOTER ── */
-.footer{
-  margin-top:96px;padding:32px 0;
-  border-top:1px solid var(--swan);
-  display:flex;justify-content:space-between;align-items:center;
-}
-.footer-left{font-size:14px;font-weight:600;color:var(--slug);opacity:.6}
-.footer-right{display:flex;gap:20px}
-.footer-link{
-  font-size:12px;font-weight:600;color:var(--slug);text-decoration:none;
-  transition:color .2s;
-}
-.footer-link:hover{color:var(--green)}
-
-/* ── RESPONSIVE ── */
-@media(max-width:768px){
-  .page{padding:0 20px 80px}
-  .hero{margin:0 -20px;padding-left:20px;padding-right:20px;padding-top:56px}
-  .nav{margin:0 -20px}
-  .section-title{font-size:24px}
-  .type-row{grid-template-columns:70px 1fr;gap:8px}
-  .type-specs{display:none}
-  .guide-grid{grid-template-columns:1fr}
-  .color-grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr))}
-  .hero-title{font-size:32px}
-}
-
-/* ── ENTRANCE ANIMATION ── */
-.section,.hero{opacity:1;transition:opacity .6s cubic-bezier(.22,1,.36,1),transform .6s cubic-bezier(.22,1,.36,1)}
-.section.visible,.hero.visible{opacity:1;transform:translateY(0)}
+	/* ── Off-style ────────────────────────────────────────────────── */
+	.compare { display: grid; grid-template-columns: 1fr; gap: 16px; margin-top: 24px; }
+	@media (min-width: 700px) { .compare { grid-template-columns: repeat(2, 1fr); } }
+	.cmp-off { padding: 22px; border-radius: 6px; background: #fff; border: 1px solid #e8e8e8; box-shadow: 0 2px 10px rgb(0 0 0 / 0.06); font-size: 15px; font-weight: 400; color: #8a8a8a; }
+	.cmp-off small { display: block; font-size: 13px; margin-top: 8px; line-height: 1.6; }
+	.cmp-on { padding: 22px; border-radius: var(--radius-lg); background: #fff; border: 2px solid var(--color-border); box-shadow: 0 4px 0 var(--color-border); font-size: 16px; font-weight: 800; }
+	.cmp-on small { display: block; font-weight: 500; font-size: 13px; color: var(--color-muted); margin-top: 8px; line-height: 1.6; }
 </style>
 </head>
 <body>
 
-<div class="page">
-
-  <!-- NAV -->
-  <nav class="nav">
-    <div class="nav-left">
-      <a href="#" class="nav-wordmark">duolingo</a>
-      <span class="nav-tag">Design System</span>
-    </div>
-    <div class="nav-right">
-      <a href="#colors" class="nav-link ">Colors</a>
-      <a href="#typography" class="nav-link">Type</a>
-      <a href="#spacing" class="nav-link">Spacing</a>
-      <a href="#components" class="nav-link">Components</a>
-      <a class="nav-link nav-link--active"  href="#" target="_blank" rel="noopener noreferrer"> Site ↗</a>
-    </div>
-  </nav>
-
-  <!-- HERO -->
-  <div class="hero">
-    <div class="hero-label">Design System</div>
-    <h1 class="hero-title">A cheerful classroom<br>wrapped in<br><em>playful geometry.</em></h1>
-    <p class="hero-subtitle">Clean white canvas punctuated by unmistakable lime green. Rounded typefaces, pill-shaped buttons, and gamification-driven accent spectrum make education feel like play.</p>
-    <div class="hero-tags">
-      <span class="hero-tag">15 color tokens</span>
-      <span class="hero-tag">8 type steps</span>
-      <span class="hero-tag">4px grid</span>
-      <span class="hero-tag">3 gradients</span>
-      <span class="hero-tag">5 shadows</span>
-    </div>
-    <div class="hero-actions">
-      <a href="#" class="btn btn-primary" download>Download Spec</a>
-      <a href="#" class="btn btn-secondary" download>theme.css</a>
-      <a href="#" class="btn btn-secondary" download>tokens.json</a>
-      <a href="#" class="btn btn-secondary" download>variables.css</a>
-    </div>
-  </div>
-
-  <!-- COLORS -->
-  <section class="section" id="colors">
-    <div class="section-header">
-      <div class="section-label">Foundation</div>
-      <h2 class="section-title">Color Tokens</h2>
-      <p class="section-desc">Warm neutrals with a vivid gamification accent spectrum. Green (#58CC02) is the brand's most recognizable signal — reserved for primary actions and progress.</p>
-    </div>
-    <div class="color-grid">
-      <div class="color-token">
-        <div class="color-swatch" style="background:#FFFFFF"></div>
-        <div class="color-info"><div class="color-name">White</div><div class="color-hex">#FFFFFF</div><div class="color-role">Primary background, card surfaces</div></div>
-      </div>
-      <div class="color-token">
-        <div class="color-swatch" style="background:#F7F7F7"></div>
-        <div class="color-info"><div class="color-name">Snow</div><div class="color-hex">#F7F7F7</div><div class="color-role">Secondary background, section fills</div></div>
-      </div>
-      <div class="color-token">
-        <div class="color-swatch" style="background:#3C3C3C"></div>
-        <div class="color-info"><div class="color-name">Eel</div><div class="color-hex">#3C3C3C</div><div class="color-role">Primary text, headings</div></div>
-      </div>
-      <div class="color-token">
-        <div class="color-swatch" style="background:#777777"></div>
-        <div class="color-info"><div class="color-name">Slug</div><div class="color-hex">#777777</div><div class="color-role">Secondary text, placeholders</div></div>
-      </div>
-      <div class="color-token">
-        <div class="color-swatch" style="background:#E5E5E5"></div>
-        <div class="color-info"><div class="color-name">Swan</div><div class="color-hex">#E5E5E5</div><div class="color-role">Borders, dividers, disabled</div></div>
-      </div>
-      <div class="color-token">
-        <div class="color-swatch" style="background:#58CC02"></div>
-        <div class="color-info"><div class="color-name">Green</div><div class="color-hex">#58CC02</div><div class="color-role">Primary CTA, progress, success</div></div>
-      </div>
-      <div class="color-token">
-        <div class="color-swatch" style="background:#4CAF00"></div>
-        <div class="color-info"><div class="color-name">Green Hover</div><div class="color-hex">#4CAF00</div><div class="color-role">Hover state for green elements</div></div>
-      </div>
-      <div class="color-token">
-        <div class="color-swatch" style="background:#46A302"></div>
-        <div class="color-info"><div class="color-name">Green Dark</div><div class="color-hex">#46A302</div><div class="color-role">Pressed state, 3D shadow</div></div>
-      </div>
-      <div class="color-token">
-        <div class="color-swatch" style="background:#FFC800"></div>
-        <div class="color-info"><div class="color-name">Bee</div><div class="color-hex">#FFC800</div><div class="color-role">Streaks, XP badges, warning</div></div>
-      </div>
-      <div class="color-token">
-        <div class="color-swatch" style="background:#FF9600"></div>
-        <div class="color-info"><div class="color-name">Fox</div><div class="color-hex">#FF9600</div><div class="color-role">Streak fire, orange accent</div></div>
-      </div>
-      <div class="color-token">
-        <div class="color-swatch" style="background:#FF4B4B"></div>
-        <div class="color-info"><div class="color-name">Cardinal</div><div class="color-hex">#FF4B4B</div><div class="color-role">Errors, hearts, destructive</div></div>
-      </div>
-      <div class="color-token">
-        <div class="color-swatch" style="background:#1CB0F6"></div>
-        <div class="color-info"><div class="color-name">Macaw</div><div class="color-hex">#1CB0F6</div><div class="color-role">Info, links, blue accent</div></div>
-      </div>
-      <div class="color-token">
-        <div class="color-swatch" style="background:#CE82FF"></div>
-        <div class="color-info"><div class="color-name">Regalia</div><div class="color-hex">#CE82FF</div><div class="color-role">Super badge, premium</div></div>
-      </div>
-      <div class="color-token">
-        <div class="color-swatch" style="background:#1899D6"></div>
-        <div class="color-info"><div class="color-name">Basil</div><div class="color-hex">#1899D6</div><div class="color-role">Info background, blue dark</div></div>
-      </div>
-    </div>
-
-    <h3 style="font-size:16px;font-weight:700;color:var(--eel);margin:40px 0 20px">Gradients</h3>
-    <div class="gradient-grid">
-      <div class="gradient-token" style="background:linear-gradient(180deg,#58CC02 0%,#46A302 100%)">
-        <div class="gradient-name" style="color:#fff">green</div>
-        <div class="gradient-desc" style="color:rgba(255,255,255,.8)">Primary button gradient, progress fills</div>
-      </div>
-      <div class="gradient-token" style="background:linear-gradient(135deg,#CE82FF 0%,#1CB0F6 100%)">
-        <div class="gradient-name" style="color:#fff">super</div>
-        <div class="gradient-desc" style="color:rgba(255,255,255,.8)">Super/Premium badges and accents</div>
-      </div>
-      <div class="gradient-token" style="background:linear-gradient(135deg,#FF9600 0%,#FFC800 100%)">
-        <div class="gradient-name" style="color:#fff">warm</div>
-        <div class="gradient-desc" style="color:rgba(255,255,255,.8)">Streak fire, warm decorative backgrounds</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- TYPOGRAPHY -->
-  <section class="section" id="typography">
-    <div class="section-header">
-      <div class="section-label">Typography</div>
-      <h2 class="section-title">Type Scale</h2>
-      <p class="section-desc">Nunito (Feather substitute) as primary typeface. Rounded letterforms with generous weights project friendly authority.</p>
-    </div>
-    <div class="type-table">
-      <div class="type-row">
-        <span class="type-meta">Display</span>
-        <span class="type-sample" style="font-size:28px;font-weight:800;line-height:1.17;letter-spacing:-.02em">Learn a language</span>
-        <span class="type-specs">32px / 1.17 / −0.02em</span>
-      </div>
-      <div class="type-row">
-        <span class="type-meta">Heading-lg</span>
-        <span class="type-sample" style="font-size:22px;font-weight:800;line-height:1.2;letter-spacing:-.02em">Start your journey</span>
-        <span class="type-specs">28px / 1.2 / −0.02em</span>
-      </div>
-      <div class="type-row">
-        <span class="type-meta">Heading</span>
-        <span class="type-sample" style="font-size:18px;font-weight:800;line-height:1.2;letter-spacing:-.02em">Section heading</span>
-        <span class="type-specs">24px / 1.2 / −0.02em</span>
-      </div>
-      <div class="type-row">
-        <span class="type-meta">Body-lg</span>
-        <span class="type-sample" style="font-size:18px;font-weight:400;line-height:1.4">Larger body text for descriptions</span>
-        <span class="type-specs">20px / 1.4 / —</span>
-      </div>
-      <div class="type-row">
-        <span class="type-meta">Body</span>
-        <span class="type-sample" style="font-size:16px;font-weight:400;line-height:1.5;letter-spacing:-.01em">Default body text for readable content</span>
-        <span class="type-specs">16px / 1.5 / −0.01em</span>
-      </div>
-      <div class="type-row">
-        <span class="type-meta">Body-sm</span>
-        <span class="type-sample" style="font-size:14px;font-weight:400;line-height:1.5;letter-spacing:-.01em">Dense data, comparison rows</span>
-        <span class="type-specs">15px / 1.5 / −0.01em</span>
-      </div>
-      <div class="type-row">
-        <span class="type-meta">Body-xs</span>
-        <span class="type-sample" style="font-size:13px;font-weight:400;line-height:1.5;letter-spacing:-.01em">Compact body, lesson text</span>
-        <span class="type-specs">14px / 1.5 / −0.01em</span>
-      </div>
-      <div class="type-row">
-        <span class="type-meta">Caption</span>
-        <span class="type-sample" style="font-size:12px;font-weight:400;line-height:1.5">Meta info · Labels · Badges</span>
-        <span class="type-specs">12px / 1.5 / —</span>
-      </div>
-    </div>
-
-    <h3 style="font-size:14px;font-weight:700;color:var(--eel);margin:40px 0 20px">Fonts</h3>
-    <div class="font-table">
-      <div class="font-row">
-        <span class="font-role-tag">Display</span>
-        <span class="font-name">Feather Bold</span>
-        <span class="font-meta">700–800 · 24–32px · Nunito substitute</span>
-      </div>
-      <div class="font-row">
-        <span class="font-role-tag">Body</span>
-        <span class="font-name">Feather</span>
-        <span class="font-meta">400–700 · 14–20px · Nunito substitute</span>
-      </div>
-      <div class="font-row">
-        <span class="font-role-tag">Mono</span>
-        <span class="font-name">Source Code Pro</span>
-        <span class="font-meta">400–500 · 14–16px · Code snippets</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- SPACING & SHAPES -->
-  <section class="section" id="spacing">
-    <div class="section-header">
-      <div class="section-label">Layout</div>
-      <h2 class="section-title">Spacing & Shapes</h2>
-      <p class="section-desc">4px base unit. Comfortable density with 11-step spacing scale. Full pill buttons and soft 16px cards.</p>
-    </div>
-
-    <h3 style="font-size:14px;font-weight:700;color:var(--eel);margin-bottom:20px">Spacing Scale (4px base)</h3>
-    <div class="spacing-bars">
-      <div class="spacing-col"><div class="spacing-bar" style="height:8px"></div><span class="spacing-val">4</span><span class="spacing-name">4px</span></div>
-      <div class="spacing-col"><div class="spacing-bar" style="height:14px"></div><span class="spacing-val">8</span><span class="spacing-name">8px</span></div>
-      <div class="spacing-col"><div class="spacing-bar" style="height:20px"></div><span class="spacing-val">12</span><span class="spacing-name">12px</span></div>
-      <div class="spacing-col"><div class="spacing-bar" style="height:28px"></div><span class="spacing-val">16</span><span class="spacing-name">16px</span></div>
-      <div class="spacing-col"><div class="spacing-bar" style="height:40px"></div><span class="spacing-val">24</span><span class="spacing-name">24px</span></div>
-      <div class="spacing-col"><div class="spacing-bar" style="height:56px"></div><span class="spacing-val">32</span><span class="spacing-name">32px</span></div>
-      <div class="spacing-col"><div class="spacing-bar" style="height:80px"></div><span class="spacing-val">48</span><span class="spacing-name">48px</span></div>
-      <div class="spacing-col"><div class="spacing-bar" style="height:100px"></div><span class="spacing-val">80</span><span class="spacing-name">80px</span></div>
-    </div>
-
-    <h3 style="font-size:14px;font-weight:700;color:var(--eel);margin:40px 0 20px">Border Radius</h3>
-    <div class="shapes-row">
-      <div class="shape-item">
-        <div class="shape-box" style="border-radius:8px"></div>
-        <span class="shape-label">sm</span>
-        <span class="shape-value">8px</span>
-      </div>
-      <div class="shape-item">
-        <div class="shape-box" style="border-radius:12px"></div>
-        <span class="shape-label">md / inputs</span>
-        <span class="shape-value">12px</span>
-      </div>
-      <div class="shape-item">
-        <div class="shape-box" style="border-radius:16px"></div>
-        <span class="shape-label">lg / cards</span>
-        <span class="shape-value">16px</span>
-      </div>
-      <div class="shape-item">
-        <div class="shape-box" style="border-radius:24px"></div>
-        <span class="shape-label">2xl</span>
-        <span class="shape-value">24px</span>
-      </div>
-      <div class="shape-item">
-        <div class="shape-box" style="border-radius:9999px"></div>
-        <span class="shape-label">pill</span>
-        <span class="shape-value">9999px</span>
-      </div>
-    </div>
-
-    <h3 style="font-size:14px;font-weight:700;color:var(--eel);margin:40px 0 20px">Shadows</h3>
-    <div class="shadow-row">
-      <div class="shadow-item" style="box-shadow:0 1px 2px rgba(0,0,0,.05)">
-        <span class="shadow-name">shadow-sm</span>
-        <span class="shadow-val">subtle card lift</span>
-      </div>
-      <div class="shadow-item" style="box-shadow:0 4px 12px rgba(0,0,0,.08)">
-        <span class="shadow-name">shadow-md</span>
-        <span class="shadow-val">card elevation</span>
-      </div>
-      <div class="shadow-item" style="box-shadow:0 8px 24px rgba(0,0,0,.1)">
-        <span class="shadow-name">shadow-lg</span>
-        <span class="shadow-val">modal overlay</span>
-      </div>
-      <div class="shadow-item" style="box-shadow:0 4px 0 #46A302">
-        <span class="shadow-name">shadow-button</span>
-        <span class="shadow-val">3D button depth</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- DEPTH & SURFACES -->
-  <section class="section" id="depth">
-    <div class="section-header">
-      <div class="section-label">Elevation</div>
-      <h2 class="section-title">Depth & Surfaces</h2>
-      <p class="section-desc">Light, clean surfaces with minimal elevation. Cards float on subtle shadows; sections alternate between White and Snow.</p>
-    </div>
-
-    <h3 style="font-size:14px;font-weight:700;color:var(--eel);margin-bottom:16px">Depth Levels</h3>
-    <div style="margin-bottom:40px">
-      <div class="depth-row">
-        <div class="depth-swatch" style="background:#FFFFFF;border:1px solid var(--swan)"></div>
-        <div class="depth-info"><div class="depth-name">White</div><div class="depth-desc">Primary page background — the clean canvas</div></div>
-        <div class="depth-value">Level 0</div>
-      </div>
-      <div class="depth-row">
-        <div class="depth-swatch" style="background:#F7F7F7;border:1px solid var(--swan)"></div>
-        <div class="depth-info"><div class="depth-name">Snow</div><div class="depth-desc">Secondary sections, alternating fills</div></div>
-        <div class="depth-value">Level 1</div>
-      </div>
-      <div class="depth-row">
-        <div class="depth-swatch" style="background:#FFFFFF;border:1px solid var(--swan);box-shadow:0 4px 12px rgba(0,0,0,.08)"></div>
-        <div class="depth-info"><div class="depth-name">Elevated Card</div><div class="depth-desc">Cards with shadow-md for floating effect</div></div>
-        <div class="depth-value">Level 2</div>
-      </div>
-      <div class="depth-row">
-        <div class="depth-swatch" style="background:#FFFFFF;border:1px solid var(--swan);box-shadow:0 8px 24px rgba(0,0,0,.1)"></div>
-        <div class="depth-info"><div class="depth-name">Modal/Overlay</div><div class="depth-desc">Modals, dialogs, popovers</div></div>
-        <div class="depth-value">Level 3</div>
-      </div>
-    </div>
-
-    <h3 style="font-size:14px;font-weight:700;color:var(--eel);margin-bottom:16px">Surface System</h3>
-    <div class="surface-grid">
-      <div class="surface-item" style="background:#FFFFFF">
-        <span class="surface-name" style="color:var(--eel)">White</span>
-        <span class="surface-val">#FFFFFF</span>
-      </div>
-      <div class="surface-item" style="background:#F7F7F7">
-        <span class="surface-name" style="color:var(--eel)">Snow</span>
-        <span class="surface-val">#F7F7F7</span>
-      </div>
-      <div class="surface-item" style="background:#E5E5E5">
-        <span class="surface-name" style="color:var(--eel)">Swan</span>
-        <span class="surface-val">#E5E5E5</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- COMPONENTS -->
-  <section class="section" id="components">
-    <div class="section-header">
-      <div class="section-label">Components</div>
-      <h2 class="section-title">Component Library</h2>
-      <p class="section-desc">All buttons use pill radius. The signature 3D shadow (`0 4px 0 #46A302`) simulates physical depth on primary green buttons.</p>
-    </div>
-
-    <div class="component-card">
-      <div class="component-header">
-        <div><div class="component-name">Primary Action Button</div><div class="component-role">Main CTA — 3D depth effect</div></div>
-        <span class="component-class">.btn-primary</span>
-      </div>
-      <div class="component-preview">
-        <button class="btn btn-primary">Start learning</button>
-        <button class="btn btn-primary" style="background:var(--green-hover);box-shadow:0 2px 0 var(--green-dark)">Hover state</button>
-      </div>
-      <div class="component-desc">Green (#58CC02) gradient, White text, 9999px pill, 13px/24px padding, 3D shadow effect.</div>
-    </div>
-
-    <div class="component-card">
-      <div class="component-header">
-        <div><div class="component-name">Secondary Action Button</div><div class="component-role">Outlined — lower emphasis</div></div>
-        <span class="component-class">.btn-secondary</span>
-      </div>
-      <div class="component-preview">
-        <button class="btn btn-secondary">I already have an account</button>
-        <button class="btn btn-secondary" style="background:rgba(88,204,2,.08)">Hover state</button>
-      </div>
-      <div class="component-desc">Transparent background, Green text, 2px Green border, 9999px pill.</div>
-    </div>
-
-    <div class="component-card">
-      <div class="component-header">
-        <div><div class="component-name">Ghost / Text Button</div><div class="component-role">Text-only — minimal presence</div></div>
-        <span class="component-class">.btn-ghost</span>
-      </div>
-      <div class="component-preview">
-        <button class="btn btn-ghost">Forgot password?</button>
-        <button class="btn btn-ghost" style="text-decoration:underline">Hover state</button>
-      </div>
-      <div class="component-desc">Macaw (#1CB0F6) text, transparent, hover adds underline. For links and tertiary actions.</div>
-    </div>
-
-    <div class="component-card">
-      <div class="component-header">
-        <div><div class="component-name">Badge</div><div class="component-role">Gamification indicator</div></div>
-        <span class="component-class">.badge</span>
-      </div>
-      <div class="component-preview">
-        <span style="background:var(--green);color:#fff;padding:4px 12px;border-radius:var(--r-pill);font-size:12px;font-weight:700">+15 XP</span>
-        <span style="background:var(--bee);color:#fff;padding:4px 12px;border-radius:var(--r-pill);font-size:12px;font-weight:700">🔥 7 days</span>
-        <span style="background:var(--cardinal);color:#fff;padding:4px 12px;border-radius:var(--r-pill);font-size:12px;font-weight:700">❤️ 5</span>
-        <span style="background:linear-gradient(135deg,#CE82FF,#1CB0F6);color:#fff;padding:4px 12px;border-radius:var(--r-pill);font-size:12px;font-weight:700">Super</span>
-      </div>
-      <div class="component-desc">Color-coded pill badges. Green=XP, Bee=streak, Cardinal=hearts, Super gradient=premium.</div>
-    </div>
-
-    <div class="component-card">
-      <div class="component-header">
-        <div><div class="component-name">Form Input Field</div><div class="component-role">User text input</div></div>
-        <span class="component-class">input</span>
-      </div>
-      <div class="component-preview">
-        <div style="display:flex;flex-direction:column;gap:12px;flex:1;max-width:360px">
-          <input type="text" class="form-input" placeholder="Email or username">
-          <input type="text" class="form-input" value="Focused state" style="border-color:var(--green);box-shadow:0 0 0 2px rgba(88,204,2,.2)">
-        </div>
-      </div>
-      <div class="component-desc">White background, 2px Swan border, 12px radius, 14px/16px padding. Focus uses Green border + green glow ring.</div>
-    </div>
-
-    <div class="component-card">
-      <div class="component-header">
-        <div><div class="component-name">Progress Bar</div><div class="component-role">Learning progress indicator</div></div>
-        <span class="component-class">.progress</span>
-      </div>
-      <div class="component-preview" style="flex-direction:column;align-items:flex-start;gap:16px">
-        <div style="display:flex;align-items:center;gap:12px;width:100%">
-          <span style="font-size:12px;font-weight:700;color:var(--slug);min-width:32px">25%</span>
-          <div class="progress-track"><div class="progress-fill" style="width:25%"></div></div>
-        </div>
-        <div style="display:flex;align-items:center;gap:12px;width:100%">
-          <span style="font-size:12px;font-weight:700;color:var(--slug);min-width:32px">60%</span>
-          <div class="progress-track"><div class="progress-fill" style="width:60%"></div></div>
-        </div>
-        <div style="display:flex;align-items:center;gap:12px;width:100%">
-          <span style="font-size:12px;font-weight:700;color:var(--slug);min-width:32px">90%</span>
-          <div class="progress-track"><div class="progress-fill" style="width:90%"></div></div>
-        </div>
-      </div>
-      <div class="component-desc">Swan track, Green fill, 8px height, pill radius. Animated fill transition.</div>
-    </div>
-
-    <div class="component-card">
-      <div class="component-header">
-        <div><div class="component-name">Card (Lesson)</div><div class="component-role">Interactive lesson tile</div></div>
-        <span class="component-class">.card</span>
-      </div>
-      <div class="component-preview">
-        <div style="background:#fff;border-radius:var(--r-lg);padding:24px;box-shadow:var(--shadow-md);max-width:280px;border:2px solid transparent;transition:border-color .2s">
-          <div style="width:48px;height:48px;border-radius:var(--r-2xl);background:var(--green);display:flex;align-items:center;justify-content:center;margin-bottom:12px">
-            <span style="font-size:24px">🦉</span>
-          </div>
-          <div style="font-size:16px;font-weight:700;color:var(--eel);margin-bottom:4px">Basics 1</div>
-          <div style="font-size:13px;color:var(--slug);margin-bottom:12px">Learn basic greetings</div>
-          <div class="progress-track" style="width:100%"><div class="progress-fill" style="width:75%"></div></div>
-        </div>
-      </div>
-      <div class="component-desc">White background, 16px radius, shadow-md, 24px padding. Contains skill icon, title, description, progress bar.</div>
-    </div>
-  </section>
-
-  <!-- DO'S & DON'TS -->
-  <section class="section" id="guidelines">
-    <div class="section-header">
-      <div class="section-label">Guidelines</div>
-      <h2 class="section-title">Do's & Don'ts</h2>
-    </div>
-    <div class="guide-grid">
-      <div class="guide-card guide-card--do">
-        <div class="guide-label">Do — Embrace</div>
-        <ul class="guide-list">
-          <li>Green (#58CC02) exclusively for primary CTAs and progress</li>
-          <li>9999px pill radius on all buttons and badges</li>
-          <li>3D button shadow (`0 4px 0 #46A302`) on green buttons</li>
-          <li>Warm accents (Bee, Fox, Cardinal) for gamification only</li>
-          <li>Snow (#F7F7F7) for section alternation on White canvas</li>
-          <li>Feather Bold at 24–32px with tight line-height (1.17–1.2)</li>
-          <li>16px element gaps and 48px section gaps for friendly density</li>
-        </ul>
-      </div>
-      <div class="guide-card guide-card--dont">
-        <div class="guide-label">Don't — Avoid</div>
-        <ul class="guide-list">
-          <li>Green (#58CC02) for text — reserved for interactive elements</li>
-          <li>Flattening the 3D button shadow — it's a core brand interaction</li>
-          <li>Sharp corners (0px radius) — even cards use 16px minimum</li>
-          <li>Green + Cardinal in the same context — success vs. error conflict</li>
-          <li>Thin font weights (200, 300) — brand voice requires 400+</li>
-          <li>Dark surfaces (#1a1a1a) — the brand is fundamentally light</li>
-          <li>Macaw (#1CB0F6) for primary actions — info/link only</li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer class="footer">
-    <div class="footer-left">Duolingo Design System</div>
-    <div class="footer-right">
-      <a href="#colors" class="footer-link">Colors</a>
-      <a href="#typography" class="footer-link">Typography</a>
-      <a href="#spacing" class="footer-link">Spacing</a>
-      <a href="#components" class="footer-link">Components</a>
-      <a href="#" class="footer-link" download>Download Spec</a>
-      <a class="footer-link"  href="#" target="_blank" rel="noopener noreferrer"> Site ↗</a>
-
-    </div>
-  </footer>
-
+<!-- COVER — the lesson path. Big shapes, vivid green, and buttons that sit on
+     a hard bottom edge so they can physically press down. -->
+<div class="topbar">
+	<div class="wrap topbar-inner">
+		<span class="brand"><span class="owl"></span>vetta</span>
+		<span class="spacer"></span>
+		<span class="counter fire">🔥 12</span>
+		<span class="counter gem">💎 480</span>
+		<span class="counter heart">❤ 5</span>
+	</div>
 </div>
 
+<div class="wrap play">
+	<main>
+		<div class="unit">
+			<div>
+				<div class="k">Section 2 · Unit 4</div>
+				<h2>Order in a café</h2>
+			</div>
+			<button class="btn btn-secondary guide" style="height:42px;color:#fff;border-color:rgb(255 255 255 / 0.5);box-shadow:0 4px 0 var(--green-edge);background:transparent">Guide</button>
+		</div>
 
+		<div class="path">
+			<div class="node">★</div>
+			<div class="node off-l">★</div>
+			<div class="node off-l2 active"><span class="start">Start</span>▶</div>
+			<div class="node off-r chest">🎁</div>
+			<div class="node off-r locked">★</div>
+			<div class="node locked">🏆</div>
+		</div>
+
+		<div class="exercise">
+			<h3>Which one means "the coffee"?</h3>
+			<div class="choices">
+				<div class="choice is-correct"><span class="n">1</span>el café</div>
+				<div class="choice is-selected"><span class="n">2</span>la leche</div>
+				<div class="choice"><span class="n">3</span>el agua</div>
+				<div class="choice is-wrong"><span class="n">4</span>la mesa</div>
+			</div>
+			<div class="row" style="margin-top:20px">
+				<button class="btn btn-secondary">Skip</button>
+				<span class="spacer"></span>
+				<button class="btn">Check</button>
+			</div>
+		</div>
+	</main>
+
+	<aside class="rail">
+		<div class="railcard">
+			<h3>Daily quests</h3>
+			<div class="rr"><span class="ic tint-gold">⚡</span>Earn 30 XP<span class="spacer"></span><span class="muted">20/30</span></div>
+			<div class="bar" style="height:12px"><span class="fill" style="width:66%"></span></div>
+			<div class="rr" style="margin-top:8px"><span class="ic tint-green">✓</span>Get 5 in a row<span class="spacer"></span><span class="muted">3/5</span></div>
+			<div class="bar" style="height:12px"><span class="fill" style="width:60%"></span></div>
+		</div>
+		<div class="railcard">
+			<h3>Your stats</h3>
+			<div class="rr"><span class="ic tint-red">🔥</span>12 day streak</div>
+			<div class="rr"><span class="ic tint-blue">💎</span>480 gems</div>
+			<div class="rr"><span class="ic tint-green">⚡</span>1,240 total XP</div>
+		</div>
+		<div class="railcard" style="border-color: var(--color-accent); background: rgb(28 176 246 / 0.08);">
+			<h3 style="color:#1899d6">Unlock leaderboards!</h3>
+			<p class="muted" style="font-size:14px;margin-bottom:12px">Complete 4 more lessons to start competing.</p>
+			<button class="btn btn-blue" style="width:100%">Keep going</button>
+		</div>
+	</aside>
+</div>
+
+<div class="wrap">
+
+	<!-- 01 -->
+	<section class="section">
+		<p class="section-label">01 — The press</p>
+		<h2>Every button sits on a hard edge</h2>
+		<p class="lede">The bottom edge is a zero-blur drop in a darker shade of the button's own color.
+			Pressing removes the shadow and translates the button down by exactly that amount, so it lands
+			flush with the surface. That single interaction carries the whole personality.</p>
+		<div class="row" style="margin-top: 22px;">
+			<button class="btn">Continue</button>
+			<button class="btn btn-blue">Practice</button>
+			<button class="btn btn-secondary">Skip</button>
+			<button class="btn btn-danger">Quit lesson</button>
+			<button class="btn" disabled>Check</button>
+		</div>
+		<div class="row" style="margin-top: 18px;">
+			<button class="btn btn-lg">Start my streak</button>
+			<input class="input" placeholder="Type the answer">
+		</div>
+		<p class="note">Borders are 2px and friendly, never hairlines. Answer choices carry a 4px bottom border for the same reason — they are pressable objects, not list rows.</p>
+	</section>
+
+	<!-- 02 -->
+	<section class="section">
+		<p class="section-label">02 — Color</p>
+		<h2>Vivid green, always</h2>
+		<p class="lede">Feather green means progress, correctness and go. Sky blue is the secondary
+			voice, soft red is a lost heart, gold is a reward. Every one of them stays bright — darkening
+			green into a "corporate" shade is the fastest way out of this system.</p>
+		<div class="swatches">
+			<div class="sw"><div class="fill2" style="background: var(--color-primary); box-shadow: 0 5px 0 var(--green-edge)"></div><b>primary</b><span>#58cc02 · go, correct</span></div>
+			<div class="sw"><div class="fill2" style="background: var(--color-accent); box-shadow: 0 5px 0 var(--blue-edge)"></div><b>accent</b><span>#1cb0f6 · secondary</span></div>
+			<div class="sw"><div class="fill2" style="background: var(--color-danger); box-shadow: 0 5px 0 var(--red-edge)"></div><b>danger</b><span>#ff4b4b · hearts</span></div>
+			<div class="sw"><div class="fill2" style="background: var(--color-surface-raised); box-shadow: 0 5px 0 var(--color-border)"></div><b>raised</b><span>#f7f7f7 · locked</span></div>
+		</div>
+		<div class="bar" style="margin-top:24px;max-width:460px"><span class="fill"></span></div>
+		<p class="note">Progress bars are 16px tall with a full radius and a lighter inner highlight. A thin 4px progress line would look like a different product entirely.</p>
+	</section>
+
+	<!-- 03 MOBILE -->
+	<section class="section">
+		<p class="section-label">03 — Mobile</p>
+		<h2>The phone is the real device</h2>
+		<p class="lede">This layout starts on a phone: one lesson path, one big button, nothing small
+			enough to mis-tap. On desktop it simply gains a stats rail — everything else is identical.</p>
+		<div class="mobile">
+			<div class="phone">
+				<div class="phone-status"><span>9:41</span><span>LTE ▮</span></div>
+				<div class="phone-top">
+					<span class="brand" style="font-size:15px"><span class="owl" style="width:22px;height:22px"></span></span>
+					<span class="spacer"></span>
+					<span class="counter fire">🔥 12</span><span class="counter gem">💎 480</span><span class="counter heart">❤ 5</span>
+				</div>
+				<div class="phone-body">
+					<div class="m-unit"><div class="k">Section 2 · Unit 4</div><b>Order in a café</b></div>
+					<div class="m-path">
+						<div class="node active"><span class="start">Start</span>▶</div>
+						<div class="node off-l">★</div>
+						<div class="node off-r chest">🎁</div>
+						<div class="node locked">★</div>
+					</div>
+				</div>
+				<div class="m-tabs">
+					<div class="is-active"><span class="g"></span>Learn</div>
+					<div><span class="g"></span>Practice</div>
+					<div><span class="g"></span>Quests</div>
+					<div><span class="g"></span>Profile</div>
+				</div>
+			</div>
+			<ul class="rules">
+				<li><b>The stats rail</b>Below 900px it moves into the bottom tab bar and a collapsible quests card above the path. It is supporting information, so it goes first.</li>
+				<li><b>Lesson nodes</b>74px → 56px circles and never smaller. The hard 5–6px bottom edge scales with them, because a node without its edge stops looking pressable.</li>
+				<li><b>The path</b>Nodes keep their alternating left/right offsets, reduced from ±64px to ±38px. That zig-zag is the layout's signature and it survives every width.</li>
+				<li><b>Counters</b>Streak, gems and hearts stay in the top bar at extra-bold. They are the reason people open the app; they are never hidden behind a menu.</li>
+				<li><b>The check button</b>Pins to the bottom of the exercise screen at full width and 58px tall — the largest target on the screen at every breakpoint.</li>
+				<li><b>Answer choices</b>Two columns → one, still 2px bordered with a 4px bottom edge and 14px padding. Nothing compresses into a compact list.</li>
+				<li><b>Borders</b>Stay 2px everywhere. Thinning them for a small screen makes the whole interface look breakable.</li>
+			</ul>
+		</div>
+	</section>
+
+	<!-- 04 DON'T -->
+	<section class="section">
+		<p class="section-label">04 — Off-style, for contrast</p>
+		<h2>What breaks the game</h2>
+		<div class="compare">
+			<div class="cmp-off">Elegant and thin
+				<small>1px hairline border · soft blurred shadow · light gray text at weight 400 · 6px radius. Tasteful, restrained, and completely wrong here.</small></div>
+			<div class="cmp-on">Same content, on-style
+				<small>2px border, hard 4px bottom edge, 16px radius, weight 800. Loud, chunky and impossible to feel intimidated by.</small></div>
+		</div>
+		<p class="note">Also out: gray-on-gray subtlety, small tap targets, dense tables, and green muted into something corporate.</p>
+	</section>
+</div>
 
 </body>
 </html>

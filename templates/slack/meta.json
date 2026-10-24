@@ -3,30 +3,29 @@
 	"kind": "design-system",
 	"slug": "slack",
 	"name": "Slack",
-	"version": "1.0.0",
+	"version": "1.1.0",
 	"order": 170,
 	"category": "productivity",
 	"vibe": "light",
 	"tags": [
-		"light-ui",
-		"gradient",
-		"design-system"
+		"productivity",
+		"light"
 	],
-	"blurb": "An inspired interpretation of Slacc's design language — a workplace messaging brand built on a deep aubergine primary, with cream-lavender hero gradients, blue inline links, and…",
+	"blurb": "Friendly workplace white with an aubergine nav rail; candy accents, conversational blocks.",
 	"tagline": {
-		"en": "Deep aubergine workplace messaging",
-		"zh": "深茄紫的工作协作消息"
+		"en": "White + aubergine rail, candy accents",
+		"zh": "白底茄紫导航，糖果点缀"
 	},
 	"license": "MIT",
 	"origin": {
 		"type": "curated",
-		"upstream": "https://github.com/ricocc/brands-design-md.git",
-		"note": "from brands-design-md (Slacc-Inspired); unofficial inspired variant."
+		"upstream": "https://github.com/VoltAgent/awesome-design-md",
+		"note": "Vetta-adapted from awesome-design-md (MIT)."
 	},
 	"assets": {
 		"spec": "DESIGN.md",
 		"theme": "theme.css",
 		"demo": "demo.html"
 	},
-	"collectedAt": "2026-08-22"
+	"collectedAt": "2026-08-11"
 }

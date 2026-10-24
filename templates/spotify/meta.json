@@ -3,30 +3,29 @@
 	"kind": "design-system",
 	"slug": "spotify",
 	"name": "Spotify",
-	"version": "1.0.0",
+	"version": "1.1.0",
 	"order": 40,
 	"category": "media",
-	"vibe": "light",
+	"vibe": "dark",
 	"tags": [
-		"light-ui",
-		"gradient",
-		"design-system"
+		"media",
+		"dark"
 	],
-	"blurb": "Spotify's web interface is a dark, immersive music player that wraps listeners in a near-black cocoon (`#121212`, `#181818`, `#1f1f1f`) where album art and content become the pr…",
+	"blurb": "Near-black media stage; one electric green for play, bold type, pill buttons, imagery-led.",
 	"tagline": {
-		"en": "Immersive near-black music cocoon",
-		"zh": "沉浸式近黑音乐茧"
+		"en": "Near-black stage, one electric green",
+		"zh": "近黑舞台，一抹电光绿"
 	},
 	"license": "MIT",
 	"origin": {
 		"type": "curated",
-		"upstream": "https://github.com/ricocc/brands-design-md.git",
-		"note": "from brands-design-md (Spotify)."
+		"upstream": "https://github.com/VoltAgent/awesome-design-md",
+		"note": "Vetta-adapted from awesome-design-md (MIT)."
 	},
 	"assets": {
 		"spec": "DESIGN.md",
 		"theme": "theme.css",
 		"demo": "demo.html"
 	},
-	"collectedAt": "2026-08-22"
+	"collectedAt": "2026-08-11"
 }

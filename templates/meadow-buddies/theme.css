@@ -1,0 +1,30 @@
+/* Meadow Buddies — soft woodland fitness. Original implementation; reference image excluded. */
+@theme {
+	--color-primary: #492724;
+	--color-primary-foreground: #fffdf8;
+	--color-surface: #f8f9f5;
+	--color-surface-foreground: #2d2423;
+	--color-surface-raised: #ffffff;
+	--color-muted: #6f756a;
+	--color-accent: #a5bf7d;
+	--color-danger: #a45c40;
+	--color-border: #e8ece5;
+	--color-sage-light: #dce7bf;
+	--color-sage-dark: #526b43;
+	--color-apricot: #f9cc87;
+	--color-apricot-light: #fff0d1;
+	--color-honey: #da941b;
+	--color-ochre: #856222;
+	--color-mist: #f2f6f6;
+	--color-stage-end: #cbd6cd;
+	--color-stone: #89806d;
+	--font-sans: "Avenir Next", "Trebuchet MS", Arial, sans-serif;
+	--radius-sm: 8px;
+	--radius-md: 16px;
+	--radius-lg: 22px;
+	--radius-xl: 34px;
+	--radius-2xl: 44px;
+	--shadow-sm: 0 3px 8px rgb(65 82 46 / 0.04);
+	--shadow-md: 0 10px 24px rgb(65 82 46 / 0.06);
+	--shadow-lg: 0 28px 44px -18px rgb(65 82 46 / 0.22);
+}

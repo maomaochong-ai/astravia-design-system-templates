@@ -3,31 +3,29 @@
 	"kind": "design-system",
 	"slug": "stripe",
 	"name": "Stripe",
-	"version": "1.0.0",
+	"version": "1.1.0",
 	"order": 30,
 	"category": "fintech",
 	"vibe": "light",
 	"tags": [
-		"light-ui",
-		"editorial",
-		"gradient",
-		"design-system"
+		"fintech",
+		"light"
 	],
-	"blurb": "An inspired interpretation of Stripi's design language — a financial-infrastructure brand built on a deep navy ink, an electric indigo primary, and a recurring atmospheric gradi…",
+	"blurb": "Polished light fintech; blurple CTAs, white cards on airy blue-gray, refined layered shadows.",
 	"tagline": {
-		"en": "Deep navy financial infrastructure",
-		"zh": "深海军蓝金融基础设施"
+		"en": "Blurple fintech polish, refined shadows",
+		"zh": "蓝紫金融质感，云淡阴影考究"
 	},
 	"license": "MIT",
 	"origin": {
 		"type": "curated",
-		"upstream": "https://github.com/ricocc/brands-design-md.git",
-		"note": "from brands-design-md (Stripi-Inspired); unofficial inspired variant."
+		"upstream": "https://github.com/VoltAgent/awesome-design-md",
+		"note": "Vetta-adapted from awesome-design-md (MIT)."
 	},
 	"assets": {
 		"spec": "DESIGN.md",
 		"theme": "theme.css",
 		"demo": "demo.html"
 	},
-	"collectedAt": "2026-08-22"
+	"collectedAt": "2026-08-11"
 }

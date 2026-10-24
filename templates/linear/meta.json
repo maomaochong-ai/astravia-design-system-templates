@@ -3,31 +3,29 @@
 	"kind": "design-system",
 	"slug": "linear",
 	"name": "Linear",
-	"version": "1.0.0",
+	"version": "1.1.0",
 	"order": 10,
-	"category": "productivity",
+	"category": "dev",
 	"vibe": "dark",
 	"tags": [
-		"dark-ui",
-		"gradient",
-		"developer-focused",
-		"design-system"
+		"dev",
+		"dark"
 	],
-	"blurb": "A near-black product-focused marketing canvas built around #010102 (the deepest dark surface of any tool in this collection), light gray text (#f7f8f8), and the signature Linear…",
+	"blurb": "Dark, dense, engineered dev-tool calm; indigo primary, hairline borders, keyboard-first density.",
 	"tagline": {
-		"en": "Near-black product canvas with iris violet accents",
-		"zh": "近黑产品画布 + 鸢尾紫强调"
+		"en": "Dark, dense, engineered calm",
+		"zh": "暗色高密度，工程师的冷静秩序"
 	},
 	"license": "MIT",
 	"origin": {
 		"type": "curated",
-		"upstream": "https://github.com/ricocc/brands-design-md.git",
-		"note": "from brands-design-md (Linear)."
+		"upstream": "https://github.com/VoltAgent/awesome-design-md",
+		"note": "Vetta-adapted from awesome-design-md (MIT)."
 	},
 	"assets": {
 		"spec": "DESIGN.md",
 		"theme": "theme.css",
 		"demo": "demo.html"
 	},
-	"collectedAt": "2026-08-22"
+	"collectedAt": "2026-08-11"
 }
